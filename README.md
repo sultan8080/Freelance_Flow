@@ -20,6 +20,7 @@
 ---
 
 ##  Cahier des Charges (FR)
+---
 ### 1. Fonctionnalités Cœur
 * **Gestion Utilisateur :** Inscription, connexion et déconnexion sécurisée.
 * **CRM Simplifié :** Gestion complète des clients (Ajout, modification, suppression, recherche).
@@ -33,7 +34,7 @@
 * **Export Professionnel :** Génération de factures au format PDF avec mentions légales obligatoires.
 * **Dashboard :** Visualisation du CA mensuel/annuel et des cotisations provisionnées.
 * **Sécurité :** **Symfony Voters** pour garantir qu'un freelance ne voit que ses propres données.
-
+---
 ### 2. Fonctionnalités Optionnelles (V2+)
 * **Automatisation & Confort :**
     * Envoi de factures par email via **Symfony Mailer**.
@@ -46,7 +47,7 @@
     * Export comptable (CSV/Excel) pour déclaration URSSAF.
     * Tests automatisés avec **PHPUnit & Panther**.
     * Conteneurisation complète avec **Docker**.
-
+---
 ### 3. Spécifications Techniques
 * **Framework :** Symfony 7.4 LTS + PHP 8.2+
 * **Base de données :** MySQL (Doctrine ORM)
@@ -54,3 +55,8 @@
 * **Génération PDF :** DomPDF
 * **Auth :** SecurityBundle (Form Login)
 * **Architecture :** Services spécialisés pour la logique métier (Logic Separation)
+---
+### Standards de Sécurité
+* **Hachage des mots de passe :** Utilisation de `PasswordHasher` avec les algorithmes les plus récents (Sodium/Argon2id).
+* **Protections Natives :** Protection contre les failles CSRF, XSS, et injections SQL via les composants natifs de Symfony.
+* **Isolation des Données :** Cloisonnement strict entre les utilisateurs via les **Voters** ou les **Entity Listeners** garantissant qu'un utilisateur ne peut jamais accéder aux données d'un tiers.
