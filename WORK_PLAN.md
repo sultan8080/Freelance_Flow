@@ -11,7 +11,7 @@
 - [ ] Tailwind CSS integration via AssetMapper.
 
 ### Phase 2: Data Modeling & Business Logic
-- [ ] Database Blueprint: Create and document the Entity-Relationship Diagram (ERD).
+- [ ] **Database Design:** Create and document the database schema (MCD, MLD, ERD) via Mocodo.
 - [ ] Entity Client: Create the entity + link to User (Freelancer).
 - [ ] Entity Invoice: Create the entity with fields (number, date, status, due date).
 - [ ] Entity InvoiceItem: Create the line items (description, quantity, unit price).

@@ -11,7 +11,7 @@
 - [ ] Installation de Tailwind CSS via AssetMapper.
 
 ### Phase 2 : Modélisation des Données & Logique Métier
-- [ ] Schéma de base de données : Créer et documenter le diagramme Entité-Relation (ERD).
+- [ ] **Conception de base de données :** Créer et documenter le schéma de données (MCD, MLD, ERD) via mocodo.net.
 - [ ] Mise à jour User : Ajouter les informations professionnelles au Freelancer (Nom complet, Adresse, SIRET/TVA, Téléphone).
 - [ ] Entité Client : Créer l'entité + établir la relation ManyToOne avec User.
 - [ ] Entité Invoice (Facture) : Créer l'entité avec les champs (numéro, date, statut, date d'échéance).
