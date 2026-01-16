@@ -3,6 +3,25 @@
 
 ## EN English
 
+> **Current Status:** Phase 1 Complete
+> **Next Milestone:** Phase 2 — Client Entity & CRUD Management
+
+
+## 📅 Day 1: January 16, 2026 — Auth, Security & UI (Phase 1)
+
+### Work Completed
+- [x] **Auth System:** Generated `User` entity, `LoginFormAuthenticator`, and `SecurityController`.
+- [x] **Database:** Configured MariaDB 10.4.32 compatibility and ran initial migrations.
+- [x] **Security:** Implemented `#[IsGranted('ROLE_USER')]` to protect the `DashboardController`.
+- [x] **UI/UX:** Styled them with Tailwind CSS.
+- [x] **Flow:** Unified redirect logic in the Authenticator to point to `dashboard_freelancer`.
+
+### Technical Decisions
+* **Attribute-Based Security:** Chose `#[IsGranted]` over `security.yaml` for granular, easy-to-read access control.
+* **Unified Redirects:** Simplified the UX by ensuring both Login and Registration land on the same dashboard.
+* **Localization:** Switched the entire interface to English to align with a global SaaS standard.
+
+---
 
 ### **Day 0: January 15, 2026 — Initialization & Scoping**
 
