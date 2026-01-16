@@ -3,7 +3,7 @@
 ## 🇫🇷 Français
 
 > **État actuel :** Phase 1 Terminée
-> **Prochaine étape :** Phase 2 — Entité Client & Gestion CRUD
+> **Prochaine étape :** Phase 2 Entité & Gestion CRUD
 
 ---
 
@@ -16,6 +16,9 @@
 - [x] **Interface :** stylisation avec Tailwind CSS.
 - [x] **Flux :** Unification de la logique de redirection post-connexion vers le dashboard.
 - [x] **Intégration Design :** Implémentation des variables sémantiques Tailwind v4 (`primary`, `app-bg`) sur les formulaires de connexion et d'inscription pour unifier le Design System.
+
+### Phase 2 : Modélisation des Données & Logique Métier
+- [x] **Conception :** Création et documentation du schéma de données (MCD, MLD, ERD) dans `docs/database/`.
 
 ### Décisions Techniques
 * **Sécurité par Attributs :** Choix de `#[IsGranted]` pour un contrôle d'accès granulaire et lisible directement dans le code.

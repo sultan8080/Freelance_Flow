@@ -4,7 +4,7 @@
 ## EN English
 
 > **Current Status:** Phase 1 Complete
-> **Next Milestone:** Phase 2 — Client Entity & CRUD Management
+> **Next Milestone:** Phase 2 Entity & CRUD Management
 
 
 ## 📅 Day 1: January 16, 2026 — Auth, Security & UI (Phase 1)
@@ -16,6 +16,9 @@
 - [x] **UI/UX:** Styled them with Tailwind CSS.
 - [x] **Flow:** Unified redirect logic in the Authenticator to point to `dashboard_freelancer`.
 - [x] **Theme Integration:** Implemented Tailwind v4 semantic variables (`primary`, `app-bg`) across Login and Registration templates for a unified Design System.
+
+### Phase 2: Data Modeling & Business Logic
+- [x] **Data Design:** Created and documented the database schema (MCD, MLD, ERD) in `docs/database/`.
 
 ### Technical Decisions
 * **Attribute-Based Security:** Chose `#[IsGranted]` over `security.yaml` for granular, easy-to-read access control.
