@@ -10,10 +10,12 @@
 - [ ] Registration form generation.
 - [ ] Tailwind CSS integration via AssetMapper.
 
-### Phase 2: Data Modeling
-- [ ] Create `Client` entity.
-- [ ] Create `Invoice` and `InvoiceItem` entities.
-- [ ] Relationship mapping (User 1:N Clients, Client 1:N Invoices).
+### Phase 2: Data Modeling & Business Logic
+- [ ] Database Blueprint: Create and document the Entity-Relationship Diagram (ERD).
+- [ ] Entity Client: Create the entity + link to User (Freelancer).
+- [ ] Entity Invoice: Create the entity with fields (number, date, status, due date).
+- [ ] Entity InvoiceItem: Create the line items (description, quantity, unit price).
+- [ ] Data Security (Voters): Ensure a Freelancer can only see their own clients and invoices.
 
 ### Phase 3: CRM - Client Management
 - [ ] Client list interface with search/filters.

@@ -10,10 +10,13 @@
 - [ ] Génération du formulaire d'inscription (`RegistrationForm`).
 - [ ] Installation de Tailwind CSS via AssetMapper.
 
-### Phase 2 : Modélisation des Données
-- [ ] Création de l'entité `Client`.
-- [ ] Création des entités `Invoice` (Facture) et `InvoiceItem` (Lignes).
-- [ ] Établissement des relations (User 1:N Clients, Client 1:N Invoices).
+### Phase 2 : Modélisation des Données & Logique Métier
+- [ ] Schéma de base de données : Créer et documenter le diagramme Entité-Relation (ERD).
+- [ ] Mise à jour User : Ajouter les informations professionnelles au Freelancer (Nom complet, Adresse, SIRET/TVA, Téléphone).
+- [ ] Entité Client : Créer l'entité + établir la relation ManyToOne avec User.
+- [ ] Entité Invoice (Facture) : Créer l'entité avec les champs (numéro, date, statut, date d'échéance).
+- [ ] Entité InvoiceItem (Lignes) : Créer les lignes de facture (description, quantité, prix unitaire).
+- [ ] Sécurité des données (Voters) : S'assurer qu'un Freelancer ne peut voir que ses propres clients et factures.
 
 ### Phase 3 : CRM - Gestion des Clients
 - [ ] Interface de liste des clients avec recherche.
