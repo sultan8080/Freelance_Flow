@@ -15,6 +15,7 @@
 - [x] **Sécurité :** Protection du `DashboardController` via l'attribut `#[IsGranted('ROLE_USER')]`.
 - [x] **Interface :** stylisation avec Tailwind CSS.
 - [x] **Flux :** Unification de la logique de redirection post-connexion vers le dashboard.
+- [x] **Intégration Design :** Implémentation des variables sémantiques Tailwind v4 (`primary`, `app-bg`) sur les formulaires de connexion et d'inscription pour unifier le Design System.
 
 ### Décisions Techniques
 * **Sécurité par Attributs :** Choix de `#[IsGranted]` pour un contrôle d'accès granulaire et lisible directement dans le code.
