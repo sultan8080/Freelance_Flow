@@ -1,5 +1,19 @@
 @import "tailwindcss";
 
-body {
-    background-color: skyblue;
+@theme {
+    /* Main Palette */
+    --color-primary: var(--color-indigo-600);
+    --color-primary-hover: var(--color-indigo-700);
+    --color-dark: var(--color-slate-900);
+    
+    /* Background and Surface Colors */
+    --color-app-bg: var(--color-gray-50);
+}
+
+/* Global Reset */
+@layer base {
+    body {
+        /* Professional light gray background */
+        @apply bg-app-bg text-slate-900 antialiased;
+    }
 }

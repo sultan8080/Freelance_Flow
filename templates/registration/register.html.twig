@@ -3,15 +3,16 @@
 {% block title %}Create Account - Freelance Flow{% endblock %}
 
 {% block body %}
-<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+{# bg-app-bg replaces bg-gray-50 #}
+<div class="min-h-screen flex items-center justify-center bg-app-bg py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-lg border border-gray-100">
         
         <div>
-            <h2 class="text-center text-3xl font-extrabold text-indigo-600 italic tracking-tight">Freelance Flow</h2>
+            {# text-primary replaces text-indigo-600 #}
+            <h2 class="text-center text-3xl font-extrabold text-primary italic tracking-tight">Freelance Flow</h2>
             <p class="mt-2 text-center text-sm text-gray-600 italic"> Create your professional account</p>
         </div>
 
-        {# Display global form errors #}
         {% if form_errors(registrationForm) %}
             <div class="bg-red-50 border-l-4 border-red-400 p-4 mb-6 text-sm text-red-700">
                 {{ form_errors(registrationForm) }}
@@ -24,7 +25,7 @@
                 {{ form_label(registrationForm.email, 'Email Address', {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
                 {{ form_widget(registrationForm.email, {
                     'attr': {
-                        'class': 'mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm',
+                        'class': 'mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm',
                         'placeholder': 'you@example.com'
                     }
                 }) }}
@@ -34,7 +35,7 @@
                 {{ form_label(registrationForm.plainPassword, 'Password', {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
                 {{ form_widget(registrationForm.plainPassword, {
                     'attr': {
-                        'class': 'mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm',
+                        'class': 'mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm',
                         'placeholder': '••••••••'
                     }
                 }) }}
@@ -42,20 +43,21 @@
 
             <div class="flex items-center mt-4 mb-4">
                 {{ form_widget(registrationForm.agreeTerms, {
-                    'attr': {'class': 'h-3 w-3 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded'}
+                    'attr': {'class': 'h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded'}
                 }) }}
                 {{ form_label(registrationForm.agreeTerms, 'I agree to the terms and conditions', {'label_attr': {'class': 'ml-2 block text-sm text-gray-900'}}) }}
             </div>
 
             <div>
-                <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors">
+                {# bg-primary and hover:bg-primary-hover replace indigo #}
+                <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors">
                     Create Account
                 </button>
             </div>
 
             <div class="mt-4 text-center">
                 <p class="text-xs text-gray-500">
-                    Already have an account? <a href="{{ path('app_login') }}" class="text-indigo-600 hover:underline">Sign in instead</a>
+                    Already have an account? <a href="{{ path('app_login') }}" class="text-primary hover:underline font-medium">Sign in instead</a>
                 </p>
             </div>
         {{ form_end(registrationForm) }}
