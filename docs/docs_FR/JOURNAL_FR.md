@@ -1,12 +1,15 @@
 # 📔 Journal de Bord / Development Log — Freelance Flow [Version Français]
 
 
-##  📅 Jour 2 17/01/2026 - Finition de la Phase de Conception
+## 📅 Jour 2 : 17/01/2026 - Finalisation de la Conception et Initialisation Technique
 
 ### Accomplissements :
-- [x] **Architecture des dossiers :** Réorganisation de la documentation dans `/docs/docs_FR`, `/docs/docs_EN` et `/docs/database`.
-- [x] **README Principal :** Mise à jour avec une présentation professionnelle et intégration du schéma MCD (SVG).
-- [x] **Documentation Technique :** Finalisation et liaison du modèle MLD et du schéma relationnel.
+- [x] **Architecture Documentaire :** Réorganisation complète dans `/docs/docs_FR`, `/docs/docs_EN`, et `/docs/database` pour un dépôt professionnel.
+- [x] **README Principal :** Mise à jour avec une présentation du projet et intégration visuelle du diagramme MCD (SVG).
+- [x] **Entité User :** Enrichissement avec les champs légaux (SIRET, TVA, adresse) et identité (Prénom, Nom).
+- [x] **Automatisation (Traits) :** Création et intégration du `TimestampableTrait` pour gérer automatiquement `createdAt` et `updatedAt`.
+- [x] **Qualité Technique :** Nettoyage des migrations obsolètes pour créer une "Master Migration" propre et activation des `HasLifecycleCallbacks`.
+- [x] **Base de Données :** Réinitialisation complète et synchronisation réussie du schéma relationnel.
 
 
 ## Jour 1 : 16 Janvier 2026 — Authentification & UI (Phase 1)

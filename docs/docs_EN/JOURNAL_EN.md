@@ -1,12 +1,16 @@
 
 #  Development Log — Freelance Flow [English version]
 
-##  📅 Day 2: 2026-01-17 - Finalizing the Design Phase (Phase 2)
+## 📅 Day 2: 2026-01-17 - Finalizing Design & Technical Initialization
 
 ### Accomplishments:
 - [x] **Folder Architecture:** Reorganized documentation into `/docs/docs_FR`, `/docs/docs_EN`, and `/docs/database`.
 - [x] **Main README.md:** Updated with a professional project overview and embedded MCD (SVG) diagram.
-- [x] **Technical Docs:** Finalized and linked the MLD and relational schema.
+- [x] **User Entity:** Enriched with legal fields (SIRET, VAT, address) and identity attributes (FirstName, LastName).
+- [x] **Automation (Traits):** Created and integrated `TimestampableTrait` to automatically handle `createdAt` and `updatedAt`.
+- [x] **Technical Quality:** Deleted obsolete migrations to consolidate a clean "Master Migration" and enabled `HasLifecycleCallbacks`.
+- [x] **Database:** Performed a full reset and successfully synchronized the relational schema.
+
 
 
 ## 📅 Day 1: January 16, 2026 — Auth, Security & UI (Phase 1)
