@@ -1,7 +1,7 @@
 
 #  Development Log — Freelance Flow [English version]
 
-## 📅 Day 2: 2026-01-17 - Finalizing Design & Technical Initialization
+## 📅 Day 2: 2026-01-17 - Finalizing Design & Technical Initialization (Phase 2)
 
 ### Accomplishments:
 - [x] **Folder Architecture:** Reorganized documentation into `/docs/docs_FR`, `/docs/docs_EN`, and `/docs/database`.
@@ -10,7 +10,8 @@
 - [x] **Automation (Traits):** Created and integrated `TimestampableTrait` to automatically handle `createdAt` and `updatedAt`.
 - [x] **Technical Quality:** Deleted obsolete migrations to consolidate a clean "Master Migration" and enabled `HasLifecycleCallbacks`.
 - [x] **Database:** Performed a full reset and successfully synchronized the relational schema.
-
+- [x] **Invoice Logic:** Updated the constructor to initialize 'draft' status and set `dueDate` to +30 days by default.
+- [x] **Automation:** Added a trigger in `setStatus` to automatically fill `paidAt` when marked as paid.
 
 
 ## 📅 Day 1: January 16, 2026 — Auth, Security & UI (Phase 1)

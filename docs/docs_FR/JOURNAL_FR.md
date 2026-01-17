@@ -1,7 +1,7 @@
 # 📔 Journal de Bord / Development Log — Freelance Flow [Version Français]
 
 
-## 📅 Jour 2 : 17/01/2026 - Finalisation de la Conception et Initialisation Technique
+## 📅 Jour 2 : 17/01/2026 - Finalisation de la Conception et Initialisation Technique (Phase 2)
 
 ### Accomplissements :
 - [x] **Architecture Documentaire :** Réorganisation complète dans `/docs/docs_FR`, `/docs/docs_EN`, et `/docs/database` pour un dépôt professionnel.
@@ -10,7 +10,8 @@
 - [x] **Automatisation (Traits) :** Création et intégration du `TimestampableTrait` pour gérer automatiquement `createdAt` et `updatedAt`.
 - [x] **Qualité Technique :** Nettoyage des migrations obsolètes pour créer une "Master Migration" propre et activation des `HasLifecycleCallbacks`.
 - [x] **Base de Données :** Réinitialisation complète et synchronisation réussie du schéma relationnel.
-
+- [x] **Logique Invoice :** Mise à jour du constructeur pour initialiser l'état 'draft' et la `dueDate` à J+30.
+- [x] **Automatisation :** Ajout d'un déclencheur dans `setStatus` pour remplir `paidAt` automatiquement lors du passage à l'état payé.
 
 ## Jour 1 : 16 Janvier 2026 — Authentification & UI (Phase 1)
 
