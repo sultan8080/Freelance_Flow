@@ -13,6 +13,7 @@
 - [x] **Logique Invoice :** Mise à jour du constructeur pour initialiser l'état 'draft' et la `dueDate` à J+30.
 - [x] **Automatisation :** Ajout d'un déclencheur dans `setStatus` pour remplir `paidAt` automatiquement lors du passage à l'état payé.
 
+
 ## Jour 1 : 16 Janvier 2026 — Authentification & UI (Phase 1)
 
 ### Travaux effectués

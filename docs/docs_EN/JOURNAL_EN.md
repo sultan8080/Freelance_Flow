@@ -12,6 +12,8 @@
 - [x] **Database:** Performed a full reset and successfully synchronized the relational schema.
 - [x] **Invoice Logic:** Updated the constructor to initialize 'draft' status and set `dueDate` to +30 days by default.
 - [x] **Automation:** Added a trigger in `setStatus` to automatically fill `paidAt` when marked as paid.
+- [x] **Advanced Fixtures:** Implemented nested loops to generate 5 Users, 25 Clients, 125 Invoices, and 625 InvoiceItems.
+- [x] **Validation:** Verified cascading relationships and data consistency through automated fixtures.
 
 
 ## 📅 Day 1: January 16, 2026 — Auth, Security & UI (Phase 1)
