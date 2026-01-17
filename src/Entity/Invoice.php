@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\InvoiceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -35,6 +37,17 @@ class Invoice
     #[ORM\ManyToOne(inversedBy: 'invoices')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Client $client = null;
+
+    /**
+     * @var Collection<int, InvoiceItem>
+     */
+    #[ORM\OneToMany(targetEntity: InvoiceItem::class, mappedBy: 'invoice')]
+    private Collection $invoiceItems;
+
+    public function __construct()
+    {
+        $this->invoiceItems = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -121,6 +134,36 @@ class Invoice
     public function setClient(?Client $client): static
     {
         $this->client = $client;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, InvoiceItem>
+     */
+    public function getInvoiceItems(): Collection
+    {
+        return $this->invoiceItems;
+    }
+
+    public function addInvoiceItem(InvoiceItem $invoiceItem): static
+    {
+        if (!$this->invoiceItems->contains($invoiceItem)) {
+            $this->invoiceItems->add($invoiceItem);
+            $invoiceItem->setInvoice($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInvoiceItem(InvoiceItem $invoiceItem): static
+    {
+        if ($this->invoiceItems->removeElement($invoiceItem)) {
+            // set the owning side to null (unless already changed)
+            if ($invoiceItem->getInvoice() === $this) {
+                $invoiceItem->setInvoice(null);
+            }
+        }
 
         return $this;
     }
