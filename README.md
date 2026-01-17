@@ -26,9 +26,9 @@ Freelance Flow is a web application for French freelancers to manage clients, in
 
 This design guarantees strict data isolation and aligns with SaaS multi-tenant best practices.
 
-**Database Schema Preview:**
-**Conceptual Data Model (MCD):**
-![Database Diagram/Schema](docs/database/MCD.svg)
+**Conceptual Data Model (Modèle conceptuel de données - MCD):**
+
+![Database Diagram/Schema](./docs/database/MCD.svg)
 
 > 💡 [Click here to see Modèle logique de données (MLD)](./docs/database/MLD.md)
 
@@ -36,5 +36,5 @@ This design guarantees strict data isolation and aligns with SaaS multi-tenant b
 ## Tech Stack
 * **Backend:** Symfony 7.4 + PHP 8.2+
 * **Database:** MySQL (Doctrine ORM)
-* **Frontend:** Twig + Tailwind CSS + AssetMapper (No Node.js dependency)
+* **Frontend:** Twig + TailwindCSS + AssetMapper (No Node.js dependency)
 * **Security:** Symfony Security Bundle + Custom Voters
