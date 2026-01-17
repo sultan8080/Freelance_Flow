@@ -28,7 +28,7 @@ This design guarantees strict data isolation and aligns with SaaS multi-tenant b
 
 **Database Schema Preview:**
 **Conceptual Data Model (MCD):**
-![Database Diagram/Schema](docs/database/mcd.svg)
+![Database Diagram/Schema](docs/database/MCD.svg)
 
 > 💡 [Click here to see Modèle logique de données (MLD)](./docs/database/MLD.md)
 
