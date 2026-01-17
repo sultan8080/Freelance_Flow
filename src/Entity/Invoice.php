@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: InvoiceRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class Invoice
-{   
+{
     use \App\Entity\Traits\TimestampableTrait;
 
     #[ORM\Id]
@@ -50,6 +50,14 @@ class Invoice
     public function __construct()
     {
         $this->invoiceItems = new ArrayCollection();
+        // 1. Setting default status to 'draft'
+        $this->status = 'draft';
+
+        // 2. Setting default currency to 'EUR'
+        $this->currency = 'EUR';
+
+        // 3. Setting default dueDate to 30 days from now
+        $this->dueDate = new \DateTimeImmutable('+30 days');
     }
 
     public function getId(): ?int
