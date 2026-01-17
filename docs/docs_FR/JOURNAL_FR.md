@@ -8,6 +8,7 @@
 - [x] **README Principal :** Mise à jour avec une présentation professionnelle et intégration du schéma MCD (SVG).
 - [x] **Documentation Technique :** Finalisation et liaison du modèle MLD et du schéma relationnel.
 
+
 ## Jour 1 : 16 Janvier 2026 — Authentification & UI (Phase 1)
 
 ### Travaux effectués
