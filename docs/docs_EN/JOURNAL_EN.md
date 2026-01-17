@@ -1,10 +1,12 @@
 
-#  Development Log — Freelance Flow
+#  Development Log — Freelance Flow [English version]
 
-## EN English
+##  📅 Day 2: 2026-01-17 - Finalizing the Design Phase (Phase 2)
 
-> **Current Status:** Phase 1 Complete
-> **Next Milestone:** Phase 2 Entity & CRUD Management
+### Accomplishments:
+- [x] **Folder Architecture:** Reorganized documentation into `/docs/docs_FR`, `/docs/docs_EN`, and `/docs/database`.
+- [x] **Main README.md:** Updated with a professional project overview and embedded MCD (SVG) diagram.
+- [x] **Technical Docs:** Finalized and linked the MLD and relational schema.
 
 
 ## 📅 Day 1: January 16, 2026 — Auth, Security & UI (Phase 1)
@@ -17,8 +19,6 @@
 - [x] **Flow:** Unified redirect logic in the Authenticator to point to `dashboard_freelancer`.
 - [x] **Theme Integration:** Implemented Tailwind v4 semantic variables (`primary`, `app-bg`) across Login and Registration templates for a unified Design System.
 
-### Phase 2: Data Modeling & Business Logic
-- [x] **Data Design:** Created and documented the database schema (MCD, MLD, ERD) in `docs/database/`.
 
 ### Technical Decisions
 * **Attribute-Based Security:** Chose `#[IsGranted]` over `security.yaml` for granular, easy-to-read access control.

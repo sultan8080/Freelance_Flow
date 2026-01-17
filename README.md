@@ -9,7 +9,7 @@ Freelance Flow is a web application for French freelancers to manage clients, in
 
 ## 📂 Documentation
 
-💡 [Click the mentioned link to see the full Documentation of each section.]
+💡 Click the links below to access the full documentation for each section.
 
 ### Version Française
 * [**Cahier des Charges**](./docs/docs_FR/CAHIER_DES_CHARGES.md) : Besoins métiers et fonctionnalités.
@@ -24,7 +24,7 @@ Freelance Flow is a web application for French freelancers to manage clients, in
 
 ## Architecture & Design
 
-To ensure data integrity and security (Voters), the project follows a strict relational schema where every resource belongs to a Freelancer (User).
+This design guarantees strict data isolation and aligns with SaaS multi-tenant best practices.
 
 **Database Schema Preview:**
 **Conceptual Data Model (MCD):**
@@ -36,5 +36,5 @@ To ensure data integrity and security (Voters), the project follows a strict rel
 ## Tech Stack
 * **Backend:** Symfony 7.4 + PHP 8.2+
 * **Database:** MySQL (Doctrine ORM)
-* **Frontend:** Twig + TailwindCSS + AssetMapper (No Node.js dependency)
+* **Frontend:** Twig + Tailwind CSS + AssetMapper (No Node.js dependency)
 * **Security:** Symfony Security Bundle + Custom Voters
