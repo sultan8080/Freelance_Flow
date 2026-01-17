@@ -1,11 +1,12 @@
-# 📔 Journal de Bord / Development Log — Freelance Flow
+# 📔 Journal de Bord / Development Log — Freelance Flow [Version Français]
 
-## 🇫🇷 Français
 
-> **État actuel :** Phase 1 Terminée
-> **Prochaine étape :** Phase 2 Entité & Gestion CRUD
+##  📅 Jour 2 17/01/2026 - Finition de la Phase de Conception
 
----
+### Accomplissements :
+- [x] **Architecture des dossiers :** Réorganisation de la documentation dans `/docs/docs_FR`, `/docs/docs_EN` et `/docs/database`.
+- [x] **README Principal :** Mise à jour avec une présentation professionnelle et intégration du schéma MCD (SVG).
+- [x] **Documentation Technique :** Finalisation et liaison du modèle MLD et du schéma relationnel.
 
 ## Jour 1 : 16 Janvier 2026 — Authentification & UI (Phase 1)
 
@@ -17,8 +18,6 @@
 - [x] **Flux :** Unification de la logique de redirection post-connexion vers le dashboard.
 - [x] **Intégration Design :** Implémentation des variables sémantiques Tailwind v4 (`primary`, `app-bg`) sur les formulaires de connexion et d'inscription pour unifier le Design System.
 
-### Phase 2 : Modélisation des Données & Logique Métier
-- [x] **Conception :** Création et documentation du schéma de données (MCD, MLD, ERD) dans `docs/database/`.
 
 ### Décisions Techniques
 * **Sécurité par Attributs :** Choix de `#[IsGranted]` pour un contrôle d'accès granulaire et lisible directement dans le code.
