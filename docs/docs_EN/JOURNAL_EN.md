@@ -1,5 +1,5 @@
 
-#  Development Log — FreelanceFlow
+#  Development Log — Freelance Flow
 
 ## EN English
 

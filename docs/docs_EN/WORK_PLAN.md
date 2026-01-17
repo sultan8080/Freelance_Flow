@@ -1,4 +1,4 @@
-# Project Roadmap — FreelanceFlow
+# Project Roadmap — Freelance Flow
 
 ## Part 1: The MVP (Minimum Viable Product)
 *Goal: A functional app to manage, calculate, and export invoices.*

@@ -36,6 +36,7 @@
 * **Auth :** SecurityBundle (Form Login)
 * **Architecture :** Services spécialisés pour la logique métier (Logic Separation)
 ---
+
 ### Standards de Sécurité
 * **Hachage des mots de passe :** Utilisation de `PasswordHasher` avec les algorithmes les plus récents (Sodium/Argon2id).
 * **Protections Natives :** Protection contre les failles CSRF, XSS, et injections SQL via les composants natifs de Symfony.

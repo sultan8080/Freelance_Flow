@@ -1,4 +1,4 @@
-# 📔 Journal de Bord / Development Log — FreelanceFlow
+# 📔 Journal de Bord / Development Log — Freelance Flow
 
 ## 🇫🇷 Français
 

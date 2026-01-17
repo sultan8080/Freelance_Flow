@@ -1,4 +1,4 @@
-# Plan de Développement — FreelanceFlow
+# Plan de Développement — Freelance Flow
 
 ## Partie 1 : Le MVP (Minimum Viable Product)
 *Objectif : Une application fonctionnelle pour gérer, calculer et éditer des factures.*
