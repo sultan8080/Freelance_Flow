@@ -23,45 +23,61 @@
     {# Table Card #}
     <div class="bg-white shadow-sm border border-card-border rounded-xl overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse">
-                <thead>
-                    <tr class="bg-slate-50 border-b border-card-border">
-                        <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-600">Client / Company</th>
-                        <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-600">Email</th>
-                        <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-600">Contact Details</th>
-                        <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-600 text-right">Actions</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-slate-100">
-                {% for client in clients %}
-                    <tr class="hover:bg-slate-50 transition-colors">
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="font-semibold text-slate-900">{{ client.firstName }} {{ client.lastName }}</div>
-                            <div class="text-xs text-slate-500">{{ client.companyName ?: 'Individual' }}</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">
-                            {{ client.email }}
-                        </td>
-                        <td class="px-6 py-4 text-sm text-slate-600">
-                            <div class="flex flex-col">
-                                <span class="font-medium text-slate-700">{{ client.phoneNumber }}</span>
-                                <span class="text-xs text-slate-400 truncate max-w-[200px]">{{ client.address }}</span>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3">
-                            <a href="{{ path('app_client_show', {'id': client.id}) }}" class="text-primary hover:underline font-semibold">View</a>
-                            <a href="{{ path('app_client_edit', {'id': client.id}) }}" class="text-slate-400 hover:text-slate-600 font-semibold border-l pl-3 border-slate-200">Edit</a>
-                        </td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="4" class="px-6 py-12 text-center text-slate-500 italic bg-slate-50">
-                            No clients found.
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+           <table class="w-full text-left border-collapse">
+    <thead>
+        <tr class="bg-slate-50 border-b border-card-border">
+            {# Always Visible #}
+            <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-600">Client / Company</th>
+            
+            {# Hidden on Mobile, Visible on Tablet/Desktop #}
+            <th class="hidden md:table-cell px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-600">Email</th>
+            <th class="hidden md:table-cell px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-600">Contact Details</th>
+            
+            {# Always Visible #}
+            <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-600 text-right">Actions</th>
+        </tr>
+    </thead>
+    <tbody class="divide-y divide-slate-100">
+    {% for client in clients %}
+        <tr class="hover:bg-slate-50 transition-colors">
+            {# Always Visible #}
+            <td class="px-6 py-4 whitespace-nowrap">
+                <div class="font-semibold text-slate-900 text-sm md:text-base">{{ client.firstName }} {{ client.lastName }}</div>
+                <div class="text-xs text-slate-500">{{ client.companyName ?: 'Individual' }}</div>
+            </td>
+
+            {# Email: Hidden on Mobile #}
+            <td class="hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm text-slate-600">
+                {{ client.email }}
+            </td>
+
+            {# Contact: Hidden on Mobile #}
+            <td class="hidden md:table-cell px-6 py-4 text-sm text-slate-600">
+                <div class="flex flex-col">
+                    <span class="font-medium text-slate-700">{{ client.phoneNumber }}</span>
+                    <span class="text-xs text-slate-400 truncate max-w-[200px]">{{ client.address }}</span>
+                </div>
+            </td>
+
+            {# Actions: Always Visible #}
+            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <div class="flex justify-end items-center space-x-2 md:space-x-3">
+                    <a href="{{ path('app_client_show', {'id': client.id}) }}" class="text-primary hover:underline font-semibold">View</a>
+                    {# Hide the vertical divider on mobile #}
+                    <span class="hidden md:inline text-slate-200">|</span>
+                    <a href="{{ path('app_client_edit', {'id': client.id}) }}" class="text-slate-400 hover:text-slate-600 font-semibold">Edit</a>
+                </div>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="4" class="px-6 py-12 text-center text-slate-500 italic bg-slate-50">
+                No clients found.
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
         </div>
     </div>
 </div>
