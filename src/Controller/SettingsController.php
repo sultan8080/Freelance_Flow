@@ -17,22 +17,24 @@ final class SettingsController extends AbstractController
         // 1. Get the current logged-in user
         $user = $this->getUser();
 
-        // 2. Create the form using the UserType we built
+        // 2. Create the form using the UserType (for Freelancer) we built
         $form = $this->createForm(UserType::class, $user);
 
         // 3. Handle the form submission
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // 4. Save the changes (SIRET, Address, etc.) to the database
-            $entityManager->flush();
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                // SUCCESS CASE
+                $entityManager->flush();
+                $this->addFlash('success', 'Profile updated successfully!');
 
-            // 5. Success message
-            $this->addFlash('success', 'Profile updated successfully!');
-
-            return $this->redirectToRoute('app_profile_edit');
+                return $this->redirectToRoute('app_profile_edit');
+            } else {
+                // ERROR CASE
+                $this->addFlash('error', 'There was an error updating your profile. Please check the fields below.');
+            }
         }
-
         return $this->render('settings/profile.html.twig', [
             'userForm' => $form->createView(),
         ]);
