@@ -1,20 +1,65 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SettingsController!{% endblock %}
+{% block title %}Profile Settings {% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<div class="min-h-screen bg-app-bg py-8">
+		<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div
+				class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+				{# Header #}
+				<div class="bg-primary px-6 py-4">
+					<h2 class="text-xl font-bold text-white">Professional Profile</h2>
+					<p class="text-blue-100 text-sm">Update your business information for your invoices.</p>
+				</div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>D:/Freelance_Flow/src/Controller/SettingsController.php</code></li>
-        <li>Your template at <code>D:/Freelance_Flow/templates/settings/index.html.twig</code></li>
-    </ul>
-</div>
+				{% include '_partials/_flash_messages.html.twig' %}
+
+
+				{# Form #}
+				{{ form_start(userForm, {'attr': {'class': 'p-8 space-y-6'}}) }}
+
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+					<div>
+						{{ form_label(userForm.firstName, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+						{{ form_widget(userForm.firstName, {'attr': {'class': 'mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm'}}) }}
+					</div>
+					<div>
+						{{ form_label(userForm.lastName, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+						{{ form_widget(userForm.lastName, {'attr': {'class': 'mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm'}}) }}
+					</div>
+				</div>
+
+				<div>
+					{{ form_label(userForm.companyName, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+					{{ form_widget(userForm.companyName, {'attr': {'class': 'mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm'}}) }}
+				</div>
+
+				<div>
+					{{ form_label(userForm.address, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+					{{ form_widget(userForm.address, {'attr': {'class': 'mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm'}}) }}
+				</div>
+
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+					<div>
+						{{ form_label(userForm.siretNumber, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+						{{ form_widget(userForm.siretNumber, {'attr': {'class': 'mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm'}}) }}
+					</div>
+					<div>
+						{{ form_label(userForm.vatNumber, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700'}}) }}
+						{{ form_widget(userForm.vatNumber, {'attr': {'class': 'mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary sm:text-sm'}}) }}
+					</div>
+				</div>
+
+				<div class="pt-4">
+					<button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors">
+						Save Business Profile
+					</button>
+				</div>
+
+				{{ form_end(userForm) }}
+			</div>
+		</div>
+	</div>
 {% endblock %}
