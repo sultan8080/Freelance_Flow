@@ -18,10 +18,13 @@
 - [ ] Entité InvoiceItem (Lignes) : Créer les lignes de facture (description, quantité, prix unitaire).
 - [ ] Sécurité des données (Voters) : S'assurer qu'un Freelancer ne peut voir que ses propres clients et factures.
 
-### Phase 3 : CRM - Gestion des Clients
-- [ ] Interface de liste des clients avec recherche.
-- [ ] Formulaires de création et d'édition des clients.
-- [ ] Suppression sécurisée des clients.
+### Phase 3 : Implémentation - CRM & Profil Freelance
+- [ ] Configuration des Rôles : Définir la hiérarchie ROLE_ADMIN vs ROLE_USER dans le fichier security.yaml.
+- [ ] Formulaire de Profil (UserType) : Créer un formulaire pour les données professionnelles (SIRET, TVA, Nom de l'entreprise, Adresse).
+- [ ] Paramètres du Compte : Créer le SettingsController pour permettre aux freelances de compléter leur identité professionnelle.
+- [ ] Formulaire Client (ClientType) : Créer le formulaire pour ajouter et modifier des clients.
+- [ ] CRUD Client : Générer l'interface (Liste, Vue, Modification, Suppression) pour les clients.
+- [ ] Filtrage de Base : S'assurer que la liste n'affiche que les clients liés à l'utilisateur connecté (étape avant les Voters).
 
 ### Phase 4 : Sécurité & Isolation (Voters)
 - [ ] Implémentation des **Symfony Voters** pour les Clients.

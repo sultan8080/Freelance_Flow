@@ -17,10 +17,13 @@
 - [ ] Entity InvoiceItem: Create the line items (description, quantity, unit price).
 - [ ] Data Security (Voters): Ensure a Freelancer can only see their own clients and invoices.
 
-### Phase 3: CRM - Client Management
-- [ ] Client list interface with search/filters.
-- [ ] Client creation and update forms.
-- [ ] Secure client deletion.
+### Phase 3: The Complete CRM & Profile Build
+- [ ] Role Setup: Define ROLE_ADMIN vs ROLE_USER in security.yaml.
+- [ ] Profile Form (UserType): Create a form for professional data (SIRET, VAT, Company Name, Address).
+- [ ] Account Settings: Build SettingsController to allow freelancers to complete their professional identity.
+- [ ] Client Form (ClientType): Create the form to add and edit customers.
+- [ ] Client CRUD: Generate the interface to list, view, and delete clients.
+- [ ] Basic Filtering: Ensure the list only shows clients linked to a user (pre-Voter stage).
 
 ### Phase 4: Security & Data Isolation (Voters)
 - [ ] Implement **Symfony Voters** for Clients.
