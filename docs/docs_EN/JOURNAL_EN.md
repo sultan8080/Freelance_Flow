@@ -1,6 +1,19 @@
 
 #  Development Log — Freelance Flow [English version]
 
+
+## 📅 Day 3 [January 18, 2026] - Profile, Settings, and Client CRUD (Phase 3)
+
+### Accomplishments:
+- **Settings & Profile:** Created `SettingsController` and implemented user profile updates (Names, Email).
+- **Client Security:** Generated a secured Client CRUD. Data is strictly filtered by the logged-in user (`getUser`).
+- **Business Logic:** Automated user assignment for new clients and protected `show/edit/delete` routes via ownership verification.
+- **UI Infrastructure:** Integrated Tailwind v4 theme and debugged layout container width issues.
+
+### To-Do:
+- Finalize Tailwind design for forms (New/Edit).
+- Resolve Tailwind v4 automatic class detection issues.
+
 ## 📅 Day 2: 2026-01-17 - Finalizing Design & Technical Initialization (Phase 2)
 
 ### Accomplishments:
