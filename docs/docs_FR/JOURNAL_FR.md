@@ -1,5 +1,16 @@
 # 📔 Journal de Bord / Development Log — Freelance Flow [Version Français]
 
+## 📅 Jour 3 : [18 Janvier 2026] - Profil, Paramètres et CRUD Client (Phase 3)
+
+### Réalisations :
+- **Settings & Profile :** Création du `SettingsController` et gestion de la mise à jour du profil utilisateur (Nom, Prénom, Email).
+- **Sécurisation Client :** Génération du CRUD Client sécurisé. Les données sont strictement filtrées par utilisateur connecté (`getUser`).
+- **Logique Métier :** Assignation automatique de l'utilisateur aux nouveaux clients et protection des routes `show/edit/delete` par vérification d'appartenance.
+- **Infrastructure UI :** Mise en place du thème Tailwind v4 et debug des conteneurs de mise en page (width issues).
+
+### À faire :
+- Finaliser le design Tailwind des formulaires (New/Edit).
+- Résoudre le problème de détection automatique des classes Tailwind.
 
 ## 📅 Jour 2 : 17/01/2026 - Finalisation de la Conception et Initialisation Technique (Phase 2)
 
