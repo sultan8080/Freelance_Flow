@@ -1,0 +1,15 @@
+
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="p-4 m-6 border-l-4 shadow-sm {{ label == 'success' ? 'bg-green-50 border-green-400 text-green-700' : 'bg-red-50 border-red-400 text-red-700' }}">
+            <div class="flex items-center">
+                {% if label == 'success' %}
+                    <span class="mr-2">✅</span>
+                {% else %}
+                    <span class="mr-2">❌</span>
+                {% endif %}
+                <p class="text-sm font-medium">{{ message }}</p>
+            </div>
+        </div>
+    {% endfor %}
+{% endfor %}
