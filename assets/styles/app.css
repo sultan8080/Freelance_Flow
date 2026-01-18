@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+@source "../../templates/**/*.html.twig";
 
 @theme {
     /* Main Palette */
@@ -9,12 +10,11 @@
     
     /* Background and Surface Colors */
     --color-app-bg: var(--color-gray-50);
+    --color-card-border: var(--color-slate-200);
 }
 
-/* Global Reset */
 @layer base {
     body {
-        /* Professional light gray background */
-        @apply bg-app-bg text-slate-900 antialiased;
+        @apply bg-app-bg text-dark antialiased;
     }
 }
