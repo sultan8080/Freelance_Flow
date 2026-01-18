@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
+
 @theme {
     /* Main Palette */
     --color-primary: var(--color-indigo-600);

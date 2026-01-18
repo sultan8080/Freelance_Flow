@@ -17,13 +17,19 @@ final class ClientController extends AbstractController
     #[Route(name: 'app_client_index', methods: ['GET'])]
     public function index(ClientRepository $clientRepository): Response
     {
+        return $this->render('client/index.html.twig', [
+            'clients' => $clientRepository->findAll(),
+        ]);
+    }
+    /*
+    public function index(ClientRepository $clientRepository): Response
+    {
         // Only show clients linked to THIS user
         return $this->render('client/index.html.twig', [
             'clients' => $clientRepository->findBy(['user' => $this->getUser()]),
         ]);
     }
 
-  /*
     public function index(ClientRepository $clientRepository): Response
     {
         return $this->render('client/index.html.twig', [
