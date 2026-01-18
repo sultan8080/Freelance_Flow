@@ -97,6 +97,10 @@ class Invoice
     public function setStatus(string $status): static
     {
         $this->status = $status;
+        // 4. Automatically set paidAt if status is set to 'paid'
+        if ($status === 'paid' && $this->paidAt === null) {
+            $this->paidAt = new \DateTimeImmutable();
+        }
 
         return $this;
     }
