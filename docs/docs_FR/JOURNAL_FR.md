@@ -1,16 +1,18 @@
 # 📔 Journal de Bord / Development Log — Freelance Flow [Version Français]
 
-## 📅 Jour 3 : [18 Janvier 2026] - Profil, Paramètres et CRUD Client (Phase 3)
+## 📅 Jour 3 [18 Janvier 2026] - Profil, Paramètres et CRUD Client (Phase 3)
 
 ### Réalisations :
-- **Settings & Profile :** Création du `SettingsController` et gestion de la mise à jour du profil utilisateur (Nom, Prénom, Email).
-- **Sécurisation Client :** Génération du CRUD Client sécurisé. Les données sont strictement filtrées par utilisateur connecté (`getUser`).
-- **Logique Métier :** Assignation automatique de l'utilisateur aux nouveaux clients et protection des routes `show/edit/delete` par vérification d'appartenance.
-- **Infrastructure UI :** Mise en place du thème Tailwind v4 et debug des conteneurs de mise en page (width issues).
-
-### À faire :
-- Finaliser le design Tailwind des formulaires (New/Edit).
-- Résoudre le problème de détection automatique des classes Tailwind.
+- **Paramètres & Profil :** Création du `SettingsController` et implémentation de la mise à jour du profil utilisateur (Noms, Email).
+- **Sécurité Client :** Génération d'un CRUD Client sécurisé. Les données sont strictement filtrées par l'utilisateur connecté (`getUser`).
+- **Logique Métier :** Automatisation de l'assignation de l'utilisateur pour les nouveaux clients et protection des routes `show/edit/delete` via vérification de propriété.
+- **Infrastructure Tailwind v4 :**
+    - Débogage et résolution du problème d'affichage via l'implémentation de la directive `@source` dans `app.css`.
+    - Purge complète du système (`var/tailwind` et `asset-map`) pour corriger les problèmes de persistance du cache.
+- **Modernisation de l'UI :**
+    - **Index Responsive :** Construction d'un tableau style "SaaS" masquant les colonnes secondaires sur mobile tout en gardant les "Actions" accessibles.
+    - **Design des Formulaires :** Création d'une grille à deux colonnes pour les formulaires New/Edit avec les variables de thème Indigo/Slate.
+    - **Vue Profil :** Implémentation d'une page "Show" avec en-tête de profil, initiales d'avatar générées et grilles de données structurées.
 
 ## 📅 Jour 2 : 17/01/2026 - Finalisation de la Conception et Initialisation Technique (Phase 2)
 
