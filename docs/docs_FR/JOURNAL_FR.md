@@ -1,5 +1,9 @@
 # 📔 Journal de Bord / Development Log — Freelance Flow [Version Français]
 
+
+## 📅 Jour 4 : 19/01/2026 - Interface Globale & Sécurité (Phase 4)
+- [x] **Gestion de Projet :** Finalisation de la feuille de route MVP (Phases 4 à 10) et mise à jour de la documentation.
+
 ## 📅 Jour 3 [18 Janvier 2026] - Profil, Paramètres et CRUD Client (Phase 3)
 
 ### Réalisations :
@@ -27,7 +31,7 @@
 - [x] **Automatisation :** Ajout d'un déclencheur dans `setStatus` pour remplir `paidAt` automatiquement lors du passage à l'état payé.
 
 
-## Jour 1 : 16 Janvier 2026 — Authentification & UI (Phase 1)
+## 📅 Jour 1 : 16 Janvier 2026 — Authentification & UI (Phase 1)
 
 ### Travaux effectués
 - [x] **Système d'Auth :** Génération de l'entité `User`, du `LoginFormAuthenticator` et du `SecurityController`.

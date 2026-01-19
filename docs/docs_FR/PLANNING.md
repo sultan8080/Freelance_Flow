@@ -4,30 +4,30 @@
 *Objectif : Une application fonctionnelle pour gérer, calculer et éditer des factures.*
 
 ### Phase 1 : Architecture & Authentification
-- [ ] Initialisation Symfony 7.4 Webapp.
-- [ ] Configuration de la base de données (MySQL).
-- [ ] Création de l'entité `User` et système de Login/Logout.
-- [ ] Génération du formulaire d'inscription (`RegistrationForm`).
-- [ ] Installation de Tailwind CSS via AssetMapper.
+- [x] Initialisation Symfony 7.4 Webapp.
+- [x] Configuration de la base de données (MySQL).
+- [x] Création de l'entité `User` et système de Login/Logout.
+- [x] Génération du formulaire d'inscription (`RegistrationForm`).
+- [x] Installation de Tailwind CSS via AssetMapper.
 
 ### Phase 2 : Modélisation des Données & Logique Métier
-- [ ] **Conception de base de données :** Créer et documenter le schéma de données (MCD, MLD, ERD) via mocodo.net.
-- [ ] Mise à jour User : Ajouter les informations professionnelles au Freelancer (Nom complet, Adresse, SIRET/TVA, Téléphone).
-- [ ] Entité Client : Créer l'entité + établir la relation ManyToOne avec User.
-- [ ] Entité Invoice (Facture) : Créer l'entité avec les champs (numéro, date, statut, date d'échéance).
-- [ ] Entité InvoiceItem (Lignes) : Créer les lignes de facture (description, quantité, prix unitaire).
-- [ ] Sécurité des données (Voters) : S'assurer qu'un Freelancer ne peut voir que ses propres clients et factures.
+- [x] **Conception de base de données :** Créer et documenter le schéma de données (MCD, MLD, ERD) via mocodo.net.
+- [x] Mise à jour User : Ajouter les informations professionnelles au Freelancer (Nom complet, Adresse, SIRET/TVA, Téléphone).
+- [x] Entité Client : Créer l'entité + établir la relation ManyToOne avec User.
+- [x] Entité Invoice (Facture) : Créer l'entité avec les champs (numéro, date, statut, date d'échéance).
+- [x] Entité InvoiceItem (Lignes) : Créer les lignes de facture (description, quantité, prix unitaire).
+- [x] Sécurité des données (Voters) : S'assurer qu'un Freelancer ne peut voir que ses propres clients et factures.
 
 ### Phase 3 : Implémentation - CRM & Profil Freelance
-- [ ] Configuration des Rôles : Définir la hiérarchie ROLE_ADMIN vs ROLE_USER dans le fichier security.yaml.
-- [ ] Formulaire de Profil (UserType) : Créer un formulaire pour les données professionnelles (SIRET, TVA, Nom de l'entreprise, Adresse).
-- [ ] Paramètres du Compte : Créer le SettingsController pour permettre aux freelances de compléter leur identité professionnelle.
-- [ ] Formulaire Client (ClientType) : Créer le formulaire pour ajouter et modifier des clients.
-- [ ] CRUD Client : Générer l'interface (Liste, Vue, Modification, Suppression) pour les clients.
-- [ ] Filtrage de Base : S'assurer que la liste n'affiche que les clients liés à l'utilisateur connecté (étape avant les Voters).
+- [x] Configuration des Rôles : Définir la hiérarchie ROLE_ADMIN vs ROLE_USER dans le fichier security.yaml.
+- [x] Formulaire de Profil (UserType) : Créer un formulaire pour les données professionnelles (SIRET, TVA, Nom de l'entreprise, Adresse).
+- [x] Paramètres du Compte : Créer le SettingsController pour permettre aux freelances de compléter leur identité professionnelle.
+- [x] Formulaire Client (ClientType) : Créer le formulaire pour ajouter et modifier des clients.
+- [x] CRUD Client : Générer l'interface (Liste, Vue, Modification, Suppression) pour les clients.
+- [x] Filtrage de Base : S'assurer que la liste n'affiche que les clients liés à l'utilisateur connecté (étape avant les Voters).
 
 
-### Phase 4 : Interface Globale & Sécurité (En cours)
+### Phase 4 : Interface Globale & Sécurité
 - [ ] **Layout Sidebar :** Refonte du `base.html.twig` avec une navigation pro (Tableau de bord, Clients, Factures, Paramètres).
 - [ ] **Tableau de Bord :** Création du `DashboardController` pour la page d'accueil.
 - [ ] **Voters Symfony :** Implémentation de `ClientVoter` et `InvoiceVoter` pour l'isolation des données.
