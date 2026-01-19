@@ -4,26 +4,26 @@
 *Goal: A functional app to manage, calculate, and export invoices.*
 
 ### Phase 1: Architecture & Authentication
-- [ ] Symfony 7.4 Webapp initialization.
-- [ ] Database configuration (MySQL).
-- [ ] `User` entity & Login/Logout system.
-- [ ] Registration form generation.
-- [ ] Tailwind CSS integration via AssetMapper.
+- [x] Symfony 7.4 Webapp initialization.
+- [x] Database configuration (MySQL).
+- [x] `User` entity & Login/Logout system.
+- [x] Registration form generation.
+- [x] Tailwind CSS integration via AssetMapper.
 
 ### Phase 2: Data Modeling & Business Logic
-- [ ] **Database Design:** Create and document the database schema (MCD, MLD, ERD) via Mocodo.net.
-- [ ] Entity Client: Create the entity + link to User (Freelancer).
-- [ ] Entity Invoice: Create the entity with fields (number, date, status, due date).
-- [ ] Entity InvoiceItem: Create the line items (description, quantity, unit price).
-- [ ] Data Security (Voters): Ensure a Freelancer can only see their own clients and invoices.
+- [x] **Database Design:** Create and document the database schema (MCD, MLD, ERD) via Mocodo.net.
+- [x] Entity Client: Create the entity + link to User (Freelancer).
+- [x] Entity Invoice: Create the entity with fields (number, date, status, due date).
+- [x] Entity InvoiceItem: Create the line items (description, quantity, unit price).
+- [x] Data Security (Voters): Ensure a Freelancer can only see their own clients and invoices.
 
 ### Phase 3: The Complete CRM & Profile Build
-- [ ] Role Setup: Define ROLE_ADMIN vs ROLE_USER in security.yaml.
-- [ ] Profile Form (UserType): Create a form for professional data (SIRET, VAT, Company Name, Address).
-- [ ] Account Settings: Build SettingsController to allow freelancers to complete their professional identity.
-- [ ] Client Form (ClientType): Create the form to add and edit customers.
-- [ ] Client CRUD: Generate the interface to list, view, and delete clients.
-- [ ] Basic Filtering: Ensure the list only shows clients linked to a user (pre-Voter stage).
+- [x] Role Setup: Define ROLE_ADMIN vs ROLE_USER in security.yaml.
+- [x] Profile Form (UserType): Create a form for professional data (SIRET, VAT, Company Name, Address).
+- [x] Account Settings: Build SettingsController to allow freelancers to complete their professional identity.
+- [x] Client Form (ClientType): Create the form to add and edit customers.
+- [x] Client CRUD: Generate the interface to list, view, and delete clients.
+- [x] Basic Filtering: Ensure the list only shows clients linked to a user (pre-Voter stage).
 
 ### Phase 4: Global UI & Security 
 - [ ] **Global Sidebar Layout:** Refactor `base.html.twig` with a professional navigation (Dashboard, Clients, Invoices, Settings).
