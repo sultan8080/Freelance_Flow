@@ -25,40 +25,44 @@
 - [ ] Client CRUD: Generate the interface to list, view, and delete clients.
 - [ ] Basic Filtering: Ensure the list only shows clients linked to a user (pre-Voter stage).
 
-### Phase 4: Security & Data Isolation (Voters)
-- [ ] Implement **Symfony Voters** for Clients.
-- [ ] Implement **Symfony Voters** for Invoices.
-- [ ] *Guarantee: Multi-tenant isolation (Users only see their own data).*
+### Phase 4: Global UI & Security 
+- [ ] **Global Sidebar Layout:** Refactor `base.html.twig` with a professional navigation (Dashboard, Clients, Invoices, Settings).
+- [ ] **Freelancer Dashboard:** Create `DashboardController` for the home landing page.
+- [ ] **Security Voters:** Implement `ClientVoter` and `InvoiceVoter` for multi-tenant data isolation.
+- [ ] **Access Control:** Finalize `security.yaml` to protect all authenticated routes.
 
-### Phase 5: Invoicing Engine (UI)
-- [ ] Invoice creation form.
-- [ ] Dynamic line-item management (JavaScript/Stimulus).
-- [ ] Issue and due date management.
+### Phase 5: Invoicing Engine (Backend & Logic)
+- [ ] **Entity Audit:** Verify relationships between `User`, `Client`, `Invoice`, and `InvoiceItem`.
+- [ ] **Numbering Service:** Sequential invoice ID generator (e.g., `FF-2026-001`).
+- [ ] **Financial Service:** Logic for Subtotal, VAT, and Total TTC calculations.
+- [ ] **URSSAF Estimator:** Service to estimate social taxes (21.2%).
 
-### Phase 6: Business Logic & Taxes
-- [ ] Automatic numbering system (e.g., `FF-2026-001`).
-- [ ] `TaxCalculatorService` for net total calculations.
-- [ ] Provisionary URSSAF tax estimates (21.2% rate).
+### Phase 6: Dynamic Invoicing (Frontend UI)
+- [ ] **Invoice Form:** Implementation using Symfony `CollectionType`.
+- [ ] **Stimulus.js:** Dynamic "Add/Remove Line Item" functionality without page reload.
+- [ ] **Live Totals:** Real-time JavaScript calculation of totals on the form.
 
-### Phase 7: Invoice Design & Templates
-- [ ] Professional HTML/CSS invoice template design.
-- [ ] Integration of mandatory legal mentions (Art. 293B).
-- [ ] Footer layout (SIRET, Contact info).
+### Phase 7: Document Design & Export
+- [ ] **HTML Template:** Professional layout including "Art. 293B" legal mentions.
+- [ ] **PDF Engine:** Integration of DomPDF for document generation.
+- [ ] **Secure Export:** Protected routes for PDF downloads.
 
-### Phase 8: PDF Generation
-- [ ] DomPDF installation & configuration.
-- [ ] HTML to PDF conversion.
-- [ ] Secure PDF download functionality.
+### Phase 8: Dashboard Insights (Analytics)
+- [ ] **KPI Widgets:** Monthly/Yearly revenue tracking.
+- [ ] **Ceiling Tracker:** Progress bar for auto-entrepreneur revenue limits.
+- [ ] **Activity Feed:** Quick view of pending/overdue invoices.
 
-### Phase 9: Dashboard & Insights
-- [ ] Revenue statistics (Monthly/Yearly).
-- [ ] Visual tracking for Micro-entrepreneur revenue ceilings.
-- [ ] Recent invoice activity list.
+### Phase 9: UX Optimization & Polish
+- [ ] **Flash Message System:** Professional toast notifications for CRUD actions (Success/Error).
+- [ ] **Empty State Designs:** Create high-quality placeholder views for users with 0 clients or invoices.
+- [ ] **Navigation Refinement:** Add "Active" states to sidebar links to show the user where they are.
+- [ ] **Form Validation:** Enhance client-side and server-side error messaging for better user guidance.
 
-### Phase 10: MVP Optimization & Polish
-- [ ] Flash message management (Success/Error).
-- [ ] SQL query optimization (Eager loading).
-- [ ] Final installation documentation.
+### Phase 10: Performance & Deployment Readiness
+- [ ] **SQL Query Tuning:** Implement Eager Loading (`JOIN`) in Repositories to eliminate N+1 query issues.
+- [ ] **Legal Verification:** Final check of French mandatory mentions (SIRET, VAT logic, Art. 293B).
+- [ ] **Production Config:** Setup environment variables (`.env.local`), security headers, and asset compression.
+- [ ] **Project Documentation:** Complete the `README.md` with installation and contribution guides.
 
 ---
 

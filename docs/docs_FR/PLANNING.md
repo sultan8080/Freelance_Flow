@@ -26,40 +26,45 @@
 - [ ] CRUD Client : Générer l'interface (Liste, Vue, Modification, Suppression) pour les clients.
 - [ ] Filtrage de Base : S'assurer que la liste n'affiche que les clients liés à l'utilisateur connecté (étape avant les Voters).
 
-### Phase 4 : Sécurité & Isolation (Voters)
-- [ ] Implémentation des **Symfony Voters** pour les Clients.
-- [ ] Implémentation des **Symfony Voters** pour les Factures.
-- [ ] *Garantie : Un utilisateur ne peut ni voir ni modifier les données d'un autre.*
 
-### Phase 5 : Moteur de Facturation (Interface)
-- [ ] Formulaire de création de facture.
-- [ ] Ajout dynamique de lignes (Items) en JavaScript/Stimulus.
-- [ ] Gestion des dates d'émission et d'échéance.
+### Phase 4 : Interface Globale & Sécurité (En cours)
+- [ ] **Layout Sidebar :** Refonte du `base.html.twig` avec une navigation pro (Tableau de bord, Clients, Factures, Paramètres).
+- [ ] **Tableau de Bord :** Création du `DashboardController` pour la page d'accueil.
+- [ ] **Voters Symfony :** Implémentation de `ClientVoter` et `InvoiceVoter` pour l'isolation des données.
+- [ ] **Contrôle d'Accès :** Finalisation du `security.yaml` pour protéger toutes les routes privées.
 
-### Phase 6 : Intelligence Métier & Fiscalité
-- [ ] Système de numérotation automatique (ex: `FF-2026-001`).
-- [ ] Création du `TaxCalculatorService` pour les calculs HT.
-- [ ] Calcul provisionnel des cotisations URSSAF (taux 21.2%).
+### Phase 5 : Moteur de Facturation (Backend & Logique)
+- [ ] **Audit des Entités :** Vérification des relations entre `User`, `Client`, `Invoice`, et `InvoiceItem`.
+- [ ] **Service de Numérotation :** Générateur de numéros de facture (ex: `FF-2026-001`).
+- [ ] **Service Financier :** Logique de calcul du Sous-total, TVA, et Total TTC.
+- [ ] **Estimateur URSSAF :** Calcul des charges sociales prévisionnelles (21.2%).
 
-### Phase 7 : Rendu & Design des Factures
-- [ ] Design HTML/CSS d'un template de facture professionnel.
-- [ ] Intégration des mentions légales (Art. 293B du CGI).
-- [ ] Mise en page du pied de page (SIRET, Coordonnées).
+### Phase 6 : Facturation Dynamique (Interface UI)
+- [ ] **Formulaire Facture :** Implémentation via Symfony `CollectionType`.
+- [ ] **Stimulus.js :** Ajout/Suppression dynamique de lignes sans rechargement de page.
+- [ ] **Totaux en Direct :** Calcul JavaScript des totaux en temps réel sur le formulaire.
 
-### Phase 8 : Génération PDF
-- [ ] Installation de DomPDF.
-- [ ] Conversion du template HTML en PDF.
-- [ ] Fonction de téléchargement sécurisé du fichier PDF.
+### Phase 7 : Design Documentaire & Export
+- [ ] **Template HTML :** Design pro incluant les mentions légales "Art. 293B".
+- [ ] **Moteur PDF :** Intégration de DomPDF pour la génération de documents.
+- [ ] **Export Sécurisé :** Routes protégées pour le téléchargement des PDF.
 
-### Phase 9 : Tableau de Bord (Dashboard)
-- [ ] Statistiques du Chiffre d'Affaires (Mois/Année).
-- [ ] Suivi visuel des plafonds de la micro-entreprise.
-- [ ] Liste des dernières factures créées.
+### Phase 8 : Insights & Statistiques (Analytics)
+- [ ] **Widgets KPI :** Suivi du chiffre d'affaires mensuel et annuel.
+- [ ] **Suivi Plafond :** Barre de progression pour les limites de l'auto-entrepreneur.
+- [ ] **Flux d'Activité :** Vue rapide des factures en attente ou en retard.
 
-### Phase 10 : Optimisation & Finalisation MVP
-- [ ] Gestion des messages flash (succès/erreurs).
-- [ ] Nettoyage des requêtes SQL (Eager loading).
-- [ ] Documentation finale de l'installation.
+### Phase 9 : Peaufinage & Optimisation UX
+- [ ] **Système de Messages Flash :** Notifications "toast" professionnelles pour les actions CRUD.
+- [ ] **Design des "Empty States" :** Création de vues d'attente soignées pour les listes vides (0 clients/factures).
+- [ ] **Navigation Affinée :** Ajout d'états "actifs" sur la sidebar pour indiquer la page courante.
+- [ ] **Validation des Formulaires :** Amélioration des messages d'erreur côté client et serveur.
+
+### Phase 10 : Performance & Préparation Déploiement
+- [ ] **Optimisation SQL :** Mise en place du "Eager Loading" (`JOIN`) pour supprimer les problèmes de requêtes N+1.
+- [ ] **Vérification Légale :** Contrôle final des mentions obligatoires (SIRET, logique TVA, Art. 293B).
+- [ ] **Configuration Prod :** Paramétrage du `.env.local`, des en-têtes de sécurité et compression des assets.
+- [ ] **Documentation Finale :** Finalisation du `README.md` avec le guide d'installation et d'utilisation.
 
 ---
 
