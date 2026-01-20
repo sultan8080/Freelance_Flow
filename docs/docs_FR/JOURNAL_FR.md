@@ -1,25 +1,34 @@
 # 📔 Journal de Bord / Development Log — Freelance Flow [Version Français]
 
 
+## 📅 Jour 5 : 20/01/2026 - Interface Globale & Sécurité (Phase 4)
+### Réalisations :
+- [x] **Refonte du Layout Maître :** Transformation de base.html.twig en une structure de tableau de bord robuste avec une barre latérale (sidebar) fixe et responsive.
+- [x] **Système de Design "Glass" :** Implémentation d'effets de transparence et de flou (backdrop-blur) via les classes utilitaires de Tailwind v4 et des variables de thème.
+- [x] **Logique Native JS :** Développement d'un script JavaScript Vanilla personnalisé pour gérer le basculement du menu burger, la visibilité dynamique du logo
+- [x] **Navigation Dynamique :** Configuration de la logique Twig pour détecter les routes actives (app.request.get('_route')) et appliquer sur (Dashboard, Clients).
+- [x] **Architecture Pro :** Séparation du code en base.html.twig (structure globale) et index.html.twig (contenu) pour garantir un héritage de template évolutif.
+
 ## 📅 Jour 4 : 19/01/2026 - Interface Globale & Sécurité (Phase 4)
+### Réalisations :
 - [x] **Gestion de Projet :** Finalisation de la feuille de route MVP (Phases 4 à 10) et mise à jour de la documentation.
 
 ## 📅 Jour 3 [18 Janvier 2026] - Profil, Paramètres et CRUD Client (Phase 3)
 
 ### Réalisations :
-- **Paramètres & Profil :** Création du `SettingsController` et implémentation de la mise à jour du profil utilisateur (Noms, Email).
-- **Sécurité Client :** Génération d'un CRUD Client sécurisé. Les données sont strictement filtrées par l'utilisateur connecté (`getUser`).
-- **Logique Métier :** Automatisation de l'assignation de l'utilisateur pour les nouveaux clients et protection des routes `show/edit/delete` via vérification de propriété.
-- **Infrastructure Tailwind v4 :**
-    - Débogage et résolution du problème d'affichage via l'implémentation de la directive `@source` dans `app.css`.
-    - Purge complète du système (`var/tailwind` et `asset-map`) pour corriger les problèmes de persistance du cache.
-- **Modernisation de l'UI :**
-    - **Index Responsive :** Construction d'un tableau style "SaaS" masquant les colonnes secondaires sur mobile tout en gardant les "Actions" accessibles.
-    - **Design des Formulaires :** Création d'une grille à deux colonnes pour les formulaires New/Edit avec les variables de thème Indigo/Slate.
-    - **Vue Profil :** Implémentation d'une page "Show" avec en-tête de profil, initiales d'avatar générées et grilles de données structurées.
+- [x] **Paramètres & Profil :** Création du `SettingsController` et implémentation de la mise à jour du profil utilisateur (Noms, Email).
+- [x] **Sécurité Client :** Génération d'un CRUD Client sécurisé. Les données sont strictement filtrées par l'utilisateur connecté (`getUser`).
+- [x] **Logique Métier :** Automatisation de l'assignation de l'utilisateur pour les nouveaux clients et protection des routes `show/edit/delete` via vérification de propriété.
+- [x] **Infrastructure Tailwind v4 :**
+- [x] Débogage et résolution du problème d'affichage via l'implémentation de la directive `@source` dans `app.css`.
+- [x] Purge complète du système (`var/tailwind` et `asset-map`) pour corriger les problèmes de persistance du cache.
+- [x] **Modernisation de l'UI :**
+- [x] **Index Responsive :** Construction d'un tableau style "SaaS" masquant les colonnes secondaires sur mobile tout en gardant les "Actions" accessibles.
+- [x] **Design des Formulaires :** Création d'une grille à deux colonnes pour les formulaires New/Edit avec les variables de thème Indigo/Slate.
+- [x] **Vue Profil :** Implémentation d'une page "Show" avec en-tête de profil, initiales d'avatar générées et grilles de données structurées.
+
 
 ## 📅 Jour 2 : 17/01/2026 - Finalisation de la Conception et Initialisation Technique (Phase 2)
-
 ### Accomplissements :
 - [x] **Architecture Documentaire :** Réorganisation complète dans `/docs/docs_FR`, `/docs/docs_EN`, et `/docs/database` pour un dépôt professionnel.
 - [x] **README Principal :** Mise à jour avec une présentation du projet et intégration visuelle du diagramme MCD (SVG).
