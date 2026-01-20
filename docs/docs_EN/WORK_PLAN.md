@@ -26,10 +26,12 @@
 - [x] Basic Filtering: Ensure the list only shows clients linked to a user (pre-Voter stage).
 
 ### Phase 4: Global UI & Security 
-- [ ] **Global Sidebar Layout:** Refactor `base.html.twig` with a professional navigation (Dashboard, Clients, Invoices, Settings).
-- [ ] **Freelancer Dashboard:** Create `DashboardController` for the home landing page.
-- [ ] **Security Voters:** Implement `ClientVoter` and `InvoiceVoter` for multi-tenant data isolation.
-- [ ] **Access Control:** Finalize `security.yaml` to protect all authenticated routes.
+- [ ] Global Sidebar Layout: Refactor base.html.twig with a professional navigation (Dashboard, Clients, Invoices, Settings).
+- [ ] Freelancer Dashboard: Create DashboardController for the home landing page.
+- [ ] Vanilla JS Design System: Integrate the custom "Glassmorphism" dashboard shell with native JS sidebar/dropdown logic.
+- [ ] Dynamic Blade Refactoring: Migrate the static "Hello, User" components into dynamic Twig blocks using app.user fallbacks.
+- [ ] Security Voters: Implement ClientVoter and InvoiceVoter for multi-tenant data isolation.
+- [ ] Access Control: Finalize security.yaml to protect all authenticated routes.
 
 ### Phase 5: Invoicing Engine (Backend & Logic)
 - [ ] **Entity Audit:** Verify relationships between `User`, `Client`, `Invoice`, and `InvoiceItem`.

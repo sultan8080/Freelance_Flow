@@ -1,20 +1,48 @@
-@import "tailwindcss";
-
-@source "../../templates/**/*.html.twig";
-
 @theme {
-    /* Main Palette */
+    /* Synchronization: Primary now inherits the vibrant Tailwind Indigo */
     --color-primary: var(--color-indigo-600);
     --color-primary-hover: var(--color-indigo-700);
-    --color-dark: var(--color-slate-900);
-    
-    /* Background and Surface Colors */
-    --color-app-bg: var(--color-gray-50);
-    --color-card-border: var(--color-slate-200);
+    --color-primary-text: var(--color-indigo-600); /* For text-primary-text */
+
+    /* Surface Colors */
+    --color-sidebar-bg: #020617;
+    --color-app-bg: #f8fafc;
+    --color-card-border: #e2e8f0;
+    --color-sidebar-border: rgba(255, 255, 255, 0.1);
+
+    /* Custom Radius & Shadows */
+    --radius-bento: 2rem;
+    --shadow-bento:
+        0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+
+    /* Dynamic Glow: This shadow now automatically matches the primary color */
+    --shadow-indigo-glow: 0 10px 15px -3px
+        color-mix(in srgb, var(--color-primary), transparent 80%);
 }
 
 @layer base {
     body {
-        @apply bg-app-bg text-dark antialiased;
+        @apply bg-app-bg text-slate-900 antialiased;
+    }
+}
+
+@layer components {
+    /* Glassmorphism Effect */
+    .glass-card {
+        @apply bg-white/70 backdrop-blur-[10px] border border-white/40 shadow-bento;
+    }
+
+    /* Sidebar transition sync utility */
+    .sidebar-transition {
+        @apply transition-all duration-500 ease-in-out;
+    }
+
+    /* Active Link Style for Sidebar */
+    .nav-link-active {
+        @apply bg-primary text-white shadow-indigo-glow font-medium;
+    }
+
+    .text-primary {
+        @apply text-[var(--color-primary)];
     }
 }

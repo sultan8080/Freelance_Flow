@@ -12,7 +12,7 @@ final class DashboardController extends AbstractController
 {
     #[Route('/dashboard_freelancer', name: 'dashboard_freelancer')]
     
-    #[IsGranted('ROLE_USER')]
+    // #[IsGranted('ROLE_USER')]
     
     public function index(): Response
     {

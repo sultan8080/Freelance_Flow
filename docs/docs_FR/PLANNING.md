@@ -28,10 +28,11 @@
 
 
 ### Phase 4 : Interface Globale & Sécurité
-- [ ] **Layout Sidebar :** Refonte du `base.html.twig` avec une navigation pro (Tableau de bord, Clients, Factures, Paramètres).
-- [ ] **Tableau de Bord :** Création du `DashboardController` pour la page d'accueil.
-- [ ] **Voters Symfony :** Implémentation de `ClientVoter` et `InvoiceVoter` pour l'isolation des données.
-- [ ] **Contrôle d'Accès :** Finalisation du `security.yaml` pour protéger toutes les routes privées.
+ - [x] Mise en page globale (Sidebar) : Refondre base.html.twig avec une navigation professionnelle (Tableau de bord, Clients, Factures, Paramètres).
+ - [x] Tableau de bord Freelance : Créer le DashboardController pour la page d'accueil utilisateur.
+ - [x] Système de Design Vanilla JS : Intégrer la structure de tableau de bord "Glassmorphism" avec une logique native JS pour la barre latérale et les menus déroulants.
+ - [ ] Security Voters : Implémenter ClientVoter et InvoiceVoter pour l'isolation des données multi-locataires (multi-tenant).
+ - [ ] Contrôle d'Accès : Finaliser security.yaml pour protéger toutes les routes authentifiées.
 
 ### Phase 5 : Moteur de Facturation (Backend & Logique)
 - [ ] **Audit des Entités :** Vérification des relations entre `User`, `Client`, `Invoice`, et `InvoiceItem`.
