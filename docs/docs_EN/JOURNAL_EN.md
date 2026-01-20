@@ -1,11 +1,18 @@
 
 #  Development Log — Freelance Flow [English version]
 
+    
+## 📅 Day 5 [January 20, 2026] - Global UI & Security  (Phase 4)
+
+### Accomplishments:
+- [x] Master Layout Refactor: Converted base.html.twig into a robust dashboard structure featuring a fixed, responsive sidebar.
+- [x] Glass Design System: Implemented transparency and blur effects (backdrop-blur) using Tailwind v4 utility classes and custom theme variables (rounded-bento).
+- [x] Native JS Logic: Developed a custom Vanilla JS script to handle the burger menu toggle, dynamic logo visibility, and user dropdowns
+- [x] Dynamic Navigation: Configured Twig logic to detect active routes (app.request.get('_route')) and apply Indigo highlighting to navigation links (Dashboard, Clients).
+- [x] Pro Architecture: Separated code into base.html.twig (shell) and index.html.twig (content) to ensure scalable template inheritance.
+
 ## 📅 Day 4 [January 19, 2026] - Global UI & Security  (Phase 4)
 - [x] **Project Management:** Finalized the MVP roadmap (Phases 4-10) and updated project documentation.
-
-
-
 
 ## 📅 Day 3 [January 18, 2026] - Profile, Settings, and Client CRUD (Phase 3)
 
