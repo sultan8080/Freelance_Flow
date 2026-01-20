@@ -29,6 +29,7 @@
 - [x] Global Sidebar Layout: Refactor base.html.twig with a professional navigation (Dashboard, Clients, Invoices, Settings).
 - [x] Freelancer Dashboard: Create DashboardController for the home landing page.
 - [x] Vanilla JS Design System: Integrate the custom "Glassmorphism" dashboard shell with native JS sidebar/dropdown logic.
+- [x] Stimulus Refactor: Converted Vanilla JS into layout_controller.js for a robust, event-driven architecture.
 - [ ] Security Voters: Implement ClientVoter and InvoiceVoter for multi-tenant data isolation.
 - [ ] Access Control: Finalize security.yaml to protect all authenticated routes.
 

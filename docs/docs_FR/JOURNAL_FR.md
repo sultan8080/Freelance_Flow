@@ -1,6 +1,5 @@
 # 📔 Journal de Bord / Development Log — Freelance Flow [Version Français]
 
-
 ## 📅 Jour 5 : 20/01/2026 - Interface Globale & Sécurité (Phase 4)
 ### Réalisations :
 - [x] **Refonte du Layout Maître :** Transformation de base.html.twig en une structure de tableau de bord robuste avec une barre latérale (sidebar) fixe et responsive.
@@ -8,6 +7,8 @@
 - [x] **Logique Native JS :** Développement d'un script JavaScript Vanilla personnalisé pour gérer le basculement du menu burger, la visibilité dynamique du logo
 - [x] **Navigation Dynamique :** Configuration de la logique Twig pour détecter les routes actives (app.request.get('_route')) et appliquer sur (Dashboard, Clients).
 - [x] **Architecture Pro :** Séparation du code en base.html.twig (structure globale) et index.html.twig (contenu) pour garantir un héritage de template évolutif.
+- [x] **startStimulusApp** Migration de la logique d'interface vers un contrôleur Stimulus pour une navigation fluide et compatible avec Turbo.
+- [x] Stimulus Refactor: Converted Vanilla JS into layout_controller.js for a robust, event-driven architecture.
 
 ## 📅 Jour 4 : 19/01/2026 - Interface Globale & Sécurité (Phase 4)
 ### Réalisations :

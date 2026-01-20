@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 @theme {
     /* Synchronization: Primary now inherits the vibrant Tailwind Indigo */
     --color-primary: var(--color-indigo-600);
