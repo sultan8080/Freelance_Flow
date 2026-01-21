@@ -25,22 +25,25 @@ class AppFixtures extends Fixture
         for ($i = 1; $i <= 5; $i++) {
             $user = new User();
             $user->setEmail("user$i@test.com");
-            $user->setFirstName("UserFirstName$i");
-            $user->setLastName("UserLastName$i");
+            $user->setFirstName("prenom$i");
+            $user->setLastName("nom$i");
             $user->setCompanyName("Freelance $i");
             $user->setSiretNumber("1234567890001$i");
-            
+
             $password = $this->hasher->hashPassword($user, 'password');
             $user->setPassword($password);
-            
+
             $manager->persist($user);
 
             // 2. Create 5 Clients for EACH User
-            for ($j = 1; $j <= 5; $j++) {
+            for ($j = 1; $j <= 20; $j++) {
                 $client = new Client();
-                $client->setFirstName("ClientFirst$j");
-                $client->setLastName("ClientLast$j");
+                $client->setFirstName("prenom$j");
+                $client->setLastName("nom$j");
                 $client->setCompanyName("Client Company $i-$j");
+                $client->setPhoneNumber("+3312345678$j");
+                $client->setAddress("$j Rue de Exemple, 7500$j Paris, France");
+
                 $client->setEmail("client$j.from.user$i@example.com");
                 $client->setUser($user);
                 $manager->persist($client);
