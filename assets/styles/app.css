@@ -17,7 +17,7 @@
     --shadow-bento:
         0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 
-    /* Dynamic Glow: This shadow now automatically matches the primary color */
+    /* Dynamic Glow:*/
     --shadow-indigo-glow: 0 10px 15px -3px
         color-mix(in srgb, var(--color-primary), transparent 80%);
 }
@@ -47,4 +47,7 @@
     .text-primary {
         @apply text-[var(--color-primary)];
     }
+}
+@layer utilities {
+   
 }

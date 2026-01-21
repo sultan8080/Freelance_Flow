@@ -1,22 +1,20 @@
 <div{{attributes}}>
 	<!-- component HTML -->
 
-	<p class="text-slate-500 text-lg mb-10">
+	<p class="text-slate-500 text-lg mb-6">
 		Manage your clients Information
 	</p>
 
-	<div class="flex flex-col lg:flex-row gap-6  justify-between">
+	<div class="flex flex-row items-center gap-4 w-full mb-8">
 
-		<div class="mb-2 relative max-w-md w-full">
-			<input type="text" data-model="query" placeholder="  Search clients by name or email" class="w-full pl-4 pr-4 py-3 rounded-2xl border border-slate-200 bg-white/50 backdrop-blur-md focus:ring-4 focus:ring-primary/10 transition-all outline-none">
-			<div
-				data-loading class="absolute right-4 top-3.5 text-primary">{# <i class="fas fa-circle-notch fa-spin"></i> #}
-			</div>
+		<div class=" flex-1">
+	
+			<input type="text" data-model="query" placeholder="  Search clients..." class="w-full pl-11 pr-12 py-2 rounded-2xl border border-slate-200 bg-white/50 backdrop-blur-md
+				                   focus:ring-4 focus:ring-primary/10 transition-all outline-none">
 		</div>
 
-
-		<div>
-			<a href="#" class="bg-primary text-white px-5 py-2.5 rounded-2xl text-sm font-semibold hover:bg-primary-hover shadow-indigo-glow transition-all hover:-translate-y-0.5">
+		<div class="shrink-0">
+			<a href="#" class="inline-flex items-center justify-center whitespace-nowrap bg-primary text-white px-6 py-2 rounded-2xl text-sm font-semibold hover:bg-primary-hover shadow-indigo-glow transition-all hover:-translate-y-0.5">
 				<i class="fas fa-plus mr-2"></i>
 				Add Client
 			</a>
@@ -66,15 +64,15 @@
 							</td>
 
 							{# Actions: Always Visible Hide the vertical divider on mobile 
-																																				<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-																																					<div class="flex justify-end items-center space-x-2 md:space-x-3">
-																																						<a href="{{ path('app_client_show', {'id': client.id}) }}" class="text-primary hover:underline font-semibold">View</a>
-																																						
-																																						<span class="hidden md:inline text-slate-200">|</span>
-																																						<a href="{{ path('app_client_edit', {'id': client.id}) }}" class="text-slate-400 hover:text-slate-600 font-semibold">Edit</a>
-																																					</div>
-																																				</td>
-																												#}
+																																											<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+																																												<div class="flex justify-end items-center space-x-2 md:space-x-3">
+																																													<a href="{{ path('app_client_show', {'id': client.id}) }}" class="text-primary hover:underline font-semibold">View</a>
+																																													
+																																													<span class="hidden md:inline text-slate-200">|</span>
+																																													<a href="{{ path('app_client_edit', {'id': client.id}) }}" class="text-slate-400 hover:text-slate-600 font-semibold">Edit</a>
+																																												</div>
+																																											</td>
+																																			#}
 							<td class="px-6 py-4 text-right">
 								<div class="flex justify-end gap-2">
 									<a href="{{ path('app_client_show', {id: client.id}) }}" class="p-2 hover:bg-white rounded-lg text-slate-400 hover:text-primary transition-all">
