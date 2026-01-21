@@ -49,5 +49,10 @@
     }
 }
 @layer utilities {
-   
+    .hidden {
+        display: none !important;
+    }
+    .whitespace-nowrap {
+        white-space: nowrap !important;
+    }
 }
