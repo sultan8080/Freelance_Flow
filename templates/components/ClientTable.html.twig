@@ -1,25 +1,29 @@
 <div{{attributes}}>
 	<!-- component HTML -->
 
-	<p class="text-slate-500 text-lg mb-6">
-		Manage your clients Information
-	</p>
+	<p class="text-slate-500 text-base md:text-lg mb-4 md:mb-8">
+    Manage your clients Information
+</p>
 
-	<div class="flex flex-row items-center gap-4 w-full mb-8">
+<div class="flex flex-row items-center gap-4 w-full mb-6 md:mb-10">
+    
+    <div class="flex-1">
+        <input 
+            type="text" 
+            data-model="query" 
+            placeholder="  Search clients..." 
+            class="w-full pl-11 pr-12 py-2.5 rounded-2xl border border-slate-200 bg-white/50 backdrop-blur-md 
+                   focus:ring-4 focus:ring-primary/10 transition-all outline-none text-sm md:text-base"
+        >
+    </div>
 
-		<div class=" flex-1">
-	
-			<input type="text" data-model="query" placeholder="  Search clients..." class="w-full pl-11 pr-12 py-2 rounded-2xl border border-slate-200 bg-white/50 backdrop-blur-md
-				                   focus:ring-4 focus:ring-primary/10 transition-all outline-none">
-		</div>
-
-		<div class="shrink-0">
-			<a href="#" class="inline-flex items-center justify-center whitespace-nowrap bg-primary text-white px-6 py-2 rounded-2xl text-sm font-semibold hover:bg-primary-hover shadow-indigo-glow transition-all hover:-translate-y-0.5">
-				<i class="fas fa-plus mr-2"></i>
-				Add Client
-			</a>
-		</div>
-	</div>
+    <div class="shrink-0">
+        <a href="#" class="inline-flex items-center justify-center whitespace-nowrap bg-primary text-white px-4 md:px-6 py-2.5 rounded-2xl text-xs md:text-sm font-semibold hover:bg-primary-hover shadow-indigo-glow transition-all hover:-translate-y-0.5">
+            <i class="fas fa-plus mr-2"></i>
+            Add Client
+        </a>
+    </div>
+</div>
 
 	{# Table Card #}
 	<div class="glass-card rounded-bento overflow-hidden">
