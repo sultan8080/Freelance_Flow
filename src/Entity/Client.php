@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class Client
-{   
+{
     use \App\Entity\Traits\TimestampableTrait;
 
     #[ORM\Id]
@@ -80,6 +80,11 @@ class Client
         return $this;
     }
 
+    //returns the full name of the client
+    public function getFullName(): string
+    {
+        return trim("{$this->firstName} {$this->lastName}");
+    }
     public function getCompanyName(): ?string
     {
         return $this->companyName;
