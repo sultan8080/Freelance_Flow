@@ -8,7 +8,7 @@
 
     /* Surface Colors */
     --color-sidebar-bg: #020617;
-    --color-app-bg: #f8fafc;
+    --color-app-bg: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
     --color-card-border: #e2e8f0;
     --color-sidebar-border: rgba(255, 255, 255, 0.1);
 

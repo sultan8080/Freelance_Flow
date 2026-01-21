@@ -8,7 +8,7 @@
 - [x] **Navigation Dynamique :** Configuration de la logique Twig pour détecter les routes actives (app.request.get('_route')) et appliquer sur (Dashboard, Clients).
 - [x] **Architecture Pro :** Séparation du code en base.html.twig (structure globale) et index.html.twig (contenu) pour garantir un héritage de template évolutif.
 - [x] **startStimulusApp** Migration de la logique d'interface vers un contrôleur Stimulus pour une navigation fluide et compatible avec Turbo.
-- [x] Stimulus Refactor: Converted Vanilla JS into layout_controller.js for a robust, event-driven architecture.
+
 
 ## 📅 Jour 4 : 19/01/2026 - Interface Globale & Sécurité (Phase 4)
 ### Réalisations :
