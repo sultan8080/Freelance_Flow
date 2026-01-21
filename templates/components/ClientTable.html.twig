@@ -1,3 +1,86 @@
-<div{{ attributes }}>
-    <!-- component HTML -->
+<div{{attributes}}>
+	<!-- component HTML -->
+	<div class="mb-6 relative max-w-md">
+		<input type="text" data-model="query" placeholder="Search clients..." class="w-full pl-4 pr-4 py-3 rounded-2xl border border-slate-200 bg-white/50 backdrop-blur-md focus:ring-4 focus:ring-primary/10 transition-all outline-none">
+		<div data-loading class="absolute right-4 top-3.5 text-primary">
+			<i class="fas fa-circle-notch fa-spin"></i>
+		</div>
+	</div>
+
+{# Table Card #}
+	<div class="glass-card rounded-bento overflow-hidden">
+		<div class="overflow-x-auto">
+			<table class="w-full text-left border-collapse">
+				<thead>
+					<tr
+						class="bg-slate-50 border-b border-card-border">
+						{# Always Visible #}
+						<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-600">Client / Company</th>
+
+						{# Hidden on Mobile, Visible on Tablet/Desktop #}
+						<th class="hidden md:table-cell px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-600">Email</th>
+						<th class="hidden md:table-cell px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-600">Contact Details</th>
+
+						{# Always Visible #}
+						<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-600 text-right">Actions</th>
+					</tr>
+				</thead>
+				<tbody class="divide-y divide-slate-100">
+					{% for client in clients %}
+						<tr
+							class="hover:bg-slate-50 transition-colors">
+							{# Always Visible #}
+							<td class="px-6 py-4 whitespace-nowrap">
+								<div class="font-semibold text-slate-900 text-sm md:text-base">{{ client.fullName }}
+									</div>
+								<div class="text-xs text-slate-500">{{ client.companyName ?: 'Individual' }}</div>
+							</td>
+
+							{# Email: Hidden on Mobile #}
+							<td class="hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm text-slate-600">
+								{{ client.email }}
+							</td>
+
+							{# Contact: Hidden on Mobile #}
+							<td class="hidden md:table-cell px-6 py-4 text-sm text-slate-600">
+								<div class="flex flex-col">
+									<span class="font-medium text-slate-700">{{ client.phoneNumber }}</span>
+									<span class="text-xs text-slate-400 truncate max-w-[200px]">{{ client.address }}</span>
+								</div>
+							</td>
+
+							{# Actions: Always Visible Hide the vertical divider on mobile 
+																						<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+																							<div class="flex justify-end items-center space-x-2 md:space-x-3">
+																								<a href="{{ path('app_client_show', {'id': client.id}) }}" class="text-primary hover:underline font-semibold">View</a>
+																								
+																								<span class="hidden md:inline text-slate-200">|</span>
+																								<a href="{{ path('app_client_edit', {'id': client.id}) }}" class="text-slate-400 hover:text-slate-600 font-semibold">Edit</a>
+																							</div>
+																						</td>
+														#}
+							<td class="px-6 py-4 text-right">
+								<div class="flex justify-end gap-2">
+									<a href="{{ path('app_client_show', {id: client.id}) }}" class="p-2 hover:bg-white rounded-lg text-slate-400 hover:text-primary transition-all">
+										<i class="fas fa-eye"></i>
+									</a>
+
+									<span class="text-slate-200">|</span>
+									<a href="{{ path('app_client_edit', {id: client.id}) }}" class="p-2 hover:bg-white rounded-lg text-slate-400 hover:text-primary transition-all">
+										<i class="fas fa-edit"></i>
+									</a>
+								</div>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="4" class="px-6 py-12 text-center text-slate-500 italic bg-slate-50">
+								No clients found.
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
 </div>
