@@ -1,16 +1,15 @@
 {% extends 'dashboard/base.html.twig' %}
 
-{% block title %}New Client{% endblock %}
-
-{% block body %}
-<div class="max-w-3xl mx-auto px-4 py-12">
-    <div class="mb-8">
-        <h1 class="text-3xl font-bold text-dark tracking-tight">Create New Client</h1>
-        <p class="text-slate-500 mt-2">Fill in the details below to add a new client to your database.</p>
-    </div>
-
-    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
-        {{ include('client/_form.html.twig') }}
-    </div>
-</div>
+{% block dashboard_content %}
+    <turbo-frame id="client_frame">
+        <div class="max-w-2xl mx-auto">
+            <a href="{{ path('app_client_index') }}" class="text-slate-400 font-bold mb-6 block hover:text-primary">
+                <i class="fas fa-arrow-left mr-2"></i> Back to list
+            </a>
+            <div class="glass-card rounded-bento p-8 border border-white/40 shadow-xl">
+                <h2 class="text-2xl font-black text-slate-900 mb-6">Client Information</h2>
+                {{ include('client/_form.html.twig') }}
+            </div>
+        </div>
+    </turbo-frame>
 {% endblock %}
