@@ -52,19 +52,14 @@ final class ClientController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($client);
             $entityManager->flush();
-
             $this->addFlash('success', 'Client created successfully!');
-            return $this->redirectToRoute('app_client_index');
+            return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
         }
-
         if ($form->isSubmitted() && !$form->isValid()) {
-            $this->addFlash('error', 'Please correct the errors in the form.');
+            $this->addFlash('error', 'Please correct the errors below in the form.');
+            return $this->render('client/new.html.twig', ['client' => $client, 'form' => $form,], new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY));
         }
-
-        return $this->render('client/new.html.twig', [
-            'client' => $client,
-            'form' => $form,
-        ]);
+        return $this->render('client/new.html.twig', ['client' => $client, 'form' => $form,]);
     }
 
     #[Route('/{id}', name: 'app_client_show', methods: ['GET'])]
@@ -79,7 +74,6 @@ final class ClientController extends AbstractController
             'client' => $client,
         ]);
     }
-
     #[Route('/{id}/edit', name: 'app_client_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Client $client, EntityManagerInterface $entityManager): Response
     {
@@ -91,20 +85,29 @@ final class ClientController extends AbstractController
         $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
-            if ($form->isValid()) {
-                $entityManager->flush();
-                $this->addFlash('success', 'Client profile modified successfully!');
-                return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
-            } else {
-                $this->addFlash('error', 'There was an error updating your client profile.');
-            }
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+            $this->addFlash('success', 'Client profile modified successfully!');
+
+            return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
         }
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $this->addFlash('error', 'Please fix the errors below in the form.');
+
+            // Turbo expects 422 to re-render the form inside the frame
+            return $this->render('client/edit.html.twig', [
+                'client' => $client,
+                'form' => $form,
+            ], new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY));
+        }
+
         return $this->render('client/edit.html.twig', [
             'client' => $client,
             'form' => $form,
         ]);
     }
+
 
     #[Route('/{id}', name: 'app_client_delete', methods: ['POST'])]
     public function delete(Request $request, Client $client, EntityManagerInterface $entityManager): Response
