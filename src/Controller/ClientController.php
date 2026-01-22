@@ -17,7 +17,7 @@ final class ClientController extends AbstractController
     #[Route(name: 'app_client_index', methods: ['GET'])]
     public function index(ClientRepository $clientRepository): Response
     {
-         return $this->render('client/index.html.twig');
+        return $this->render('client/index.html.twig');
         // return $this->render('client/index.html.twig', [
         //     'clients' => $clientRepository->findAll(),
         // ]);
@@ -49,16 +49,18 @@ final class ClientController extends AbstractController
         $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
-            if ($form->isValid()) {
-                $entityManager->persist($client);
-                $entityManager->flush();
-                $this->addFlash('success', 'Client created successfully!');
-                return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
-            } else {
-                $this->addFlash('error', 'There was an error creating your client profile.');
-            }
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($client);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Client created successfully!');
+            return $this->redirectToRoute('app_client_index');
         }
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $this->addFlash('error', 'Please correct the errors in the form.');
+        }
+
         return $this->render('client/new.html.twig', [
             'client' => $client,
             'form' => $form,
