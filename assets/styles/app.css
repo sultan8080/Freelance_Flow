@@ -47,6 +47,10 @@
     .text-primary {
         @apply text-[var(--color-primary)];
     }
+    .form-error {
+        display: block !important;
+        @apply text-red-600 text-xs font-medium mt-1 ml-1 bg-red-50/50  px-3 py-2 rounded-lg shadow-sm transition-all duration-200;
+    }
 }
 @layer utilities {
     .hidden {
