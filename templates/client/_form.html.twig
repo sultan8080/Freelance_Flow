@@ -22,7 +22,11 @@
                     'placeholder': 'John'
                 }
             }) }}
-			{{ form_errors(form.firstName) }}
+			{% if form.firstName.vars.errors|length > 0 %}
+				<p class="form-error">
+					{{ form_errors(form.firstName)|striptags }}
+				</p>
+			{% endif %}
 		</div>
 
 		<div class="group">
@@ -33,7 +37,11 @@
                     'placeholder': 'Doe'
                 }
             }) }}
-			{{ form_errors(form.lastName) }}
+			{% if form.lastName.vars.errors|length > 0 %}
+				<p class="form-error">
+					{{ form_errors(form.lastName)|striptags }}
+				</p>
+			{% endif %}
 		</div>
 	</div>
 </div>
@@ -50,6 +58,12 @@
                 'placeholder': 'Acme Corp'
             }
         }) }}
+		{% if form.companyName.vars.errors|length > 0 %}
+			<p class="form-error">
+				{{ form_errors(form.companyName)|striptags }}
+			</p>
+		{% endif %}
+
 	</div>
 
 	<div class="group">
@@ -79,6 +93,12 @@
                 'placeholder': '+33'
             }
         }) }}
+		{% if form.phoneNumber.vars.errors|length > 0 %}
+			<p class="form-error">
+				{{ form_errors(form.phoneNumber)|striptags }}
+			</p>
+		{% endif %}
+
 	</div>
 
 	<div class="group">
@@ -89,6 +109,11 @@
                 'placeholder': '123 Business Way'
             }
         }) }}
+        {% if form.address.vars.errors|length > 0 %}
+			<p class="form-error">
+				{{ form_errors(form.address)|striptags }}
+			</p>
+		{% endif %}
 	</div>
 </div>
 
