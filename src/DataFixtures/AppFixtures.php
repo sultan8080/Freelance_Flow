@@ -22,7 +22,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         // 1. Create 5 Users
-        for ($i = 1; $i <= 5; $i++) {
+        for ($i = 1; $i <= 2; $i++) {
             $user = new User();
             $user->setEmail("user$i@test.com");
             $user->setFirstName("prenom$i");
@@ -36,7 +36,7 @@ class AppFixtures extends Fixture
             $manager->persist($user);
 
             // 2. Create 5 Clients for EACH User
-            for ($j = 1; $j <= 20; $j++) {
+            for ($j = 1; $j <= 2; $j++) {
                 $client = new Client();
                 $client->setFirstName("prenom$j");
                 $client->setLastName("nom$j");

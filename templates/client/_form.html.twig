@@ -1,93 +1,100 @@
-{{ form_start(form, {'attr': {'class': 'space-y-8'}}) }}
-    
-    {# Section: Personal Information #}
-    <div class="space-y-6">
-        <h3 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4 ml-1">Personal Details</h3>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="group">
-                {{ form_label(form.firstName, 'First Name', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1 group-focus-within:text-primary transition-colors'}}) }}
-                {{ form_widget(form.firstName, {
-                    'attr': {
-                        'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm hover:border-slate-300 hover:bg-white/60 focus:bg-white focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 outline-none shadow-sm', 
-                        'placeholder': 'John'
-                    }
-                }) }}
-                {{ form_errors(form.firstName) }}
-            </div>
+{{ form_start(form, {
+    attr: {
+        class: 'space-y-8',
+        'data-turbo-frame': '_top'
+    }
+}) }}
 
-            <div class="group">
-                {{ form_label(form.lastName, 'Last Name', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1 group-focus-within:text-primary transition-colors'}}) }}
-                {{ form_widget(form.lastName, {
-                    'attr': {
-                        'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm hover:border-slate-300 hover:bg-white/60 focus:bg-white focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 outline-none shadow-sm', 
-                        'placeholder': 'Doe'
-                    }
-                }) }}
-                {{ form_errors(form.lastName) }}
-            </div>
-        </div>
-    </div>
+<div class="text-red-600 font-bold">
+    {{ form_errors(form) }}
+</div>
 
-    {# Section: Professional Details #}
-    <div class="space-y-6">
-        <h3 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4 ml-1">Professional Details</h3>
+{# Personal Details #}
+<div class="space-y-6">
+    <h3 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4 ml-1">Personal Details</h3>
 
-        <div class="group">
-            {{ form_label(form.companyName, 'Company Name', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1 group-focus-within:text-primary transition-colors'}}) }}
-            {{ form_widget(form.companyName, {
-                'attr': {
-                    'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm hover:border-slate-300 hover:bg-white/60 focus:bg-white focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 outline-none shadow-sm', 
-                    'placeholder': 'Acme Corp'
-                }
-            }) }}
-        </div>
-
-        <div class="group">
-            {{ form_label(form.email, 'Email Address', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1 group-focus-within:text-primary transition-colors'}}) }}
-            {{ form_widget(form.email, {
-                'attr': {
-                    'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm hover:border-slate-300 hover:bg-white/60 focus:bg-white focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 outline-none shadow-sm', 
-                    'placeholder': 'john@example.com'
-                }
-            }) }}
-        </div>
-    </div>
-
-    {# Section: Logistics #}
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="group">
-            {{ form_label(form.phoneNumber, 'Phone', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1 group-focus-within:text-primary transition-colors'}}) }}
-            {{ form_widget(form.phoneNumber, {
+            {{ form_label(form.firstName, 'First Name', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1'}}) }}
+            {{ form_widget(form.firstName, {
                 'attr': {
-                    'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm hover:border-slate-300 hover:bg-white/60 focus:bg-white focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 outline-none shadow-sm',
-                    'placeholder': '+33',
-                    'value': form.vars.value.phoneNumber|default('+33 ')
+                    'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm focus:ring-primary/10 focus:border-primary transition-all',
+                    'placeholder': 'John'
                 }
             }) }}
+            {{ form_errors(form.firstName) }}
         </div>
+
         <div class="group">
-            {{ form_label(form.address, 'Address', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1 group-focus-within:text-primary transition-colors'}}) }}
-            {{ form_widget(form.address, {
+            {{ form_label(form.lastName, 'Last Name', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1'}}) }}
+            {{ form_widget(form.lastName, {
                 'attr': {
-                    'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm hover:border-slate-300 hover:bg-white/60 focus:bg-white focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all duration-300 outline-none shadow-sm',
-                    'placeholder': '123 Business Way'
+                    'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm focus:ring-primary/10 focus:border-primary transition-all',
+                    'placeholder': 'Doe'
                 }
             }) }}
+            {{ form_errors(form.lastName) }}
         </div>
     </div>
-{# Actions #}
-<div
-	class="pt-8 flex items-center justify-end space-x-4">
-	{# Discard Button: Hollow / Ghost Style #}
-	<a href="{{ path('app_client_index') }}" class="px-6 py-3 text-sm font-bold text-slate-500 bg-transparent border-2 border-slate-200 rounded-2xl hover:border-slate-400 shadow-indigo-glow hover:text-slate-700 hover:bg-slate-100 hover:-translate-y-0.5 active:scale-95 transition-all duration-200">
-		Discard
-	</a>
-
-	{# Save Button: Solid / Primary Style #}
-	<button type="submit" class="group inline-flex items-center gap-2 px-8 py-3 bg-primary text-white font-bold rounded-2xl shadow-indigo-glow hover:bg-primary-hover hover:-translate-y-0.5 active:scale-95 transition-all duration-200">
-		<i class="fas fa-check text-xs opacity-70 group-hover:scale-110 transition-transform"></i>
-		{{ button_label|default('Save Client') }}
-	</button>
 </div>
+
+{# Professional Details #}
+<div class="space-y-6">
+    <h3 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4 ml-1">Professional Details</h3>
+
+    <div class="group">
+        {{ form_label(form.companyName, 'Company Name', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1'}}) }}
+        {{ form_widget(form.companyName, {
+            'attr': {
+                'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm focus:ring-primary/10 focus:border-primary transition-all',
+                'placeholder': 'Acme Corp'
+            }
+        }) }}
+    </div>
+
+    <div class="group">
+        {{ form_label(form.email, 'Email Address', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1'}}) }}
+        {{ form_widget(form.email, {
+            'attr': {
+                'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm focus:ring-primary/10 focus:border-primary transition-all',
+                'placeholder': 'john@example.com'
+            }
+        }) }}
+    </div>
+</div>
+
+{# Logistics #}
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="group">
+        {{ form_label(form.phoneNumber, 'Phone', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1'}}) }}
+        {{ form_widget(form.phoneNumber, {
+            'attr': {
+                'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm focus:ring-primary/10 focus:border-primary transition-all',
+                'placeholder': '+33'
+            }
+        }) }}
+    </div>
+
+    <div class="group">
+        {{ form_label(form.address, 'Address', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1'}}) }}
+        {{ form_widget(form.address, {
+            'attr': {
+                'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm focus:ring-primary/10 focus:border-primary transition-all',
+                'placeholder': '123 Business Way'
+            }
+        }) }}
+    </div>
+</div>
+
+{# Actions #}
+<div class="pt-8 flex items-center justify-end space-x-4">
+    <a href="{{ path('app_client_index') }}" class="px-6 py-3 text-sm font-bold text-slate-500 bg-transparent border-2 border-slate-200 rounded-2xl hover:bg-slate-100 transition-all">
+        Discard
+    </a>
+
+    <button type="submit" class="px-8 py-3 bg-primary text-white font-bold rounded-2xl hover:bg-primary-hover transition-all">
+        {{ button_label|default('Save Client') }}
+    </button>
+</div>
+
 {{ form_end(form) }}
