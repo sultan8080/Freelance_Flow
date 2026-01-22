@@ -1,14 +1,11 @@
 {% extends 'dashboard/base.html.twig' %}
 
-{% block title %}Clients Management
-{% endblock %}
+{% block title %}Clients Management{% endblock %}
 
 {% block dashboard_content %}
-
-
-	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 p2-10">
-		<turbo-frame id="client_frame">
-			<twig:ClientTable/>
-		</turbo-frame>
-	</div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 p2-10">
+        <turbo-frame id="client_frame">
+            <twig:ClientTable />
+        </turbo-frame>
+    </div>
 {% endblock %}
