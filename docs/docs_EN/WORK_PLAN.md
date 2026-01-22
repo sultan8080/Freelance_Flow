@@ -12,28 +12,31 @@
 
 ### Phase 2: Data Modeling & Business Logic
 - [x] **Database Design:** Create and document the database schema (MCD, MLD, ERD) via Mocodo.net.
-- [x] Entity Client: Create the entity + link to User (Freelancer).
-- [x] Entity Invoice: Create the entity with fields (number, date, status, due date).
-- [x] Entity InvoiceItem: Create the line items (description, quantity, unit price).
-- [x] Data Security (Voters): Ensure a Freelancer can only see their own clients and invoices.
+- [x] **Entity Client:** Create the entity + link to User (Freelancer).
+- [x] **Entity Invoice:** Create the entity with fields (number, date, status, due date).
+- [x] **Entity InvoiceItem:** Create the line items (description, quantity, unit price).
+- [x] **Data Security (Voters):** Ensure a Freelancer can only see their own clients and invoices.
 
 ### Phase 3: The Complete CRM & Profile Build
-- [x] Role Setup: Define ROLE_ADMIN vs ROLE_USER in security.yaml.
-- [x] Profile Form (UserType): Create a form for professional data (SIRET, VAT, Company Name, Address).
-- [x] Account Settings: Build SettingsController to allow freelancers to complete their professional identity.
-- [x] Client Form (ClientType): Create the form to add and edit customers.
-- [x] Client CRUD: Generate the interface to list, view, and delete clients.
-- [x] Basic Filtering: Ensure the list only shows clients linked to a user (pre-Voter stage).
+- [x] **Role Setup:** Define ROLE_ADMIN vs ROLE_USER in security.yaml.
+- [x] **Profile Form (UserType):** Create a form for professional data (SIRET, VAT, Company Name, Address).
+- [x] **Account Settings:** Build SettingsController to allow freelancers to complete their professional identity.
+- [x] **Client Form (ClientType):** Create the form to add and edit customers.
+- [x] **Client CRUD:** Generate the interface to list, view, and delete clients.
+- [x] **Basic Filtering:** Ensure the list only shows clients linked to a user (pre-Voter stage).
 
-### Phase 4: Global UI & Security 
-- [x] Global Sidebar Layout: Refactor base.html.twig with a professional navigation (Dashboard, Clients, Invoices, Settings).
-- [x] Freelancer Dashboard: Create DashboardController for the home landing page.
-- [x] Vanilla JS Design System: Integrate the custom "Glassmorphism" dashboard shell with native JS sidebar/dropdown logic.
-- [x] Stimulus Refactor: Converted Vanilla JS into layout_controller.js for a robust, event-driven architecture.
-- [ ] Security Voters: Implement ClientVoter and InvoiceVoter for multi-tenant data isolation.
-- [ ] Access Control: Finalize security.yaml to protect all authenticated routes.
+### Phase 4: Global UI, Security & Data Integrity
+- [x] **Global Sidebar Layout:** Refactor `base.html.twig` with a professional navigation (Dashboard, Clients, Invoices, Settings).
+- [x] **Freelancer Dashboard:** Create `DashboardController` for the home landing page.
+- [x] **Vanilla JS Design System:** Integrate the custom Glassmorphism dashboard shell with native JS sidebar/dropdown logic.
+- [x] **Stimulus Refactor:** Convert Vanilla JS into `layout_controller.js` for a robust, event‑driven architecture.
+- [x] **Basic Entity Validation:** Add essential server‑side validation rules (NotBlank, Email, Length, UniqueEntity) to stabilize Client CRUD.
+- [ ] **Security Voters:** Implement `ClientVoter` and `InvoiceVoter` for multi‑tenant data isolation.
+- [ ] **Access Control:** Finalize `security.yaml` to protect all authenticated routes.
+
 
 ### Phase 5: Invoicing Engine (Backend & Logic)
+- [ ] **Invoice CRUD:** Generate the pages for creating, editing, viewing, and deleting invoices.
 - [ ] **Entity Audit:** Verify relationships between `User`, `Client`, `Invoice`, and `InvoiceItem`.
 - [ ] **Numbering Service:** Sequential invoice ID generator (e.g., `FF-2026-001`).
 - [ ] **Financial Service:** Logic for Subtotal, VAT, and Total TTC calculations.
