@@ -12,30 +12,33 @@
 
 ### Phase 2 : Modélisation des Données & Logique Métier
 - [x] **Conception de base de données :** Créer et documenter le schéma de données (MCD, MLD, ERD) via mocodo.net.
-- [x] Mise à jour User : Ajouter les informations professionnelles au Freelancer (Nom complet, Adresse, SIRET/TVA, Téléphone).
-- [x] Entité Client : Créer l'entité + établir la relation ManyToOne avec User.
-- [x] Entité Invoice (Facture) : Créer l'entité avec les champs (numéro, date, statut, date d'échéance).
-- [x] Entité InvoiceItem (Lignes) : Créer les lignes de facture (description, quantité, prix unitaire).
-- [x] Sécurité des données (Voters) : S'assurer qu'un Freelancer ne peut voir que ses propres clients et factures.
+- [x] **Mise à jour User :** Ajouter les informations professionnelles au Freelancer (Nom complet, Adresse, SIRET/TVA, Téléphone).
+- [x] **Entité Client :** Créer l'entité + établir la relation ManyToOne avec User.
+- [x] **Entité Invoice (Facture) :** Créer l'entité avec les champs (numéro, date, statut, date d'échéance).
+- [x] **Entité InvoiceItem (Lignes) :** Créer les lignes de facture (description, quantité, prix unitaire).
+- [x] **Sécurité des données (Voters) :** S'assurer qu'un Freelancer ne peut voir que ses propres clients et factures.
 
 ### Phase 3 : Implémentation - CRM & Profil Freelance
-- [x] Configuration des Rôles : Définir la hiérarchie ROLE_ADMIN vs ROLE_USER dans le fichier security.yaml.
-- [x] Formulaire de Profil (UserType) : Créer un formulaire pour les données professionnelles (SIRET, TVA, Nom de l'entreprise, Adresse).
-- [x] Paramètres du Compte : Créer le SettingsController pour permettre aux freelances de compléter leur identité professionnelle.
-- [x] Formulaire Client (ClientType) : Créer le formulaire pour ajouter et modifier des clients.
-- [x] CRUD Client : Générer l'interface (Liste, Vue, Modification, Suppression) pour les clients.
-- [x] Filtrage de Base : S'assurer que la liste n'affiche que les clients liés à l'utilisateur connecté (étape avant les Voters).
+- [x] **Configuration des Rôles :** Définir la hiérarchie ROLE_ADMIN vs ROLE_USER dans le fichier security.yaml.
+- [x] **Formulaire de Profil (UserType) :** Créer un formulaire pour les données professionnelles (SIRET, TVA, Nom de l'entreprise, Adresse).
+- [x] **Paramètres du Compte :** Créer le SettingsController pour permettre aux freelances de compléter leur identité professionnelle.
+- [x] **Formulaire Client (ClientType) :** Créer le formulaire pour ajouter et modifier des clients.
+- [x] **CRUD Client :** Générer l'interface (Liste, Vue, Modification, Suppression) pour les clients.
+- [x] **Filtrage de Base :** S'assurer que la liste n'affiche que les clients liés à l'utilisateur connecté (étape avant les Voters).
 
 
-### Phase 4 : Interface Globale & Sécurité
- - [x] Mise en page globale (Sidebar) : Refondre base.html.twig avec une navigation professionnelle (Tableau de bord, Clients, Factures, Paramètres).
- - [x] Tableau de bord Freelance : Créer le DashboardController pour la page d'accueil utilisateur.
- - [x] Système de Design Vanilla JS : Intégrer la structure de tableau de bord "Glassmorphism" avec une logique native JS pour la barre latérale et les menus déroulants.
- - [x] Refactorisation Stimulus : Conversion du JS Vanilla en contrôleur layout_controller.js pour une architecture robuste.
- - [ ] Security Voters : Implémenter ClientVoter et InvoiceVoter pour l'isolation des données multi-locataires (multi-tenant).
- - [ ] Contrôle d'Accès : Finaliser security.yaml pour protéger toutes les routes authentifiées.
+### Phase 4 : Interface Globale, Sécurité & Intégrité des Données
+- [x] **Mise en page globale (Sidebar) :** Refondre `base.html.twig` avec une navigation professionnelle (Tableau de bord, Clients, Factures, Paramètres).
+- [x] **Tableau de bord Freelance :** Créer le `DashboardController` pour la page d'accueil utilisateur.
+- [x] **Système de Design Vanilla JS :** Intégrer la structure de tableau de bord "Glassmorphism" avec une logique native JS pour la barre latérale et les menus déroulants.
+- [x] **Refactorisation Stimulus :** Conversion du JS Vanilla en contrôleur `layout_controller.js` pour une architecture robuste.
+- [x] **Validation Basique des Entités :** Ajouter les règles essentielles de validation serveur (NotBlank, Email, Length, UniqueEntity) pour stabiliser le CRUD Client.
+- [ ] **Security Voters :** Implémenter `ClientVoter` pour l’isolation des données multi‑locataires.
+- [ ] **Contrôle d’Accès :** Finaliser `security.yaml` pour protéger toutes les routes nécessitant une authentification.
+
 
 ### Phase 5 : Moteur de Facturation (Backend & Logique)
+- [ ] **CRUD Facture :** Générer les pages de création, édition, affichage et suppression des factures.
 - [ ] **Audit des Entités :** Vérification des relations entre `User`, `Client`, `Invoice`, et `InvoiceItem`.
 - [ ] **Service de Numérotation :** Générateur de numéros de facture (ex: `FF-2026-001`).
 - [ ] **Service Financier :** Logique de calcul du Sous-total, TVA, et Total TTC.
