@@ -35,8 +35,8 @@ Phase 4: Global Interface, Security & Data Integrity
 - [x] **Access Control:** Finalize security.yaml to protect all routes requiring authentication.
 
 Phase 5: Invoicing Engine (Backend & Logic)
-- [ ] **Entity Refactor:** Add a direct `User` relation to the `Invoice` entity.
-- [ ] **Invoice Subject:** Add `project_title` to the `Invoice` entity to group line items under a project.
+- [x] **Entity Refactor:** Add a direct `User` relation to the `Invoice` entity.
+- [x] **Invoice Subject:** Add `project_title` to the `Invoice` entity to group line items under a project.
 - [ ] **Invoice CRUD:** Generate the creation, editing, viewing, and deletion pages for invoices.
 - [ ] **Security Voter:** Update `InvoiceVoter` to use direct user ownership.
 - [ ] **Numbering Service:** Implement `InvoiceNumberGenerator` (e.g., FF-2026-001).

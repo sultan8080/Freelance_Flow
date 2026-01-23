@@ -44,8 +44,15 @@ class Invoice
     /**
      * @var Collection<int, InvoiceItem>
      */
-    #[ORM\OneToMany(targetEntity: InvoiceItem::class, mappedBy: 'invoice')]
+    #[ORM\OneToMany(targetEntity: InvoiceItem::class, mappedBy: 'invoice', orphanRemoval: true)]
     private Collection $invoiceItems;
+
+    #[ORM\ManyToOne(inversedBy: 'invoices')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $projectTitle = null;
 
     public function __construct()
     {
@@ -179,6 +186,30 @@ class Invoice
                 $invoiceItem->setInvoice(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getProjectTitle(): ?string
+    {
+        return $this->projectTitle;
+    }
+
+    public function setProjectTitle(?string $projectTitle): static
+    {
+        $this->projectTitle = $projectTitle;
 
         return $this;
     }
