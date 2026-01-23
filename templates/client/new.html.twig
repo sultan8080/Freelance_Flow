@@ -1,23 +1,59 @@
 {% extends 'dashboard/base.html.twig' %}
 
-{% block title %}Create New Client
-{% endblock %}
+{% block title %}Create New Client{% endblock %}
 
 {% block dashboard_content %}
-	<turbo-frame id="client_frame">
-		<div class="max-w-5xl mx-auto">
-			<a href="{{ path('app_client_index') }}" class="text-slate-400 font-bold mb-6 block hover:text-primary">
-				<i class="fas fa-arrow-left mr-2"></i>
-				Back to list
-			</a>
+    <div class="max-w-5xl mx-auto">
+        <a href="{{ path('app_client_index') }}" class="text-slate-400 font-bold mb-6 block hover:text-primary">
+            <i class="fas fa-arrow-left mr-2"></i>
+            Back to list
+        </a>
 
-			<div class="glass-card rounded-bento p-8">
-				<p class="text-slate-500 text-base md:text-lg mb-4 md:mb-8">
-					Add a new client
-				</p>
+        <div class="glass-card rounded-bento p-8">
+            <p class="text-slate-500 text-base md:text-lg mb-4 md:mb-8">
+                Add a new client
+            </p>
 
-				{{ include('client/_form.html.twig', { form: form }) }}
-			</div>
-		</div>
-	</turbo-frame>
+            {# The form partial #}
+            {% block client_form %}
+                {{ include('client/_form.html.twig', { form: form }) }}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}
+
+{# ------------------------------------------------------------ #}
+{# Turbo Stream: SUCCESS (official UX Turbo pattern)            #}
+{# ------------------------------------------------------------ #}
+{% block success_stream %}
+    <turbo-stream action="append" targets="#flash-messages">
+        <template>
+            {% include '_partials/_flash_messages.html.twig' %}
+        </template>
+    </turbo-stream>
+
+    {# Reset the form after success #}
+    <turbo-stream action="replace" targets="form[name=client]">
+        <template>
+            {{ block('client_form') }}
+        </template>
+    </turbo-stream>
+{% endblock %}
+
+{# ------------------------------------------------------------ #}
+{# Turbo Stream: ERROR (official UX Turbo pattern)              #}
+{# ------------------------------------------------------------ #}
+{% block error_stream %}
+    <turbo-stream action="append" targets="#flash-messages">
+        <template>
+            {% include '_partials/_flash_messages.html.twig' %}
+        </template>
+    </turbo-stream>
+
+    {# Re-render the form with errors #}
+    <turbo-stream action="replace" targets="form[name=client]">
+        <template>
+            {{ block('client_form') }}
+        </template>
+    </turbo-stream>
 {% endblock %}

@@ -19,80 +19,59 @@ final class ClientController extends AbstractController
     public function index(ClientRepository $clientRepository): Response
     {
         return $this->render('client/index.html.twig');
-        // return $this->render('client/index.html.twig', [
-        //     'clients' => $clientRepository->findAll(),
-        // ]);
     }
-    /*
-    public function index(ClientRepository $clientRepository): Response
-    {
-        // Only show clients linked to THIS user
-        return $this->render('client/index.html.twig', [
-            'clients' => $clientRepository->findBy(['user' => $this->getUser()]),
-        ]);
-    }
-
-    public function index(ClientRepository $clientRepository): Response
-    {
-        return $this->render('client/index.html.twig', [
-            'clients' => $clientRepository->findAll(),
-        ]);
-    }
- */
 
     #[Route('/new_client', name: 'app_client_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request): Response
     {
         $client = new Client();
-        $client->setUser($this->getUser());
-
         $form = $this->createForm(ClientType::class, $client);
+
+        $emptyForm = clone $form;
         $form->handleRequest($request);
 
-        // SUCCESS
+        // 1. Handle invalid form with Turbo Stream
+        if ($form->isSubmitted() && !$form->isValid()) {
+            if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
+                $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+
+                return $this->renderBlock('client/new.html.twig', 'error_stream', [
+                    'form' => $form,
+                ]);
+            }
+        }
+
+        // 2. Handle valid form
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($client);
             $entityManager->flush();
 
             $this->addFlash('success', 'Client created successfully!');
 
-            //turbo stream response
-            if ($request->headers->has('Turbo-Frame')) {
-                return new Response($this->renderView('dashboard/_flash_success.stream.html.twig'), 200, ['Content-Type' => TurboBundle::STREAM_MEDIA_TYPE]);
+            // Turbo Stream success
+            if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
+                $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+
+                return $this->renderBlock('client/new.html.twig', 'success_stream', [
+                    'form' => $emptyForm,
+                    'client' => $client,
+                ]);
             }
 
-            return $this->redirectToRoute('app_client_index');
+            // Normal redirect (VERY IMPORTANT)
+            return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        // INVALID
-        if ($form->isSubmitted() && !$form->isValid()) {
-            $this->addFlash('error', 'Please correct the errors below in the form.');
-
-            return $this->render(
-                'client/new.html.twig',
-                [
-                    'client' => $client,
-                    'form' => $form,
-                ],
-                new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
-            );
-        }
-
-        // INITIAL LOAD
+        // 3. First page load
         return $this->render('client/new.html.twig', [
-            'client' => $client,
             'form' => $form,
         ]);
     }
 
 
-
-
-
     #[Route('/{id}', name: 'app_client_show', methods: ['GET'])]
     public function show(Client $client): Response
     {
-        // SECURITY CHECK: Ensure this client belongs to the logged-in user
         if ($client->getUser() !== $this->getUser()) {
             throw $this->createAccessDeniedException('You cannot view this client\'s information.');
         }
@@ -101,10 +80,10 @@ final class ClientController extends AbstractController
             'client' => $client,
         ]);
     }
+
     #[Route('/{id}/edit', name: 'app_client_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Client $client, EntityManagerInterface $entityManager): Response
     {
-        // SECURITY CHECK: Ensure this client belongs to the logged-in user
         if ($client->getUser() !== $this->getUser()) {
             throw $this->createAccessDeniedException('You cannot edit this client.');
         }
@@ -116,17 +95,16 @@ final class ClientController extends AbstractController
             $entityManager->flush();
             $this->addFlash('success', 'Client profile modified successfully!');
 
-            return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_client_index');
         }
 
         if ($form->isSubmitted() && !$form->isValid()) {
             $this->addFlash('error', 'Please fix the errors below in the form.');
 
-            // Turbo expects 422 to re-render the form inside the frame
             return $this->render('client/edit.html.twig', [
                 'client' => $client,
                 'form' => $form,
-            ], new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY));
+            ], new Response(null, 422));
         }
 
         return $this->render('client/edit.html.twig', [
@@ -135,16 +113,13 @@ final class ClientController extends AbstractController
         ]);
     }
 
-
     #[Route('/{id}', name: 'app_client_delete', methods: ['POST'])]
     public function delete(Request $request, Client $client, EntityManagerInterface $entityManager): Response
     {
-        // 1. SECURITY CHECK: Ensure this client belongs to the logged-in user
         if ($client->getUser() !== $this->getUser()) {
             throw $this->createAccessDeniedException('You cannot delete this client.');
         }
 
-        // 2. CSRF TOKEN CHECK: Prevents cross-site request forgery
         if ($this->isCsrfTokenValid('delete' . $client->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($client);
             $entityManager->flush();
@@ -154,6 +129,6 @@ final class ClientController extends AbstractController
             $this->addFlash('error', 'Invalid security token. Deletion cancelled.');
         }
 
-        return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_client_index');
     }
 }

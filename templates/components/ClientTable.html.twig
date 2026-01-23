@@ -18,7 +18,7 @@
     </div>
 
     <div class="shrink-0">
-        <a href="{{ path('app_client_new')}}" data-turbo-frame="_top" class="inline-flex items-center justify-center whitespace-nowrap bg-primary text-white px-4 md:px-6 py-2.5 rounded-2xl text-xs md:text-sm font-semibold hover:bg-primary-hover shadow-indigo-glow transition-all hover:-translate-y-0.5">
+        <a href="{{ path('app_client_new')}}" class="inline-flex items-center justify-center whitespace-nowrap bg-primary text-white px-4 md:px-6 py-2.5 rounded-2xl text-xs md:text-sm font-semibold hover:bg-primary-hover shadow-indigo-glow transition-all hover:-translate-y-0.5">
             <i class="fas fa-plus mr-2"></i>
             Add Client
         </a>
@@ -68,15 +68,7 @@
 							</td>
 
 							{# Actions: Always Visible Hide the vertical divider on mobile 
-																																											<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-																																												<div class="flex justify-end items-center space-x-2 md:space-x-3">
-																																													<a href="{{ path('app_client_show', {'id': client.id}) }}" class="text-primary hover:underline font-semibold">View</a>
-																																													
-																																													<span class="hidden md:inline text-slate-200">|</span>
-																																													<a href="{{ path('app_client_edit', {'id': client.id}) }}" class="text-slate-400 hover:text-slate-600 font-semibold">Edit</a>
-																																												</div>
-																																											</td>
-																																			#}
+																													#}
 							<td class="px-6 py-4 text-right">
 								<div class="flex justify-end gap-2">
 									<a href="{{ path('app_client_show', {id: client.id}) }}" class="p-2 hover:bg-white rounded-lg text-slate-400 hover:text-primary transition-all">
