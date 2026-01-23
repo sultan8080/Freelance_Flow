@@ -2,28 +2,23 @@
 	<!-- component HTML -->
 
 	<p class="text-slate-500 text-base md:text-lg mb-4 md:mb-8">
-    Manage your clients Information
-</p>
+		Manage your clients Information
+	</p>
 
-<div class="flex flex-row items-center gap-4 w-full mb-6 md:mb-10">
-    
-    <div class="flex-1">
-        <input 
-            type="text" 
-            data-model="query" 
-            placeholder="  Search clients..." 
-            class="w-full pl-11 pr-12 py-2.5 rounded-2xl border border-slate-200 bg-white/50 backdrop-blur-md 
-                   focus:ring-4 focus:ring-primary/10 transition-all outline-none text-sm md:text-base"
-        >
-    </div>
+	<div class="flex flex-row items-center gap-4 w-full mb-6 md:mb-10">
 
-    <div class="shrink-0">
-        <a href="{{ path('app_client_new')}}" class="inline-flex items-center justify-center whitespace-nowrap bg-primary text-white px-4 md:px-6 py-2.5 rounded-2xl text-xs md:text-sm font-semibold hover:bg-primary-hover shadow-indigo-glow transition-all hover:-translate-y-0.5">
-            <i class="fas fa-plus mr-2"></i>
-            Add Client
-        </a>
-    </div>
-</div>
+		<div class="flex-1">
+			<input type="text" data-model="query" placeholder="  Search clients..." class="w-full pl-11 pr-12 py-2.5 rounded-2xl border border-slate-200 bg-white/50 backdrop-blur-md
+			                   focus:ring-4 focus:ring-primary/10 transition-all outline-none text-sm md:text-base">
+		</div>
+
+		<div class="shrink-0">
+			<a href="{{ path('app_client_new')}}" class="inline-flex items-center justify-center whitespace-nowrap bg-primary text-white px-4 md:px-6 py-2.5 rounded-2xl text-xs md:text-sm font-semibold hover:bg-primary-hover shadow-indigo-glow transition-all hover:-translate-y-0.5">
+				<i class="fas fa-plus mr-2"></i>
+				Add Client
+			</a>
+		</div>
+	</div>
 
 	{# Table Card #}
 	<div class="glass-card rounded-bento overflow-hidden">
@@ -36,8 +31,8 @@
 						<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-600">Client / Company</th>
 
 						{# Hidden on Mobile, Visible on Tablet/Desktop #}
-						<th class="hidden md:table-cell px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-600">Email</th>
-						<th class="hidden md:table-cell px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-600">Contact Details</th>
+						<th class="!hidden md:!table-cell !whitespace-nowrap px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-600">Email</th>
+						<th class="!hidden md:!table-cell !whitespace-nowrap px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-600">Contact Details</th>
 
 						{# Always Visible #}
 						<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-600 text-right">Actions</th>
@@ -55,12 +50,12 @@
 							</td>
 
 							{# Email: Hidden on Mobile #}
-							<td class="hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm text-slate-600">
+							<td class="!hidden md:!table-cell px-6 py-4 !whitespace-nowrap text-sm text-slate-600">
 								{{ client.email }}
 							</td>
 
 							{# Contact: Hidden on Mobile #}
-							<td class="hidden md:table-cell px-6 py-4 text-sm text-slate-600">
+							<td class=" !hidden md:!table-cell !whitespace-nowrap  px-6 py-4 text-sm text-slate-600">
 								<div class="flex flex-col">
 									<span class="font-medium text-slate-700">{{ client.phoneNumber }}</span>
 									<span class="text-xs text-slate-400 truncate max-w-[200px]">{{ client.address }}</span>
@@ -68,7 +63,7 @@
 							</td>
 
 							{# Actions: Always Visible Hide the vertical divider on mobile 
-																													#}
+																																				#}
 							<td class="px-6 py-4 text-right">
 								<div class="flex justify-end gap-2">
 									<a href="{{ path('app_client_show', {id: client.id}) }}" class="p-2 hover:bg-white rounded-lg text-slate-400 hover:text-primary transition-all">

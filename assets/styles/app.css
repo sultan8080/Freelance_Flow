@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@source "../../templates/**/*.twig";
+@source "../../src/Controller/**/*.php";
 
 @theme {
     /* Synchronization: Primary now inherits the vibrant Tailwind Indigo */
@@ -52,12 +54,3 @@
         @apply text-red-600 text-xs font-medium mt-1 ml-1 transition-all duration-200;
     }
 }
-@layer utilities {
-    .hidden {
-        display: none !important;
-    }
-    .whitespace-nowrap {
-        white-space: nowrap !important;
-    }
-}
- 

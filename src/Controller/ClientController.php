@@ -18,55 +18,44 @@ final class ClientController extends AbstractController
     #[Route(name: 'app_client_index', methods: ['GET'])]
     public function index(ClientRepository $clientRepository): Response
     {
-        return $this->render('client/index.html.twig');
+        return $this->render('client/index.html.twig', [
+            'clients' => $clientRepository->findBy(['user' => $this->getUser()]),
+        ]);
     }
 
     #[Route('/new_client', name: 'app_client_new', methods: ['GET', 'POST'])]
-    public function new(Request $request): Response
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $client = new Client();
-        $form = $this->createForm(ClientType::class, $client);
+        $client->setUser($this->getUser());
 
-        $emptyForm = clone $form;
+        $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
 
-        // 1. Handle invalid form with Turbo Stream
-        if ($form->isSubmitted() && !$form->isValid()) {
-            if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
-                $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
-
-                return $this->renderBlock('client/new.html.twig', 'error_stream', [
-                    'form' => $form,
-                ]);
-            }
-        }
-
-        // 2. Handle valid form
+        // 1. Handle Successful Submission
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($client);
             $entityManager->flush();
-
             $this->addFlash('success', 'Client created successfully!');
 
-            // Turbo Stream success
-            if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
-                $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
-
-                return $this->renderBlock('client/new.html.twig', 'success_stream', [
-                    'form' => $emptyForm,
-                    'client' => $client,
-                ]);
-            }
-
-            // Normal redirect (VERY IMPORTANT)
             return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        // 3. First page load
+        // 2. Handle Validation Errors (Turbo needs 422)
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $this->addFlash('error', 'Please correct the errors below in the form.');
+
+            return $this->render('client/new.html.twig', [
+                'form' => $form,
+            ], new Response(null, 422));
+        }
+
+        // 3. MANDATORY: The initial GET request (loading the page for the first time)
         return $this->render('client/new.html.twig', [
             'form' => $form,
         ]);
     }
+
 
 
     #[Route('/{id}', name: 'app_client_show', methods: ['GET'])]
@@ -95,7 +84,7 @@ final class ClientController extends AbstractController
             $entityManager->flush();
             $this->addFlash('success', 'Client profile modified successfully!');
 
-            return $this->redirectToRoute('app_client_index');
+            return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
         }
 
         if ($form->isSubmitted() && !$form->isValid()) {
