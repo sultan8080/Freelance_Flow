@@ -14,46 +14,10 @@
                 Add a new client
             </p>
 
-            {# The form partial #}
+            {# The form block #}
             {% block client_form %}
                 {{ include('client/_form.html.twig', { form: form }) }}
             {% endblock %}
         </div>
     </div>
-{% endblock %}
-
-{# ------------------------------------------------------------ #}
-{# Turbo Stream: SUCCESS (official UX Turbo pattern)            #}
-{# ------------------------------------------------------------ #}
-{% block success_stream %}
-    <turbo-stream action="append" targets="#flash-messages">
-        <template>
-            {% include '_partials/_flash_messages.html.twig' %}
-        </template>
-    </turbo-stream>
-
-    {# Reset the form after success #}
-    <turbo-stream action="replace" targets="form[name=client]">
-        <template>
-            {{ block('client_form') }}
-        </template>
-    </turbo-stream>
-{% endblock %}
-
-{# ------------------------------------------------------------ #}
-{# Turbo Stream: ERROR (official UX Turbo pattern)              #}
-{# ------------------------------------------------------------ #}
-{% block error_stream %}
-    <turbo-stream action="append" targets="#flash-messages">
-        <template>
-            {% include '_partials/_flash_messages.html.twig' %}
-        </template>
-    </turbo-stream>
-
-    {# Re-render the form with errors #}
-    <turbo-stream action="replace" targets="form[name=client]">
-        <template>
-            {{ block('client_form') }}
-        </template>
-    </turbo-stream>
 {% endblock %}
