@@ -34,7 +34,7 @@
 - [x] **Refactorisation Stimulus :** Conversion du JS Vanilla en contrôleur `layout_controller.js` pour une architecture robuste.
 - [x] **Validation Basique des Entités :** Ajouter les règles essentielles de validation serveur (NotBlank, Email, Length, UniqueEntity) pour stabiliser le CRUD Client.
 - [x] **Security Voters :** Implémenter `ClientVoter` pour l’isolation des données multi‑locataires.
-- [ ] **Contrôle d’Accès :** Finaliser `security.yaml` pour protéger toutes les routes nécessitant une authentification.
+- [x] **Contrôle d’Accès :** Finaliser `security.yaml` pour protéger toutes les routes nécessitant une authentification.
 
 
 ### Phase 5 : Moteur de Facturation (Backend & Logique)

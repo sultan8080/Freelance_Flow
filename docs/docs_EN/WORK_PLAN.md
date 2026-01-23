@@ -32,7 +32,7 @@ Phase 4: Global Interface, Security & Data Integrity
 - [x] **Stimulus Refactor:** Convert the Vanilla JS into a layout_controller.js Stimulus controller for a robust architecture.
 - [x] **Basic Entity Validation:** Add essential server‑side validation rules (NotBlank, Email, Length, UniqueEntity) to stabilize the Client CRUD.
 - [x] **Security Voters:** Implement ClientVoter for multi‑tenant data isolation.
-- [ ] **Access Control:** Finalize security.yaml to protect all routes requiring authentication.
+- [x] **Access Control:** Finalize security.yaml to protect all routes requiring authentication.
 
 Phase 5: Invoicing Engine (Backend & Logic)
 - [ ] **Invoice CRUD:** Generate the creation, editing, viewing, and deletion pages for invoices.
