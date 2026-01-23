@@ -1,7 +1,6 @@
 {{ form_start(form, {
     attr: {
-        class: 'space-y-8',
-        'data-turbo-frame': '_top'
+        class: 'space-y-8'
     }
 }) }}
 
@@ -109,7 +108,7 @@
                 'placeholder': '123 Business Way'
             }
         }) }}
-        {% if form.address.vars.errors|length > 0 %}
+		{% if form.address.vars.errors|length > 0 %}
 			<p class="form-error">
 				{{ form_errors(form.address)|striptags }}
 			</p>

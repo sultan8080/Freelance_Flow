@@ -1,0 +1,11 @@
+{# 1. Append the flash message #}
+<turbo-stream action="append" target="flash-messages">
+    <template>
+        {% include '_partials/_flash_messages.html.twig' %}
+    </template>
+</turbo-stream>
+{# 2. Optionally, you can add a turbo-stream to remove the flash message after a delay using Stimulus #}
+{# <turbo-stream action="remove" target="flash-messages">
+    <template>
+        <div data-controller="flash" data-flash-duration-value="3000"></div>
+    </template> #}

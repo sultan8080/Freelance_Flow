@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\UX\Turbo\TurboBundle;
 
 #[Route('/client')]
 final class ClientController extends AbstractController
@@ -37,30 +38,56 @@ final class ClientController extends AbstractController
             'clients' => $clientRepository->findAll(),
         ]);
     }
-*/
+ */
+
     #[Route('/new_client', name: 'app_client_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $client = new Client();
-
-        // AUTOMATICALLY set the user to the current logged-in user
         $client->setUser($this->getUser());
 
         $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
 
+        // SUCCESS
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($client);
             $entityManager->flush();
+
             $this->addFlash('success', 'Client created successfully!');
-            return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
+
+            //turbo stream response
+            if ($request->headers->has('Turbo-Frame')) {
+                return new Response($this->renderView('dashboard/_flash_success.stream.html.twig'), 200, ['Content-Type' => TurboBundle::STREAM_MEDIA_TYPE]);
+            }
+
+            return $this->redirectToRoute('app_client_index');
         }
+
+        // INVALID
         if ($form->isSubmitted() && !$form->isValid()) {
             $this->addFlash('error', 'Please correct the errors below in the form.');
-            return $this->render('client/new.html.twig', ['client' => $client, 'form' => $form,], new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY));
+
+            return $this->render(
+                'client/new.html.twig',
+                [
+                    'client' => $client,
+                    'form' => $form,
+                ],
+                new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
+            );
         }
-        return $this->render('client/new.html.twig', ['client' => $client, 'form' => $form,]);
+
+        // INITIAL LOAD
+        return $this->render('client/new.html.twig', [
+            'client' => $client,
+            'form' => $form,
+        ]);
     }
+
+
+
+
 
     #[Route('/{id}', name: 'app_client_show', methods: ['GET'])]
     public function show(Client $client): Response
