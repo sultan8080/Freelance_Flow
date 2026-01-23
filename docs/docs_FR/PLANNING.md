@@ -38,11 +38,14 @@
 
 
 ### Phase 5 : Moteur de Facturation (Backend & Logique)
-- [ ] **CRUD Facture :** Générer les pages de création, édition, affichage et suppression des factures.
-- [ ] **Audit des Entités :** Vérification des relations entre `User`, `Client`, `Invoice`, et `InvoiceItem`.
-- [ ] **Service de Numérotation :** Générateur de numéros de facture (ex: `FF-2026-001`).
-- [ ] **Service Financier :** Logique de calcul du Sous-total, TVA, et Total TTC.
-- [ ] **Estimateur URSSAF :** Calcul des charges sociales prévisionnelles (21.2%).
+- [ ] **Refactorisation d’entité :** Ajouter une relation directe `User` à l’entité `Invoice`.
+- [ ] **Sujet de facture :** Ajouter `project_title` à l’entité `Invoice` pour regrouper les lignes par projet.
+- [ ] **CRUD Facture :** Générer les pages de création, modification, visualisation et suppression des factures.
+- [ ] **Security Voter :** Mettre à jour `InvoiceVoter` pour utiliser la propriété directe de l’utilisateur.
+- [ ] **Service de numérotation :** Implémenter `InvoiceNumberGenerator` (ex. FF-2026-001).
+- [ ] **Service financier :** Implémenter `InvoiceCalculator` pour le sous‑total, la TVA et les totaux.
+- [ ] **Estimateur URSSAF :** Calculer les charges sociales prévisionnelles (21,2%).
+
 
 ### Phase 6 : Facturation Dynamique (Interface UI)
 - [ ] **Formulaire Facture :** Implémentation via Symfony `CollectionType`.

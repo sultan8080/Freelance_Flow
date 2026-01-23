@@ -35,11 +35,14 @@ Phase 4: Global Interface, Security & Data Integrity
 - [x] **Access Control:** Finalize security.yaml to protect all routes requiring authentication.
 
 Phase 5: Invoicing Engine (Backend & Logic)
+- [ ] **Entity Refactor:** Add a direct `User` relation to the `Invoice` entity.
+- [ ] **Invoice Subject:** Add `project_title` to the `Invoice` entity to group line items under a project.
 - [ ] **Invoice CRUD:** Generate the creation, editing, viewing, and deletion pages for invoices.
-- [ ] **Entity Audit:** Verify relationships between User, Client, Invoice, and InvoiceItem.
-- [ ] **Numbering Service:** Implement an invoice number generator (e.g., FF-2026-001).
-- [ ] **Financial Service:** Implement logic for Subtotal, VAT, and Total calculations.
+- [ ] **Security Voter:** Update `InvoiceVoter` to use direct user ownership.
+- [ ] **Numbering Service:** Implement `InvoiceNumberGenerator` (e.g., FF-2026-001).
+- [ ] **Financial Service:** Implement `InvoiceCalculator` for subtotal, VAT, and totals.
 - [ ] **URSSAF Estimator:** Compute projected social charges (21.2%).
+
 
 ### Phase 6: Dynamic Invoicing (Frontend UI)
 - [ ] **Invoice Form:** Implementation using Symfony `CollectionType`.

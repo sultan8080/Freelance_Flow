@@ -16,34 +16,29 @@ final class ClientVoter extends Voter
 
     protected function supports(string $attribute, mixed $subject): bool
     {
-        // replace with your own logic
-        // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, [self::EDIT, self::VIEW])
-            && $subject instanceof \App\Entity\Client;
+        return in_array($attribute, [self::VIEW, self::EDIT, self::DELETE], true)
+            && $subject instanceof Client;
     }
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
 
-        // if the user is anonymous, do not grant access
         if (!$user instanceof UserInterface) {
             return false;
         }
 
-        // ... (check conditions and return true to grant permission) ...
-        switch ($attribute) {
-            case self::EDIT:
-                // logic to determine if the user can EDIT
-                // return true or false
-                break;
+        /** @var Client $client */
+        $client = $subject;
 
-            case self::VIEW:
-                // logic to determine if the user can VIEW
-                // return true or false
-                break;
+        // Multi‑tenant isolation
+        if ($client->getUser() !== $user) {
+            return false;
         }
 
-        return false;
+        return match ($attribute) {
+            self::VIEW, self::EDIT, self::DELETE => true,
+            default => false,
+        };
     }
 }
