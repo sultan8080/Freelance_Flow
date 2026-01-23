@@ -25,22 +25,21 @@
 - [x] **Client CRUD:** Generate the interface to list, view, and delete clients.
 - [x] **Basic Filtering:** Ensure the list only shows clients linked to a user (pre-Voter stage).
 
-### Phase 4: Global UI, Security & Data Integrity
-- [x] **Global Sidebar Layout:** Refactor `base.html.twig` with a professional navigation (Dashboard, Clients, Invoices, Settings).
-- [x] **Freelancer Dashboard:** Create `DashboardController` for the home landing page.
-- [x] **Vanilla JS Design System:** Integrate the custom Glassmorphism dashboard shell with native JS sidebar/dropdown logic.
-- [x] **Stimulus Refactor:** Convert Vanilla JS into `layout_controller.js` for a robust, event‑driven architecture.
-- [x] **Basic Entity Validation:** Add essential server‑side validation rules (NotBlank, Email, Length, UniqueEntity) to stabilize Client CRUD.
-- [ ] **Security Voters:** Implement `ClientVoter` and `InvoiceVoter` for multi‑tenant data isolation.
-- [ ] **Access Control:** Finalize `security.yaml` to protect all authenticated routes.
+Phase 4: Global Interface, Security & Data Integrity
+- [x] **Global Layout (Sidebar):** Redesign base.html.twig with a professional navigation (Dashboard, Clients, Invoices, Settings).
+- [x] **Freelance Dashboard:** Create the DashboardController for the user’s home page.
+- [x] **Vanilla JS Design System:** Integrate the “Glassmorphism” dashboard structure with native JS logic for the sidebar and dropdown menus.
+- [x] **Stimulus Refactor:** Convert the Vanilla JS into a layout_controller.js Stimulus controller for a robust architecture.
+- [x] **Basic Entity Validation:** Add essential server‑side validation rules (NotBlank, Email, Length, UniqueEntity) to stabilize the Client CRUD.
+- [x] **Security Voters:** Implement ClientVoter for multi‑tenant data isolation.
+- [ ] **Access Control:** Finalize security.yaml to protect all routes requiring authentication.
 
-
-### Phase 5: Invoicing Engine (Backend & Logic)
-- [ ] **Invoice CRUD:** Generate the pages for creating, editing, viewing, and deleting invoices.
-- [ ] **Entity Audit:** Verify relationships between `User`, `Client`, `Invoice`, and `InvoiceItem`.
-- [ ] **Numbering Service:** Sequential invoice ID generator (e.g., `FF-2026-001`).
-- [ ] **Financial Service:** Logic for Subtotal, VAT, and Total TTC calculations.
-- [ ] **URSSAF Estimator:** Service to estimate social taxes (21.2%).
+Phase 5: Invoicing Engine (Backend & Logic)
+- [ ] **Invoice CRUD:** Generate the creation, editing, viewing, and deletion pages for invoices.
+- [ ] **Entity Audit:** Verify relationships between User, Client, Invoice, and InvoiceItem.
+- [ ] **Numbering Service:** Implement an invoice number generator (e.g., FF-2026-001).
+- [ ] **Financial Service:** Implement logic for Subtotal, VAT, and Total calculations.
+- [ ] **URSSAF Estimator:** Compute projected social charges (21.2%).
 
 ### Phase 6: Dynamic Invoicing (Frontend UI)
 - [ ] **Invoice Form:** Implementation using Symfony `CollectionType`.
