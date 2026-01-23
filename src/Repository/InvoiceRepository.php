@@ -16,6 +16,23 @@ class InvoiceRepository extends ServiceEntityRepository
         parent::__construct($registry, Invoice::class);
     }
 
+    public function findLastInvoiceNumberForUser(\App\Entity\User $user, string $year): ?string
+    {
+        try {
+            return $this->createQueryBuilder('i')
+                ->select('i.invoiceNumber')
+                ->where('i.user = :user')
+                ->andWhere('i.invoiceNumber LIKE :prefix')
+                ->setParameter('user', $user)
+                ->setParameter('prefix', "FF-$year-%")
+                ->orderBy('i.invoiceNumber', 'DESC')
+                ->setMaxResults(1)
+                ->getQuery()
+                ->getSingleScalarResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            return null;
+        }
+    }
     //    /**
     //     * @return Invoice[] Returns an array of Invoice objects
     //     */

@@ -37,9 +37,9 @@ Phase 4: Global Interface, Security & Data Integrity
 Phase 5: Invoicing Engine (Backend & Logic)
 - [x] **Entity Refactor:** Add a direct `User` relation to the `Invoice` entity.
 - [x] **Invoice Subject:** Add `project_title` to the `Invoice` entity to group line items under a project.
-- [ ] **Invoice CRUD:** Generate the creation, editing, viewing, and deletion pages for invoices.
-- [ ] **Security Voter:** Update `InvoiceVoter` to use direct user ownership.
-- [ ] **Numbering Service:** Implement `InvoiceNumberGenerator` (e.g., FF-2026-001).
+- [x] **Invoice CRUD:** Generate the creation, editing, viewing, and deletion pages for invoices.
+- [x] **Security Voter:** Update `InvoiceVoter` to use direct user ownership.
+- [x] **Numbering Service:** Implement `InvoiceNumberGenerator` (e.g., FF-2026-001).
 - [ ] **Financial Service:** Implement `InvoiceCalculator` for subtotal, VAT, and totals.
 - [ ] **URSSAF Estimator:** Compute projected social charges (21.2%).
 

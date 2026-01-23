@@ -40,9 +40,9 @@
 ### Phase 5 : Moteur de Facturation (Backend & Logique)
 - [x] **Refactorisation d’entité :** Ajouter une relation directe `User` à l’entité `Invoice`.
 - [x] **Sujet de facture :** Ajouter `project_title` à l’entité `Invoice` pour regrouper les lignes par projet.
-- [ ] **CRUD Facture :** Générer les pages de création, modification, visualisation et suppression des factures.
-- [ ] **Security Voter :** Mettre à jour `InvoiceVoter` pour utiliser la propriété directe de l’utilisateur.
-- [ ] **Service de numérotation :** Implémenter `InvoiceNumberGenerator` (ex. FF-2026-001).
+- [x] **CRUD Facture :** Générer les pages de création, modification, visualisation et suppression des factures.
+- [x] **Security Voter :** Mettre à jour `InvoiceVoter` pour utiliser la propriété directe de l’utilisateur.
+- [x] **Service de numérotation :** Implémenter `InvoiceNumberGenerator` (ex. FF-2026-001).
 - [ ] **Service financier :** Implémenter `InvoiceCalculator` pour le sous‑total, la TVA et les totaux.
 - [ ] **Estimateur URSSAF :** Calculer les charges sociales prévisionnelles (21,2%).
 
