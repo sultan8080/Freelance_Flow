@@ -37,7 +37,6 @@ final class ClientController extends AbstractController
             $entityManager->persist($client);
             $entityManager->flush();
             $this->addFlash('success', 'Client created successfully!');
-
             return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -64,7 +63,6 @@ final class ClientController extends AbstractController
         if (!$this->isGranted('CLIENT_VIEW', $client)) {
             throw $this->createAccessDeniedException('You cannot view this client\'s information.');
         }
-
         return $this->render('client/show.html.twig', [
             'client' => $client,
         ]);
@@ -117,6 +115,6 @@ final class ClientController extends AbstractController
             $this->addFlash('error', 'Invalid security token. Deletion cancelled.');
         }
 
-        return $this->redirectToRoute('app_client_index');
+        return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
     }
 }
