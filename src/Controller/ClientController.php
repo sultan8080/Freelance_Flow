@@ -29,6 +29,11 @@ final class ClientController extends AbstractController
         $client = new Client();
         $client->setUser($this->getUser());
 
+        if (!$this->isGranted('CLIENT_EDIT', $client)) {
+            throw $this->createAccessDeniedException("You cannot edit this client.");
+        }
+
+
         $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
 
@@ -61,7 +66,7 @@ final class ClientController extends AbstractController
     #[Route('/{id}', name: 'app_client_show', methods: ['GET'])]
     public function show(Client $client): Response
     {
-        if ($client->getUser() !== $this->getUser()) {
+        if (!$this->isGranted('CLIENT_VIEW', $client)) {
             throw $this->createAccessDeniedException('You cannot view this client\'s information.');
         }
 
@@ -105,10 +110,9 @@ final class ClientController extends AbstractController
     #[Route('/{id}', name: 'app_client_delete', methods: ['POST'])]
     public function delete(Request $request, Client $client, EntityManagerInterface $entityManager): Response
     {
-        if ($client->getUser() !== $this->getUser()) {
-            throw $this->createAccessDeniedException('You cannot delete this client.');
+        if (!$this->isGranted('CLIENT_DELETE', $client)) {
+            throw $this->createAccessDeniedException("You cannot delete this client.");
         }
-
         if ($this->isCsrfTokenValid('delete' . $client->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($client);
             $entityManager->flush();
