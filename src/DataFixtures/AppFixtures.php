@@ -22,6 +22,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         for ($i = 1; $i <= 2; $i++) {
+            // 1. Create User
             $user = new User();
             $user->setEmail("user$i@test.com");
             $user->setFirstName("prenom$i");
@@ -35,6 +36,7 @@ class AppFixtures extends Fixture
             $manager->persist($user);
 
             for ($j = 1; $j <= 2; $j++) {
+                // 2. Create Client
                 $client = new Client();
                 $client->setFirstName("prenom$j");
                 $client->setLastName("nom$j");
@@ -47,24 +49,29 @@ class AppFixtures extends Fixture
                 $manager->persist($client);
 
                 for ($k = 1; $k <= 5; $k++) {
+                    // 3. Create Invoice
                     $invoice = new Invoice();
-                    // Link to BOTH client and user
                     $invoice->setClient($client);
-                    $invoice->setUser($user); // <--- NEW DIRECT LINK
+                    $invoice->setUser($user);
+                    $invoice->setProjectTitle("Project $k for Client $j");
                     
-                    $invoice->setProjectTitle("Project $k for Client $j"); // <--- NEW FIELD
+  
+                    $invoice->setStatus('SENT'); 
+                    
                     $invoice->setInvoiceNumber("FAC-2026-" . str_pad((string)(($i-1)*10 + ($j-1)*5 + $k), 3, '0', STR_PAD_LEFT));
-                    $invoice->setTotalAmount(strval(rand(100, 5000)));
-                    $invoice->setCurrency('EUR');
-                    $invoice->setStatus('sent');
-                    
+
+
                     $manager->persist($invoice);
 
-                    for ($l = 1; $l <= 5; $l++) {
+                    for ($l = 1; $l <= 3; $l++) {
+                        // 4. Create InvoiceItems
                         $item = new InvoiceItem();
                         $item->setDescription("Service delivery line $l");
-                        $item->setQuantity((float)rand(1, 10));
-                        $item->setUnitPrice(strval(rand(50, 500)));
+                        $item->setQuantity((float)rand(1, 5));
+                        $item->setUnitPrice((string)rand(50, 500));
+                        $item->setVatRate(20.0); // Explicitly setting VAT
+                        
+                        // Link item to invoice
                         $item->setInvoice($invoice);
                         
                         $manager->persist($item);
@@ -73,6 +80,7 @@ class AppFixtures extends Fixture
             }
         }
 
+        // calculating all totals across all invoices automatically!
         $manager->flush();
     }
 }
