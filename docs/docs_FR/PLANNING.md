@@ -49,9 +49,13 @@
 - [ ] **Formulaire Facture :** Implémentation via Symfony `CollectionType`.
 - [ ] **Stimulus.js :** Ajout/Suppression dynamique de lignes sans rechargement de page.
 - [ ] **Totaux en Direct :** Calcul JavaScript des totaux en temps réel sur le formulaire.
+- [ ] **Intégration Dashboard :** Intégrer toutes les pages de facturation dans la mise en page du tableau de bord (comme pour les Clients).
+- [ ] **Stylisation TailwindCSS :** Appliquer un design complet au formulaire de facture et aux lignes dynamiques.
+- [ ] **Intégration Routage :** Ajouter la section “Factures” dans la barre latérale et sécuriser les routes via InvoiceVoter.
 
 ### Phase 7 : Design Documentaire & Export
 - [ ] **Template HTML :** Design pro incluant les mentions légales "Art. 293B".
+- [ ] **Page de Prévisualisation :** Ajouter une vue HTML en lecture seule permettant de visualiser la facture avant export.
 - [ ] **Moteur PDF :** Intégration de DomPDF pour la génération de documents.
 - [ ] **Export Sécurisé :** Routes protégées pour le téléchargement des PDF.
 
