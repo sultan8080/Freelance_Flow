@@ -44,7 +44,7 @@
 - [x] **Service de numérotation :** Implémenter `InvoiceNumberGenerator` (ex. FF-2026-001).
 
 ### Phase 6 : Facturation Dynamique (Interface UI)
-- [ ] **Service financier :** Implémenter `InvoiceCalculator` pour le sous‑total, la TVA et les totaux.
+- [x] **Service financier :** Implémenter `InvoiceCalculator` pour le sous‑total, la TVA et les totaux.
 - [ ] **Estimateur URSSAF :** Calculer les charges sociales prévisionnelles (21,2%).
 - [ ] **Formulaire Facture :** Implémentation via Symfony `CollectionType`.
 - [ ] **Stimulus.js :** Ajout/Suppression dynamique de lignes sans rechargement de page.

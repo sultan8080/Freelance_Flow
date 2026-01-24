@@ -25,14 +25,14 @@ class Invoice
     #[ORM\Column]
     private ?\DateTimeImmutable $dueDate = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $status = null;
+    #[ORM\Column(type: 'string', length: 20, options: ['default' => 'DRAFT'])]
+    private ?string $status = 'DRAFT';
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
-    private ?string $totalAmount = null;
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, options: ['default' => '0.00'])]
+    private ?string $totalAmount = '0.00';
 
-    #[ORM\Column(length: 255)]
-    private ?string $currency = null;
+    #[ORM\Column(length: 255, options: ['default' => 'EUR'])]
+    private ?string $currency = 'EUR';
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $paidAt = null;
@@ -54,17 +54,23 @@ class Invoice
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $projectTitle = null;
 
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, options: ['default' => '0.00'])]
+    private ?string $totalHt = '0.00';
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, options: ['default' => '0.00'])]
+    private ?string $totalVat = '0.00';
+
     public function __construct()
     {
         $this->invoiceItems = new ArrayCollection();
-        // 1. Setting default status to 'draft'
-        $this->status = 'draft';
-
-        // 2. Setting default currency to 'EUR'
+        $this->status = 'DRAFT';
         $this->currency = 'EUR';
 
         // 3. Setting default dueDate to 30 days from now
         $this->dueDate = new \DateTimeImmutable('+30 days');
+        $this->totalHt = '0.00';
+        $this->totalVat = '0.00';
+        $this->totalAmount = '0.00';
     }
 
     public function getId(): ?int
@@ -210,6 +216,30 @@ class Invoice
     public function setProjectTitle(?string $projectTitle): static
     {
         $this->projectTitle = $projectTitle;
+
+        return $this;
+    }
+
+    public function getTotalHt(): ?string
+    {
+        return $this->totalHt;
+    }
+
+    public function setTotalHt(string $totalHt): static
+    {
+        $this->totalHt = $totalHt;
+
+        return $this;
+    }
+
+    public function getTotalVat(): ?string
+    {
+        return $this->totalVat;
+    }
+
+    public function setTotalVat(string $totalVat): static
+    {
+        $this->totalVat = $totalVat;
 
         return $this;
     }

@@ -17,15 +17,27 @@ class InvoiceItem
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
-    private ?string $unitPrice = null;
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, options: ['default' => '0.00'])]
+    private ?string $unitPrice = '0.00';
 
     #[ORM\Column]
-    private ?float $quantity = null;
+    private ?float $quantity = 1.0;
 
     #[ORM\ManyToOne(inversedBy: 'invoiceItems')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Invoice $invoice = null;
+
+    #[ORM\Column(type: 'float', options: ['default' => 0.0])]
+    private ?float $vatRate = 0.0;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, options: ['default' => '0.00'])]
+    private ?string $vatAmount = '0.00';
+    
+    #[ORM\Column(type: 'decimal', precision: 12, scale: 2, options: ['default' => '0.00'])]
+    private ?string $totalHt = '0.00';
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, options: ['default' => '0.00'])]
+    private ?string $totalTtc = '0.00';
 
     public function getId(): ?int
     {
@@ -68,6 +80,47 @@ class InvoiceItem
         return $this;
     }
 
+    public function getVatRate(): ?float
+    {
+        return $this->vatRate;
+    }
+    public function setVatRate(float $vatRate): static
+    {
+        $this->vatRate = $vatRate;
+
+        return $this;
+    }
+    public function getVatAmount(): ?string
+    {
+        return $this->vatAmount;
+    }
+    public function setVatAmount(string $vatAmount): static
+    {
+        $this->vatAmount = $vatAmount;
+
+        return $this;
+    }
+    public function getTotalHt(): ?string
+    {
+        return $this->totalHt;
+    }
+    public function setTotalHt(string $totalHt): static
+    {
+        $this->totalHt = $totalHt;
+        return $this;
+    }
+
+    public function getTotalTtc(): ?string
+    {
+        return $this->totalTtc;
+    }
+    public function setTotalTtc(string $totalTtc): static
+    {
+        $this->totalTtc = $totalTtc;
+        return $this;
+    }
+
+
     public function getInvoice(): ?Invoice
     {
         return $this->invoice;
@@ -79,4 +132,16 @@ class InvoiceItem
 
         return $this;
     }
+    public function __construct()
+{
+    // Initialize numeric strings to prevent math errors
+    $this->unitPrice = '0.00';
+    $this->totalHt = '0.00';
+    $this->totalVat = '0.00';
+    $this->totalTtc = '0.00';
+    
+    // Initialize floats/ints
+    $this->quantity = 1.0;
+    $this->vatRate = 20.0; // Or your most common default VAT rate
+}
 }

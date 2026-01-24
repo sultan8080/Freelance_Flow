@@ -42,7 +42,7 @@
 - [x] **Numbering Service:** Implement `InvoiceNumberGenerator` (e.g., FF-2026-001).
 
 ### Phase 6: Dynamic Invoicing (Frontend UI)
-- [ ] **Financial Service:** Implement `InvoiceCalculator` for subtotal, VAT, and totals.
+- [x] **Financial Service:** Implement `InvoiceCalculator` for subtotal, VAT, and totals.
 - [ ] **URSSAF Estimator:** Compute projected social charges (21.2%).
 - [ ] **Invoice Form:** Implementation using Symfony `CollectionType`.
 - [ ] **Stimulus.js:** Dynamic "Add/Remove Line Item" functionality without page reload.
