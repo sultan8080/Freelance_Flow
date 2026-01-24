@@ -25,26 +25,25 @@
 - [x] **Client CRUD:** Generate the interface to list, view, and delete clients.
 - [x] **Basic Filtering:** Ensure the list only shows clients linked to a user (pre-Voter stage).
 
-Phase 4: Global Interface, Security & Data Integrity
+### Phase 4: Global Interface, Security & Data Integrity
 - [x] **Global Layout (Sidebar):** Redesign base.html.twig with a professional navigation (Dashboard, Clients, Invoices, Settings).
 - [x] **Freelance Dashboard:** Create the DashboardController for the user’s home page.
 - [x] **Vanilla JS Design System:** Integrate the “Glassmorphism” dashboard structure with native JS logic for the sidebar and dropdown menus.
 - [x] **Stimulus Refactor:** Convert the Vanilla JS into a layout_controller.js Stimulus controller for a robust architecture.
 - [x] **Basic Entity Validation:** Add essential server‑side validation rules (NotBlank, Email, Length, UniqueEntity) to stabilize the Client CRUD.
+
+### Phase 5: Invoicing Engine (Backend & Logic)
 - [x] **Security Voters:** Implement ClientVoter for multi‑tenant data isolation.
 - [x] **Access Control:** Finalize security.yaml to protect all routes requiring authentication.
-
-Phase 5: Invoicing Engine (Backend & Logic)
 - [x] **Entity Refactor:** Add a direct `User` relation to the `Invoice` entity.
 - [x] **Invoice Subject:** Add `project_title` to the `Invoice` entity to group line items under a project.
 - [x] **Invoice CRUD:** Generate the creation, editing, viewing, and deletion pages for invoices.
 - [x] **Security Voter:** Update `InvoiceVoter` to use direct user ownership.
 - [x] **Numbering Service:** Implement `InvoiceNumberGenerator` (e.g., FF-2026-001).
-- [ ] **Financial Service:** Implement `InvoiceCalculator` for subtotal, VAT, and totals.
-- [ ] **URSSAF Estimator:** Compute projected social charges (21.2%).
-
 
 ### Phase 6: Dynamic Invoicing (Frontend UI)
+- [ ] **Financial Service:** Implement `InvoiceCalculator` for subtotal, VAT, and totals.
+- [ ] **URSSAF Estimator:** Compute projected social charges (21.2%).
 - [ ] **Invoice Form:** Implementation using Symfony `CollectionType`.
 - [ ] **Stimulus.js:** Dynamic "Add/Remove Line Item" functionality without page reload.
 - [ ] **Live Totals:** Real-time JavaScript calculation of totals on the form.

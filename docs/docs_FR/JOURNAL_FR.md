@@ -1,21 +1,41 @@
 # 📔 Journal de Bord / Development Log — Freelance Flow [Version Français]
 
-## 📅 Jour 5 : 20/01/2026 - Interface Globale & Sécurité (Phase 4)
+## 📅 Jour 6 : 23/01/2026 - Moteur de Facturation - Backend & Logique (Phase 5)
 ### Réalisations :
-- [x] **Refonte du Layout Maître :** Transformation de base.html.twig en une structure de tableau de bord robuste avec une barre latérale (sidebar) fixe et responsive.
-- [x] **Système de Design "Glass" :** Implémentation d'effets de transparence et de flou (backdrop-blur) via les classes utilitaires de Tailwind v4 et des variables de thème.
-- [x] **Logique Native JS :** Développement d'un script JavaScript Vanilla personnalisé pour gérer le basculement du menu burger, la visibilité dynamique du logo
+- [x] **Security Voters :** Ajout de ClientVoter pour une isolation stricte des données multi‑tenant.
+- [x] **Access Control :** Finalisation de security.yaml pour sécuriser toutes les routes protégées.
+- [x] **Refactor Entité :** Relation directe User → Invoice pour une gestion claire de la propriété.
+- [x] **Sujet de Facture :** Ajout de project_title pour organiser les lignes par projet.
+- [x] **Invoice CRUD :** Création complète des pages de création, édition, affichage et suppression.
+- [x] **InvoiceVoter :** Mise à jour pour utiliser la relation directe User.
+- [x] **Numérotation :** Implémentation de InvoiceNumberGenerator (ex. FF‑2026‑001).
+
+
+## 📅 Jour 5 : 20/01/2026 - Interface Globale & Sécurité (Phase 4)
+### Technical Fixes:
+- [x] **Conflit d’utilitaires Tailwind v4 :** Correction d’un problème où hidden et whitespace-nowrap ne fonctionnaient pas correctement ensemble.
+- [x] **Débogage Turbo Frame :** Résolution d’un blocage du bouton « Save » causé par une interception Turbo ; ajustement des cibles de formulaires pour garantir une mise à jour correcte de l’état.
+- [x] **Retour de validation des formulaires :** Correction de l’absence d’affichage des erreurs dans les templates Twig ; les messages de validation Symfony apparaissent désormais de manière cohérente.
+- [x] **Fiabilité des messages flash :** Correction d’un bug empêchant l’affichage des messages de succès/erreur à cause d’un markup non compatible avec Turbo.
+- [x] **Bug d’état du menu déroulant :** Résolution d’un problème où le menu utilisateur restait ouvert après navigation sous Turbo.
+- [x] **Overlay du sidebar mobile :** Correction d’un conflit de z-index qui faisait apparaître l’overlay derrière le contenu sur les petits écrans.
+
+### Réalisations :
 - [x] **Navigation Dynamique :** Configuration de la logique Twig pour détecter les routes actives (app.request.get('_route')) et appliquer sur (Dashboard, Clients).
 - [x] **Architecture Pro :** Séparation du code en base.html.twig (structure globale) et index.html.twig (contenu) pour garantir un héritage de template évolutif.
 - [x] **startStimulusApp** Migration de la logique d'interface vers un contrôleur Stimulus pour une navigation fluide et compatible avec Turbo.
+- [x] **Architecture Redesign:** Revamped base.html.twig to introduce a premium sidebar navigation system. Added modern Glassmorphism styling powered by Tailwind v4.
 
 
 ## 📅 Jour 4 : 19/01/2026 - Interface Globale & Sécurité (Phase 4)
 ### Réalisations :
 - [x] **Gestion de Projet :** Finalisation de la feuille de route MVP (Phases 4 à 10) et mise à jour de la documentation.
+- [x] **Refonte du Layout Maître :** Transformation de base.html.twig en une structure de tableau de bord robuste avec une barre latérale (sidebar) fixe et responsive.
+- [x] **Système de Design "Glass" :** Implémentation d'effets de transparence et de flou (backdrop-blur) via les classes utilitaires de Tailwind v4 et des variables de thème.
+- [x] **Logique Native JS :** Développement d'un script JavaScript Vanilla personnalisé pour gérer le basculement du menu burger, la visibilité dynamique du logo
+
 
 ## 📅 Jour 3 [18 Janvier 2026] - Profil, Paramètres et CRUD Client (Phase 3)
-
 ### Réalisations :
 - [x] **Paramètres & Profil :** Création du `SettingsController` et implémentation de la mise à jour du profil utilisateur (Noms, Email).
 - [x] **Sécurité Client :** Génération d'un CRUD Client sécurisé. Les données sont strictement filtrées par l'utilisateur connecté (`getUser`).

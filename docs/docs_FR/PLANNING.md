@@ -33,21 +33,19 @@
 - [x] **Système de Design Vanilla JS :** Intégrer la structure de tableau de bord "Glassmorphism" avec une logique native JS pour la barre latérale et les menus déroulants.
 - [x] **Refactorisation Stimulus :** Conversion du JS Vanilla en contrôleur `layout_controller.js` pour une architecture robuste.
 - [x] **Validation Basique des Entités :** Ajouter les règles essentielles de validation serveur (NotBlank, Email, Length, UniqueEntity) pour stabiliser le CRUD Client.
-- [x] **Security Voters :** Implémenter `ClientVoter` pour l’isolation des données multi‑locataires.
-- [x] **Contrôle d’Accès :** Finaliser `security.yaml` pour protéger toutes les routes nécessitant une authentification.
-
 
 ### Phase 5 : Moteur de Facturation (Backend & Logique)
+- [x] **Security Voters :** Implémenter `ClientVoter` pour l’isolation des données multi‑locataires.
+- [x] **Contrôle d’Accès :** Finaliser `security.yaml` pour protéger toutes les routes nécessitant une authentification.
 - [x] **Refactorisation d’entité :** Ajouter une relation directe `User` à l’entité `Invoice`.
 - [x] **Sujet de facture :** Ajouter `project_title` à l’entité `Invoice` pour regrouper les lignes par projet.
 - [x] **CRUD Facture :** Générer les pages de création, modification, visualisation et suppression des factures.
 - [x] **Security Voter :** Mettre à jour `InvoiceVoter` pour utiliser la propriété directe de l’utilisateur.
 - [x] **Service de numérotation :** Implémenter `InvoiceNumberGenerator` (ex. FF-2026-001).
-- [ ] **Service financier :** Implémenter `InvoiceCalculator` pour le sous‑total, la TVA et les totaux.
-- [ ] **Estimateur URSSAF :** Calculer les charges sociales prévisionnelles (21,2%).
-
 
 ### Phase 6 : Facturation Dynamique (Interface UI)
+- [ ] **Service financier :** Implémenter `InvoiceCalculator` pour le sous‑total, la TVA et les totaux.
+- [ ] **Estimateur URSSAF :** Calculer les charges sociales prévisionnelles (21,2%).
 - [ ] **Formulaire Facture :** Implémentation via Symfony `CollectionType`.
 - [ ] **Stimulus.js :** Ajout/Suppression dynamique de lignes sans rechargement de page.
 - [ ] **Totaux en Direct :** Calcul JavaScript des totaux en temps réel sur le formulaire.

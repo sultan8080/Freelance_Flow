@@ -26,12 +26,8 @@ class InvoiceType extends AbstractType
                 'widget' => 'single_text',
             ])
             ->add('projectTitle')
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('updatedAt', null, [
-                'widget' => 'single_text',
-            ])
+           
+           
             ->add('client', EntityType::class, [
                 'class' => Client::class,
                 'choice_label' => 'id',
