@@ -33,7 +33,7 @@
 - [x] **Basic Entity Validation:** Add essential server‑side validation rules (NotBlank, Email, Length, UniqueEntity) to stabilize the Client CRUD.
 
 ### Phase 5: Invoicing Engine (Backend & Logic)
-- [x] **Security Voters:** Implement ClientVoter for multi‑tenant data isolation.
+- [x] **Security Voters:** Implement `ClientVoter` for multi‑tenant data isolation.
 - [x] **Access Control:** Finalize security.yaml to protect all routes requiring authentication.
 - [x] **Entity Refactor:** Add a direct `User` relation to the `Invoice` entity.
 - [x] **Invoice Subject:** Add `project_title` to the `Invoice` entity to group line items under a project.
@@ -47,9 +47,13 @@
 - [ ] **Invoice Form:** Implementation using Symfony `CollectionType`.
 - [ ] **Stimulus.js:** Dynamic "Add/Remove Line Item" functionality without page reload.
 - [ ] **Live Totals:** Real-time JavaScript calculation of totals on the form.
+- [ ] **Dashboard Integration:** Move invoice pages into the dashboard layout (same as Clients).
+- [ ] **Tailwind Styling:** Apply full UI styling to the invoice form and line items.
+- [ ] **Routing Integration:** Add invoices to the sidebar + secure access with InvoiceVoter.
 
 ### Phase 7: Document Design & Export
 - [ ] **HTML Template:** Professional layout including "Art. 293B" legal mentions.
+- [ ] **Invoice Preview** Page: Read-only HTML view before PDF export.
 - [ ] **PDF Engine:** Integration of DomPDF for document generation.
 - [ ] **Secure Export:** Protected routes for PDF downloads.
 
