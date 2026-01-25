@@ -14,30 +14,34 @@ class InvoiceItem
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, options: ['default' => '0.00'])]
-    private ?string $unitPrice = '0.00';
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    private ?string $quantity = null;
 
-    #[ORM\Column]
-    private ?float $quantity = 1.0;
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    private ?string $unitPrice = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 5, scale: 2)]
+    private ?string $vatRate = '0.00';
+
+    // --- Calculated Fields (Stored for history) ---
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
+    private ?string $totalHt = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
+    private ?string $vatAmount = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
+    private ?string $totalTtc = null;
+
+    // --- Relationship ---
 
     #[ORM\ManyToOne(inversedBy: 'invoiceItems')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Invoice $invoice = null;
-
-    #[ORM\Column(type: 'float', options: ['default' => 0.0])]
-    private ?float $vatRate = 0.0;
-
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, options: ['default' => '0.00'])]
-    private ?string $vatAmount = '0.00';
-    
-    #[ORM\Column(type: 'decimal', precision: 12, scale: 2, options: ['default' => '0.00'])]
-    private ?string $totalHt = '0.00';
-
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, options: ['default' => '0.00'])]
-    private ?string $totalTtc = '0.00';
 
     public function getId(): ?int
     {
@@ -56,6 +60,18 @@ class InvoiceItem
         return $this;
     }
 
+    public function getQuantity(): ?string
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(string $quantity): static
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
     public function getUnitPrice(): ?string
     {
         return $this->unitPrice;
@@ -68,45 +84,39 @@ class InvoiceItem
         return $this;
     }
 
-    public function getQuantity(): ?float
-    {
-        return $this->quantity;
-    }
-
-    public function setQuantity(float $quantity): static
-    {
-        $this->quantity = $quantity;
-
-        return $this;
-    }
-
-    public function getVatRate(): ?float
+    public function getVatRate(): ?string
     {
         return $this->vatRate;
     }
-    public function setVatRate(float $vatRate): static
+
+    public function setVatRate(string $vatRate): static
     {
         $this->vatRate = $vatRate;
 
         return $this;
     }
-    public function getVatAmount(): ?string
-    {
-        return $this->vatAmount;
-    }
-    public function setVatAmount(string $vatAmount): static
-    {
-        $this->vatAmount = $vatAmount;
 
-        return $this;
-    }
     public function getTotalHt(): ?string
     {
         return $this->totalHt;
     }
-    public function setTotalHt(string $totalHt): static
+
+    public function setTotalHt(?string $totalHt): static
     {
         $this->totalHt = $totalHt;
+
+        return $this;
+    }
+
+    public function getVatAmount(): ?string
+    {
+        return $this->vatAmount;
+    }
+
+    public function setVatAmount(?string $vatAmount): static
+    {
+        $this->vatAmount = $vatAmount;
+
         return $this;
     }
 
@@ -114,12 +124,13 @@ class InvoiceItem
     {
         return $this->totalTtc;
     }
-    public function setTotalTtc(string $totalTtc): static
+
+    public function setTotalTtc(?string $totalTtc): static
     {
         $this->totalTtc = $totalTtc;
+
         return $this;
     }
-
 
     public function getInvoice(): ?Invoice
     {
@@ -132,16 +143,4 @@ class InvoiceItem
 
         return $this;
     }
-    public function __construct()
-{
-    // Initialize numeric strings to prevent math errors
-    $this->unitPrice = '0.00';
-    $this->totalHt = '0.00';
-    $this->vatAmount = '0.00';
-    $this->totalTtc = '0.00';
-    
-    // Initialize floats/ints
-    $this->quantity = 1.0;
-    $this->vatRate = 20.0; // Or your most common default VAT rate
-}
 }
