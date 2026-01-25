@@ -43,7 +43,7 @@
 
 ### Phase 6: Dynamic Invoicing (Frontend UI)
 
-- [ ] **Financial Service:** Implement `InvoiceCalculator` for subtotal, VAT, and totals.
+- [x] **Financial Service:** Implement `InvoiceCalculator` for subtotal, VAT, and totals.
 - [ ] **Lifecycle Logic:** Implement DRAFT vs PAID statuses. Ensure PAID invoices are immutable (locked).
 - [ ] **The Snapshot** System: Add columns to the Invoice entity to "freeze" client data (Name, Address, SIRET) and final totals at the moment of payment.
 - [ ] **URSSAF Estimator:** Service to compute the 21.2% charge for the dashboard view.

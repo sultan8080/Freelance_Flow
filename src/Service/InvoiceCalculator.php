@@ -8,8 +8,7 @@ use App\Entity\InvoiceItem;
 class InvoiceCalculator
 {
     /**
-     * Number of decimal places used in all BCMath operations.
-     * We explicitly define this instead of relying on php.ini defaults
+     * Number of decimal places used in all BCMath operations. * We explicitly define this instead of relying on php.ini defaults
      * to guarantee consistent financial rounding.
      */
     private int $scale;

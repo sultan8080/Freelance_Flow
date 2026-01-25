@@ -44,20 +44,22 @@
 - [x] **Service de numérotation :** Implémenter `InvoiceNumberGenerator` (ex. FF-2026-001).
 
 ### Phase 6 : Facturation Dynamique (Interface UI)
-- [x] **Service financier :** Implémenter `InvoiceCalculator` pour le sous‑total, la TVA et les totaux.
-- [ ] **Estimateur URSSAF :** Calculer les charges sociales prévisionnelles (21,2%).
-- [ ] **Formulaire Facture :** Implémentation via Symfony `CollectionType`.
-- [ ] **Stimulus.js :** Ajout/Suppression dynamique de lignes sans rechargement de page.
-- [ ] **Totaux en Direct :** Calcul JavaScript des totaux en temps réel sur le formulaire.
-- [ ] **Intégration Dashboard :** Intégrer toutes les pages de facturation dans la mise en page du tableau de bord (comme pour les Clients).
-- [ ] **Stylisation TailwindCSS :** Appliquer un design complet au formulaire de facture et aux lignes dynamiques.
-- [ ] **Intégration Routage :** Ajouter la section “Factures” dans la barre latérale et sécuriser les routes via InvoiceVoter.
+- [x] **Service Financier :** Implémenter `InvoiceCalculator` pour le sous‑total, la TVA et les totaux.
+- [x] **Logique de Cycle de Vie :** Implémenter les statuts DRAFT vs PAID. S’assurer que les factures PAID sont immuables (verrouillées).
+- [x] **Le Système de Snapshot :** Ajouter des colonnes à l’entité Invoice pour "geler" les données client (Nom, Adresse, SIRET) et les totaux finaux au moment du paiement.
+- [ ] **Estimateur URSSAF :** Service pour calculer la charge de 21.2% pour la vue tableau de bord.
+- [ ] **Formulaire de Facture :** Créer le formulaire principal et le sous‑formulaire InvoiceItem en utilisant Symfony `CollectionType`.
+- [ ] **Stimulus.js :** "Ajouter/Supprimer une ligne" (souvent la partie la plus chronophage de la nuit).
+- [ ] **Totaux en Direct :** Mise à jour en temps réel via JS pour que l’utilisateur voie le prix changer pendant la saisie.
 
 ### Phase 7 : Design Documentaire & Export
-- [ ] **Template HTML :** Design pro incluant les mentions légales "Art. 293B".
-- [ ] **Page de Prévisualisation :** Ajouter une vue HTML en lecture seule permettant de visualiser la facture avant export.
+- [ ] **Intégration au Dashboard :** Déplacer les pages de factures dans le layout du tableau de bord (comme pour Clients).
+- [ ] **Intégration du Routing :** Ajouter les factures dans la barre latérale + sécuriser l’accès avec InvoiceVoter.
+- [ ] **Style Tailwind :** Appliquer le style UI complet au formulaire de facture et aux lignes d’articles.
+- [ ] **Template HTML :** Mise en page professionnelle incluant les mentions légales "Art. 293B".
+- [ ] **Page d’Aperçu de Facture :** Vue HTML en lecture seule avant l’export PDF.
 - [ ] **Moteur PDF :** Intégration de DomPDF pour la génération de documents.
-- [ ] **Export Sécurisé :** Routes protégées pour le téléchargement des PDF.
+- [ ] **Export Sécurisé :** Routes protégées pour les téléchargements PDF. 
 
 ### Phase 8 : Insights & Statistiques (Analytics)
 - [ ] **Widgets KPI :** Suivi du chiffre d'affaires mensuel et annuel.
