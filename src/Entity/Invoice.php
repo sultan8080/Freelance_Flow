@@ -19,14 +19,26 @@ class Invoice
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $invoiceNumber = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $dueDate = null;
 
-    #[ORM\Column(type: 'string', length: 20, options: ['default' => 'DRAFT'])]
+    #[ORM\Column(length: 20, options: ['default' => 'DRAFT'])]
     private ?string $status = 'DRAFT';
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $sentAt = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $paidAt = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, options: ['default' => '0.00'])]
+    private ?string $totalHt = '0.00';
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, options: ['default' => '0.00'])]
+    private ?string $totalVat = '0.00';
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, options: ['default' => '0.00'])]
     private ?string $totalAmount = '0.00';
@@ -34,17 +46,11 @@ class Invoice
     #[ORM\Column(length: 255, options: ['default' => 'EUR'])]
     private ?string $currency = 'EUR';
 
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $paidAt = null;
-
     #[ORM\ManyToOne(inversedBy: 'invoices')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Client $client = null;
 
-    /**
-     * @var Collection<int, InvoiceItem>
-     */
-    #[ORM\OneToMany(targetEntity: InvoiceItem::class, mappedBy: 'invoice', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: InvoiceItem::class, mappedBy: 'invoice', orphanRemoval: true, cascade: ['persist'])]
     private Collection $invoiceItems;
 
     #[ORM\ManyToOne(inversedBy: 'invoices')]
@@ -54,20 +60,28 @@ class Invoice
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $projectTitle = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, options: ['default' => '0.00'])]
-    private ?string $totalHt = '0.00';
+    // --- SNAPSHOT FIELDS (Frozen Data) ---
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, options: ['default' => '0.00'])]
-    private ?string $totalVat = '0.00';
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $frozenClientName = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $frozenClientAddress = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $frozenClientSiret = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $frozenClientVat = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $frozenClientCompanyName = null;
 
     public function __construct()
     {
         $this->invoiceItems = new ArrayCollection();
         $this->status = 'DRAFT';
         $this->currency = 'EUR';
-
-        // 3. Setting default dueDate to 30 days from now
-        $this->dueDate = new \DateTimeImmutable('+30 days');
         $this->totalHt = '0.00';
         $this->totalVat = '0.00';
         $this->totalAmount = '0.00';
@@ -95,7 +109,7 @@ class Invoice
         return $this->dueDate;
     }
 
-    public function setDueDate(\DateTimeImmutable $dueDate): static
+    public function setDueDate(?\DateTimeImmutable $dueDate): static
     {
         $this->dueDate = $dueDate;
 
@@ -110,13 +124,71 @@ class Invoice
     public function setStatus(string $status): static
     {
         $this->status = $status;
-        // 4. Automatically set paidAt if status is set to 'paid'
-        if ($status === 'paid' && $this->paidAt === null) {
-            $this->paidAt = new \DateTimeImmutable();
+
+        // 1. Transition to SENT (Lock the client information)
+        if ($status === 'SENT') {
+            if ($this->sentAt === null) {
+                $this->sentAt = new \DateTimeImmutable();
+            }
+
+            if ($this->dueDate === null) {
+                $this->dueDate = (new \DateTimeImmutable())->modify('+30 days');
+            }
+            // Freeze client data immediately
+            $this->collectSnapshot();
         }
 
+        // 2. Transition to PAID
+        if ($status === 'PAID' && $this->paidAt === null) {
+            $this->paidAt = new \DateTimeImmutable();
+        }
         return $this;
     }
+
+
+    // Check if the document is in "Mute Mode"
+    public function isLocked(): bool
+    {
+        return in_array($this->status, ['SENT', 'PAID', 'UNPAID']);
+    }
+
+    // Can the user delete this from the database?
+    public function isDeletable(): bool
+    {
+        return $this->status === 'DRAFT';
+    }
+
+    // Is it overdue?
+    public function isOverdue(): bool
+    {
+        // Must be SENT/UNPAID, due date passed, and not paid yet
+        return in_array($this->status, ['SENT', 'UNPAID']) &&
+            $this->dueDate < new \DateTimeImmutable() &&
+            $this->paidAt === null;
+    }
+
+    // Capture snapshot of client data
+    public function collectSnapshot(): void
+    {
+        if ($this->client) {
+            $this->frozenClientName = trim($this->client->getFirstName() . ' ' . $this->client->getLastName());
+            $this->frozenClientCompanyName = $this->client->getCompanyName();
+
+            $this->frozenClientAddress = sprintf(
+                "%s\n%s %s\n%s\nTel: %s",
+                $this->client->getAddress(),
+                $this->client->getPostCode(),
+                $this->client->getCity(),
+                $this->client->getCountry(),
+                $this->client->getPhoneNumber()
+            );
+
+            $this->frozenClientSiret = $this->client->getSiret();
+            $this->frozenClientVat = $this->client->getVatNumber();
+        }
+    }
+
+    // --- Standard Getters and Setters below ---
 
     public function getTotalAmount(): ?string
     {
@@ -187,7 +259,6 @@ class Invoice
     public function removeInvoiceItem(InvoiceItem $invoiceItem): static
     {
         if ($this->invoiceItems->removeElement($invoiceItem)) {
-            // set the owning side to null (unless already changed)
             if ($invoiceItem->getInvoice() === $this) {
                 $invoiceItem->setInvoice(null);
             }
@@ -240,6 +311,78 @@ class Invoice
     public function setTotalVat(string $totalVat): static
     {
         $this->totalVat = $totalVat;
+
+        return $this;
+    }
+
+    public function getFrozenClientName(): ?string
+    {
+        return $this->frozenClientName;
+    }
+
+    public function setFrozenClientName(?string $frozenClientName): static
+    {
+        $this->frozenClientName = $frozenClientName;
+
+        return $this;
+    }
+
+    public function getFrozenClientAddress(): ?string
+    {
+        return $this->frozenClientAddress;
+    }
+
+    public function setFrozenClientAddress(?string $frozenClientAddress): static
+    {
+        $this->frozenClientAddress = $frozenClientAddress;
+
+        return $this;
+    }
+
+    public function getFrozenClientSiret(): ?string
+    {
+        return $this->frozenClientSiret;
+    }
+
+    public function setFrozenClientSiret(?string $frozenClientSiret): static
+    {
+        $this->frozenClientSiret = $frozenClientSiret;
+
+        return $this;
+    }
+
+    public function getFrozenClientVat(): ?string
+    {
+        return $this->frozenClientVat;
+    }
+
+    public function setFrozenClientVat(?string $frozenClientVat): static
+    {
+        $this->frozenClientVat = $frozenClientVat;
+
+        return $this;
+    }
+
+    public function getFrozenClientCompanyName(): ?string
+    {
+        return $this->frozenClientCompanyName;
+    }
+
+    public function setFrozenClientCompanyName(?string $frozenClientCompanyName): static
+    {
+        $this->frozenClientCompanyName = $frozenClientCompanyName;
+
+        return $this;
+    }
+
+    public function getSentAt(): ?\DateTimeImmutable
+    {
+        return $this->sentAt;
+    }
+
+    public function setSentAt(?\DateTimeImmutable $sentAt): static
+    {
+        $this->sentAt = $sentAt;
 
         return $this;
     }
