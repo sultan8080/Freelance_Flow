@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Invoice;
 use App\Form\InvoiceType;
 use App\Repository\InvoiceRepository;
+use App\Service\InvoiceCalculator;
 use App\Service\InvoiceNumberGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,18 +25,20 @@ final class InvoiceController extends AbstractController
     }
 
     #[Route('/new_invoice', name: 'app_invoice_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, InvoiceNumberGenerator $generator): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, InvoiceCalculator $calculator, InvoiceNumberGenerator $generator): Response
     {
         $invoice = new Invoice();
         $invoice->setUser($this->getUser());
 
         // Set the number BEFORE creating the form
-        $invoice->setInvoiceNumber(invoiceNumber: $generator->generateFor($this->getUser()));
-
+        $invoice->setInvoiceNumber(invoiceNumber: $generator->generateFor($this->getUser()));       
         $form = $this->createForm(InvoiceType::class, $invoice);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // invoice calculations
+            $calculator->calculateInvoice($invoice);
+
             $entityManager->persist($invoice);
             $entityManager->flush();
             $this->addFlash('success', 'Invoice created successfully!');
