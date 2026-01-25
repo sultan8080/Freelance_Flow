@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Invoice;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -16,45 +17,23 @@ class InvoiceRepository extends ServiceEntityRepository
         parent::__construct($registry, Invoice::class);
     }
 
-    public function findLastInvoiceNumberForUser(\App\Entity\User $user, string $year): ?string
+    /**
+     * Finds the last invoice number for a specific user and prefix (e.g., "INV-2026-")
+     */
+    public function findLastInvoiceNumberForUser(User $user, string $prefix): ?string
     {
-        try {
-            return $this->createQueryBuilder('i')
-                ->select('i.invoiceNumber')
-                ->where('i.user = :user')
-                ->andWhere('i.invoiceNumber LIKE :prefix')
-                ->setParameter('user', $user)
-                ->setParameter('prefix', "FF-$year-%")
-                ->orderBy('i.invoiceNumber', 'DESC')
-                ->setMaxResults(1)
-                ->getQuery()
-                ->getSingleScalarResult();
-        } catch (\Doctrine\ORM\NoResultException $e) {
-            return null;
-        }
-    }
-    //    /**
-    //     * @return Invoice[] Returns an array of Invoice objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('i')
-    //            ->andWhere('i.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('i.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+        $result = $this->createQueryBuilder('i')
+            ->select('i.invoiceNumber')
+            ->where('i.user = :user')
+            ->andWhere('i.invoiceNumber LIKE :prefix')
+            ->setParameter('user', $user)
+            ->setParameter('prefix', $prefix . '%') 
+            ->orderBy('i.invoiceNumber', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
 
-    //    public function findOneBySomeField($value): ?Invoice
-    //    {
-    //        return $this->createQueryBuilder('i')
-    //            ->andWhere('i.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        // If a result is found, return the invoice number string; otherwise return null
+        return $result ? $result['invoiceNumber'] : null;
+    }
 }
