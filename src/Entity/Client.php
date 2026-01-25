@@ -80,6 +80,21 @@ class Client
     #[ORM\OneToMany(targetEntity: Invoice::class, mappedBy: 'client')]
     private Collection $invoices;
 
+    #[ORM\Column(length: 14)]
+    private ?string $siret = null;
+
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $vatNumber = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $city = null;
+
+    #[ORM\Column(length: 10, nullable: true)]
+    private ?string $postCode = null;
+
+    #[ORM\Column(length: 100, options: ['default' => 'France'])]
+    private ?string $country = null;
+
     public function __construct()
     {
         $this->invoices = new ArrayCollection();
@@ -196,6 +211,66 @@ class Client
                 $invoice->setClient(null);
             }
         }
+        return $this;
+    }
+
+    public function getSiret(): ?string
+    {
+        return $this->siret;
+    }
+
+    public function setSiret(string $siret): static
+    {
+        $this->siret = $siret;
+
+        return $this;
+    }
+
+    public function getVatNumber(): ?string
+    {
+        return $this->vatNumber;
+    }
+
+    public function setVatNumber(string $vatNumber): static
+    {
+        $this->vatNumber = $vatNumber;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): static
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getPostCode(): ?string
+    {
+        return $this->postCode;
+    }
+
+    public function setPostCode(?string $postCode): static
+    {
+        $this->postCode = $postCode;
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): static
+    {
+        $this->country = $country;
+
         return $this;
     }
 }
