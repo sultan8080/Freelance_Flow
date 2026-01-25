@@ -1,4 +1,4 @@
-invoiceItem: description, unitPrice, quantity , vatRate vatAmount totalHt totalTtc
+invoiceItem: description, unitPrice, quantity , vatRate, vatAmount, totalHt, totalTtc
 contenir, 11 invoiceItem, 0N invoice
 invoice: invoiceNumber, project_title, dateCreated, dueDate, status,totalHt, totalVat, totalAmount, currency, paidAt, updatedAt
 

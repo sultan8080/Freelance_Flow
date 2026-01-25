@@ -42,16 +42,20 @@
 - [x] **Numbering Service:** Implement `InvoiceNumberGenerator` (e.g., FF-2026-001).
 
 ### Phase 6: Dynamic Invoicing (Frontend UI)
-- [x] **Financial Service:** Implement `InvoiceCalculator` for subtotal, VAT, and totals.
-- [ ] **URSSAF Estimator:** Compute projected social charges (21.2%).
-- [ ] **Invoice Form:** Implementation using Symfony `CollectionType`.
-- [ ] **Stimulus.js:** Dynamic "Add/Remove Line Item" functionality without page reload.
-- [ ] **Live Totals:** Real-time JavaScript calculation of totals on the form.
-- [ ] **Dashboard Integration:** Move invoice pages into the dashboard layout (same as Clients).
-- [ ] **Tailwind Styling:** Apply full UI styling to the invoice form and line items.
-- [ ] **Routing Integration:** Add invoices to the sidebar + secure access with InvoiceVoter.
+
+- [ ] **Financial Service:** Implement `InvoiceCalculator` for subtotal, VAT, and totals.
+- [ ] **Lifecycle Logic:** Implement DRAFT vs PAID statuses. Ensure PAID invoices are immutable (locked).
+- [ ] **The Snapshot** System: Add columns to the Invoice entity to "freeze" client data (Name, Address, SIRET) and final totals at the moment of payment.
+- [ ] **URSSAF Estimator:** Service to compute the 21.2% charge for the dashboard view.
+- [ ] **Invoice Form:** Create the main form and the InvoiceItem sub-form using Symfony `CollectionType`..
+- [ ] **Stimulus.js:** "Add/Remove Line Item" (This is usually the most time-consuming part of the night).
+- [ ] **Live Totals:** Real-time JS updates so the user sees the price change as they type.
+
 
 ### Phase 7: Document Design & Export
+- [ ] **Dashboard Integration:** Move invoice pages into the dashboard layout (same as Clients).
+- [ ] **Routing Integration:** Add invoices to the sidebar + secure access with InvoiceVoter.
+- [ ] **Tailwind Styling:** Apply full UI styling to the invoice form and line items.
 - [ ] **HTML Template:** Professional layout including "Art. 293B" legal mentions.
 - [ ] **Invoice Preview** Page: Read-only HTML view before PDF export.
 - [ ] **PDF Engine:** Integration of DomPDF for document generation.

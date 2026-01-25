@@ -137,7 +137,7 @@ class InvoiceItem
     // Initialize numeric strings to prevent math errors
     $this->unitPrice = '0.00';
     $this->totalHt = '0.00';
-    $this->totalVat = '0.00';
+    $this->vatAmount = '0.00';
     $this->totalTtc = '0.00';
     
     // Initialize floats/ints
