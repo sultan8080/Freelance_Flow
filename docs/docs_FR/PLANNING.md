@@ -47,7 +47,7 @@
 - [x] **Service Financier :** Implémenter `InvoiceCalculator` pour le sous‑total, la TVA et les totaux.
 - [x] **Logique de Cycle de Vie :** Implémenter les statuts DRAFT vs PAID. S’assurer que les factures PAID sont immuables (verrouillées).
 - [x] **Le Système de Snapshot :** Ajouter des colonnes à l’entité Invoice pour "geler" les données client (Nom, Adresse, SIRET) et les totaux finaux au moment du paiement.
-- [ ] **Estimateur URSSAF :** Service pour calculer la charge de 21.2% pour la vue tableau de bord.
+- [x] **Estimateur URSSAF :** Service pour calculer la charge de 21.2% pour la vue tableau de bord.
 - [ ] **Formulaire de Facture :** Créer le formulaire principal et le sous‑formulaire InvoiceItem en utilisant Symfony `CollectionType`.
 - [ ] **Stimulus.js :** "Ajouter/Supprimer une ligne" (souvent la partie la plus chronophage de la nuit).
 - [ ] **Totaux en Direct :** Mise à jour en temps réel via JS pour que l’utilisateur voie le prix changer pendant la saisie.
