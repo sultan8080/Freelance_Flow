@@ -1,10 +1,11 @@
 invoiceItem: description, unitPrice, quantity , vatRate, vatAmount, totalHt, totalTtc
 contenir, 11 invoiceItem, 0N invoice
-invoice: invoiceNumber, project_title, dateCreated, dueDate, status,totalHt, totalVat, totalAmount, currency, paidAt, updatedAt
+invoice: invoiceNumber, project_title, createdAt, dueDate, status,totalHt, sentAt, totalVat, totalAmount, currency, paidAt, updatedAt
 
 appartenir, 0N client, 11 invoice
-client: lastName, firstName, companyName, email, address, phoneNumber, createdAt, updatedAt
+client: lastName, firstName, companyName, email, address, phoneNumber,siret, vatNumber, city, postCode, country,   createdAt, updatedAt
 posseder, 0N user, 11 client
 
 emettre, 0N user, 11 invoice
 user: email, password, lastName, firstName, companyName, address, siretNumber, vatNumber, phoneNumber, createdAt, updatedAt
+

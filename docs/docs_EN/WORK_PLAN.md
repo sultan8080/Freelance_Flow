@@ -53,9 +53,8 @@
 
 
 ### Phase 7: Document Design & Export
-- [ ] **Intégration au Dashboard :** Déplacer les pages de factures dans le layout du tableau de bord (comme pour Clients).
-- [ ] **Intégration du Routing :** Ajouter les factures dans la barre latérale + sécuriser l’accès avec InvoiceVoter.
-- [ ] **Style Tailwind :** Appliquer le style UI complet au formulaire de facture et aux lignes d’articles.
+- [X] **Intégration au Dashboard :** Déplacer les pages de factures dans le layout du tableau de bord (comme pour Clients).
+- [X] **Intégration du Routing :** Ajouter les factures dans la barre latérale + sécuriser l’accès avec InvoiceVoter.
 - [ ] **Template HTML :** Mise en page professionnelle incluant les mentions légales "Art. 293B".
 - [ ] **Page d’Aperçu de Facture :** Vue HTML en lecture seule avant l’export PDF.
 - [ ] **Moteur PDF :** Intégration de DomPDF pour la génération de documents.

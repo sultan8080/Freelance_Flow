@@ -10,6 +10,7 @@
 	{{ form_errors(form) }}
 </div>
 
+
 {# Personal Details #}
 <div class="space-y-6">
 	<h3 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4 ml-1">Personal Details</h3>
@@ -44,8 +45,99 @@
 				</p>
 			{% endif %}
 		</div>
+		<div class="group">
+			{{ form_label(form.email, 'Email Address', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1'}}) }}
+			{{ form_widget(form.email, {
+            'attr': {
+                'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm focus:ring-primary/10 focus:border-primary transition-all',
+                'placeholder': 'john@example.com'
+            }
+        }) }}
+			{% if form.email.vars.errors|length > 0 %}
+				<p class="form-error">
+					{{ form_errors(form.email)|striptags }}
+				</p>
+			{% endif %}
+		</div>
+		<div class="group">
+			{{ form_label(form.phoneNumber, 'Phone Number', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1'}}) }}
+			{{ form_widget(form.phoneNumber, {
+            'attr': {
+                'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm focus:ring-primary/10 focus:border-primary transition-all',
+                'placeholder': '+33 1 23 45 67 89'
+            }
+        }) }}
+			{% if form.phoneNumber.vars.errors|length > 0 %}
+				<p class="form-error">
+					{{ form_errors(form.phoneNumber)|striptags }}
+				</p>
+			{% endif %}
+		</div>
 	</div>
 </div>
+<div class="space-y-6">
+	<h3 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4 ml-1">Address</h3>
+	<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+		<div class="group">
+			{{ form_label(form.address, 'Address', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1'}}) }}
+			{{ form_widget(form.address, {
+            'attr': {
+                'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm focus:ring-primary/10 focus:border-primary transition-all',
+                'placeholder': '123 Rue de la Paix'
+            }
+        }) }}
+			{% if form.address.vars.errors|length > 0 %}
+				<p class="form-error">
+					{{ form_errors(form.address)|striptags }}
+				</p>
+			{% endif %}
+		</div>
+		<div class="group">
+			{{ form_label(form.postCode, 'Post Code', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1'}}) }}
+			{{ form_widget(form.postCode, {
+                'attr': {
+                    'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm focus:ring-primary/10 focus:border-primary transition-all',
+                    'placeholder': '75001'
+                }
+            }) }}
+			{% if form.postCode.vars.errors|length > 0 %}
+				<p class="form-error">
+					{{ form_errors(form.postCode)|striptags }}
+				</p>
+			{% endif %}
+		</div>
+
+		<div class="group">
+			{{ form_label(form.city, 'City', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1'}}) }}
+			{{ form_widget(form.city, {
+                'attr': {
+                    'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm focus:ring-primary/10 focus:border-primary transition-all',
+                    'placeholder': 'Paris'
+                }
+            }) }}
+			{% if form.city.vars.errors|length > 0 %}
+				<p class="form-error">
+					{{ form_errors(form.city)|striptags }}
+				</p>
+			{% endif %}
+		</div>
+		<div class="group">
+			{{ form_label(form.country, 'Country', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1'}}) }}
+			{{ form_widget(form.country, {
+            'attr': {
+                'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm focus:ring-primary/10 focus:border-primary transition-all',
+                'placeholder': 'France'
+            }
+       			 }) }}
+			{% if form.country.vars.errors|length > 0 %}
+				<p class="form-error">
+					{{ form_errors(form.country)|striptags }}
+				</p>
+			{% endif %}
+		</div>
+	</div>
+</div>
+
 
 {# Professional Details #}
 <div class="space-y-6">
@@ -64,59 +156,43 @@
 				{{ form_errors(form.companyName)|striptags }}
 			</p>
 		{% endif %}
-
 	</div>
 
-	<div class="group">
-		{{ form_label(form.email, 'Email Address', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1'}}) }}
-		{{ form_widget(form.email, {
-            'attr': {
-                'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm focus:ring-primary/10 focus:border-primary transition-all',
-                'placeholder': 'john@example.com'
-            }
-        }) }}
-		{% if form.email.vars.errors|length > 0 %}
-			<p class="form-error">
-				{{ form_errors(form.email)|striptags }}
-			</p>
-		{% endif %}
 
-	</div>
-</div>
+	{# SIRET and VAT #}
+	<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+		<div class="group">
+			{{ form_label(form.siret, 'SIRET', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1'}}) }}
+			{{ form_widget(form.siret, {
+                'attr': {
+                    'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm focus:ring-primary/10 focus:border-primary transition-all',
+                    'placeholder': '12345678901234'
+                }
+            }) }}
+			{% if form.siret.vars.errors|length > 0 %}
+				<p class="form-error">
+					{{ form_errors(form.siret)|striptags }}
+				</p>
+			{% endif %}
+		</div>
 
-{# Logistics #}
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-	<div class="group">
-		{{ form_label(form.phoneNumber, 'Phone', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1'}}) }}
-		{{ form_widget(form.phoneNumber, {
-            'attr': {
-                'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm focus:ring-primary/10 focus:border-primary transition-all',
-                'placeholder': '+33'
-            }
-        }) }}
-		{% if form.phoneNumber.vars.errors|length > 0 %}
-			<p class="form-error">
-				{{ form_errors(form.phoneNumber)|striptags }}
-			</p>
-		{% endif %}
-
-	</div>
-
-	<div class="group">
-		{{ form_label(form.address, 'Address', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1'}}) }}
-		{{ form_widget(form.address, {
-            'attr': {
-                'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm focus:ring-primary/10 focus:border-primary transition-all',
-                'placeholder': '123 Business Way'
-            }
-        }) }}
-		{% if form.address.vars.errors|length > 0 %}
-			<p class="form-error">
-				{{ form_errors(form.address)|striptags }}
-			</p>
-		{% endif %}
+		<div class="group">
+			{{ form_label(form.vatNumber, 'VAT Number', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1'}}) }}
+			{{ form_widget(form.vatNumber, {
+                'attr': {
+                    'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm focus:ring-primary/10 focus:border-primary transition-all',
+                    'placeholder': 'FRXX999999999'
+                }
+            }) }}
+			{% if form.vatNumber.vars.errors|length > 0 %}
+				<p class="form-error">
+					{{ form_errors(form.vatNumber)|striptags }}
+				</p>
+			{% endif %}
+		</div>
 	</div>
 </div>
+
 
 {# Actions #}
 <div class="pt-8 flex items-center justify-end space-x-4">

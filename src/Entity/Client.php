@@ -80,7 +80,7 @@ class Client
     #[ORM\OneToMany(targetEntity: Invoice::class, mappedBy: 'client')]
     private Collection $invoices;
 
-    #[ORM\Column(length: 14)]
+    #[ORM\Column(length: 14, nullable: true)]
     private ?string $siret = null;
 
     #[ORM\Column(length: 20, nullable: true)]
