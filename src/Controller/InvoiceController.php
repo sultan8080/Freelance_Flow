@@ -26,8 +26,12 @@ final class InvoiceController extends AbstractController
     }
 
     #[Route('/new_invoice', name: 'app_invoice_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, InvoiceCalculator $calculator, InvoiceNumberGenerator $generator): Response
-    {
+    public function new(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        InvoiceCalculator $calculator,
+        InvoiceNumberGenerator $generator
+    ): Response {
         $invoice = new Invoice();
         $invoice->setUser($this->getUser());
 
@@ -36,51 +40,44 @@ final class InvoiceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // 1. Calculate the Money (HT, VAT, TTC)
-            $calculator->calculateInvoice($invoice);
+            //  TRANSITION LOGIC 
+            if ($invoice->getStatus() !== 'DRAFT') {
 
-            // 2. Handle Status Logic (Draft -> Sent)
-            if ($invoice->getStatus() === 'SENT') {
+                $now = new \DateTimeImmutable();
 
-                // Assign an valide invoice number if it doesn't have one
+                // 1. Generate Number
                 if (!$invoice->getInvoiceNumber()) {
                     $invoice->setInvoiceNumber($generator->generateFor($this->getUser()));
                 }
-                // Capture snapshot of client data at sending time
+                // 2. Freeze Data
                 $invoice->collectSnapshot();
-            }
 
+                // 3. Set Sent Date (the date it will be sent)
+                if (!$invoice->getSentAt()) {
+                    $invoice->setSentAt($now);
+                }
+
+                // 4. Set Due Date (Sent date + 30 Days)
+                if (!$invoice->getDueDate()) {
+                    $invoice->setDueDate($now->modify('+30 days'));
+                }
+
+                // 5. Handle Payment
+                if ($invoice->getStatus() === 'PAID') {
+                    $invoice->setPaidAt($now);
+                }
+            }
+            // calculate totals of the invoice
+            $calculator->calculateInvoice($invoice);
             $entityManager->persist($invoice);
             $entityManager->flush();
-
-            $this->addFlash('success', 'Invoice saved successfully!');
+            $this->addFlash('success', 'Invoice created successfully!');
             return $this->redirectToRoute('app_invoice_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        if ($form->isSubmitted() && !$form->isValid()) {
-            $this->addFlash('error', 'Please correct the errors in the form.');
-            return $this->render('invoice/new.html.twig', [
-                'form' => $form,
-                'invoice' => $invoice, // Pass invoice for template logic
-            ], new Response(null, 422));
         }
 
         return $this->render('invoice/new.html.twig', [
             'invoice' => $invoice,
             'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'app_invoice_show', methods: ['GET'])]
-    public function show(Invoice $invoice): Response
-    {
-        // Security check (Vote)
-        if ($invoice->getUser() !== $this->getUser()) {
-            throw $this->createAccessDeniedException('You do not have access to this invoice.');
-        }
-
-        return $this->render('invoice/show.html.twig', [
-            'invoice' => $invoice,
         ]);
     }
 
@@ -92,9 +89,9 @@ final class InvoiceController extends AbstractController
         InvoiceCalculator $calculator,
         InvoiceNumberGenerator $generator
     ): Response {
-        // Security check
+        // Security Check
         if ($invoice->getUser() !== $this->getUser()) {
-            throw $this->createAccessDeniedException('You do not have access to this invoice.');
+            throw $this->createAccessDeniedException();
         }
 
         $form = $this->createForm(InvoiceType::class, $invoice);
@@ -102,36 +99,65 @@ final class InvoiceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // 1. Recalculate Money 
-            $calculator->calculateInvoice($invoice);
+            // --- TRANSITION LOGIC ---
+            if ($invoice->getStatus() !== 'DRAFT') {
 
-            // 2. Check Transitions (Draft -> Sent)
-            if (in_array($invoice->getStatus(), ['SENT', 'PAID', 'UNPAID'])) {
-
+                $now = new \DateTimeImmutable();
+                // Generate Number if missing
                 if (!$invoice->getInvoiceNumber()) {
                     $invoice->setInvoiceNumber($generator->generateFor($this->getUser()));
-
-                    // Force snapshot capture on first send
                     $invoice->collectSnapshot();
+                    $invoice->setSentAt($now);
+
+                    // Auto-set Due Date (+30 days)
+                    if (!$invoice->getDueDate()) {
+                        $invoice->setDueDate($now->modify('+30 days'));
+                    }
+
+                    // Initial Calculation
+                    $calculator->calculateInvoice($invoice);
+                }
+
+                // 2. Payment Status Logic
+                if ($invoice->getStatus() === 'PAID') {
+                    // If marked PAID, ensure we have a payment date
+                    if (!$invoice->getPaidAt()) {
+                        $invoice->setPaidAt($now);
+                    }
+                } elseif ($invoice->getStatus() === 'SENT') {
+                    // logic for reverting to SENT
+                    // We clear the Paid Date.
+                    $invoice->setPaidAt(null);
                 }
             }
 
-            $entityManager->flush();
-            $this->addFlash('success', 'Invoice updated successfully!');
+            // Recalculate the invoice totals if it's still a draft and any changes were made
+            if ($invoice->getStatus() === 'DRAFT') {
+                $calculator->calculateInvoice($invoice);
+            }
 
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Invoice updated successfully!');
             return $this->redirectToRoute('app_invoice_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        if ($form->isSubmitted() && !$form->isValid()) {
-            $this->addFlash('error', 'Please correct the errors in the form.');
-            return $this->render('invoice/edit.html.twig', [
-                'invoice' => $invoice,
-                'form' => $form,
-            ], new Response(null, 422));
-        }
         return $this->render('invoice/edit.html.twig', [
             'invoice' => $invoice,
             'form' => $form,
+        ]);
+    }
+
+
+    #[Route('/{id}', name: 'app_invoice_show', methods: ['GET'], requirements: ['id' => '\d+'])]
+    public function show(Invoice $invoice): Response
+    {
+        if ($invoice->getUser() !== $this->getUser()) {
+            throw $this->createAccessDeniedException('You do not have access to this invoice.');
+        }
+
+        return $this->render('invoice/show.html.twig', [
+            'invoice' => $invoice,
         ]);
     }
 
@@ -141,9 +167,10 @@ final class InvoiceController extends AbstractController
         if ($invoice->getUser() !== $this->getUser()) {
             throw $this->createAccessDeniedException();
         }
-        // Only DRAFT invoices can be deleted
+
+        // Only Drafts can be deleted
         if (!$invoice->isDeletable()) {
-            $this->addFlash('error', 'Cannot delete a Sent invoice.');
+            $this->addFlash('error', 'Cannot delete a finalized invoice.');
             return $this->redirectToRoute('app_invoice_index');
         }
 
