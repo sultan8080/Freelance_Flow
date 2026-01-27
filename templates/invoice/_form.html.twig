@@ -1,4 +1,175 @@
+{% set is_locked = form.client.vars.disabled %}
+
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+{# LOCKED STATUS NOTICE & STATUS UPDATE  #}
+{% if is_locked %}
+	<div
+		class="bg-amber-50 border border-amber-200 rounded-2xl p-6 mb-8 shadow-sm relative overflow-hidden">
+		{# Background decorative blur #}
+		<div class="absolute top-0 right-0 w-32 h-32 bg-amber-100 rounded-full blur-3xl -mr-16 -mt-16 opacity-50 pointer-events-none"></div>
+
+		<div class="flex flex-col md:flex-row gap-6 items-center relative z-10">
+			<div class="flex-1">
+				<h2 class="text-amber-800 font-bold text-lg flex items-center gap-2">
+					<i class="fas fa-lock"></i>
+					Restricted Editing
+				</h2>
+				<p class="text-amber-700 text-sm mt-1">
+					This invoice is finalized.
+					<br>Changing status to
+					<strong>PAID</strong>
+					will automatically set the payment date to
+					<strong>Today</strong>.
+				</p>
+			</div>
+
+			<div class="w-full md:w-auto bg-white/60 p-4 rounded-xl border border-amber-100 backdrop-blur-sm">
+				<div class="w-full sm:w-64">
+					{{ form_label(form.status, 'Update Status', {'label_attr': {'class': 'block text-xs font-bold text-amber-800 uppercase mb-1'}}) }}
+					{{ form_widget(form.status, {'attr': {'class': 'w-full rounded-xl border-amber-300 focus:ring-amber-500 bg-white'}}) }}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endif %}
+
+{#  MAIN FORM CONTENT (Dimmed if Locked)  #}
+<div class="{{ is_locked ? 'opacity-75 grayscale-[0.5] pointer-events-none select-none' : '' }} transition-all">
+
+	<div
+		class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+			<div class="glass-card p-6 rounded-2xl">
+			<h3 class="text-slate-700 font-bold mb-4 flex items-center gap-2">
+				<i class="fas fa-user-circle text-slate-400"></i>
+				Client Details
+			</h3>
+			<div class="mb-4">
+				{{ form_label(form.client, 'Select Client', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 uppercase mb-1'}}) }}
+				{{ form_widget(form.client) }}
+				{{ form_errors(form.client) }}
+			</div>
+			<div class="mb-4">
+				{{ form_label(form.projectTitle, 'Project / Reference', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 uppercase mb-1'}}) }}
+				{{ form_widget(form.projectTitle) }}
+			</div>
+
+			{# Only show status here if NOT locked #}
+			{% if not is_locked %}
+				<div class="mb-4">
+					{{ form_label(form.status, 'Status', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 uppercase mb-1'}}) }}
+					{{ form_widget(form.status) }}
+				</div>
+			{% endif %}
+		</div>
+
+		{# Right Column: Invoice #}
+		<div class="glass-card p-6 rounded-2xl">
+			<h3 class="text-slate-700 font-bold mb-4 flex items-center gap-2">
+				<i class="fas fa-file-invoice text-slate-400"></i>
+				Invoice Settings
+			</h3>
+			<div class="grid grid-cols-2 gap-4">
+				<div>
+					{{ form_label(form.invoiceNumber, 'Invoice #', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 uppercase mb-1'}}) }}
+					{{ form_widget(form.invoiceNumber) }}
+				</div>
+				<div>
+					{{ form_label(form.currency, 'Currency', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 uppercase mb-1'}}) }}
+					{{ form_widget(form.currency) }}
+				</div>
+				<div class="col-span-2">
+					<div class="p-3 bg-slate-50 rounded-xl border border-slate-100 text-xs text-slate-500 flex items-start gap-2">
+						<i class="fas fa-info-circle mt-0.5 text-slate-400"></i>
+						<span>Dates are automatic:
+							<strong>Due Date</strong>
+							is +30 days after sending.</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{# INVOICE ITEMS COLLECTION FROM invoiceItems #}
+	{% set allow_add = form.invoiceItems.vars.allow_add %}
+
+	<div class="glass-card rounded-2xl overflow-hidden mb-8 shadow-sm border border-slate-100" {% if allow_add %} data-controller="form-collection" data-form-collection-index-value="{{ form.invoiceItems|length > 0 ? form.invoiceItems|last.vars.name + 1 : 0 }}" data-form-collection-prototype-value="{{ form_widget(form.invoiceItems.vars.prototype)|e('html_attr') }}" {% endif %}>
+		<div class="p-4 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
+			<h3 class="text-slate-700 font-bold flex items-center gap-2">
+				<i class="fas fa-list text-slate-400"></i>
+				Items
+			</h3>
+			{% if allow_add %}
+				<button type="button" data-action="form-collection#addCollectionElement" class="text-xs bg-primary text-white px-4 py-2 rounded-xl hover:bg-primary-hover transition-colors font-semibold shadow-indigo-glow">
+					<i class="fas fa-plus mr-1"></i>
+					Add New Item
+				</button>
+			{% endif %}
+		</div>
+
+		<div class="overflow-x-auto">
+			<table class="w-full text-left border-collapse">
+				<thead>
+					<tr class="text-xs font-bold text-slate-500 border-b border-slate-200 bg-slate-50/50">
+						<th class="px-4 py-3 w-1/2 uppercase tracking-wider">Description</th>
+						<th class="px-4 py-3 w-24 uppercase tracking-wider">Qty</th>
+						<th class="px-4 py-3 w-32 uppercase tracking-wider">Price</th>
+						<th class="px-4 py-3 w-24 uppercase tracking-wider">VAT %</th>
+						<th class="px-4 py-3 w-10"></th>
+					</tr>
+				</thead>
+				<tbody {% if allow_add %} data-form-collection-target="collectionContainer" {% endif %} class="divide-y divide-slate-100 bg-white">
+					{% for item in form.invoiceItems %}
+						<tr class="group hover:bg-slate-50 transition-colors">
+							<td class="px-4 py-3">
+								{{ form_widget(item.description, {'attr': {'class': 'w-full rounded-lg border-slate-200 focus:ring-primary text-sm bg-slate-50 focus:bg-white transition-colors', 'placeholder': 'Item description...'}}) }}
+								{{ form_errors(item.description) }}
+							</td>
+							<td class="px-4 py-3">
+								{{ form_widget(item.quantity, {'attr': {'class': 'w-full rounded-lg border-slate-200 focus:ring-primary text-sm text-right bg-slate-50 focus:bg-white transition-colors'}}) }}
+							</td>
+							<td class="px-4 py-3">
+								{{ form_widget(item.unitPrice, {'attr': {'class': 'w-full rounded-lg border-slate-200 focus:ring-primary text-sm text-right bg-slate-50 focus:bg-white transition-colors'}}) }}
+							</td>
+							<td class="px-4 py-3">
+								{{ form_widget(item.vatRate, {'attr': {'class': 'w-full rounded-lg border-slate-200 focus:ring-primary text-sm text-right bg-slate-50 focus:bg-white transition-colors'}}) }}
+							</td>
+							<td class="px-4 py-3 text-center">
+								{% if form.invoiceItems.vars.allow_delete %}
+									<button type="button" data-action="form-collection#removeCollectionElement" class="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all" title="Delete Row">
+										<i class="fas fa-trash"></i>
+									</button>
+								{% endif %}
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+
+		{# Empty State for Items #}
+		{% if form.invoiceItems|length == 0 %}
+			<div class="p-8 text-center text-slate-400 italic text-sm">
+				No items added yet. Click "Add New Item" to start.
+			</div>
+		{% endif %}
+	</div>
+</div>
+
+{# BUTTONS #}
+<div class="flex justify-end gap-4 mt-8 pt-6 border-t border-slate-100">
+	<a href="{{ path('app_invoice_index') }}" class="px-6 py-3 rounded-xl text-slate-500 font-semibold hover:bg-white hover:text-slate-700 transition-all">
+		Cancel
+	</a>
+	<button type="submit" class="px-8 py-3 rounded-xl bg-primary text-white font-bold shadow-indigo-glow hover:-translate-y-0.5 transition-all flex items-center">
+		{% if is_locked %}
+			<i class="fas fa-save mr-2"></i>
+			Update Status
+		{% else %}
+			<i class="fas fa-check mr-2"></i>
+			{{ button_label|default('Save Invoice') }}
+		{% endif %}
+	</button>
+</div>
+
 {{ form_end(form) }}
