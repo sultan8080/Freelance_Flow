@@ -152,19 +152,32 @@ class Invoice
         return in_array($this->status, ['SENT', 'PAID', 'UNPAID']);
     }
 
-    // Can the user delete this from the database?
+    // check if the user can delete this from the database?
     public function isDeletable(): bool
     {
         return $this->status === 'DRAFT';
     }
 
-    // Is it overdue?
+    /**
+     * Checks if the invoice is Sent but the Due Date has passed.
+     */
     public function isOverdue(): bool
     {
-        // Must be SENT/UNPAID, due date passed, and not paid yet
-        return in_array($this->status, ['SENT', 'UNPAID']) &&
-            $this->dueDate < new \DateTimeImmutable() &&
-            $this->paidAt === null;
+        // 1. If it's Draft or Paid, it can't be overdue
+        if ($this->status === 'DRAFT' || $this->status === 'PAID') {
+            return false;
+        }
+
+        // 2. If no Due Date is set, it can't be overdue
+        if ($this->dueDate === null) {
+            return false;
+        }
+
+        // 3. Check if Today > Due Date
+        $today = new \DateTimeImmutable('today'); 
+
+        // Return true if Today is strictly after the Due Date
+        return $today > $this->dueDate;
     }
 
     // Capture snapshot of client data
