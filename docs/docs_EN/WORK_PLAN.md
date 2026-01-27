@@ -41,24 +41,23 @@
 - [x] **Security Voter:** Update `InvoiceVoter` to use direct user ownership.
 - [x] **Numbering Service:** Implement `InvoiceNumberGenerator` (e.g., FF-2026-001).
 
-### Phase 6: Dynamic Invoicing (Frontend UI)
+### Phase 6 : Facturation Dynamique (Interface UI)
+- [x] **Financial Service:** Implement `InvoiceCalculator` for subtotal, VAT, and totals.
+- [x] **Lifecycle Logic:** Implement DRAFT vs PAID statuses. Ensure PAID invoices are immutable (locked).
+- [x] **The Snapshot** System: Add columns to the Invoice entity to "freeze" client personal data
+- [x] **URSSAF Estimator:** Service to compute the 21.2% charge for the dashboard view.
+- [x] **Invoice Form:** Create the main form and the InvoiceItem sub-form using Symfony `InvoiceItemType`.
+- [x] **Stimulus.js:** "Add/Remove Line Item"
+- [ ] **Live Totals:** Real-time JS updates so the user sees the price change as they type.
 
- - [x] **Service Financier :** Implémenter `InvoiceCalculator` pour le sous‑total, la TVA et les totaux.
- - [x] **Logique de Cycle de Vie :** Implémenter les statuts DRAFT vs PAID. S’assurer que les factures PAID sont immuables (verrouillées).
- - [x] **Le Système de Snapshot :** Ajouter des colonnes à l’entité Invoice pour "geler" les données client (Nom, Adresse, SIRET) et les totaux finaux au moment du paiement.
- - [x] **Estimateur URSSAF :** Service pour calculer la charge de 21.2% pour la vue tableau de bord.
- - [ ] **Formulaire de Facture :** Créer le formulaire principal et le sous‑formulaire InvoiceItem en utilisant Symfony `CollectionType`.
- - [ ] **Stimulus.js :** "Ajouter/Supprimer une ligne" (souvent la partie la plus chronophage de la nuit).
- - [ ] **Totaux en Direct :** Mise à jour en temps réel via JS pour que l’utilisateur voie le prix changer pendant la saisie.
-
-
-### Phase 7: Document Design & Export
-- [X] **Intégration au Dashboard :** Déplacer les pages de factures dans le layout du tableau de bord (comme pour Clients).
-- [X] **Intégration du Routing :** Ajouter les factures dans la barre latérale + sécuriser l’accès avec InvoiceVoter.
-- [ ] **Template HTML :** Mise en page professionnelle incluant les mentions légales "Art. 293B".
-- [ ] **Page d’Aperçu de Facture :** Vue HTML en lecture seule avant l’export PDF.
-- [ ] **Moteur PDF :** Intégration de DomPDF pour la génération de documents.
-- [ ] **Export Sécurisé :** Routes protégées pour les téléchargements PDF.
+### Phase 7 : Design Documentaire & Export
+- [x] **Dashboard Integration:** Move invoice pages into the dashboard layout (same as Clients).
+- [x] **Routing Integration:** Add invoices to the sidebar + secure access with InvoiceVoter.
+- [x] **Tailwind Styling:** Apply full UI styling to the invoice form and line items.
+- [x] **HTML Template:** Professional layout including "Art. 293B" legal mentions.
+- [x] **Invoice Preview** Page: Read-only HTML view before PDF export.
+- [ ] **PDF Engine:** Integration of DomPDF for document generation.
+- [ ] **Secure Export:** Protected routes for PDF downloads.
 
 ### Phase 8: Dashboard Insights (Analytics)
 - [ ] **KPI Widgets:** Monthly/Yearly revenue tracking.

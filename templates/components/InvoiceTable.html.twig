@@ -35,7 +35,7 @@
 						</th>
 
 						{# 2. Amount #}
-						<th class="px-6 py-4 text-xs font-bold !hidden ms:!table-cell !whitespace-nowrap uppercase tracking-wider text-slate-600 text-right">
+						<th class="px-6 py-4 text-xs font-bold !hidden md:!table-cell !whitespace-nowrap uppercase tracking-wider text-slate-600 text-right">
 							Amount
 						</th>
 
@@ -137,7 +137,7 @@
 							</td>
 
 							{# --- 2. Amount --- #}
-							<td class="px-6 py-4 text-right align-top pt-5 !hidden ms:!table-cell !whitespace-nowrap">
+							<td class="px-6 py-4 text-right align-top pt-5 !hidden md:!table-cell !whitespace-nowrap">
 								<div class="font-bold text-slate-900 text-sm md:text-base">
 									{{ invoice.totalAmount|number_format(2, '.', ',') }}
 									<span class="text-xs font-normal text-slate-400 ml-0.5">{{ invoice.currency }}</span>
