@@ -1,11 +1,24 @@
-{% extends 'base.html.twig' %}
+{% extends 'dashboard/base.html.twig' %}
 
-{% block title %}New Invoice{% endblock %}
+{% block title %}New Invoice
+{% endblock %}
 
-{% block body %}
-    <h1>Create new Invoice</h1>
+{% block dashboard_content %}
+	<div class="max-w-5xl mx-auto">
+		<a href="{{ path('app_invoice_index') }}" class="text-slate-400 font-bold mb-6 block hover:text-primary">
+			<i class="fas fa-arrow-left mr-2"></i>
+			Back to list
+		</a>
 
-    {{ include('invoice/_form.html.twig') }}
+		<div class="glass-card rounded-bento p-8">
+			<p class="text-slate-500 text-base md:text-lg mb-4 md:mb-8">
+				Create new Invoice
+			</p>
 
-    <a href="{{ path('app_invoice_index') }}">back to list</a>
+			{# The form block #}
+			{% block client_form %}
+				{{ include('invoice/_form.html.twig', { form: form }) }}
+			{% endblock %}
+		</div>
+	</div>
 {% endblock %}
