@@ -7,11 +7,11 @@
 
 {% block body %}
 	{# for glass cards popying immediately background effect
-							<div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-								<div class="absolute top-[-10%] left-[-10%] w-[40rem] h-[40rem] bg-indigo-200/30 rounded-full blur-[120px]"></div>
-								<div class="absolute bottom-[-5%] right-[-5%] w-[30rem] h-[30rem] bg-purple-200/20 rounded-full blur-[100px]"></div>
-							</div>
-						    #}
+								<div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+									<div class="absolute top-[-10%] left-[-10%] w-[40rem] h-[40rem] bg-indigo-200/30 rounded-full blur-[120px]"></div>
+									<div class="absolute bottom-[-5%] right-[-5%] w-[30rem] h-[30rem] bg-purple-200/20 rounded-full blur-[100px]"></div>
+								</div>
+							    #}
 	<div
 		data-controller="layout" data-action="click->layout#closeUserDropdown" class="min-h-screen">
 
@@ -87,7 +87,7 @@
 							<i class="fas fa-users w-5 text-center group-hover:text-indigo-400 transition-colors"></i>
 							<span class="sidebar-text">Clients</span>
 						</a>
-						<a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 hover:text-white transition-all group">
+						<a href="{{ path('app_invoice_index') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 hover:text-white transition-all group">
 							<i class="fas fa-file-invoice-dollar w-5 text-center group-hover:text-indigo-400 transition-colors"></i>
 							<span class="sidebar-text">Invoices</span>
 						</a>
