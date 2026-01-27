@@ -1,0 +1,199 @@
+<div{{attributes}}>
+	<p class="text-slate-500 text-base md:text-lg mb-4 md:mb-8">
+		Manage your Invoices Information
+	</p>
+
+	<div class="flex flex-row items-center gap-4 w-full mb-6 md:mb-10">
+		<div class="flex-1">
+			<input type="text" data-model="query" placeholder="  Search invoices..." class="w-full pl-11 pr-12 py-2.5 rounded-2xl border border-slate-200 bg-white/50 backdrop-blur-md focus:ring-4 focus:ring-primary/10 transition-all outline-none text-sm md:text-base">
+		</div>
+		<div class="shrink-0">
+			<a href="{{ path('app_invoice_new')}}" class="inline-flex items-center justify-center whitespace-nowrap bg-primary text-white px-4 md:px-6 py-2.5 rounded-2xl text-xs md:text-sm font-semibold hover:bg-primary-hover shadow-indigo-glow transition-all hover:-translate-y-0.5">
+				<i class="fas fa-plus mr-2"></i>
+				Add Invoice
+			</a>
+		</div>
+	</div>
+
+	<div class="glass-card rounded-bento">
+		<div class="overflow-x-auto">
+			<table class="w-full text-left border-collapse">
+				<thead>
+					<tr class="bg-slate-50 border-b border-card-border">
+
+						<th class="px-2 py-4 text-center text-xs font-bold !hidden md:!table-cell !whitespace-nowrap uppercase tracking-wider text-slate-600">
+							Index
+						</th>
+						{# 1. Combined Column: Reference, Client, Status, Date #}
+						<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-600">
+							Invoice
+						</th>
+
+						{# 2. Amount #}
+						<th class="px-6 py-4 text-xs !hidden md:!table-cell !whitespace-nowrap font-bold uppercase tracking-wider text-slate-600 text-left">
+							Project Title
+						</th>
+
+						{# 2. Amount #}
+						<th class="px-6 py-4 text-xs font-bold !hidden ms:!table-cell !whitespace-nowrap uppercase tracking-wider text-slate-600 text-right">
+							Amount
+						</th>
+
+						{# 3. Actions #}
+						<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-600 text-right">
+							Actions
+						</th>
+					</tr>
+				</thead>
+				<tbody class="divide-y divide-slate-100">
+					{% for invoice in this.invoices %}
+						<tr class="hover:bg-slate-50 transition-colors group">
+							<td class="px-2 py-4 !hidden md:!table-cell !whitespace-nowrap text-center align-top pt-5">
+								<div class=" text-slate-900 text-sm">
+									{{ invoice.id }}
+								</div>
+							</td>
+
+							<td class="px-6 py-4">
+								<div
+									class="flex flex-col gap-1">
+									{# A. Invoice Number & Project #}
+									<div class="flex items-center gap-2">
+										<span class="font-bold text-slate-800 text-sm md:text-base">
+											{{ invoice.invoiceNumber ?: 'No invoice no.' }}
+										</span>
+									</div>
+
+									{# B. Client Name #}
+									<span class="text-xs text-slate-500 font-medium">
+										{% if invoice.frozenClientName %}
+											<i class="fas fa-lock text-[10px] mr-1 opacity-50" title="Locked Data"></i>
+											{{ invoice.frozenClientName }}
+										{% elseif invoice.client %}
+											{{ invoice.client.fullName }}
+										{% else %}
+											<span class="text-red-300 italic">No Client</span>
+										{% endif %}
+									</span>
+
+									{# C. Status & Date Logic #}
+									<div
+										class="mt-1 flex items-center gap-2">
+										{# Status Badge #}
+										{% if invoice.status == 'PAID' %}
+											<span class="text-[10px] font-bold uppercase tracking-wide text-emerald-600">
+												PAID
+											</span>
+										{% elseif invoice.isOverdue %}
+											<span class="text-[10px] font-bold uppercase tracking-wide text-red-600">
+												UNPAID / OVERDUE
+											</span>
+										{% elseif invoice.status == 'SENT' %}
+											<span class="text-[10px] font-bold uppercase tracking-wide bg-blue-300 text-blue-600">
+												SENT
+											</span>
+										{% else %}
+											<span class="text-[10px] font-bold uppercase tracking-wide text-slate-400">
+												DRAFT
+											</span>
+										{% endif %}
+
+										{# Smart Date Display #}
+										{% if invoice.status == 'SENT' %}
+											<span class="text-slate-300 text-[10px]">•</span>
+
+											{% if invoice.isOverdue %}
+												{# LOGIC: If Sent and Date Passed -> show RED Overdue #}
+												<span class="text-[10px] font-bold text-red-500 flex items-center gap-1">
+													<i class="fas fa-exclamation-circle"></i>
+													Overdue
+													{{ invoice.dueDate|date('d M Y') }}
+												</span>
+											{% else %}
+												{# Normal Sent #}
+												<span class="text-[10px] text-slate-400">
+													Due
+													{{ invoice.dueDate|date('d M Y') }}
+												</span>
+											{% endif %}
+
+										{% elseif invoice.status == 'PAID' %}
+											<span class="text-slate-300 text-[10px]">•</span>
+											<span class="text-[10px] text-emerald-600/70">
+												{{ invoice.paidAt|date('d M Y') }}
+											</span>
+										{% endif %}
+									</div>
+								</div>
+							</td>
+							{# --- 2. Amount --- #}
+							<td class="px-6 py-4 !hidden md:!table-cell !whitespace-nowrap text-left align-top pt-5">
+								<div class=" text-slate-900 text-sm">
+									{{ invoice.projectTitle ?: 'No Project Title'}}
+								</div>
+								<span class="text-xs text-slate-500 font-medium">{{ invoice.client.companyName }}
+								</span>
+
+							</td>
+
+							{# --- 2. Amount --- #}
+							<td class="px-6 py-4 text-right align-top pt-5 !hidden ms:!table-cell !whitespace-nowrap">
+								<div class="font-bold text-slate-900 text-sm md:text-base">
+									{{ invoice.totalAmount|number_format(2, '.', ',') }}
+									<span class="text-xs font-normal text-slate-400 ml-0.5">{{ invoice.currency }}</span>
+								</div>
+							</td>
+
+							{# --- 3. Actions --- #}
+							<td class="px-6 py-4 text-right align-top pt-4">
+								<div
+									class="flex justify-end gap-2">
+
+									{# View #}
+									<a href="{{ path('app_invoice_show', {id: invoice.id}) }}" class="p-2 hover:bg-white rounded-lg text-slate-400 hover:text-primary transition-all" title="View Details">
+										<i class="fas fa-eye"></i>
+									</a>
+
+									<span class="text-slate-200 py-2">|</span>
+
+									{# Edit Logic #}
+									{% if invoice.status == 'DRAFT' %}
+										{# DRAFT: Full Edit #}
+										<a href="{{ path('app_invoice_edit', {id: invoice.id}) }}" class="p-2 hover:bg-white rounded-lg text-slate-400 hover:text-blue-600 transition-all" title="Edit Draft">
+											<i class="fas fa-edit"></i>
+										</a>
+									{% else %}
+										{# SENT or PAID: Allow Status Update #}
+										<a href="{{ path('app_invoice_edit', {id: invoice.id}) }}" class="p-2 hover:bg-white rounded-lg text-slate-400 hover:text-amber-600 transition-all" title="Update Status / Revert">
+											<i class="fas fa-sliders-h"></i>
+										</a>
+									{% endif %}
+
+									{# Delete Logic #}
+									{% if invoice.status == 'DRAFT' %}
+										<form method="post" action="{{ path('app_invoice_delete', {'id': invoice.id}) }}" onsubmit="return confirm('Delete this draft?');" class="inline">
+											<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ invoice.id) }}">
+											<button class="p-2 hover:bg-white rounded-lg text-slate-400 hover:text-red-500 transition-all ml-1">
+												<i class="fas fa-trash"></i>
+											</button>
+										</form>
+									{% endif %}
+								</div>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="4" class="px-6 py-12 text-center text-slate-500 italic bg-slate-50">
+								<div class="flex flex-col items-center justify-center gap-2">
+									<i class="fas fa-file-invoice text-3xl text-slate-300 mb-2"></i>
+									<p>No invoices found.</p>
+									<a href="{{ path('app_invoice_new') }}" class="text-primary text-sm hover:underline font-medium">Create your first invoice</a>
+								</div>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
