@@ -89,10 +89,15 @@ class InvoiceItem
         return $this->vatRate;
     }
 
-    public function setVatRate(string $vatRate): static
+    public function setVatRate(?string $vatRate): static
     {
+        // Normalize empty or null values
+        if ($vatRate === null || $vatRate === '') {
+            $vatRate = '0.00';
+        }
+        // formatting (2 decimals)
+        $vatRate = number_format((float)$vatRate, 2, '.', '');
         $this->vatRate = $vatRate;
-
         return $this;
     }
 
@@ -136,6 +141,7 @@ class InvoiceItem
     {
         return $this->invoice;
     }
+
 
     public function setInvoice(?Invoice $invoice): static
     {
