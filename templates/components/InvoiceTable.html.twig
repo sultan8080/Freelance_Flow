@@ -17,7 +17,7 @@
 
 	<div class="glass-card rounded-bento">
 		<div class="overflow-x-auto">
-			<table class="w-full text-left border-collapse">
+			<table class="w-full text-left border-collapse overflow-auto">
 				<thead>
 					<tr class="bg-slate-50 border-b border-card-border">
 
@@ -60,7 +60,11 @@
 									{# A. Invoice Number & Project #}
 									<div class="flex items-center gap-2">
 										<span class="font-bold text-slate-800 text-sm md:text-base">
-											{{ invoice.invoiceNumber ?: 'No invoice no.' }}
+											{% if invoice.invoiceNumber %}
+												{{ invoice.invoiceNumber }}
+											{% else %}
+												<span class="text-slate-600 font-medium">DRAFT - {{ invoice.id }}</span>
+											{% endif %}
 										</span>
 									</div>
 
@@ -81,19 +85,19 @@
 										class="mt-1 flex items-center gap-2">
 										{# Status Badge #}
 										{% if invoice.status == 'PAID' %}
-											<span class="text-[10px] font-bold uppercase tracking-wide text-emerald-600">
+											<span class="text-[10px] font-bold bg-green-50 p-1 uppercase tracking-wide text-emerald-600">
 												PAID
 											</span>
 										{% elseif invoice.isOverdue %}
-											<span class="text-[10px] font-bold uppercase tracking-wide text-red-600">
+											<span class="text-[10px] font-bold p-1 bg-red-50 uppercase tracking-wide text-red-600">
 												UNPAID / OVERDUE
 											</span>
 										{% elseif invoice.status == 'SENT' %}
-											<span class="text-[10px] font-bold uppercase tracking-wide bg-blue-300 text-blue-600">
+											<span class="text-[10px] font-bold uppercase tracking-wide p-1 bg-blue-50 text-blue-600">
 												SENT
 											</span>
 										{% else %}
-											<span class="text-[10px] font-bold uppercase tracking-wide text-slate-400">
+											<span class="text-[10px] font-bold uppercase tracking-wide bg-slate-100 text-slate-400">
 												DRAFT
 											</span>
 										{% endif %}
