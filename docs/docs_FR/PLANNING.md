@@ -50,7 +50,7 @@
 - [x] **Estimateur URSSAF :** Service pour calculer la charge de 21.2% pour la vue tableau de bord.
 - [x] **Formulaire de Facture :** Créer le formulaire principal et le sous‑formulaire InvoiceItem en utilisant Symfony `InvoiceItemType`.
 - [x] **Stimulus.js :** "Ajouter/Supprimer une ligne" .
-- [ ] **Totaux en Direct :** Mise à jour en temps réel via JS pour que l’utilisateur voie le prix changer pendant la saisie.
+- [x] **Totaux en Direct :** Mise à jour en temps réel via JS pour que l’utilisateur voie le prix changer pendant la saisie.
 
 ### Phase 7 : Design Documentaire & Export
 - [X] **Intégration au Dashboard :** Déplacer les pages de factures dans le layout du tableau de bord (comme pour Clients).
