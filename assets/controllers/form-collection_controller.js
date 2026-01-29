@@ -1,10 +1,15 @@
 import { Controller } from '@hotwired/stimulus';
 
-/*
- * Usage in Twig:
+/**
+ * Manages Symfony Form Collections (prototype pattern).
+ * * Capabilities:
+ * - Adds new items based on the data-prototype attribute.
+ * - Removes items and cleans up the DOM.
+ * - Dispatches a 'collection-changed' event for other controllers (e.g., Invoice Summary).
+ * * @example
  * <div data-controller="form-collection"
- * data-form-collection-index-value="{{ form.invoiceItems|length > 0 ? form.invoiceItems|last.vars.name + 1 : 0 }}"
- * data-form-collection-prototype-value="{{ form.invoiceItems.vars.prototype|e('html_attr') }}">
+ * data-form-collection-index-value="0"
+ * data-form-collection-prototype-value="...">
  * ...
  * </div>
  */
@@ -16,23 +21,26 @@ export default class extends Controller {
         prototype: String,
     };
 
+    /**
+     * Adds a new row to the collection and updates the index.
+     * Dispatches 'collection-changed' to notify listeners.
+     */
     addCollectionElement(event) {
-        // 1. Create a new DOM element from the prototype string
-        // The __name__ placeholder is replaced by the current index
         const item = this.prototypeValue.replace(/__name__/g, this.indexValue);
-        
-        // 2. Insert it into the container (tbody)
         this.collectionContainerTarget.insertAdjacentHTML('beforeend', item);
-        
-        // 3. Increment index so the next item has a unique ID
         this.indexValue++;
+        this.dispatch('collection-changed');
     }
+    /**
+     * 
+     * Removes the parent row of the clicked button.
+     * Dispatches 'collection-changed' to notify listeners.
+     */
 
     removeCollectionElement(event) {
         event.preventDefault();
-        
-        // Find the closest table row (tr) and remove it
         const item = event.target.closest('tr');
         item.remove();
+        this.dispatch('collection-changed');
     }
 }

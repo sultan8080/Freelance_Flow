@@ -33,7 +33,7 @@
 {% endif %}
 
 {# MAIN FORM CONTENT #}
-<div class="{{ is_locked ? 'opacity-75 grayscale-[0.5] pointer-events-none select-none' : '' }} transition-all">
+<div class="{{ is_locked ? 'opacity-75 grayscale-[0.5] pointer-events-none select-none' : '' }} transition-all" data-controller="invoice-summary" data-action="form-collection:collection-changed->invoice-summary#recalculate">
 
 	<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
 		<div class="glass-card p-6 rounded-2xl">
@@ -97,7 +97,7 @@
 	{# Build prototype only if it exists #}
 	{% if has_prototype %}
 		{% set prototype %}
-		<tr class="group hover:bg-slate-50 transition-colors">
+		<tr class="group hover:bg-slate-50 transition-colors" data-invoice-summary-target="row">
 			<td class="px-4 py-3">
 				{{ form_widget(form.invoiceItems.vars.prototype.description, {
                     attr: {
@@ -110,7 +110,8 @@
 			<td class="px-4 py-3">
 				{{ form_widget(form.invoiceItems.vars.prototype.quantity, {
                     attr: {
-                        class: 'w-full rounded-lg border-slate-200 focus:ring-primary text-sm text-right bg-slate-50 focus:bg-white transition-colors'
+                        class: 'js-quantity w-full rounded-lg border-slate-200 focus:ring-primary text-sm text-right bg-slate-50 focus:bg-white transition-colors',
+                        'data-action': 'input->invoice-summary#recalculate'
                     }
                 }) }}
 			</td>
@@ -118,7 +119,8 @@
 			<td class="px-4 py-3">
 				{{ form_widget(form.invoiceItems.vars.prototype.unitPrice, {
                     attr: {
-                        class: 'w-full rounded-lg border-slate-200 focus:ring-primary text-sm text-right bg-slate-50 focus:bg-white transition-colors'
+                        class: 'js-price w-full rounded-lg border-slate-200 focus:ring-primary text-sm text-right bg-slate-50 focus:bg-white transition-colors',
+                        'data-action': 'input->invoice-summary#recalculate'
                     }
                 }) }}
 			</td>
@@ -126,7 +128,8 @@
 			<td class="px-4 py-3">
 				{{ form_widget(form.invoiceItems.vars.prototype.vatRate, {
                     attr: {
-                        class: 'w-full rounded-lg border-slate-200 focus:ring-primary text-sm text-right bg-slate-50 focus:bg-white transition-colors'
+                        class: 'js-vat w-full rounded-lg border-slate-200 focus:ring-primary text-sm text-right bg-slate-50 focus:bg-white transition-colors',
+                        'data-action': 'input->invoice-summary#recalculate'
                     }
                 }) }}
 			</td>
@@ -140,7 +143,7 @@
 		{% endset %}
 	{% endif %}
 
-	{# COLLECTION WRAPPER: attach data attributes only when prototype exists #}
+	{# COLLECTION WRAPPER #}
 	<div class="glass-card rounded-2xl overflow-hidden mb-8 shadow-sm border border-slate-100" {% if has_prototype %} data-controller="form-collection" data-form-collection-index-value="{{ form.invoiceItems|length > 0 ? form.invoiceItems|last.vars.name + 1 : 0 }}" data-form-collection-prototype-value="{{ prototype|e('html_attr') }}" {% endif %}>
 		<div class="p-4 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
 			<h3 class="text-slate-700 font-bold flex items-center gap-2">
@@ -163,28 +166,37 @@
 						<th class="px-4 py-3 w-1/2 uppercase tracking-wider">Description</th>
 						<th class="px-4 py-3 w-24 uppercase tracking-wider">Qty</th>
 						<th class="px-4 py-3 w-32 uppercase tracking-wider">Price</th>
-						<th class="px-4 py-3 w-24 uppercase tracking-wider">VAT % (if required)</th>
+						<th class="px-4 py-3 w-24 tracking-wider">VAT % (if required)</th>
 						<th class="px-4 py-3 w-10"></th>
 					</tr>
 				</thead>
 
 				<tbody {% if has_prototype %} data-form-collection-target="collectionContainer" {% endif %} class="divide-y divide-slate-100 bg-white">
 					{% for item in form.invoiceItems %}
-						<tr class="group hover:bg-slate-50 transition-colors">
+						<tr class="group hover:bg-slate-50 transition-colors" data-invoice-summary-target="row">
 							<td class="px-4 py-3">
 								{{ form_widget(item.description, {'attr': {'class': 'w-full rounded-lg border-slate-200 focus:ring-primary text-sm bg-slate-50 focus:bg-white transition-colors'}}) }}
 							</td>
 
 							<td class="px-4 py-3">
-								{{ form_widget(item.quantity, {'attr': {'class': 'w-full rounded-lg border-slate-200 focus:ring-primary text-sm text-right bg-slate-50 focus:bg-white transition-colors'}}) }}
+								{{ form_widget(item.quantity, {'attr': {
+                                    'class': 'js-quantity w-full rounded-lg border-slate-200 focus:ring-primary text-sm text-right bg-slate-50 focus:bg-white transition-colors',
+                                    'data-action': 'input->invoice-summary#recalculate'
+                                }}) }}
 							</td>
 
 							<td class="px-4 py-3">
-								{{ form_widget(item.unitPrice, {'attr': {'class': 'w-full rounded-lg border-slate-200 focus:ring-primary text-sm text-right bg-slate-50 focus:bg-white transition-colors'}}) }}
+								{{ form_widget(item.unitPrice, {'attr': {
+                                    'class': 'js-price w-full rounded-lg border-slate-200 focus:ring-primary text-sm text-right bg-slate-50 focus:bg-white transition-colors',
+                                    'data-action': 'input->invoice-summary#recalculate'
+                                }}) }}
 							</td>
 
 							<td class="px-4 py-3">
-								{{ form_widget(item.vatRate, {'attr': {'class': 'w-full rounded-lg border-slate-200 focus:ring-primary text-sm text-right bg-slate-50 focus:bg-white transition-colors'}}) }}
+								{{ form_widget(item.vatRate, {'attr': {
+                                    'class': 'js-vat w-full rounded-lg border-slate-200 focus:ring-primary text-sm text-right bg-slate-50 focus:bg-white transition-colors',
+                                    'data-action': 'input->invoice-summary#recalculate'
+                                }}) }}
 							</td>
 
 							<td class="px-4 py-3 text-center">
@@ -206,7 +218,27 @@
 			</div>
 		{% endif %}
 	</div>
+
+	{# INVOICE SUMMARY #}
+	<div class="flex justify-end bg-slate-50 rounded-2xl border border-slate-100 shadow-sm">
+		<div class="w-full md:w-1/3 bg-gray-50 p-4 rounded-lg">
+			<div class=" flex justify-between mb-2">
+				<span class="text-gray-600">Total HT</span>
+				<span class="font-mono font-medium" data-invoice-summary-target="totalHt">0.00 €</span>
+			</div>
+			<div class="flex justify-between mb-2">
+				<span class="text-gray-600">Total VAT</span>
+				<span class="font-mono font-medium" data-invoice-summary-target="totalVat">0.00 €</span>
+			</div>
+			<div class="flex justify-between border-t border-gray-300 pt-2 mt-2">
+				<span class="text-lg font-bold text-gray-900">Total TTC</span>
+				<span class="text-lg font-bold text-blue-600 font-mono" data-invoice-summary-target="totalTtc">0.00 €</span>
+			</div>
+		</div>
+	</div>
+
 </div>
+{# END MAIN CONTENT WRAPPER #}
 
 {# BUTTONS #}
 <div class="flex justify-end gap-4 mt-8 pt-6 border-t border-slate-100">
@@ -224,5 +256,4 @@
 		{% endif %}
 	</button>
 </div>
-
 {{ form_end(form) }}
