@@ -48,7 +48,7 @@
 - [x] **URSSAF Estimator:** Service to compute the 21.2% charge for the dashboard view.
 - [x] **Invoice Form:** Create the main form and the InvoiceItem sub-form using Symfony `InvoiceItemType`.
 - [x] **Stimulus.js:** "Add/Remove Line Item"
-- [ ] **Live Totals:** Real-time JS updates so the user sees the price change as they type.
+- [x] **Live Totals:** Real-time JS updates so the user sees the price change as they type.
 
 ### Phase 7 : Design Documentaire & Export
 - [x] **Dashboard Integration:** Move invoice pages into the dashboard layout (same as Clients).
