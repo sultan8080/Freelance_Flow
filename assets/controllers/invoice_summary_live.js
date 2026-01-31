@@ -1,58 +1,46 @@
 import { Controller } from "@hotwired/stimulus";
 
-/**
- * Manages real-time invoice totals calculation.
- * * Listens for changes in the invoice items table and aggregates
- * Quantity, Price, and VAT to display global totals (HT, VAT, TTC).
- */
-
 export default class extends Controller {
-    static targets = ["row", "totalHt", "totalVat", "totalTtc"];
+    static targets = [
+        "row",
+        "totalHt",
+        "totalVat",
+        "totalTtc",
+        "urssaf",
+        "net",
+    ];
 
     connect() {
         this.recalculate();
     }
 
-    /**
-     * Aggregates values from all visible rows and updates the summary display.
-     * This is triggered by input changes or row additions/removals.
-     */
     recalculate() {
-        let globalTotalHt = 0;
-        let globalTotalVat = 0;
+        let totalHt = 0;
+        let totalVat = 0;
+
+        // 1. Calculate Rows
         this.rowTargets.forEach((row) => {
-            const qtyInput = row.querySelector(".js-quantity");
-            const priceInput = row.querySelector(".js-price");
-            const vatInput = row.querySelector(".js-vat");
+            const qty =
+                parseFloat(row.querySelector(".js-quantity").value) || 0;
+            const price = parseFloat(row.querySelector(".js-price").value) || 0;
+            const vatRate = parseFloat(row.querySelector(".js-vat").value) || 0;
 
-            const qty = qtyInput ? parseFloat(qtyInput.value) || 0 : 0;
-            const price = priceInput ? parseFloat(priceInput.value) || 0 : 0;
-            const vat = vatInput ? parseFloat(vatInput.value) || 0 : 0;
-
-            const lineHt = qty * price;
-            const lineVat = lineHt * (vat / 100);
-
-            globalTotalHt += lineHt;
-            globalTotalVat += lineVat;
+            const rowTotal = qty * price;
+            totalHt += rowTotal;
+            totalVat += rowTotal * (vatRate / 100);
         });
 
-        const globalTotalTtc = globalTotalHt + globalTotalVat;
+        // 2. Update Amount Totals (HT, VAT, TTC)
 
-        /**
-         * Updates the DOM elements with formatted currency values.
-         */
-        if (this.hasTotalHtTarget)
-            this.totalHtTarget.innerText = this.formatMoney(globalTotalHt);
-        if (this.hasTotalVatTarget)
-            this.totalVatTarget.innerText = this.formatMoney(globalTotalVat);
-        if (this.hasTotalTtcTarget)
-            this.totalTtcTarget.innerText = this.formatMoney(globalTotalTtc);
-    }
+        this.totalHtTarget.innerText = totalHt.toFixed(2) + " €";
+        this.totalVatTarget.innerText = totalVat.toFixed(2) + " €";
+        this.totalTtcTarget.innerText = (totalHt + totalVat).toFixed(2) + " €";
 
-    formatMoney(amount) {
-        return new Intl.NumberFormat("fr-FR", {
-            style: "currency",
-            currency: "EUR",
-        }).format(amount);
+        // 3. Update Private Insight (URSSAF)
+        if (this.hasUrssafTarget && this.hasNetTarget) {
+            const urssaf = totalHt * 0.212;
+            this.urssafTarget.innerText = urssaf.toFixed(2) + " €";
+            this.netTarget.innerText = (totalHt - urssaf).toFixed(2) + " €";
+        }
     }
 }

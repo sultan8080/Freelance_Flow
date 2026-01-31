@@ -219,20 +219,51 @@
 		{% endif %}
 	</div>
 
-	{# INVOICE SUMMARY #}
-	<div class="flex justify-end bg-slate-50 rounded-2xl border border-slate-100 shadow-sm">
-		<div class="w-full md:w-1/3 bg-gray-50 p-4 rounded-lg">
-			<div class=" flex justify-between mb-2">
-				<span class="text-gray-600">Total HT</span>
-				<span class="font-mono font-medium" data-invoice-summary-target="totalHt">0.00 €</span>
+	{# INVOICE SUMMARY SECTION #}
+	<div
+		class="flex flex-col md:flex-row gap-6 justify-end items-stretch mt-6">
+
+		{# 1. PRIVATE INSIGHT (New Live Calculator) #}
+		<div class="w-full md:w-1/3 bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100 p-5 rounded-2xl flex flex-col justify-between">
+			<div class="flex items-center gap-3 mb-4">
+				<div class="w-8 h-8 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-xs">
+					<i class="fas fa-eye-slash"></i>
+				</div>
+				<div>
+					<h4 class="text-amber-900 font-bold text-xs uppercase tracking-wider">Private Insight</h4>
+					<p class="text-[10px] text-amber-700/70 leading-tight">Est. 21.2% URSSAF deduction</p>
+				</div>
+			</div>
+
+			<div class="space-y-1 text-right">
+				<div class="text-xs text-amber-700/60 font-medium">Est. URSSAF</div>
+				<div class="text-red-500 font-bold font-mono text-lg leading-none">
+					-
+					<span data-invoice-summary-target="urssaf">0.00</span>
+				</div>
+
+				<div class="h-px bg-amber-200/50 my-2"></div>
+
+				<div class="text-xs text-emerald-600/80 font-medium">Net Income</div>
+				<div class="text-emerald-600 font-extrabold font-mono text-xl leading-none">
+					<span data-invoice-summary-target="net">0.00</span>
+				</div>
+			</div>
+		</div>
+
+		{# 2. PUBLIC TOTALS (Existing) #}
+		<div class="w-full md:w-1/3 bg-slate-50 p-5 rounded-2xl border border-slate-100 shadow-sm">
+			<div class="flex justify-between mb-2">
+				<span class="text-slate-500 text-sm">Total HT</span>
+				<span class="font-mono font-bold text-slate-700" data-invoice-summary-target="totalHt">0.00 €</span>
 			</div>
 			<div class="flex justify-between mb-2">
-				<span class="text-gray-600">Total VAT</span>
-				<span class="font-mono font-medium" data-invoice-summary-target="totalVat">0.00 €</span>
+				<span class="text-slate-500 text-sm">Total VAT</span>
+				<span class="font-mono font-bold text-slate-700" data-invoice-summary-target="totalVat">0.00 €</span>
 			</div>
-			<div class="flex justify-between border-t border-gray-300 pt-2 mt-2">
-				<span class="text-lg font-bold text-gray-900">Total TTC</span>
-				<span class="text-lg font-bold text-blue-600 font-mono" data-invoice-summary-target="totalTtc">0.00 €</span>
+			<div class="flex justify-between border-t border-slate-200 pt-3 mt-3">
+				<span class="text-lg font-bold text-slate-800">Total TTC</span>
+				<span class="text-lg font-extrabold text-primary font-mono" data-invoice-summary-target="totalTtc">0.00 €</span>
 			</div>
 		</div>
 	</div>
