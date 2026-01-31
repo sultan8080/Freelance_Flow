@@ -2,6 +2,30 @@
 #  Development Log — Freelance Flow [English version]
 
 
+## 📅 Day 7-9 [Jan 24 – Jan 31, 2026] - UI, Dynamic Logic & PDF Export (Phases 6 & 7)
+*Note: This period included a strategic 2-day break to manage burnout; development resumed with a focus on core financial logic, the data snapshot system, and complex PDF/JS integrations*
+
+### Accomplishments:
+
+#### Phase 6: Facturation Dynamique (Interface UI)
+- [x] **Financial Logic:** Developed `InvoiceCalculator` for subtotal and VAT calculations.
+- [x] **Immutability System:** Implemented `DRAFT`/`PAID` statuses and a **Snapshot System** to freeze client data (legal requirement).
+- [x] **Tax Estimation:** Built the **URSSAF Estimator** (21.2%) for dashboard projections.
+- [x] **Interactive UI:** - Integrated **Stimulus.js** for dynamic "Add/Remove" line items.
+    - Added **Live Totals** to update pricing in real-time via JavaScript.
+
+#### Phase 7: Design Documentaire & Export
+- [x] **PDF Engine:** Integrated **DomPDF** to generate professional invoices.
+- [x] **Legal Compliance:** Created HTML templates with mandatory "Art. 293B" mentions.
+- [x] **Dashboard Integration:** Finalized Tailwind CSS styling for the invoice module and sidebar.
+- [x] **Secure Export:** Protected PDF download routes using `InvoiceVoter`.
+
+---
+### 🏁 Final Project Status: Phase 7 Complete
+**Total Duration:** 9 Productive Days (within a 10-day calendar window).  
+**Key Learning:** Managing state in nested Symfony forms with Stimulus.js requires careful event handling, but results in a much better User Experience.
+
+
 ## 📅 Day 6 [January 23, 2026] -  Invoicing Engine - Backend & Logic (Phase 5)
  ### Accomplishments:
 - [x] **Security Voters:** Implemented ClientVoter to ensure strict multi‑tenant data isolation.

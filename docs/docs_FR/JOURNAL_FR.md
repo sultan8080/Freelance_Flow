@@ -1,5 +1,30 @@
 # 📔 Journal de Bord / Development Log — Freelance Flow [Version Français]
 
+
+## 📅 Jours 7-9 [24 – 31 Janvier 2026] - Logique Dynamique, UI & Export PDF (Phases 6 & 7)
+*Note : Cette période a inclus une pause stratégique de 2 jours pour prévenir le surmenage ; les développements ont repris avec une priorité sur la logique financière centrale, le système de snapshot de données et les intégrations complexes PDF/JS.*
+
+### Réalisations :
+
+#### Phase 6 : Facturation Dynamique (Interface UI)
+- [x] **Logique Financière :** Développement de `InvoiceCalculator` pour le calcul précis des sous-totaux et de la TVA.
+- [x] **Système d'Immuabilité :** Implémentation des statuts `BROUILLON` / `PAYÉ` et d'un **Système de Snapshot** pour figer les données client (exigence légale).
+- [x] **Estimation Fiscale :** Création de l'estimateur **URSSAF** (21,2 %) pour les projections du tableau de bord.
+- [x] **Interface Interactive :** - Intégration de **Stimulus.js** pour la gestion dynamique des lignes (Ajout/Suppression).
+    - Ajout de la logique **Live Totals** pour mettre à jour les prix en temps réel via JavaScript.
+
+#### Phase 7 : Design Documentaire & Export
+- [x] **Moteur PDF :** Intégration réussie de **DomPDF** pour la génération de documents professionnels.
+- [x] **Conformité Légale :** Création de templates HTML incluant les mentions obligatoires (Art. 293B du CGI).
+- [x] **Intégration Dashboard :** Finalisation du design Tailwind CSS pour le module facture et la barre latérale.
+- [x] **Export Sécurisé :** Protection des routes de téléchargement PDF via `InvoiceVoter`.
+
+---
+
+### 🏁 État Final du Projet : Phase 7 Terminée
+**Durée Totale :** 9 Jours Productifs (sur une fenêtre calendaire de 10 jours).  
+**Apprentissage Clé :** La gestion d'état dans les formulaires imbriqués Symfony avec Stimulus.js demande une gestion d'événements rigoureuse, mais offre une expérience utilisateur (UX) nettement supérieure.
+
 ## 📅 Jour 6 : 23/01/2026 - Moteur de Facturation - Backend & Logique (Phase 5)
 ### Réalisations :
 - [x] **Security Voters :** Ajout de ClientVoter pour une isolation stricte des données multi‑tenant.
