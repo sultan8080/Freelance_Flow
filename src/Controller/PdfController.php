@@ -40,7 +40,7 @@ class PdfController extends AbstractController
         ]);
 
         $disposition = HeaderUtils::makeDisposition(
-            HeaderUtils::DISPOSITION_ATTACHMENT,
+            HeaderUtils::DISPOSITION_INLINE,
             $filename
         );
 

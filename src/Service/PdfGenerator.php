@@ -31,7 +31,7 @@ class PdfGenerator
         $options->set('defaultFont', 'Arial');
         
         // Allow access to local files for AssetMapper
-        $options->set('chroot', $this->projectDir);
+        $options->set('chroot', $this->projectDir . '/public');
 
         $dompdf = new Dompdf($options);
 

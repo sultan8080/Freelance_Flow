@@ -1,20 +1,296 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Invoice #{{ invoice.invoiceNumber }}</title>
 
-{% block title %}Hello PdfController!{% endblock %}
+		<style>
+			@page {
+				margin: 0;
+			}
+			body {
+				margin: 0;
+				padding: 0;
+				font-family: Arial, Helvetica, sans-serif;
+				font-size: 13px;
+				color: #1e293b;
+				background: #ffffff;
+				line-height: 1.45;
+			}
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+			.page-container {
+				padding: 40px;
+				position: relative;
+				min-height: 980px;
+			}
+			.mb-32 {
+				margin-bottom: 32px;
+			}
+			.mt-16 {
+				margin-top: 16px;
+			}
+			.text-right {
+				text-align: right;
+			}
+			.muted {
+				color: #64748b;
+			}
+			.small {
+				font-size: 11px;
+			}
+			.strong {
+				font-weight: 700;
+			}
+			.num {
+				text-align: right;
+			}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+			.title {
+				font-size: 22px;
+				font-weight: 800;
+				color: #0f172a;
+			}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>D:/Freelance_Flow/src/Controller/PdfController.php</code></li>
-        <li>Your template at <code>D:/Freelance_Flow/templates/pdf/index.html.twig</code></li>
-    </ul>
-</div>
-{% endblock %}
+			.entity-name {
+				font-size: 16px;
+				font-weight: 700;
+				color: #0f172a;
+			}
+
+			.block-title {
+				font-size: 11px;
+				font-weight: 700;
+				color: #64748b;
+				text-transform: uppercase;
+				margin-bottom: 6px;
+			}
+
+			/* Tables */
+			table {
+				width: 100%;
+				border-collapse: collapse;
+			}
+			td,
+			th {
+				vertical-align: top;
+				padding: 0;
+			}
+
+			/* Invoice Items Table */
+			.items-table thead th {
+				background: #f1f5f9;
+				padding: 10px 12px;
+				font-size: 11px;
+				text-transform: uppercase;
+				color: #64748b;
+				text-align: left;
+				border-bottom: 1px solid #e2e8f0;
+			}
+			.items-table tbody td {
+				padding: 10px 12px;
+				border-bottom: 1px solid #f1f5f9;
+			}
+			.items-table .num {
+				text-align: right;
+			}
+
+			/* Totals Table */
+			.totals td {
+				padding: 6px 0;
+			}
+			.total-line td {
+				border-top: 2px solid #e2e8f0;
+				padding-top: 12px;
+				font-size: 16px;
+				font-weight: 800;
+				color: #4f46e5;
+			}
+
+			/* Badges */
+			.badge {
+				display: inline-block;
+				padding: 4px 10px;
+				font-size: 10px;
+				font-weight: 700;
+				border-radius: 4px;
+			}
+			.badge-info {
+				background: #eff6ff;
+				color: #1d4ed8;
+			}
+			.badge-success {
+				background: #ecfdf5;
+				color: #059669;
+			}
+			.badge-warn {
+				background: #fffbeb;
+				color: #b45309;
+			}
+			.badge-muted {
+				background: #f1f5f9;
+				color: #64748b;
+			}
+
+			/* Footer - Pinned to bottom */
+			.footer-container {
+				position: absolute;
+				bottom: 40px;
+				left: 40px;
+				right: 40px;
+				text-align: center;
+				border-top: 1px solid #e2e8f0;
+				padding-top: 12px;
+				font-size: 11px;
+				color: #94a3b8;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="page-container">
+
+			<table class="mb-32">
+				<tr>
+					<td>
+						<div class="title">INVOICE</div>
+
+						{# Badge Logic #}
+						{% set badge = 'badge-muted' %}
+						{% if invoice.status == 'SENT' %}
+							{% set badge = 'badge-info' %}
+						{% elseif invoice.status == 'PAID' %}
+							{% set badge = 'badge-success' %}
+						{% elseif invoice.status == 'UNPAID' %}
+							{% set badge = 'badge-warn' %}
+						{% endif %}
+
+						<div class="mt-16">
+							<span class="badge {{ badge }}">{{ invoice.status }}</span>
+						</div>
+
+						{% if invoice.projectTitle %}
+							<div class="muted mt-16">
+								<strong>Project:</strong>
+								{{ invoice.projectTitle }}
+							</div>
+						{% endif %}
+					</td>
+
+					<td class="text-right">
+						<div class="small muted">Invoice No</div>
+						<div class="entity-name">#{{ invoice.invoiceNumber|default('DRAFT') }}</div>
+
+						<div class="small muted mt-16">Issue Date</div>
+						<div>{{ invoice.sentAt ? invoice.sentAt|date('d M Y') : 'Draft' }}</div>
+
+						{% if invoice.status == 'PAID' %}
+							<div class="small muted mt-16">Paid Date</div>
+							<div class="strong">{{ invoice.paidAt ? invoice.paidAt|date('d M Y') : '-' }}</div>
+						{% else %}
+							<div class="small muted mt-16">Due Date</div>
+							<div class="strong">{{ invoice.dueDate ? invoice.dueDate|date('d M Y') : '-' }}</div>
+						{% endif %}
+					</td>
+				</tr>
+			</table>
+
+			<table class="mb-32">
+				<tr>
+					<td width="31%">
+						<div class="block-title">From</div>
+						<div class="entity-name">
+							{{ invoice.user.companyName|default(invoice.user.firstName ~ ' ' ~ invoice.user.lastName) }}
+						</div>
+						<div class="muted mt-16">
+							{{ invoice.user.email }}<br>
+							{% if invoice.user.siretNumber %}
+								SIRET:
+								{{ invoice.user.siretNumber }}
+							{% endif %}
+						</div>
+					</td>
+					<td width="37%"></td>
+
+					<td width="32%" class="text-left">
+						<div class="block-title">Bill To</div>
+						<div class="entity-name">
+							{{ invoice.frozenClientCompanyName|default(invoice.frozenClientName)|default('') }}
+						</div>
+						<div class="muted mt-16">
+							{{ invoice.frozenClientAddress|default('') }}<br>
+							{{ invoice.frozenClientPostcode|default('') }}
+							{{ invoice.frozenClientCity|default('') }}<br>
+							{{ invoice.frozenClientCountry|default('') }}<br>
+							{% if invoice.frozenClientEmail %}
+								Email:
+								{{ invoice.frozenClientEmail }}<br>
+							{% endif %}
+							{% if invoice.frozenClientPhone %}
+								Tel:
+								{{ invoice.frozenClientPhone }}
+							{% endif %}
+
+							{% if invoice.frozenClientVat|default('') %}
+								<br>VAT:
+								{{ invoice.frozenClientVat }}
+							{% endif %}
+						</div>
+					</td>
+				</tr>
+			</table>
+
+			<table class="items-table mb-32">
+				<thead>
+					<tr>
+						<th>Description</th>
+						<th class="num">Qty</th>
+						<th class="num">Price</th>
+						<th class="num">Total</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for item in invoice.invoiceItems %}
+						<tr>
+							<td>{{ item.description }}</td>
+							<td class="num muted">{{ item.quantity }}</td>
+							<td class="num muted">{{ item.unitPrice|number_format(2) }}</td>
+							<td class="num strong">{{ item.totalHt|number_format(2) }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+			<table width="100%">
+				<tr>
+					<td></td>
+					<td width="250">
+						<table class="totals">
+							<tr>
+								<td class="muted">Subtotal (HT)</td>
+								<td class="num">{{ invoice.totalHt|number_format(2) }}
+									{{ invoice.currency }}</td>
+							</tr>
+							<tr>
+								<td class="muted">VAT</td>
+								<td class="num">{{ invoice.totalVat|number_format(2) }}
+									{{ invoice.currency }}</td>
+							</tr>
+							<tr class="total-line">
+								<td>Total</td>
+								<td class="num">{{ invoice.totalAmount|number_format(2) }}
+									{{ invoice.currency }}</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+
+			<div class="footer-container">
+				Thank you for your business — please include invoice
+				<strong>#{{ invoice.invoiceNumber|default('REF') }}</strong>
+				in your payment reference.
+			</div>
+
+		</div>
+	</body>
+</html>
