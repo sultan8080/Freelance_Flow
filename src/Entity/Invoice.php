@@ -68,6 +68,20 @@ class Invoice
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $frozenClientAddress = null;
 
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $frozenClientPostcode = null;
+
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $frozenClientCity = null;
+
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $frozenClientCountry = null;
+
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $frozenClientPhone = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $frozenClientEmail = null;
+
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $frozenClientSiret = null;
 
@@ -174,28 +188,70 @@ class Invoice
         }
 
         // 3. Check if Today > Due Date
-        $today = new \DateTimeImmutable('today'); 
+        $today = new \DateTimeImmutable('today');
 
         // Return true if Today is strictly after the Due Date
         return $today > $this->dueDate;
     }
+    public function getFrozenClientPostcode(): ?string
+    {
+        return $this->frozenClientPostcode;
+    }
+    public function setFrozenClientPostcode(?string $postcode): self
+    {
+        $this->frozenClientPostcode = $postcode;
+        return $this;
+    }
+    public function getFrozenClientCity(): ?string
+    {
+        return $this->frozenClientCity;
+    }
+    public function setFrozenClientCity(?string $city): self
+    {
+        $this->frozenClientCity = $city;
+        return $this;
+    }
+    public function getFrozenClientCountry(): ?string
+    {
+        return $this->frozenClientCountry;
+    }
+    public function setFrozenClientCountry(?string $country): self
+    {
+        $this->frozenClientCountry = $country;
+        return $this;
+    }
+    public function getFrozenClientPhone(): ?string
+    {
+        return $this->frozenClientPhone;
+    }
+    public function setFrozenClientPhone(?string $phone): self
+    {
+        $this->frozenClientPhone = $phone;
+        return $this;
+    }
 
+    public function getFrozenClientEmail(): ?string
+    {
+        return $this->frozenClientEmail;
+    }
+
+    public function setFrozenClientEmail(?string $email): self
+    {
+        $this->frozenClientEmail = $email;
+        return $this;
+    }
     // Capture snapshot of client data
     public function collectSnapshot(): void
     {
         if ($this->client) {
             $this->frozenClientName = trim($this->client->getFirstName() . ' ' . $this->client->getLastName());
             $this->frozenClientCompanyName = $this->client->getCompanyName();
-
-            $this->frozenClientAddress = sprintf(
-                "%s\n%s %s\n%s\nTel: %s",
-                $this->client->getAddress(),
-                $this->client->getPostCode(),
-                $this->client->getCity(),
-                $this->client->getCountry(),
-                $this->client->getPhoneNumber()
-            );
-
+            $this->frozenClientAddress = $this->client->getAddress();
+            $this->frozenClientPostcode = $this->client->getPostCode();
+            $this->frozenClientCity = $this->client->getCity();
+            $this->frozenClientCountry = $this->client->getCountry();
+            $this->frozenClientPhone = $this->client->getPhoneNumber();
+            $this->frozenClientEmail = $this->client->getEmail();
             $this->frozenClientSiret = $this->client->getSiret();
             $this->frozenClientVat = $this->client->getVatNumber();
         }
