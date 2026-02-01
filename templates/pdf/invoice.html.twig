@@ -285,8 +285,19 @@
 				</tr>
 			</table>
 
+			{% if invoice.totalVat > 0 %}
+				<div class="text-right small muted mt-16">
+					All taxes included (TTC)
+				</div>
+			{% else %}
+				<div class="text-right small muted mt-16" style="font-style: italic;">
+					VAT not applicable (Micro-entrepreneur, VAT exemption - Article 293 B of the French Tax Code)
+				</div>
+			{% endif %}
+
+
 			<div class="footer-container">
-				Thank you for your business - please include invoice
+				Please include invoice
 				<strong>#{{ invoice.invoiceNumber|default('REF') }}</strong>
 				in your payment reference.
 			</div>
