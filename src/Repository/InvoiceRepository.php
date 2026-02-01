@@ -145,4 +145,59 @@ class InvoiceRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+
+    // HOME DASHBOARD METHODS //
+
+    /**
+     * Get revenue strictly for the CURRENT month 
+     */
+    public function getCurrentMonthRevenue(User $user): float
+    {
+        $start = new \DateTimeImmutable('first day of this month 00:00:00');
+        $end = new \DateTimeImmutable('last day of this month 23:59:59');
+
+        $result = $this->createQueryBuilder('i')
+            ->select('SUM(i.totalHt)')
+            ->where('i.user = :user')
+            ->andWhere('i.status = :status')
+            ->andWhere('i.paidAt BETWEEN :start AND :end')
+            ->setParameter('user', $user)
+            ->setParameter('status', 'PAID')
+            ->setParameter('start', $start)
+            ->setParameter('end', $end)
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        return (float) $result;
+    }
+
+    /**
+     * 5 most recent invoices  
+    */
+    public function findRecentInvoices(User $user, int $limit = 5): array
+    {
+        return $this->createQueryBuilder('i')
+            ->where('i.user = :user')
+            ->setParameter('user', $user)
+            ->orderBy('i.createdAt', 'DESC') // Newest first
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Count invoices by status 
+     */
+    public function countByStatus(User $user, string $status): int
+    {
+        return (int) $this->createQueryBuilder('i')
+            ->select('COUNT(i.id)')
+            ->where('i.user = :user')
+            ->andWhere('i.status = :status')
+            ->setParameter('user', $user)
+            ->setParameter('status', $status)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }
