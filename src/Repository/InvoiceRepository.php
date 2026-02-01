@@ -63,7 +63,7 @@ class InvoiceRepository extends ServiceEntityRepository
     /**
      * Count total invoices for the year (Paid + Unpaid) (For KPI)
      */
-    public function countInvoicesForYear(User $user, int $year): int
+    public function countInvoicesByYear(User $user, int $year): int
     {
         $startDate = new \DateTimeImmutable("$year-01-01 00:00:00");
         $endDate = new \DateTimeImmutable("$year-12-31 23:59:59");
@@ -88,7 +88,7 @@ class InvoiceRepository extends ServiceEntityRepository
         $endDate = new \DateTimeImmutable("$year-12-31 23:59:59");
 
         return $this->createQueryBuilder('i')
-            ->select('c.name AS clientName, SUM(i.amount) AS totalRevenue')
+            ->select('c.name AS clientName, c.id AS clientId, SUM(i.totalHt) AS totalRevenue')
             ->join('i.client', 'c')
             ->where('i.user = :user')
             ->andWhere('i.status = :status')
@@ -117,5 +117,61 @@ class InvoiceRepository extends ServiceEntityRepository
             ->orderBy('i.dueDate', 'ASC')
             ->getQuery()
             ->getResult();
+    }
+
+    public function getMonthlyTotalsByYear(User $user, int $year): array
+    {
+        $startDate = new \DateTimeImmutable("$year-01-01 00:00:00");
+        $endDate = new \DateTimeImmutable("$year-12-31 23:59:59");
+
+        return $this->createQueryBuilder('i')
+            ->select('MONTH(i.paidAt) as month, SUM(i.totalHt) as total')
+            ->where('i.user = :user')
+            ->andWhere('i.status = :status')
+            ->andWhere('i.paidAt BETWEEN :startDate AND :endDate')
+            ->setParameter('user', $user)
+            ->setParameter('status', 'PAID')
+            ->groupBy('month')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getYearlyTotalByYear(User $user, int $year): float
+    {
+        $startDate = new \DateTimeImmutable("$year-01-01 00:00:00");
+        $endDate = new \DateTimeImmutable("$year-12-31 23:59:59");
+
+        return (float) $this->createQueryBuilder('i')
+            ->select('SUM(i.totalHt)')
+            ->where('i.user = :user')
+            ->andWhere('i.status = :status')
+            ->andWhere('i.paidAt BETWEEN :startDate AND :endDate')
+            ->setParameter('user', $user)
+            ->setParameter('status', 'PAID')
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    /**
+     * Count how many invoices are actually PAID this year.
+     */
+    public function countPaidInvoicesByYear(User $user, int $year): int
+    {
+        $startDate = new \DateTimeImmutable("$year-01-01 00:00:00");
+        $endDate = new \DateTimeImmutable("$year-12-31 23:59:59");
+
+        return (int) $this->createQueryBuilder('i')
+            ->select('COUNT(i.id)')
+            ->where('i.user = :user')
+            ->andWhere('i.status = :status')
+            ->andWhere('i.paidAt BETWEEN :startDate AND :endDate')
+            ->setParameter('user', $user)
+            ->setParameter('status', 'PAID')
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }
