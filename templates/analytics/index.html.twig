@@ -1,0 +1,83 @@
+{% extends 'dashboard/base.html.twig' %}
+
+{% block title %}Business Analytics{% endblock %}
+
+{% block dashboard_content %}
+    {# Header #}
+    <div class="mb-10">
+        <h1 class="text-4xl font-extrabold text-primary tracking-tight mb-2">Analytics</h1>
+        <p class="text-slate-500 text-lg">Detailed insights into your business growth and tax ceilings.</p>
+    </div>
+
+    {# Row 1: The Revenue Ceiling (URSSAF / Auto-Entrepreneur) #}
+    <div class="glass-card rounded-[2.5rem] p-10 mb-10 shadow-sm border-slate-200/50">
+        <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+            <div>
+                <h2 class="text-2xl font-bold text-slate-900">Revenue Ceiling Tracker</h2>
+                <p class="text-slate-500">Auto-entrepreneur limit (Services): <span class="font-bold text-slate-700">77 700 €</span></p>
+            </div>
+            <div class="text-right">
+                <span class="text-3xl font-black text-primary">62%</span>
+            </div>
+        </div>
+
+        {# Progress Bar #}
+        <div class="w-full bg-slate-100 h-6 rounded-full overflow-hidden mb-4 p-1 shadow-inner">
+            {# Dummy width: 62% #}
+            <div class="bg-gradient-to-r from-indigo-500 to-primary h-full rounded-full transition-all duration-1000" style="width: 62%"></div>
+        </div>
+        
+        <div class="flex justify-between text-sm font-bold">
+            <span class="text-slate-400">0 €</span>
+            <span class="text-indigo-600">48 174 € generated</span>
+            <span class="text-slate-400">77 700 €</span>
+        </div>
+    </div>
+
+    {# Row 2: Secondary Stats #}
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
+        
+        {# URSSAF Estimation Card #}
+        <div class="glass-card p-8 rounded-bento border-l-4 border-rose-500">
+            <div class="flex items-center gap-4 mb-4">
+                <div class="w-12 h-12 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center">
+                    <i class="fas fa-university text-xl"></i>
+                </div>
+                <div>
+                    <p class="text-slate-500 text-sm font-medium">Estimated Social Charges (21.2%)</p>
+                    <h3 class="text-3xl font-bold text-slate-900 tracking-tight">10 212,88 €</h3>
+                </div>
+            </div>
+            <p class="text-xs text-slate-400 italic">Calculated based on paid invoices for the current year.</p>
+        </div>
+
+        {# Conversion/Payment Speed Card #}
+        <div class="glass-card p-8 rounded-bento border-l-4 border-indigo-500">
+            <div class="flex items-center gap-4 mb-4">
+                <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                    <i class="fas fa-bolt text-xl"></i>
+                </div>
+                <div>
+                    <p class="text-slate-500 text-sm font-medium">Avg. Payment Time</p>
+                    <h3 class="text-3xl font-bold text-slate-900 tracking-tight">12.4 Days</h3>
+                </div>
+            </div>
+            <p class="text-xs text-slate-400 italic">Average time between sending an invoice and receiving payment.</p>
+        </div>
+
+    </div>
+
+    {# Row 3: Simple Monthly List (Placeholder for Chart) #}
+    <div class="glass-card rounded-[2.5rem] p-10">
+        <h2 class="text-2xl font-bold text-slate-900 mb-8">Monthly Breakdown</h2>
+        <div class="space-y-4">
+            {# Dummy Row #}
+            {% for month in ['January', 'February', 'March'] %}
+            <div class="flex items-center justify-between p-4 rounded-2xl bg-slate-50/50 border border-slate-100 hover:bg-white hover:shadow-md transition-all">
+                <span class="font-bold text-slate-700">{{ month }} 2026</span>
+                <span class="font-mono font-bold text-emerald-600">+ 4 250,00 €</span>
+            </div>sym
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

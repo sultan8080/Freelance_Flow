@@ -62,7 +62,7 @@
 - [x] **Export Sécurisé :** Routes protégées pour les téléchargements PDF. 
 
 ### Phase 8 : Insights & Statistiques (Analytics)
-- [ ] **Widgets KPI :** Suivi du chiffre d'affaires mensuel et annuel.
+- [x] **Widgets KPI :** Suivi du chiffre d'affaires mensuel et annuel.
 - [ ] **Suivi Plafond :** Barre de progression pour les limites de l'auto-entrepreneur.
 - [ ] **Flux d'Activité :** Vue rapide des factures en attente ou en retard.
 

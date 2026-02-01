@@ -60,7 +60,7 @@
 - [x] **Secure Export:** Protected routes for PDF downloads.
 
 ### Phase 8: Dashboard Insights (Analytics)
-- [ ] **KPI Widgets:** Monthly/Yearly revenue tracking.
+- [x] **KPI Widgets:** Monthly/Yearly revenue tracking.
 - [ ] **Ceiling Tracker:** Progress bar for auto-entrepreneur revenue limits.
 - [ ] **Activity Feed:** Quick view of pending/overdue invoices.
 

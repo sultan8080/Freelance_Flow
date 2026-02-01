@@ -20,3 +20,5 @@
 ###< symfony/asset-mapper ###
 /mynote.txt
 templates/dashboard/index2.html.twig
+templates/dashboard/index.html.copy.twig
+templates/dashboard/index.html.copy2.twig
