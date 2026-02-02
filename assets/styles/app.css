@@ -89,8 +89,8 @@
     }
 
     .nav-link-active {
-        @apply bg-blue-500/20 text-purple-400 border-l-2 border-purple-400 font-medium shadow-[var(--shadow-indigo-glow)];
-        /* @apply bg-blue-500/20 text-blue-400 border-l-2 border-blue-400 font-medium shadow-[var(--shadow-indigo-glow)]; */
+        /* @apply bg-blue-500/20 text-purple-400 border-l-2 border-purple-400 font-medium shadow-[var(--shadow-indigo-glow)]; */
+        @apply bg-blue-500/20 text-blue-400 border-l-2 border-blue-400 font-medium shadow-[var(--shadow-indigo-glow)];
     }
 
     .text-primary {
