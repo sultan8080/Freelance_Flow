@@ -16,7 +16,7 @@ class ClientRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Client::class);
     }
-    // this following function is to fetch clients and filter them by name or email
+
     public function findBySearch($user, string $query): array
     {
         $qb = $this->createQueryBuilder('c')
@@ -34,7 +34,7 @@ class ClientRepository extends ServiceEntityRepository
     }
 
     /**
-     * Count total active.
+     * Count total active clients (Global)
      */
     public function countTotalClients(User $user): int
     {
@@ -47,12 +47,13 @@ class ClientRepository extends ServiceEntityRepository
     }
 
     /**
-     * Count clients added specifically THIS MONTH (Growth metric).
+     * Count clients added specifically in the SELECTED MONTH (Growth metric).
      */
-    public function countNewClientsThisMonth(User $user): int
+    public function countNewClientsForMonth(User $user, \DateTimeInterface $date): int
     {
-        $start = new \DateTimeImmutable('first day of this month 00:00:00');
-        $end = new \DateTimeImmutable('last day of this month 23:59:59');
+        // Clone date to get the first and last day of that specific month
+        $start = \DateTimeImmutable::createFromInterface($date)->modify('first day of this month 00:00:00');
+        $end = \DateTimeImmutable::createFromInterface($date)->modify('last day of this month 23:59:59');
 
         return $this->createQueryBuilder('c')
             ->select('count(c.id)')
