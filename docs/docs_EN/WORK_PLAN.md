@@ -61,14 +61,14 @@
 
 ### Phase 8: Dashboard Insights (Analytics)
 - [x] **KPI Widgets:** Monthly/Yearly revenue tracking.
-- [ ] **Ceiling Tracker:** Progress bar for auto-entrepreneur revenue limits.
-- [ ] **Activity Feed:** Quick view of pending/overdue invoices.
+- [x] **Ceiling Tracker:** Progress bar for auto-entrepreneur revenue limits.
+- [x] **Activity Feed:** Quick view of pending/overdue invoices.
 
 ### Phase 9: UX Optimization & Polish
-- [ ] **Flash Message System:** Professional toast notifications for CRUD actions (Success/Error).
-- [ ] **Empty State Designs:** Create high-quality placeholder views for users with 0 clients or invoices.
-- [ ] **Navigation Refinement:** Add "Active" states to sidebar links to show the user where they are.
-- [ ] **Form Validation:** Enhance client-side and server-side error messaging for better user guidance.
+- [x] **Flash Message System:** Professional toast notifications for CRUD actions (Success/Error).
+- [x] **Empty State Designs:** Create high-quality placeholder views for users with 0 clients or invoices.
+- [x] **Navigation Refinement:** Add "Active" states to sidebar links to show the user where they are.
+- [x] **Form Validation:** Enhance client-side and server-side error messaging for better user guidance.
 
 ### Phase 10: Performance & Deployment Readiness
 - [ ] **SQL Query Tuning:** Implement Eager Loading (`JOIN`) in Repositories to eliminate N+1 query issues.

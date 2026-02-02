@@ -55,6 +55,9 @@ security:
 
         # Explicitly protect invoice routes pdf export
         - { path: ^/invoice/\d+/export, roles: ROLE_USER }
+        
+        # Explicitly protect analytics routes
+        - { path: ^/analytics, roles: ROLE_USER }
 
         # Allow public access to login, registration, and logout routes
         - { path: ^/login, roles: PUBLIC_ACCESS }

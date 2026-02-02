@@ -53,8 +53,8 @@
 - [x] **Totaux en Direct :** Mise à jour en temps réel via JS pour que l’utilisateur voie le prix changer pendant la saisie.
 
 ### Phase 7 : Design Documentaire & Export
-- [X] **Intégration au Dashboard :** Déplacer les pages de factures dans le layout du tableau de bord (comme pour Clients).
-- [X] **Intégration du Routing :** Ajouter les factures dans la barre latérale + sécuriser l’accès avec InvoiceVoter.
+- [x] **Intégration au Dashboard :** Déplacer les pages de factures dans le layout du tableau de bord (comme pour Clients).
+- [x] **Intégration du Routing :** Ajouter les factures dans la barre latérale + sécuriser l’accès avec InvoiceVoter.
 - [x] **Style Tailwind :** Appliquer le style UI complet au formulaire de facture et aux lignes d’articles.
 - [x] **Template HTML :** Mise en page professionnelle incluant les mentions légales "Art. 293B".
 - [x] **Page d’Aperçu de Facture :** Vue HTML en lecture seule avant l’export PDF.
@@ -63,14 +63,14 @@
 
 ### Phase 8 : Insights & Statistiques (Analytics)
 - [x] **Widgets KPI :** Suivi du chiffre d'affaires mensuel et annuel.
-- [ ] **Suivi Plafond :** Barre de progression pour les limites de l'auto-entrepreneur.
-- [ ] **Flux d'Activité :** Vue rapide des factures en attente ou en retard.
+- [x] **Suivi Plafond :** Barre de progression pour les limites de l'auto-entrepreneur.
+- [x] **Flux d'Activité :** Vue rapide des factures en attente ou en retard.
 
 ### Phase 9 : Peaufinage & Optimisation UX
-- [ ] **Système de Messages Flash :** Notifications "toast" professionnelles pour les actions CRUD.
-- [ ] **Design des "Empty States" :** Création de vues d'attente soignées pour les listes vides (0 clients/factures).
-- [ ] **Navigation Affinée :** Ajout d'états "actifs" sur la sidebar pour indiquer la page courante.
-- [ ] **Validation des Formulaires :** Amélioration des messages d'erreur côté client et serveur.
+- [x] **Système de Messages Flash :** Notifications "toast" professionnelles pour les actions CRUD.
+- [x] **Design des "Empty States" :** Création de vues d'attente soignées pour les listes vides (0 clients/factures).
+- [x] **Navigation Affinée :** Ajout d'états "actifs" sur la sidebar pour indiquer la page courante.
+- [x] **Validation des Formulaires :** Amélioration des messages d'erreur côté client et serveur.
 
 ### Phase 10 : Performance & Préparation Déploiement
 - [ ] **Optimisation SQL :** Mise en place du "Eager Loading" (`JOIN`) pour supprimer les problèmes de requêtes N+1.
