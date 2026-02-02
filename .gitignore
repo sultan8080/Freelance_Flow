@@ -20,4 +20,3 @@
 ###< symfony/asset-mapper ###
 /mynote.txt
 
-/templates/dashboard/index.html-copy.twig

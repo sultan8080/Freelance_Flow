@@ -1,225 +1,226 @@
-<div{{attributes}}>
-	<p class="text-slate-500 text-base md:text-lg mb-4 md:mb-8">
-		Manage your Invoices Information
-	</p>
+<div{{ attributes }}>
+    <p class="text-slate-400 text-base md:text-lg mb-4 md:mb-8">
+        Manage your Invoices Information
+    </p>
 
-	<div class="flex flex-row items-center gap-4 w-full mb-6 md:mb-10">
-		<div class="flex-1">
-			<input type="text" data-model="query" placeholder="  Search invoices..." class="w-full pl-11 pr-12 py-2.5 rounded-2xl border border-slate-200 bg-white/50 backdrop-blur-md focus:ring-4 focus:ring-primary/10 transition-all outline-none text-sm md:text-base">
-		</div>
-		<div class="shrink-0">
-			<a href="{{ path('app_invoice_new')}}" class="inline-flex items-center justify-center whitespace-nowrap bg-primary text-white px-4 md:px-6 py-2.5 rounded-2xl text-xs md:text-sm font-semibold hover:bg-primary-hover shadow-indigo-glow transition-all hover:-translate-y-0.5">
-				<i class="fas fa-plus mr-2"></i>
-				Add Invoice
-			</a>
-		</div>
-	</div>
+    <div class="flex flex-col sm:flex-row items-center gap-4 w-full mb-6 md:mb-10">
+        
+        <div class="relative flex-1 w-full">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <i class="fas fa-search text-slate-500"></i>
+            </div>
+            <input type="text" 
+                   data-model="query" 
+                   placeholder="Search invoices..." 
+                   class="w-full pl-11 pr-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all text-sm backdrop-blur-md">
+        </div>
 
-	<div class="glass-card rounded-bento">
-		<div class="overflow-x-auto">
-			<table class="w-full text-left border-collapse overflow-auto">
-				<thead>
-					<tr class="bg-slate-50 border-b border-card-border">
+        <div class="shrink-0 w-full sm:w-auto">
+            <a href="{{ path('app_invoice_new') }}" class="group relative flex items-center justify-center w-full sm:w-auto px-6 py-3 rounded-xl overflow-hidden shadow-lg shadow-blue-500/20 transition-all hover:scale-[1.02]">
+                <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-600 to-purple-700 opacity-90 group-hover:opacity-100 transition-opacity"></div>
+                <div class="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer"></div>
+                <span class="relative flex items-center gap-2 text-sm font-semibold text-white">
+                    <i class="fas fa-plus"></i>
+                    Add Invoice
+                </span>
+            </a>
+        </div>
+    </div>
 
-						<th class="px-2 py-4 text-center text-xs font-bold !hidden md:!table-cell !whitespace-nowrap uppercase tracking-wider text-slate-600">
-							Index
-						</th>
-						{# 1. Combined Column: Reference, Client, Status, Date #}
-						<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-600">
-							Invoice
-						</th>
+    {# Table Card (Dark Glass) #}
+    <div class="glass-card rounded-2xl overflow-hidden border border-white/10">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="border-b border-white/5 bg-white/5">
+                        
+                        {# Index: Hidden on Mobile (!important) #}
+                        <th class="px-2 py-4 text-center text-xs font-bold !hidden md:!table-cell !whitespace-nowrap uppercase tracking-wider text-slate-400">
+                            Index
+                        </th>
 
-						{# 2. Amount #}
-						<th class="px-6 py-4 text-xs !hidden md:!table-cell !whitespace-nowrap font-bold uppercase tracking-wider text-slate-600 text-left">
-							Project Title
-						</th>
+                        {# Invoice Info: Always Visible #}
+                        <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-400">
+                            Invoice
+                        </th>
 
-						{# 2. Amount #}
-						<th class="px-6 py-4 text-xs font-bold !hidden md:!table-cell !whitespace-nowrap uppercase tracking-wider text-slate-600 text-right">
-							Total
-							<span class="font-normal text-slate-400 lowercase">/ net</span>
-						</th>
-						{# 3. Actions #}
-						<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-600 text-right">
-							Actions
-						</th>
-					</tr>
-				</thead>
-				<tbody class="divide-y divide-slate-100">
-					{% for invoice in this.invoices %}
-						<tr class="hover:bg-slate-50 transition-colors group">
-							<td class="px-2 py-4 !hidden md:!table-cell !whitespace-nowrap text-center align-top pt-5">
-								<div class=" text-slate-900 text-sm">
-									{{ invoice.id }}
-								</div>
-							</td>
+                        {# Project: Hidden on Mobile (!important) #}
+                        <th class="px-6 py-4 text-xs !hidden md:!table-cell !whitespace-nowrap font-bold uppercase tracking-wider text-slate-400 text-left">
+                            Project Title
+                        </th>
 
-							<td class="px-6 py-4">
-								<div
-									class="flex flex-col gap-1">
-									{# A. Invoice Number & Project #}
-									<div class="flex items-center gap-2">
-										<span class="font-bold text-slate-800 text-sm md:text-base">
-											{% if invoice.invoiceNumber %}
-												{{ invoice.invoiceNumber }}
-											{% else %}
-												<span class="text-slate-600 font-medium">DRAFT -
-													{{ invoice.id }}</span>
-											{% endif %}
-										</span>
-									</div>
+                        {# Amount: Hidden on Mobile (!important) #}
+                        <th class="px-6 py-4 text-xs font-bold !hidden md:!table-cell !whitespace-nowrap uppercase tracking-wider text-slate-400 text-right">
+                            Total
+                            <span class="font-normal text-slate-500 lowercase">/ net</span>
+                        </th>
 
-									{# B. Client Name #}
-									<span class="text-xs text-slate-500 font-medium">
-										{% if invoice.frozenClientName %}
-											<i class="fas fa-lock text-[10px] mr-1 opacity-50" title="Locked Data"></i>
-											{{ invoice.frozenClientName }}
-										{% elseif invoice.client %}
-											{{ invoice.client.fullName }}
-										{% else %}
-											<span class="text-red-300 italic">No Client</span>
-										{% endif %}
-									</span>
+                        {# Actions: Always Visible #}
+                        <th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-400 text-right">
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-white/5">
+                    {% for invoice in this.invoices %}
+                        <tr class="hover:bg-white/5 transition-colors group">
+                            
+                            {# Index #}
+                            <td class="px-2 py-4 !hidden md:!table-cell !whitespace-nowrap text-center align-top pt-5">
+                                <div class="text-slate-500 text-sm">
+                                    {{ invoice.id }}
+                                </div>
+                            </td>
 
-									{# C. Status & Date Logic #}
-									<div
-										class="mt-1 flex items-center gap-2">
-										{# Status Badge #}
-										{% if invoice.status == 'PAID' %}
-											<span class="text-[10px] font-bold bg-green-50 p-1 uppercase tracking-wide text-emerald-600">
-												PAID
-											</span>
-										{% elseif invoice.isOverdue %}
-											<span class="text-[10px] font-bold p-1 bg-red-50 uppercase tracking-wide text-red-600">
-												UNPAID / OVERDUE
-											</span>
-										{% elseif invoice.status == 'SENT' %}
-											<span class="text-[10px] font-bold uppercase tracking-wide p-1 bg-blue-50 text-blue-600">
-												SENT
-											</span>
-										{% else %}
-											<span class="text-[10px] font-bold uppercase tracking-wide bg-slate-100 text-slate-400">
-												DRAFT
-											</span>
-										{% endif %}
+                            {# Invoice Info Column #}
+                            <td class="px-6 py-4 align-top pt-4">
+                                <div class="flex flex-col gap-1">
+                                    {# A. Invoice Number #}
+                                    <div class="flex items-center gap-2">
+                                        <span class="font-bold text-white text-sm md:text-base">
+                                            {% if invoice.invoiceNumber %}
+                                                {{ invoice.invoiceNumber }}
+                                            {% else %}
+                                                <span class="text-slate-500 font-medium">DRAFT - {{ invoice.id }}</span>
+                                            {% endif %}
+                                        </span>
+                                    </div>
 
-										{# Smart Date Display #}
-										{% if invoice.status == 'SENT' %}
-											<span class="text-slate-300 text-[10px]">•</span>
+                                    {# B. Client Name #}
+                                    <span class="text-xs text-slate-400 font-medium">
+                                        {% if invoice.frozenClientName %}
+                                            <i class="fas fa-lock text-[10px] mr-1 opacity-50" title="Locked Data"></i>
+                                            {{ invoice.frozenClientName }}
+                                        {% elseif invoice.client %}
+                                            {{ invoice.client.fullName }}
+                                        {% else %}
+                                            <span class="text-red-400 italic">No Client</span>
+                                        {% endif %}
+                                    </span>
 
-											{% if invoice.isOverdue %}
-												{# LOGIC: If Sent and Date Passed -> show RED Overdue #}
-												<span class="text-[10px] font-bold text-red-500 flex items-center gap-1">
-													<i class="fas fa-exclamation-circle"></i>
-													Overdue
-													{{ invoice.dueDate|date('d M Y') }}
-												</span>
-											{% else %}
-												{# Normal Sent #}
-												<span class="text-[10px] text-slate-400">
-													Due
-													{{ invoice.dueDate|date('d M Y') }}
-												</span>
-											{% endif %}
+                                    {# C. Status & Date Logic #}
+                                    <div class="mt-1 flex items-center gap-2">
+                                        {# Status Badge #}
+                                        {% if invoice.status == 'PAID' %}
+                                            <span class="text-[10px] font-bold bg-emerald-500/10 border border-emerald-500/20 p-1 px-2 rounded-md uppercase tracking-wide text-emerald-400">
+                                                PAID
+                                            </span>
+                                        {% elseif invoice.isOverdue %}
+                                            <span class="text-[10px] font-bold p-1 px-2 rounded-md bg-red-500/10 border border-red-500/20 uppercase tracking-wide text-red-400">
+                                                UNPAID / OVERDUE
+                                            </span>
+                                        {% elseif invoice.status == 'SENT' %}
+                                            <span class="text-[10px] font-bold uppercase tracking-wide p-1 px-2 rounded-md bg-blue-500/10 border border-blue-500/20 text-blue-400">
+                                                SENT
+                                            </span>
+                                        {% else %}
+                                            <span class="text-[10px] font-bold uppercase tracking-wide p-1 px-2 rounded-md bg-slate-500/10 border border-slate-500/20 text-slate-400">
+                                                DRAFT
+                                            </span>
+                                        {% endif %}
 
-										{% elseif invoice.status == 'PAID' %}
-											<span class="text-slate-300 text-[10px]">•</span>
-											<span class="text-[10px] text-emerald-600/70">
-												{{ invoice.paidAt|date('d M Y') }}
-											</span>
-										{% endif %}
-									</div>
-								</div>
-							</td>
-							{# --- 2. Amount --- #}
-							<td class="px-6 py-4 !hidden md:!table-cell !whitespace-nowrap text-left align-top pt-5">
-								<div class=" text-slate-900 text-sm">
-									{{ invoice.projectTitle ?: 'No Project Title'}}
-								</div>
-								<span class="text-xs text-slate-500 font-medium">{{ invoice.client.companyName }}
-								</span>
+                                        {# Smart Date Display #}
+                                        {% if invoice.status == 'SENT' %}
+                                            <span class="text-slate-600 text-[10px]">•</span>
 
-							</td>
+                                            {% if invoice.isOverdue %}
+                                                <span class="text-[10px] font-bold text-red-400 flex items-center gap-1">
+                                                    <i class="fas fa-exclamation-circle"></i>
+                                                    Overdue {{ invoice.dueDate|date('d M Y') }}
+                                                </span>
+                                            {% else %}
+                                                <span class="text-[10px] text-slate-500">
+                                                    Due {{ invoice.dueDate|date('d M Y') }}
+                                                </span>
+                                            {% endif %}
 
-							{# --- 2. Amount --- #}
-							<td
-								class="px-6 py-4 text-right align-top pt-5 !hidden md:!table-cell !whitespace-nowrap">
+                                        {% elseif invoice.status == 'PAID' %}
+                                            <span class="text-slate-600 text-[10px]">•</span>
+                                            <span class="text-[10px] text-emerald-500/70">
+                                                {{ invoice.paidAt|date('d M Y') }}
+                                            </span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </td>
 
-								{# 1. Total (Gross) #}
-								<div class="font-bold text-slate-900 text-sm md:text-base">
-									{{ invoice.totalAmount|number_format(2, '.', ',') }}
-									<span class="text-xs font-normal text-slate-400 ml-0.5">{{ invoice.currency }}</span>
-								</div>
+                            {# Project Column #}
+                            <td class="px-6 py-4 !hidden md:!table-cell !whitespace-nowrap text-left align-top pt-5">
+                                <div class="text-slate-200 text-sm font-medium">
+                                    {{ invoice.projectTitle ?: 'No Project Title'}}
+                                </div>
+                                <span class="text-xs text-slate-500 font-medium">{{ invoice.client.companyName }}</span>
+                            </td>
 
-								{# 2. Net (Smart Color) #}
-								{% if invoice.status == 'PAID' %}
-									{# If PAID: Show Green to indicate "Money in Pocket" #}
-									<div class="text-xs font-bold text-emerald-600 mt-1">
-										Net:
-										{{ invoice.netEstimate|number_format(2, '.', ',') }}
-										€
-									</div>
-								{% else %}
-									{# If UNPAID: Show Gray to indicate "Projected / Not yours yet" #}
-									<div class="text-xs font-medium text-slate-400 mt-1">
-										Net:
-										{{ invoice.netEstimate|number_format(2, '.', ',') }}
-										€
-									</div>
-								{% endif %}
+                            {# Amount Column #}
+                            <td class="px-6 py-4 text-right align-top pt-5 !hidden md:!table-cell !whitespace-nowrap">
+                                {# 1. Total (Gross) #}
+                                <div class="font-bold text-white text-sm md:text-base">
+                                    {{ invoice.totalAmount|number_format(2, '.', ',') }}
+                                    <span class="text-xs font-normal text-slate-500 ml-0.5">{{ invoice.currency }}</span>
+                                </div>
 
-							</td>
+                                {# 2. Net (Smart Color) #}
+                                {% if invoice.status == 'PAID' %}
+                                    <div class="text-xs font-bold text-emerald-500 mt-1">
+                                        Net: {{ invoice.netEstimate|number_format(2, '.', ',') }} €
+                                    </div>
+                                {% else %}
+                                    <div class="text-xs font-medium text-slate-500 mt-1">
+                                        Net: {{ invoice.netEstimate|number_format(2, '.', ',') }} €
+                                    </div>
+                                {% endif %}
+                            </td>
 
-							{# --- 3. Actions --- #}
-							<td class="px-6 py-4 text-right align-top pt-4">
-								<div
-									class="flex justify-end gap-2">
+                            {# Actions Column #}
+                            <td class="px-6 py-4 text-right align-top pt-4">
+                                <div class="flex justify-end gap-2">
 
-									{# View #}
-									<a href="{{ path('app_invoice_show', {id: invoice.id}) }}" class="p-2 hover:bg-white rounded-lg text-slate-400 hover:text-primary transition-all" title="View Details">
-										<i class="fas fa-eye"></i>
-									</a>
+                                    {# View #}
+                                    <a href="{{ path('app_invoice_show', {id: invoice.id}) }}" class="p-2 rounded-lg text-slate-500 hover:bg-blue-500/10 hover:text-blue-400 transition-all" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
 
-									<span class="text-slate-200 py-2">|</span>
+                                    <span class="text-slate-700 py-2">|</span>
 
-									{# Edit Logic #}
-									{% if invoice.status == 'DRAFT' %}
-										{# DRAFT: Full Edit #}
-										<a href="{{ path('app_invoice_edit', {id: invoice.id}) }}" class="p-2 hover:bg-white rounded-lg text-slate-400 hover:text-blue-600 transition-all" title="Edit Draft">
-											<i class="fas fa-edit"></i>
-										</a>
-									{% else %}
-										{# SENT or PAID: Allow Status Update #}
-										<a href="{{ path('app_invoice_edit', {id: invoice.id}) }}" class="p-2 hover:bg-white rounded-lg text-slate-400 hover:text-amber-600 transition-all" title="Update Status / Revert">
-											<i class="fas fa-sliders-h"></i>
-										</a>
-									{% endif %}
+                                    {# Edit Logic #}
+                                    {% if invoice.status == 'DRAFT' %}
+                                        {# DRAFT: Full Edit (Blue) #}
+                                        <a href="{{ path('app_invoice_edit', {id: invoice.id}) }}" class="p-2 rounded-lg text-slate-500 hover:bg-blue-500/10 hover:text-blue-400 transition-all" title="Edit Draft">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                    {% else %}
+                                        {# SENT or PAID: Update Status (Amber) #}
+                                        <a href="{{ path('app_invoice_edit', {id: invoice.id}) }}" class="p-2 rounded-lg text-slate-500 hover:bg-amber-500/10 hover:text-amber-400 transition-all" title="Update Status / Revert">
+                                            <i class="fas fa-sliders-h"></i>
+                                        </a>
+                                    {% endif %}
 
-									{# Delete Logic #}
-									{% if invoice.status == 'DRAFT' %}
-										<form method="post" action="{{ path('app_invoice_delete', {'id': invoice.id}) }}" onsubmit="return confirm('Delete this draft?');" class="inline">
-											<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ invoice.id) }}">
-											<button class="p-2 hover:bg-white rounded-lg text-slate-400 hover:text-red-500 transition-all ml-1">
-												<i class="fas fa-trash"></i>
-											</button>
-										</form>
-									{% endif %}
-								</div>
-							</td>
-						</tr>
-					{% else %}
-						<tr>
-							<td colspan="4" class="px-6 py-12 text-center text-slate-500 italic bg-slate-50">
-								<div class="flex flex-col items-center justify-center gap-2">
-									<i class="fas fa-file-invoice text-3xl text-slate-300 mb-2"></i>
-									<p>No invoices found.</p>
-									<a href="{{ path('app_invoice_new') }}" class="text-primary text-sm hover:underline font-medium">Create your first invoice</a>
-								</div>
-							</td>
-						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-		</div>
-	</div>
+                                    {# Delete Logic #}
+                                    {% if invoice.status == 'DRAFT' %}
+                                        <form method="post" action="{{ path('app_invoice_delete', {'id': invoice.id}) }}" onsubmit="return confirm('Delete this draft?');" class="inline">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ invoice.id) }}">
+                                            <button class="p-2 rounded-lg text-slate-500 hover:bg-red-500/10 hover:text-red-400 transition-all ml-1">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5" class="px-6 py-12 text-center">
+                                <div class="flex flex-col items-center justify-center gap-2">
+                                    <i class="fas fa-file-invoice text-3xl text-slate-600 mb-2"></i>
+                                    <p class="text-slate-500">No invoices found.</p>
+                                    <a href="{{ path('app_invoice_new') }}" class="text-blue-400 text-sm hover:underline font-medium">Create your first invoice</a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
