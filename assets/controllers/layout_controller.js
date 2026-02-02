@@ -94,7 +94,7 @@ export default class extends Controller {
                         if (this.sidebarOpenDesktop) {
                         target.classList.add("hidden");
                     }
-                }, 1000);
+                }, 300);
             } else {
                 this.companyTopLeftTarget.classList.add("-translate-x-full");
                 target.classList.remove("hidden");
