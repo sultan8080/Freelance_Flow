@@ -5,132 +5,144 @@
     }
 }) }}
 
-
+{# Global Errors (Red Glass) #}
 <div class="form-error mb-2">
 	{{ form_errors(form) }}
 </div>
 
-
-{# Personal Details #}
+{# --- 1. Personal Details --- #}
 <div class="space-y-6">
-	<h3 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4 ml-1">Personal Details</h3>
+	<div class="flex items-center gap-2 mb-4 ml-1">
+		<div class="w-1 h-4 bg-blue-500 rounded-full"></div>
+		<h3 class="text-[10px] font-black uppercase tracking-widest text-blue-400">Personal Details</h3>
+	</div>
 
 	<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 		<div class="group">
-			{{ form_label(form.firstName, 'First Name', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1'}}) }}
+			{{ form_label(form.firstName, 'First Name', {'label_attr': {'class': 'block text-xs font-bold text-slate-400 mb-2 ml-1'}}) }}
 			{{ form_widget(form.firstName, {
                 'attr': {
-                    'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm focus:ring-primary/10 focus:border-primary transition-all',
+                    'class': 'w-full px-5 py-3 rounded-xl border border-white/10 bg-white/5 text-white placeholder-slate-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all',
                     'placeholder': 'John'
                 }
             }) }}
 			{% if form.firstName.vars.errors|length > 0 %}
-				<p class="form-error">
+				<p class="text-red-400 text-xs mt-1 ml-1">
 					{{ form_errors(form.firstName)|striptags }}
 				</p>
 			{% endif %}
 		</div>
 
 		<div class="group">
-			{{ form_label(form.lastName, 'Last Name', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1'}}) }}
+			{{ form_label(form.lastName, 'Last Name', {'label_attr': {'class': 'block text-xs font-bold text-slate-400 mb-2 ml-1'}}) }}
 			{{ form_widget(form.lastName, {
                 'attr': {
-                    'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm focus:ring-primary/10 focus:border-primary transition-all',
+                    'class': 'w-full px-5 py-3 rounded-xl border border-white/10 bg-white/5 text-white placeholder-slate-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all',
                     'placeholder': 'Doe'
                 }
             }) }}
 			{% if form.lastName.vars.errors|length > 0 %}
-				<p class="form-error">
+				<p class="text-red-400 text-xs mt-1 ml-1">
 					{{ form_errors(form.lastName)|striptags }}
 				</p>
 			{% endif %}
 		</div>
+
 		<div class="group">
-			{{ form_label(form.email, 'Email Address', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1'}}) }}
+			{{ form_label(form.email, 'Email Address', {'label_attr': {'class': 'block text-xs font-bold text-slate-400 mb-2 ml-1'}}) }}
 			{{ form_widget(form.email, {
-            'attr': {
-                'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm focus:ring-primary/10 focus:border-primary transition-all',
-                'placeholder': 'john@example.com'
-            }
-        }) }}
+                'attr': {
+                    'class': 'w-full px-5 py-3 rounded-xl border border-white/10 bg-white/5 text-white placeholder-slate-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all',
+                    'placeholder': 'john@example.com'
+                }
+            }) }}
 			{% if form.email.vars.errors|length > 0 %}
-				<p class="form-error">
+				<p class="text-red-400 text-xs mt-1 ml-1">
 					{{ form_errors(form.email)|striptags }}
 				</p>
 			{% endif %}
 		</div>
+
 		<div class="group">
-			{{ form_label(form.phoneNumber, 'Phone Number', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1'}}) }}
+			{{ form_label(form.phoneNumber, 'Phone Number', {'label_attr': {'class': 'block text-xs font-bold text-slate-400 mb-2 ml-1'}}) }}
 			{{ form_widget(form.phoneNumber, {
-            'attr': {
-                'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm focus:ring-primary/10 focus:border-primary transition-all',
-                'placeholder': '+33 1 23 45 67 89'
-            }
-        }) }}
+                'attr': {
+                    'class': 'w-full px-5 py-3 rounded-xl border border-white/10 bg-white/5 text-white placeholder-slate-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all',
+                    'placeholder': '+33 1 23 45 67 89'
+                }
+            }) }}
 			{% if form.phoneNumber.vars.errors|length > 0 %}
-				<p class="form-error">
+				<p class="text-red-400 text-xs mt-1 ml-1">
 					{{ form_errors(form.phoneNumber)|striptags }}
 				</p>
 			{% endif %}
 		</div>
 	</div>
 </div>
-<div class="space-y-6">
-	<h3 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4 ml-1">Address</h3>
+
+{# --- 2. Address --- #}
+<div class="space-y-6 pt-6 border-t border-white/5">
+	<div class="flex items-center gap-2 mb-4 ml-1">
+		<div class="w-1 h-4 bg-purple-500 rounded-full"></div>
+		<h3 class="text-[10px] font-black uppercase tracking-widest text-blue-400">Address</h3>
+	</div>
+
 	<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-		<div class="group">
-			{{ form_label(form.address, 'Address', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1'}}) }}
+		<div class="group md:col-span-2">
+			{{ form_label(form.address, 'Address', {'label_attr': {'class': 'block text-xs font-bold text-slate-400 mb-2 ml-1'}}) }}
 			{{ form_widget(form.address, {
-            'attr': {
-                'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm focus:ring-primary/10 focus:border-primary transition-all',
-                'placeholder': '123 Rue de la Paix'
-            }
-        }) }}
+                'attr': {
+                    'class': 'w-full px-5 py-3 rounded-xl border border-white/10 bg-white/5 text-white placeholder-slate-600 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all',
+                    'placeholder': '123 Rue de la Paix'
+                }
+            }) }}
 			{% if form.address.vars.errors|length > 0 %}
-				<p class="form-error">
+				<p class="text-red-400 text-xs mt-1 ml-1">
 					{{ form_errors(form.address)|striptags }}
 				</p>
 			{% endif %}
 		</div>
+
 		<div class="group">
-			{{ form_label(form.postCode, 'Post Code', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1'}}) }}
+			{{ form_label(form.postCode, 'Post Code', {'label_attr': {'class': 'block text-xs font-bold text-slate-400 mb-2 ml-1'}}) }}
 			{{ form_widget(form.postCode, {
                 'attr': {
-                    'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm focus:ring-primary/10 focus:border-primary transition-all',
+                    'class': 'w-full px-5 py-3 rounded-xl border border-white/10 bg-white/5 text-white placeholder-slate-600 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all',
                     'placeholder': '75001'
                 }
             }) }}
 			{% if form.postCode.vars.errors|length > 0 %}
-				<p class="form-error">
+				<p class="text-red-400 text-xs mt-1 ml-1">
 					{{ form_errors(form.postCode)|striptags }}
 				</p>
 			{% endif %}
 		</div>
 
 		<div class="group">
-			{{ form_label(form.city, 'City', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1'}}) }}
+			{{ form_label(form.city, 'City', {'label_attr': {'class': 'block text-xs font-bold text-slate-400 mb-2 ml-1'}}) }}
 			{{ form_widget(form.city, {
                 'attr': {
-                    'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm focus:ring-primary/10 focus:border-primary transition-all',
+                    'class': 'w-full px-5 py-3 rounded-xl border border-white/10 bg-white/5 text-white placeholder-slate-600 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all',
                     'placeholder': 'Paris'
                 }
             }) }}
 			{% if form.city.vars.errors|length > 0 %}
-				<p class="form-error">
+				<p class="text-red-400 text-xs mt-1 ml-1">
 					{{ form_errors(form.city)|striptags }}
 				</p>
 			{% endif %}
 		</div>
-		<div class="group">
-			{{ form_label(form.country, 'Country', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1'}}) }}
+
+		<div class="group md:col-span-2">
+			{{ form_label(form.country, 'Country', {'label_attr': {'class': 'block text-xs font-bold text-slate-400 mb-2 ml-1'}}) }}
 			{{ form_widget(form.country, {
-            'attr': {
-                'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm focus:ring-primary/10 focus:border-primary transition-all',
-                'placeholder': 'France'
-            }
-       			 }) }}
+                'attr': {
+                    'class': 'w-full px-5 py-3 rounded-xl border border-white/10 bg-white/5 text-white placeholder-slate-600 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all',
+                    'placeholder': 'France'
+                }
+            }) }}
 			{% if form.country.vars.errors|length > 0 %}
-				<p class="form-error">
+				<p class="text-red-400 text-xs mt-1 ml-1">
 					{{ form_errors(form.country)|striptags }}
 				</p>
 			{% endif %}
@@ -138,54 +150,54 @@
 	</div>
 </div>
 
-
-{# Professional Details #}
-<div class="space-y-6">
-	<h3 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4 ml-1">Professional Details</h3>
+{# --- 3. Professional Details --- #}
+<div class="space-y-6 pt-6 border-t border-white/5">
+	<div class="flex items-center gap-2 mb-4 ml-1">
+		<div class="w-1 h-4 bg-cyan-500 rounded-full"></div>
+		<h3 class="text-[10px] font-black uppercase tracking-widest text-blue-400">Professional Details</h3>
+	</div>
 
 	<div class="group">
-		{{ form_label(form.companyName, 'Company Name', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1'}}) }}
+		{{ form_label(form.companyName, 'Company Name', {'label_attr': {'class': 'block text-xs font-bold text-slate-400 mb-2 ml-1'}}) }}
 		{{ form_widget(form.companyName, {
             'attr': {
-                'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm focus:ring-primary/10 focus:border-primary transition-all',
+                'class': 'w-full px-5 py-3 rounded-xl border border-white/10 bg-white/5 text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all',
                 'placeholder': 'Acme Corp'
             }
         }) }}
 		{% if form.companyName.vars.errors|length > 0 %}
-			<p class="form-error">
+			<p class="text-red-400 text-xs mt-1 ml-1">
 				{{ form_errors(form.companyName)|striptags }}
 			</p>
 		{% endif %}
 	</div>
 
-
-	{# SIRET and VAT #}
 	<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 		<div class="group">
-			{{ form_label(form.siret, 'SIRET', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1'}}) }}
+			{{ form_label(form.siret, 'SIRET', {'label_attr': {'class': 'block text-xs font-bold text-slate-400 mb-2 ml-1'}}) }}
 			{{ form_widget(form.siret, {
                 'attr': {
-                    'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm focus:ring-primary/10 focus:border-primary transition-all',
+                    'class': 'w-full px-5 py-3 rounded-xl border border-white/10 bg-white/5 text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all',
                     'placeholder': '12345678901234'
                 }
             }) }}
 			{% if form.siret.vars.errors|length > 0 %}
-				<p class="form-error">
+				<p class="text-red-400 text-xs mt-1 ml-1">
 					{{ form_errors(form.siret)|striptags }}
 				</p>
 			{% endif %}
 		</div>
 
 		<div class="group">
-			{{ form_label(form.vatNumber, 'VAT Number', {'label_attr': {'class': 'block text-xs font-bold text-slate-500 mb-2 ml-1'}}) }}
+			{{ form_label(form.vatNumber, 'VAT Number', {'label_attr': {'class': 'block text-xs font-bold text-slate-400 mb-2 ml-1'}}) }}
 			{{ form_widget(form.vatNumber, {
                 'attr': {
-                    'class': 'w-full px-5 py-3 rounded-xl border border-slate-200/60 bg-white/40 backdrop-blur-sm focus:ring-primary/10 focus:border-primary transition-all',
+                    'class': 'w-full px-5 py-3 rounded-xl border border-white/10 bg-white/5 text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all',
                     'placeholder': 'FRXX999999999'
                 }
             }) }}
 			{% if form.vatNumber.vars.errors|length > 0 %}
-				<p class="form-error">
+				<p class="text-red-400 text-xs mt-1 ml-1">
 					{{ form_errors(form.vatNumber)|striptags }}
 				</p>
 			{% endif %}
@@ -193,15 +205,18 @@
 	</div>
 </div>
 
-
-{# Actions #}
-<div class="pt-8 flex items-center justify-end space-x-4">
-	<a href="{{ path('app_client_index') }}" class="px-6 py-3 text-sm font-bold text-slate-500 bg-transparent border-2 border-slate-200 rounded-2xl hover:bg-slate-100 transition-all">
+{# --- Actions --- #}
+<div class="pt-10 flex items-center justify-end gap-4 border-t border-white/5 mt-6">
+	<a href="{{ path('app_client_index') }}" class="px-6 py-3 text-sm font-bold text-slate-400 hover:text-white border border-white/10 rounded-xl hover:bg-white/5 transition-all">
 		Discard
 	</a>
 
-	<button type="submit" class="px-8 py-3 bg-primary text-white font-bold rounded-2xl hover:bg-primary-hover transition-all">
-		{{ button_label|default('Save Client') }}
+	<button type="submit" class="group relative px-8 py-3 rounded-xl overflow-hidden shadow-lg shadow-blue-500/20 transition-all hover:scale-[1.02] active:scale-95">
+		<div class="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-600 to-purple-700 opacity-90 group-hover:opacity-100 transition-opacity"></div>
+		<div class="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer"></div>
+		<span class="relative text-sm font-bold text-white">
+			{{ button_label|default('Save Client') }}
+		</span>
 	</button>
 </div>
 

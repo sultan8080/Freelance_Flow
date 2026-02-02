@@ -3,18 +3,24 @@
 {% block title %}Create New Client{% endblock %}
 
 {% block dashboard_content %}
-    <div class="max-w-5xl mx-auto">
-        <a href="{{ path('app_client_index') }}" class="text-slate-400 font-bold mb-6 block hover:text-primary">
-            <i class="fas fa-arrow-left mr-2"></i>
+    <div class="max-w-4xl mx-auto">
+        
+        <a href="{{ path('app_client_index') }}" class="inline-flex items-center gap-2 text-sm font-medium text-slate-400 hover:text-blue-400 transition-colors mb-6 group">
+            <i class="fas fa-arrow-left text-xs group-hover:-translate-x-1 transition-transform"></i>
             Back to list
         </a>
 
-        <div class="glass-card rounded-bento p-8">
-            <p class="text-slate-500 text-base md:text-lg mb-4 md:mb-8">
-                Add a new client
-            </p>
+        <div class="glass-card rounded-2xl p-6 sm:p-10 border border-white/10 relative overflow-hidden">
+            
+            <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl -z-10 pointer-events-none"></div>
 
-            {# The form block #}
+            <div class="mb-8 border-b border-white/5 pb-6">
+                <h1 class="text-2xl font-bold text-white tracking-tight mb-2">Add New Client</h1>
+                <p class="text-slate-400 text-sm">
+                    Enter the details below to register a new business partner.
+                </p>
+            </div>
+
             {% block client_form %}
                 {{ include('client/_form.html.twig', { form: form }) }}
             {% endblock %}
