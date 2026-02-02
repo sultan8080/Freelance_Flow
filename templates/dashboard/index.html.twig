@@ -1,193 +1,260 @@
 {% extends 'dashboard/base.html.twig' %}
 
-{% block title %}Dashboard Overview
-{% endblock %}
+{% block title %}Dashboard Overview{% endblock %}
 
 {% block dashboard_content %}
-	<div
-		class="space-y-8 mb-10">
+    <div class="space-y-8 mb-10">
 
-		{# --- 1. Header (Blue/Purple Theme) --- #}
-		<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-			<div>
-				<h1 class="text-3xl font-extrabold text-white tracking-tight">Dashboard</h1>
-				<p class="text-slate-400 mt-1">
-					Overview for
-					<span class="font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-						{{ "now"|date('F Y') }}
-					</span>
-				</p>
-			</div>
+        {# --- 1. Header & Actions --- #}
+        <div class="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6">
+            <div>
+                <h1 class="text-3xl font-extrabold text-white tracking-tight">Dashboard</h1>
+                <p class="text-slate-400 mt-1 text-sm">
+                    Overview for
+                    <span class="font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                        {{ selected_date|date('F Y') }}
+                    </span>
+                </p>
+            </div>
 
-			<div class="flex items-center gap-3">
-				<a href="{{ path('app_invoice_new') }}" class="group flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-all shadow-lg backdrop-blur-md">
-					<i class="fas fa-file-invoice text-slate-400 group-hover:text-blue-400 transition-colors"></i>
-					<span class="font-medium text-sm">New Invoice</span>
-				</a>
+            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full xl:w-auto">
 
-				<a href="{{ path('app_client_new') }}" class="group relative px-5 py-2.5 rounded-xl overflow-hidden shadow-lg shadow-blue-500/20 transition-all hover:scale-105">
-					<div class="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-600 to-purple-700 opacity-90 group-hover:opacity-100 transition-opacity"></div>
-					<div class="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer"></div>
-					<span class="relative flex items-center gap-2 text-sm font-semibold text-white">
-						<i class="fas fa-plus"></i>
-						Add Client
-					</span>
-				</a>
-			</div>
-		</div>
+                {# Filter Form #}
+                <form method="get" action="{{ path('dashboard_freelancer') }}" class="flex gap-3 w-full sm:w-auto">
+                    {# Month Select #}
+                    <div class="relative w-full sm:w-40">
+                        <select name="month" onchange="this.form.submit()" class="w-full appearance-none bg-white/5 border border-white/10 text-white text-sm rounded-xl focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 block px-4 py-2.5 [&>option]:bg-slate-900 [&>option]:text-white cursor-pointer hover:bg-white/10 transition-all outline-none">
+                            {% for m in 1..12 %}
+                                {% set monthName = ('2024-' ~ m ~ '-01')|date('F') %}
+                                <option value="{{ m }}" {{ m == selected_month ? 'selected' : '' }}>
+                                    {{ monthName }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-400">
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </div>
+                    </div>
 
-		{# --- 2. KPI Cards (Dark Glass Bento Grid) --- #}
-		<div
-			class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {# Year Select #}
+                    <div class="relative w-full sm:w-28">
+                        <select name="year" onchange="this.form.submit()" class="w-full appearance-none bg-white/5 border border-white/10 text-white text-sm rounded-xl focus:ring-1 focus:ring-blue-500/50 focus:border-blue-500/50 block px-4 py-2.5 [&>option]:bg-slate-900 [&>option]:text-white cursor-pointer hover:bg-white/10 transition-all outline-none">
+                            {% for y in ("now"|date("Y") - 2)..("now"|date("Y") + 1) %}
+                                <option value="{{ y }}" {{ y == selected_year ? 'selected' : '' }}>
+                                    {{ y }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-400">
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </div>
+                    </div>
+                </form>
 
-			{# Card 1: Revenue (Purple Theme) #}
-			<div class="glass-card p-6 hover:border-purple-500/30 transition-all group">
-				<div class="flex items-center gap-4 mb-4">
-					<div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 group-hover:bg-purple-500 group-hover:text-white transition-all shadow-[0_0_15px_rgba(168,85,247,0.15)]">
-						<i class="fa-solid fa-euro-sign text-lg"></i>
-					</div>
-					<div>
-						<p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Revenue ({{ "now"|date('M') }})</p>
-						<h3 class="text-2xl font-bold text-white tracking-tight">{{ monthly_revenue|number_format(0, '.', ' ') }}
-							€</h3>
-					</div>
-				</div>
-				<p class="text-emerald-400 text-xs font-medium flex items-center gap-1.5">
-					<span class="relative flex h-2 w-2">
-						<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-						<span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-					</span>
-					Current Month
-				</p>
-			</div>
+                {# Action Buttons #}
+                <div class="flex items-center gap-3 w-full sm:w-auto">
+                    
+                    {# New Invoice (Glass Button) #}
+                    <a href="{{ path('app_invoice_new') }}" class="group flex-1 sm:flex-none justify-center inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-all shadow-lg backdrop-blur-md whitespace-nowrap">
+                        <i class="fas fa-plus text-blue-400 group-hover:text-blue-300 transition-colors text-xs"></i>
+                        <span class="font-semibold text-sm">Invoice</span>
+                    </a>
 
-			{# Card 2: Pending (Blue Theme) #}
-			<div class="glass-card p-6 hover:border-blue-500/30 transition-all group">
-				<div class="flex items-center gap-4 mb-4">
-					<div class="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:bg-blue-500 group-hover:text-white transition-all shadow-[0_0_15px_rgba(59,130,246,0.15)]">
-						<i class="fa-solid fa-hourglass-half text-lg"></i>
-					</div>
-					<div>
-						<p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Pending</p>
-						<h3 class="text-2xl font-bold text-white tracking-tight">{{ counts.sent }}</h3>
-					</div>
-				</div>
-				<p class="text-slate-400 text-xs">Waiting for payment</p>
-			</div>
+                    {# Add Client (Gradient Button) #}
+                    <a href="{{ path('app_client_new') }}" class="group relative flex-1 sm:flex-none justify-center inline-flex items-center px-5 py-2.5 rounded-xl overflow-hidden shadow-lg shadow-blue-500/20 transition-all hover:scale-[1.02] whitespace-nowrap">
+                        <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-600 to-purple-700 opacity-90 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer"></div>
+                        <span class="relative flex items-center gap-2 text-sm font-semibold text-white">
+                            <i class="fas fa-user-plus text-xs"></i>
+                            Client
+                        </span>
+                    </a>
+                </div>
 
-			{# Card 3: Drafts (Amber Theme) #}
-			<a href="{{ path('app_invoice_index', {status: 'DRAFT'}) }}" class="glass-card p-6 hover:border-amber-500/30 transition-all group block relative overflow-hidden">
-				<div class="absolute -right-10 -top-10 w-24 h-24 bg-amber-500/10 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            </div>
+        </div>
 
-				<div class="flex items-center gap-4 mb-4 relative z-10">
-					<div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 group-hover:bg-amber-500 group-hover:text-white transition-all shadow-[0_0_15px_rgba(245,158,11,0.15)]">
-						<i class="fa-solid fa-pen-ruler text-lg"></i>
-					</div>
-					<div>
-						<p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Drafts</p>
-						<h3 class="text-2xl font-bold text-white tracking-tight">{{ counts.draft }}</h3>
-					</div>
-				</div>
-				<p class="text-slate-500 text-xs group-hover:text-amber-400 transition-colors relative z-10">Click to finish editing</p>
-			</a>
+        {# --- 2. Cockpit Cards (Bento Grid) --- #}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
-			{# Card 4: Clients (Blue/Purple Blend) #}
-			<div class="glass-card p-6 hover:border-indigo-500/30 transition-all group">
-				<div class="flex items-center gap-4 mb-4">
-					<div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-all shadow-[0_0_15px_rgba(99,102,241,0.15)]">
-						<i class="fa-solid fa-users text-lg"></i>
-					</div>
-					<div>
-						<p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Total Clients</p>
-						<h3 class="text-2xl font-bold text-white tracking-tight">{{ clients.total }}</h3>
-					</div>
-				</div>
-				{% if clients.new_this_month > 0 %}
-					<p class="text-indigo-400 text-xs font-bold">+{{ clients.new_this_month }}
-						new this month</p>
-				{% else %}
-					<p class="text-slate-500 text-xs italic">Steady relationship</p>
-				{% endif %}
-			</div>
-		</div>
+            {# Card 1: Revenue (Purple) #}
+            <div class="glass-card p-6 hover:border-purple-500/30 transition-all group relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 rounded-full blur-2xl -mr-10 -mt-10 transition-all group-hover:bg-purple-500/10"></div>
+                
+                <div class="relative z-10">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 group-hover:bg-purple-500 group-hover:text-white transition-all shadow-[0_0_15px_rgba(168,85,247,0.15)]">
+                            <i class="fas fa-euro-sign text-sm"></i>
+                        </div>
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-white/5 px-2 py-1 rounded-lg border border-white/5">{{ "now"|date('M') }}</span>
+                    </div>
+                    
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Revenue</p>
+                    <h3 class="text-2xl font-bold text-white tracking-tight mt-1">{{ monthly_revenue|number_format(0, '.', ' ') }} €</h3>
+                    
+                    <div class="flex items-center gap-1.5 mt-3">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                        </span>
+                        <span class="text-xs font-medium text-emerald-400">Live Performance</span>
+                    </div>
+                </div>
+            </div>
 
-		{# --- 3. Recent Activity Table (Dark Glass) --- #}
-		<div class="glass-card rounded-2xl p-6 sm:p-8">
-			<div class="flex items-center justify-between mb-6">
-				<div class="flex items-center gap-4">
-					<div class="w-1.5 h-6 bg-gradient-to-b from-blue-500 to-purple-500 rounded-full"></div>
-					<h2 class="text-lg font-bold text-white">Recent Invoices</h2>
-				</div>
-				<a href="{{ path('app_invoice_index') }}" class="text-sm font-semibold text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1 group">
-					View All
-					<i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
-				</a>
-			</div>
+            {# Card 2: Pending (Blue) #}
+            <div class="glass-card p-6 hover:border-blue-500/30 transition-all group relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl -mr-10 -mt-10 transition-all group-hover:bg-blue-500/10"></div>
 
-			<div class="overflow-x-auto">
-				<table class="w-full text-left text-sm text-slate-400">
-					<thead class="uppercase text-xs text-slate-500 border-b border-white/5">
-						<tr>
-							<th class="py-4 pl-4 font-bold tracking-wider">Client</th>
-							<th class="py-4 font-bold tracking-wider">Invoice #</th>
-							<th class="py-4 font-bold tracking-wider">Date</th>
-							<th class="py-4 font-bold tracking-wider">Amount (HT)</th>
-							<th class="py-4 text-right pr-4 font-bold tracking-wider">Status</th>
-						</tr>
-					</thead>
-					<tbody class="divide-y divide-white/5">
-						{% for invoice in recent_invoices %}
-							<tr class="hover:bg-white/5 transition-colors group">
-								<td class="py-4 pl-4 font-medium text-slate-200 group-hover:text-white transition-colors">
-									{{ invoice.client.companyName ?: invoice.client.fullName }}
-								</td>
+                <div class="relative z-10">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:bg-blue-500 group-hover:text-white transition-all shadow-[0_0_15px_rgba(59,130,246,0.15)]">
+                            <i class="fas fa-hourglass-half text-sm"></i>
+                        </div>
+                    </div>
 
-								<td class="py-4">
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Pending Payment</p>
+                    <h3 class="text-2xl font-bold text-white tracking-tight mt-1">{{ counts.sent }}</h3>
+                    <p class="text-slate-400 text-xs mt-2 font-medium">Invoices sent, waiting cash</p>
+                </div>
+            </div>
 
-									{% if invoice.invoiceNumber %}
-										<a href="{{ path('app_invoice_show', {id: invoice.id}) }}" class="text-purple-400 hover:text-purple-600 font-medium hover:underline">
-											{{ invoice.invoiceNumber }}
-										</a>
-									{% else %}
-										<a href="{{ path('app_invoice_show', {id: invoice.id}) }}" class="text-blue-400 hover:text-blue-600 font-medium hover:underline">
-											DRAFT - {{ invoice.id }}
-										</a>
-									{% endif %}
-								</td>
-								<td class="py-4 text-slate-500">
-									{{ invoice.createdAt|date('d M Y') }}
-								</td>
-								<td class="py-4 font-medium text-white">
-									{{ invoice.totalHt|number_format(2, '.', ' ') }}
-									€
-								</td>
-								<td class="py-4 text-right pr-4">
-									{% set statusClasses = {
+            {# Card 3: Drafts (Amber) #}
+            <a href="{{ path('app_invoice_index', {status: 'DRAFT'}) }}" class="glass-card p-6 hover:border-amber-500/30 transition-all group relative overflow-hidden block">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 rounded-full blur-2xl -mr-10 -mt-10 transition-all group-hover:bg-amber-500/10"></div>
+
+                <div class="relative z-10">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 group-hover:bg-amber-500 group-hover:text-white transition-all shadow-[0_0_15px_rgba(245,158,11,0.15)]">
+                            <i class="fas fa-pen-ruler text-sm"></i>
+                        </div>
+                        <div class="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-amber-500 group-hover:text-white transition-colors">
+                            <i class="fas fa-arrow-right text-[10px] text-slate-500 group-hover:text-white"></i>
+                        </div>
+                    </div>
+
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider group-hover:text-amber-400 transition-colors">Drafts</p>
+                    <h3 class="text-2xl font-bold text-white tracking-tight mt-1">{{ counts.draft }}</h3>
+                    <p class="text-slate-400 text-xs mt-2 group-hover:text-slate-300 transition-colors">Click to finish editing</p>
+                </div>
+            </a>
+
+            {# Card 4: Clients (Indigo) #}
+            <div class="glass-card p-6 hover:border-indigo-500/30 transition-all group relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full blur-2xl -mr-10 -mt-10 transition-all group-hover:bg-indigo-500/10"></div>
+
+                <div class="relative z-10">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-all shadow-[0_0_15px_rgba(99,102,241,0.15)]">
+                            <i class="fas fa-users text-sm"></i>
+                        </div>
+                    </div>
+
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Total Clients</p>
+                    <h3 class="text-2xl font-bold text-white tracking-tight mt-1">{{ clients.total }}</h3>
+                    
+                    {% if clients.new_this_month > 0 %}
+                        <p class="text-indigo-400 text-xs mt-2 font-bold flex items-center gap-1">
+                            <i class="fas fa-arrow-up text-[10px]"></i>
+                            {{ clients.new_this_month }} new this month
+                        </p>
+                    {% else %}
+                        <p class="text-slate-500 text-xs mt-2 italic">Steady relationship</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        {# --- 3. Recent Activity Table --- #}
+        <div class="glass-card rounded-2xl border border-white/10 overflow-hidden">
+            <div class="p-6 sm:p-8 flex items-center justify-between border-b border-white/5 bg-white/5">
+                <div class="flex items-center gap-3">
+                    <div class="w-1 h-5 bg-gradient-to-b from-blue-500 to-purple-500 rounded-full"></div>
+                    <h2 class="text-lg font-bold text-white">Recent Invoices</h2>
+                </div>
+                <a href="{{ path('app_invoice_index') }}" class="text-xs font-bold text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1 group uppercase tracking-wider">
+                    View All
+                    <i class="fas fa-arrow-right text-[10px] group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                    <thead class="text-xs font-bold text-slate-500 uppercase bg-white/5 border-b border-white/5">
+                        <tr>
+                            <th class="py-4 pl-8 tracking-wider">Client</th>
+                            <th class="py-4 tracking-wider">Invoice #</th>
+                            <th class="py-4 tracking-wider">Date</th>
+                            <th class="py-4 tracking-wider">Amount (HT)</th>
+                            <th class="py-4 text-right pr-8 tracking-wider">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/5">
+                        {% for invoice in recent_invoices %}
+                            <tr class="hover:bg-white/5 transition-colors group">
+                                {# Client #}
+                                <td class="py-4 pl-8">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-xs font-bold text-slate-400 border border-white/10">
+                                            <i class="fas fa-building"></i>
+                                        </div>
+                                        <span class="font-medium text-slate-200 group-hover:text-white transition-colors">
+                                            {{ invoice.client.companyName ?: invoice.client.fullName }}
+                                        </span>
+                                    </div>
+                                </td>
+
+                                {# Invoice # #}
+                                <td class="py-4">
+                                    {% if invoice.invoiceNumber %}
+                                        <a href="{{ path('app_invoice_show', {id: invoice.id}) }}" class="text-white hover:text-blue-400 font-bold transition-colors">
+                                            {{ invoice.invoiceNumber }}
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ path('app_invoice_show', {id: invoice.id}) }}" class="text-slate-500 hover:text-white font-medium italic transition-colors">
+                                            DRAFT - {{ invoice.id }}
+                                        </a>
+                                    {% endif %}
+                                </td>
+
+                                {# Date #}
+                                <td class="py-4 text-slate-500 text-xs">
+                                    {{ invoice.createdAt|date('d M Y') }}
+                                </td>
+
+                                {# Amount #}
+                                <td class="py-4 font-bold text-white">
+                                    {{ invoice.totalHt|number_format(2, '.', ' ') }} <span class="text-xs font-normal text-slate-500">€</span>
+                                </td>
+
+                                {# Status #}
+                                <td class="py-4 text-right pr-8">
+                                    {% set statusClasses = {
                                         'PAID': 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
                                         'SENT': 'bg-blue-500/10 text-blue-400 border-blue-500/20',
-                                        'DRAFT': 'bg-amber-500/10 text-amber-400 border-amber-500/20'
+                                        'DRAFT': 'bg-slate-500/10 text-slate-400 border-slate-500/20'
                                     } %}
-									<span class="px-3 py-1 rounded-full text-[10px] font-bold border uppercase tracking-wider shadow-sm {{ statusClasses[invoice.status] ?? 'bg-slate-500/10 text-slate-400 border-slate-500/20' }}">
-										{{ invoice.status }}
-									</span>
-								</td>
-							</tr>
-						{% else %}
-							<tr>
-								<td colspan="5" class="py-12 text-center">
-									<div class="flex flex-col items-center justify-center gap-3">
-										<div class="w-12 h-12 rounded-full bg-slate-800/50 flex items-center justify-center text-slate-600">
-											<i class="fa-solid fa-inbox text-xl"></i>
-										</div>
-										<p class="text-slate-500 italic">No recent activity found.</p>
-									</div>
-								</td>
-							</tr>
-						{% endfor %}
-					</tbody>
-				</table>
-			</div>
-		</div>
+                                    <span class="px-2.5 py-1 rounded-md text-[10px] font-bold border uppercase tracking-wider shadow-sm {{ statusClasses[invoice.status] ?? 'bg-slate-500/10 text-slate-400 border-slate-500/20' }}">
+                                        {{ invoice.status }}
+                                    </span>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5" class="py-12 text-center">
+                                    <div class="flex flex-col items-center justify-center gap-3">
+                                        <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-slate-600">
+                                            <i class="fas fa-inbox text-xl"></i>
+                                        </div>
+                                        <p class="text-slate-500 italic">No recent activity found.</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-	</div>
+    </div>
 {% endblock %}
