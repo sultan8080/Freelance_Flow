@@ -23,23 +23,16 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
-        $invoiceBucket = []; // To store invoices for shuffling
+        $invoiceBucket = []; 
 
         $projectTitles = [
-            'E-commerce Platform Migration',
-            'Corporate Website Redesign',
-            'Custom CRM Development',
-            'Mobile Application MVP',
-            'Cloud Infrastructure Setup',
-            'Quarterly Maintenance Contract',
-            'Backend API Development',
-            'Frontend Component Library',
-            'Database Optimization & Indexing',
-            'Unit & Integration Testing',
-            'Third-party Payment Integration',
-            'Technical Documentation & Handover',
-            'UI/UX Prototyping (Figma)',
-            'SEO Performance Audit'
+            'E-commerce Platform Migration', 'Corporate Website Redesign',
+            'Custom CRM Development', 'Mobile Application MVP',
+            'Cloud Infrastructure Setup', 'Quarterly Maintenance Contract',
+            'Backend API Development', 'Frontend Component Library',
+            'Database Optimization & Indexing', 'Unit & Integration Testing',
+            'Third-party Payment Integration', 'Technical Documentation & Handover',
+            'UI/UX Prototyping (Figma)', 'SEO Performance Audit'
         ];
 
         // 1. Create Freelance Users
@@ -53,10 +46,7 @@ class AppFixtures extends Fixture
             $user->setPostCode($faker->postcode());
             $user->setCity($faker->city());
             $user->setCountry("France");
-
-            $siret = str_replace(' ', '', $faker->siret());
-            $user->setSiretNumber($siret);
-
+            $user->setSiretNumber(str_replace(' ', '', $faker->siret()));
             $user->setPassword($this->hasher->hashPassword($user, 'password'));
 
             $manager->persist($user);
@@ -78,7 +68,7 @@ class AppFixtures extends Fixture
 
                 $manager->persist($client);
 
-                // 3. Generate Invoices
+                // 3. Generate Invoices 
                 for ($k = 1; $k <= rand(30, 50); $k++) {
                     $invoice = new Invoice();
                     $invoice->setClient($client);
@@ -86,56 +76,45 @@ class AppFixtures extends Fixture
                     $invoice->setProjectTitle($faker->randomElement($projectTitles));
                     $invoice->setCurrency('EUR');
 
-                    // --- TIME LOGIC: The "Birth" of the invoice ---
+                    // --- TIME LOGIC ---
                     $randomDate = $faker->dateTimeBetween('-4 years', 'now');
                     $creationDate = \DateTimeImmutable::createFromMutable($randomDate);
 
-                    // Force the createdAt
+                    // Force createdAt using Reflection
                     $reflection = new \ReflectionProperty(get_class($invoice), 'createdAt');
                     $reflection->setValue($invoice, $creationDate);
 
-                    // --- STATUS LOGIC:  ---
+                    // --- STATUS LOGIC ---
                     $randomVal = rand(1, 10);
                     $uniqueSuffix = str_pad((string)(($i * 1000) + ($j * 100) + $k), 5, '0', STR_PAD_LEFT);
 
-                    if ($randomVal === 1) {
-                        // SCENARIO 1: Pure Draft (Just created, never sent)
+                    if ($randomVal === 1) { 
                         $invoice->setStatus('DRAFT');
                         $invoice->setInvoiceNumber("DRAFT-" . $uniqueSuffix);
-                        // sentAt, paidAt, dueDate remain NULL
-
                     } elseif ($randomVal <= 4) {
-                        // SCENARIO 2: Created & Sent on the SAME DAY (Instant)
+                        // Created & Sent same day
                         $status = rand(1, 2) === 1 ? 'SENT' : 'PAID';
                         $invoice->setStatus($status);
-
-                        $invoice->setSentAt($creationDate);
+                        $invoice->setSentAt($creationDate); 
                         $invoice->setDueDate($creationDate->modify('+30 days'));
                         $invoice->setInvoiceNumber("INV-" . $creationDate->format('Y') . "-" . $uniqueSuffix);
-
+                        
                         if ($status === 'PAID') {
                             $invoice->setPaidAt($creationDate);
                         }
                     } else {
-                        // SCENARIO 3: Realistic Delay (Draft -> Sent Later -> Paid Later)
+                        // Realistic Delay
                         $status = rand(1, 2) === 1 ? 'SENT' : 'PAID';
                         $invoice->setStatus($status);
-
-                        // Sent 1 to 20 days AFTER creation
                         $sentAt = $creationDate->modify('+' . rand(1, 20) . ' days');
-
                         $invoice->setSentAt($sentAt);
                         $invoice->setDueDate($sentAt->modify('+30 days'));
                         $invoice->setInvoiceNumber("INV-" . $sentAt->format('Y') . "-" . $uniqueSuffix);
-
+                        
                         if ($status === 'PAID') {
-                            // Paid 2 to 45 days AFTER sending
                             $invoice->setPaidAt($sentAt->modify('+' . rand(2, 45) . ' days'));
                         }
                     }
-
-                    // Persist the invoice BEFORE creating items to fix "New Entity" error
-                    $manager->persist($invoice);
 
                     // 4. Create Invoice Items
                     $totalHT = 0.0;
@@ -152,10 +131,7 @@ class AppFixtures extends Fixture
                         $item->setTotalHt((string)$lineHT);
                         $item->setVatAmount((string)($lineHT * 0.20));
                         $item->setTotalTtc((string)($lineHT * 1.20));
-
-                        $item->setInvoice($invoice);
-                        $manager->persist($item); 
-
+                        $invoice->addInvoiceItem($item); 
                         $totalHT += $lineHT;
                     }
 
@@ -163,7 +139,6 @@ class AppFixtures extends Fixture
                     $invoice->setTotalVat((string)($totalHT * 0.20));
                     $invoice->setTotalAmount((string)($totalHT * 1.20));
 
-                    // Frozen snapshot for PDF
                     $invoice->collectSnapshot();
 
                     // Put in bucket for shuffling
@@ -172,9 +147,10 @@ class AppFixtures extends Fixture
             }
         }
 
-        // 5. Shuffle and Batch Persist
+        // 5. Shuffle the Bucket
         shuffle($invoiceBucket);
 
+        // 6. Final Persist Loop
         $batchSize = 50;
         foreach ($invoiceBucket as $index => $invoice) {
             $manager->persist($invoice);
