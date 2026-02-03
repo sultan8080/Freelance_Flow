@@ -45,8 +45,7 @@ security:
     # Note: Only the *first* matching rule is applied
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
-        # Dashboard and Profile are safe for all users
-
+        
         - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/dashboard_freelancer, roles: ROLE_USER }
 
@@ -54,15 +53,16 @@ security:
         - { path: ^/client, roles: ROLE_USER }
 
         # Explicitly protect invoice routes pdf export
+        - { path: ^/invoice, roles: ROLE_USER }
         - { path: ^/invoice/\d+/export, roles: ROLE_USER }
         
         # Explicitly protect analytics routes
         - { path: ^/analytics, roles: ROLE_USER }
 
-        # Allow public access to login, registration, and logout routes
+        # Allow public access to login, registration
         - { path: ^/login, roles: PUBLIC_ACCESS }
         - { path: ^/register, roles: PUBLIC_ACCESS }
-        - { path: ^/logout, roles: PUBLIC_ACCESS }
+
 
 when@test:
     security:

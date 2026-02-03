@@ -11,9 +11,15 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class SettingsController extends AbstractController
 {
-    #[Route('/settings/profile', name: 'app_profile_edit')]
+    #[Route('/profile', name: 'app_profile_edit')]
     public function edit(Request $request, EntityManagerInterface $entityManager): Response
     {
+
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+    
         // 1. Get the current logged-in user
         $user = $this->getUser();
 
