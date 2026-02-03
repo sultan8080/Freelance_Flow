@@ -16,7 +16,7 @@ class InvoiceRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Invoice::class);
     }
-    
+
     /**
      * Finds the last invoice number for a given user with a specific prefix.
      */
@@ -133,9 +133,15 @@ class InvoiceRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+
+    /**
+     * Get pending invoiecs by eager-loaded
+     */
     public function findPendingInvoices(User $user): array
     {
         return $this->createQueryBuilder('i')
+            ->addSelect('c')
+            ->leftJoin('i.client', 'c')
             ->where('i.user = :user')
             ->andWhere('i.status = :status')
             ->setParameter('user', $user)
@@ -172,11 +178,13 @@ class InvoiceRepository extends ServiceEntityRepository
     }
 
     /**
-     * 5 most recent invoices
+     * 5 most recent invoices by eager-loaded
      */
     public function findRecentInvoices(User $user, int $limit = 5): array
     {
         return $this->createQueryBuilder('i')
+            ->addSelect('c')            // ADD THIS: Dashboard needs client names
+            ->leftJoin('i.client', 'c') // ADD THIS
             ->where('i.user = :user')
             ->setParameter('user', $user)
             ->orderBy('i.createdAt', 'DESC')
@@ -184,7 +192,6 @@ class InvoiceRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-
     /**
      * Count invoices by status
      */
@@ -198,5 +205,22 @@ class InvoiceRepository extends ServiceEntityRepository
             ->setParameter('status', $status)
             ->getQuery()
             ->getSingleScalarResult();
+    }
+
+
+    /**
+     * Fetches all invoices for a user with Client and Items eager-loaded.
+     */
+    public function findAllForUserWithRelations(User $user): array
+    {
+        return $this->createQueryBuilder('i')
+            ->addSelect('c', 'it')
+            ->leftJoin('i.client', 'c')
+            ->leftJoin('i.invoiceItems', 'it')
+            ->where('i.user = :user')
+            ->setParameter('user', $user)
+            ->orderBy('i.id', 'DESC')
+            ->getQuery()
+            ->getResult();
     }
 }
