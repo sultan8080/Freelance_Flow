@@ -350,7 +350,7 @@
 					<td width="60%">
 						{% if invoice.totalVat == 0 %}
 							<div class="small text-slate" style="font-style: italic; max-width: 300px;">
-								VAT not applicable (Micro-entrepreneur, VAT exemption - Article 293 B of the French Tax Code).
+								TVA non applicable, art. 293 B du CGI
 							</div>
 						{% endif %}
 					</td>
@@ -383,6 +383,15 @@
 				Please use reference
 				<strong>#{{ invoice.invoiceNumber|default('DRAFT') }}</strong>
 				for payment.
+				{% if invoice.status != 'PAID' %}
+					<div style="margin-top: 8px; font-size: 8px; line-height: 1.1; color: #cbd5e1;">
+						Late payment penalties: 10% interest plus a fixed recovery fee of €40 (B2B).<br>
+					</div>
+				{% else %}
+					<div style="margin-top: 8px; font-size: 10px; font-weight: bold; color: #16a34a;">
+						Invoice Paid, Thank you! Facture acquittée, Merci !
+					</div>
+				{% endif %}
 			</div>
 
 		</div>

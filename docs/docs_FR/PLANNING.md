@@ -73,8 +73,8 @@
 - [x] **Validation des Formulaires :** Amélioration des messages d'erreur côté client et serveur.
 
 ### Phase 10 : Performance & Préparation Déploiement
-- [ ] **Optimisation SQL :** Mise en place du "Eager Loading" (`JOIN`) pour supprimer les problèmes de requêtes N+1.
-- [ ] **Vérification Légale :** Contrôle final des mentions obligatoires (SIRET, logique TVA, Art. 293B).
+- [x] **Optimisation SQL :** Mise en place du "Eager Loading" (`JOIN`) pour supprimer les problèmes de requêtes N+1.
+- [x] **Vérification Légale :** Contrôle final des mentions obligatoires (SIRET, logique TVA, Art. 293B).
 - [ ] **Configuration Prod :** Paramétrage du `.env.local`, des en-têtes de sécurité et compression des assets.
 - [ ] **Documentation Finale :** Finalisation du `README.md` avec le guide d'installation et d'utilisation.
 

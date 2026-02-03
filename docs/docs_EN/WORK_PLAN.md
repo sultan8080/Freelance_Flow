@@ -71,8 +71,8 @@
 - [x] **Form Validation:** Enhance client-side and server-side error messaging for better user guidance.
 
 ### Phase 10: Performance & Deployment Readiness
-- [ ] **SQL Query Tuning:** Implement Eager Loading (`JOIN`) in Repositories to eliminate N+1 query issues.
-- [ ] **Legal Verification:** Final check of French mandatory mentions (SIRET, VAT logic, Art. 293B).
+- [x] **SQL Query Tuning:** Implement Eager Loading (`JOIN`) in Repositories to eliminate N+1 query issues.
+- [x] **Legal Verification:** Final check of French mandatory mentions (SIRET, VAT logic, Art. 293B).
 - [ ] **Production Config:** Setup environment variables (`.env.local`), security headers, and asset compression.
 - [ ] **Project Documentation:** Complete the `README.md` with installation and contribution guides.
 
