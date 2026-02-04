@@ -6,7 +6,7 @@
 {% block body %}
 	<div class="flex items-center gap-6" data-controller="layout" data-action="click@window->layout#closeUserDropdown">
 		<nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-slate-950/70 backdrop-blur-xl">
-			<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+			<div class=" mx-auto px-6 h-16 flex items-center justify-between">
 
 				<a href="{{ path('app_home') }}" class="flex items-center gap-3 group">
 					<div class="relative w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center shadow-[0_0_15px_rgba(124,58,237,0.3)]">
@@ -60,7 +60,7 @@
 									<i class="fas fa-th-large w-4 text-center opacity-50 group-hover:text-blue-400 group-hover:opacity-100 transition"></i>
 									Dashboard
 								</a>
-								<a href="{{ path('app_profile_edit') }}" class="flex items-center gap-3 px-4 py-2.5 hover:bg-white/5 rounded-xl transition-all text-sm text-slate-300 group mt-1">
+								<a href="{{ path('app_profile_show') }}" class="flex items-center gap-3 px-4 py-2.5 hover:bg-white/5 rounded-xl transition-all text-sm text-slate-300 group mt-1">
 									<i class="fas fa-user-circle w-5 text-center opacity-50 group-hover:text-blue-400 group-hover:opacity-100 transition"></i>
 									My Profile
 								</a>
@@ -77,7 +77,7 @@
 
 						<a href="{{ path('app_login') }}" class="text-sm font-medium text-slate-300 hover:text-white transition hidden sm:block">Sign in</a>
 
-						<a href="{{ path('app_register') }}" class="group relative px-6 py-2.5 rounded-full overflow-hidden transition-all duration-300">
+						<a href="{{ path('app_register') }}" class="group relative px-5 py-2 rounded-full overflow-hidden transition-all duration-300">
 							<div class="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-600 to-purple-700 opacity-90 group-hover:opacity-100 transition-opacity"></div>
 							<div class="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer"></div>
 							<span class="relative text-sm font-semibold text-white">Sign up</span>
@@ -111,7 +111,7 @@
 
 			<p class="mt-6 max-w-2xl mx-auto text-slate-400 text-lg leading-relaxed">
 				An all-in-one platform designed for French micro-entrepreneurs.
-																												                Simple invoicing, tax estimates, and revenue tracking - fully compliant.
+																																                Simple invoicing, tax estimates, and revenue tracking - fully compliant.
 			</p>
 
 			<div class="mt-10 mb-20 flex flex-col sm:flex-row justify-center gap-4">
