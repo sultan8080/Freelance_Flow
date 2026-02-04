@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: InvoiceRepository::class)]
 #[ORM\HasLifecycleCallbacks]
+#[ORM\Index(columns: ['created_at'], name: 'idx_invoice_created_at')]
 class Invoice
 {
     use \App\Entity\Traits\TimestampableTrait;

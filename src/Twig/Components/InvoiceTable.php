@@ -4,17 +4,20 @@ namespace App\Twig\Components;
 
 use App\Repository\InvoiceRepository;
 use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\UX\LiveComponent\Attribute\AsLiveComponent; 
-use Symfony\UX\LiveComponent\Attribute\LiveProp;     
-use Symfony\UX\LiveComponent\DefaultActionTrait; 
+use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
+use Symfony\UX\LiveComponent\Attribute\LiveProp;
+use Symfony\UX\LiveComponent\DefaultActionTrait;
 
-#[AsLiveComponent('InvoiceTable')] 
+#[AsLiveComponent('InvoiceTable')]
 class InvoiceTable
 {
-    use DefaultActionTrait; 
+    use DefaultActionTrait;
 
-    #[LiveProp(writable: true)] 
+    #[LiveProp(writable: true)]
     public string $query = '';
+
+    #[LiveProp(writable: true)]
+    public string $status = '';
 
     public function __construct(
         private InvoiceRepository $invoiceRepository,
@@ -28,10 +31,8 @@ class InvoiceTable
         if (!$user) {
             return [];
         }
-        if (empty($this->query)) {
-            return $this->invoiceRepository->findAllForUserWithRelations($user);
-        }
-
-        return $this->invoiceRepository->searchInvoices($user, $this->query);
+        
+        dump($this->status);
+        return $this->invoiceRepository->searchInvoices($user, $this->query, $this->status);
     }
 }

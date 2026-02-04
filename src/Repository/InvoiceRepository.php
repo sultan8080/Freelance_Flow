@@ -206,8 +206,7 @@ class InvoiceRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
-
-
+    
     /**
      * Fetches all invoices for a user with Client and Items eager-loaded.
      */
