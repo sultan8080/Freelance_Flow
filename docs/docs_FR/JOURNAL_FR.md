@@ -1,12 +1,36 @@
 # 📔 Journal de Bord / Development Log — Freelance Flow [Version Français]
 
+## 📅 Jour 11 [2 février 2026] — Optimisation UX & Finitions (Phase 9)
+
+### Réalisations :
+
+- [x] **Système de Messages Flash :** Création d'un système de notifications "Toast" professionnel pour les actions CRUD, assurant un retour visuel clair pour les états de Succès/Erreur.
+- [x] **Design des États Vides (Empty States) :** Conception et intégration d'illustrations et de cartes "Appel à l'action" de haute qualité pour les utilisateurs n'ayant pas encore de clients ou de factures.
+- [x] **Affinement de la Navigation :** Ajout d'une logique d'état "Actif" dynamique aux liens de la barre latérale en utilisant les attributs de la requête pour améliorer l'orientation de l'utilisateur.
+- [x] **UX de Validation des Formulaires :** Amélioration du rendu des erreurs pour les validations côté client et côté serveur, garantissant que les champs spécifiques sont mis en évidence en cas de saisie invalide.
+- [x] **Polissage Responsive :** Finalisation des ajustements UI spécifiques au mobile pour les cartes de style "bento" sur le tableau de bord.
+
+### 🏁 Statut Actuel du Projet : Phase 9 Terminée
+
+**Jalon Clé :** L'application est désormais "Prête pour l'Utilisateur". Au-delà des fonctionnalités CRUD de base, la plateforme fournit désormais des informations financières exploitables et une interface professionnelle qui gère les états vides et les erreurs avec élégance.
+
+## 📅 Jour 10 [1 février 2026] — Aperçu du Tableau de Bord & Analytics (Phase 8)
+
+### Réalisations :
+
+- [x] **Widgets KPI :** Développement de la logique de suivi des revenus en temps réel pour calculer le chiffre d'affaires mensuel et annuel directement depuis la base de données `Invoice`.
+- [x] **Suivi de Plafond :** Implémentation d'une barre de progression visuelle pour les seuils de chiffre d'affaires Auto-Entrepreneur (plafonds micro-entreprise), permettant aux utilisateurs de surveiller leurs paliers fiscaux.
+- [x] **Fil d'Activité :** Création d'un composant "Vue Rapide" pour afficher les factures en attente ou en retard les plus récentes, classées par date d'échéance.
+- [x] **Agrégation de Données :** Optimisation des requêtes DQL dans `InvoiceRepository` pour récupérer les résumés financiers de manière efficace pour la vue du tableau de bord.
 
 ## 📅 Jours 7-9 [24 – 31 Janvier 2026] - Logique Dynamique, UI & Export PDF (Phases 6 & 7)
-*Note : Cette période a inclus une pause stratégique de 2 jours pour prévenir le surmenage ; les développements ont repris avec une priorité sur la logique financière centrale, le système de snapshot de données et les intégrations complexes PDF/JS.*
+
+_Note : Cette période a inclus une pause stratégique de 2 jours pour prévenir le surmenage ; les développements ont repris avec une priorité sur la logique financière centrale, le système de snapshot de données et les intégrations complexes PDF/JS._
 
 ### Réalisations :
 
 #### Phase 6 : Facturation Dynamique (Interface UI)
+
 - [x] **Logique Financière :** Développement de `InvoiceCalculator` pour le calcul précis des sous-totaux et de la TVA.
 - [x] **Système d'Immuabilité :** Implémentation des statuts `BROUILLON` / `PAYÉ` et d'un **Système de Snapshot** pour figer les données client (exigence légale).
 - [x] **Estimation Fiscale :** Création de l'estimateur **URSSAF** (21,2 %) pour les projections du tableau de bord.
@@ -14,6 +38,7 @@
     - Ajout de la logique **Live Totals** pour mettre à jour les prix en temps réel via JavaScript.
 
 #### Phase 7 : Design Documentaire & Export
+
 - [x] **Moteur PDF :** Intégration réussie de **DomPDF** pour la génération de documents professionnels.
 - [x] **Conformité Légale :** Création de templates HTML incluant les mentions obligatoires (Art. 293B du CGI).
 - [x] **Intégration Dashboard :** Finalisation du design Tailwind CSS pour le module facture et la barre latérale.
@@ -22,11 +47,14 @@
 ---
 
 ### 🏁 État Final du Projet : Phase 7 Terminée
+
 **Durée Totale :** 9 Jours Productifs (sur une fenêtre calendaire de 10 jours).  
 **Apprentissage Clé :** La gestion d'état dans les formulaires imbriqués Symfony avec Stimulus.js demande une gestion d'événements rigoureuse, mais offre une expérience utilisateur (UX) nettement supérieure.
 
 ## 📅 Jour 6 : 23/01/2026 - Moteur de Facturation - Backend & Logique (Phase 5)
+
 ### Réalisations :
+
 - [x] **Security Voters :** Ajout de ClientVoter pour une isolation stricte des données multi‑tenant.
 - [x] **Access Control :** Finalisation de security.yaml pour sécuriser toutes les routes protégées.
 - [x] **Refactor Entité :** Relation directe User → Invoice pour une gestion claire de la propriété.
@@ -35,9 +63,10 @@
 - [x] **InvoiceVoter :** Mise à jour pour utiliser la relation directe User.
 - [x] **Numérotation :** Implémentation de InvoiceNumberGenerator (ex. FF‑2026‑001).
 
-
 ## 📅 Jour 5 : 20/01/2026 - Interface Globale & Sécurité (Phase 4)
+
 ### Technical Fixes:
+
 - [x] **Conflit d’utilitaires Tailwind v4 :** Correction d’un problème où hidden et whitespace-nowrap ne fonctionnaient pas correctement ensemble.
 - [x] **Débogage Turbo Frame :** Résolution d’un blocage du bouton « Save » causé par une interception Turbo ; ajustement des cibles de formulaires pour garantir une mise à jour correcte de l’état.
 - [x] **Retour de validation des formulaires :** Correction de l’absence d’affichage des erreurs dans les templates Twig ; les messages de validation Symfony apparaissent désormais de manière cohérente.
@@ -46,22 +75,25 @@
 - [x] **Overlay du sidebar mobile :** Correction d’un conflit de z-index qui faisait apparaître l’overlay derrière le contenu sur les petits écrans.
 
 ### Réalisations :
-- [x] **Navigation Dynamique :** Configuration de la logique Twig pour détecter les routes actives (app.request.get('_route')) et appliquer sur (Dashboard, Clients).
+
+- [x] **Navigation Dynamique :** Configuration de la logique Twig pour détecter les routes actives (app.request.get('\_route')) et appliquer sur (Dashboard, Clients).
 - [x] **Architecture Pro :** Séparation du code en base.html.twig (structure globale) et index.html.twig (contenu) pour garantir un héritage de template évolutif.
 - [x] **startStimulusApp** Migration de la logique d'interface vers un contrôleur Stimulus pour une navigation fluide et compatible avec Turbo.
 - [x] **Architecture Redesign:** Revamped base.html.twig to introduce a premium sidebar navigation system. Added modern Glassmorphism styling powered by Tailwind v4.
 
-
 ## 📅 Jour 4 : 19/01/2026 - Interface Globale & Sécurité (Phase 4)
+
 ### Réalisations :
+
 - [x] **Gestion de Projet :** Finalisation de la feuille de route MVP (Phases 4 à 10) et mise à jour de la documentation.
 - [x] **Refonte du Layout Maître :** Transformation de base.html.twig en une structure de tableau de bord robuste avec une barre latérale (sidebar) fixe et responsive.
 - [x] **Système de Design "Glass" :** Implémentation d'effets de transparence et de flou (backdrop-blur) via les classes utilitaires de Tailwind v4 et des variables de thème.
 - [x] **Logique Native JS :** Développement d'un script JavaScript Vanilla personnalisé pour gérer le basculement du menu burger, la visibilité dynamique du logo
 
-
 ## 📅 Jour 3 [18 Janvier 2026] - Profil, Paramètres et CRUD Client (Phase 3)
+
 ### Réalisations :
+
 - [x] **Paramètres & Profil :** Création du `SettingsController` et implémentation de la mise à jour du profil utilisateur (Noms, Email).
 - [x] **Sécurité Client :** Génération d'un CRUD Client sécurisé. Les données sont strictement filtrées par l'utilisateur connecté (`getUser`).
 - [x] **Logique Métier :** Automatisation de l'assignation de l'utilisateur pour les nouveaux clients et protection des routes `show/edit/delete` via vérification de propriété.
@@ -73,9 +105,10 @@
 - [x] **Design des Formulaires :** Création d'une grille à deux colonnes pour les formulaires New/Edit avec les variables de thème Indigo/Slate.
 - [x] **Vue Profil :** Implémentation d'une page "Show" avec en-tête de profil, initiales d'avatar générées et grilles de données structurées.
 
-
 ## 📅 Jour 2 : 17/01/2026 - Finalisation de la Conception et Initialisation Technique (Phase 2)
+
 ### Accomplissements :
+
 - [x] **Architecture Documentaire :** Réorganisation complète dans `/docs/docs_FR`, `/docs/docs_EN`, et `/docs/database` pour un dépôt professionnel.
 - [x] **README Principal :** Mise à jour avec une présentation du projet et intégration visuelle du diagramme MCD (SVG).
 - [x] **Entité User :** Enrichissement avec les champs légaux (SIRET, TVA, adresse) et identité (Prénom, Nom).
@@ -85,10 +118,10 @@
 - [x] **Logique Invoice :** Mise à jour du constructeur pour initialiser l'état 'draft' et la `dueDate` à J+30.
 - [x] **Automatisation :** Ajout d'un déclencheur dans `setStatus` pour remplir `paidAt` automatiquement lors du passage à l'état payé.
 
-
 ## 📅 Jour 1 : 16 Janvier 2026 — Authentification & UI (Phase 1)
 
 ### Travaux effectués
+
 - [x] **Système d'Auth :** Génération de l'entité `User`, du `LoginFormAuthenticator` et du `SecurityController`.
 - [x] **Base de données :** Configuration de MariaDB 10.4.32 et exécution des migrations.
 - [x] **Sécurité :** Protection du `DashboardController` via l'attribut `#[IsGranted('ROLE_USER')]`.
@@ -96,20 +129,22 @@
 - [x] **Flux :** Unification de la logique de redirection post-connexion vers le dashboard.
 - [x] **Intégration Design :** Implémentation des variables sémantiques Tailwind v4 (`primary`, `app-bg`) sur les formulaires de connexion et d'inscription pour unifier le Design System.
 
-
 ### Décisions Techniques
-* **Sécurité par Attributs :** Choix de `#[IsGranted]` pour un contrôle d'accès granulaire et lisible directement dans le code.
-* **UX :** Centralisation des redirections pour offrir un parcours utilisateur fluide après l'inscription ou la connexion.
+
+- **Sécurité par Attributs :** Choix de `#[IsGranted]` pour un contrôle d'accès granulaire et lisible directement dans le code.
+- **UX :** Centralisation des redirections pour offrir un parcours utilisateur fluide après l'inscription ou la connexion.
 
 ---
 
 ### **Jour 0 : 15 Janvier 2026 — Initialisation & Cadrage**
 
 #### État actuel
-* **Phase 0 :** Terminée (Cadrage & Environnement).
-* **Prochaine étape :** Phase 1 — Création de l'entité `User` et du système d'authentification.
+
+- **Phase 0 :** Terminée (Cadrage & Environnement).
+- **Prochaine étape :** Phase 1 — Création de l'entité `User` et du système d'authentification.
 
 #### Travaux effectués
+
 - [x] **Initialisation technique :** Création du projet avec Symfony 7.4 (Pack `webapp`).
 - [x] **Setup Frontend :** Installation de **Symfony AssetMapper** et du **Tailwind Bundle**.
 - [x] **Documentation :** Rédaction du cahier des charges bilingue (FR/EN) et des spécifications techniques.
@@ -117,6 +152,6 @@
 - [x] **Versionnage :** Configuration du dépôt Git et premier push sur GitHub.
 
 #### Décisions Techniques
-* **Architecture No-Node :** Choix de `symfony/asset-mapper` et `symfonycasts/tailwind-bundle` pour éliminer la dépendance à Node.js/npm. Cela simplifie le déploiement et améliore les performances de build.
-* **Sécurité Native :** Décision d'implémenter les **Voters** dès le début pour garantir un cloisonnement strict des données entre les freelances.
 
+- **Architecture No-Node :** Choix de `symfony/asset-mapper` et `symfonycasts/tailwind-bundle` pour éliminer la dépendance à Node.js/npm. Cela simplifie le déploiement et améliore les performances de build.
+- **Sécurité Native :** Décision d'implémenter les **Voters** dès le début pour garantir un cloisonnement strict des données entre les freelances.
