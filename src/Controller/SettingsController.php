@@ -11,9 +11,11 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[IsGranted('ROLE_USER')]
+#[Route('/profile')]
 final class SettingsController extends AbstractController
+
 {
-    #[Route('/profile', name: 'app_profile_show')]
+    #[Route( name: 'app_profile_show', methods: ['GET'])]
     public function show(): Response
     {
         return $this->render('settings/show.html.twig', [
@@ -21,7 +23,7 @@ final class SettingsController extends AbstractController
         ]);
     }
 
-    #[Route('/profile/edit', name: 'app_profile_edit')]
+    #[Route('/edit', name: 'app_profile_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
