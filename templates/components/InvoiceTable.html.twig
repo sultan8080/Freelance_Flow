@@ -4,24 +4,54 @@
 	</p>
 
 	<div class="flex flex-col sm:flex-row items-center gap-4 w-full mb-6 md:mb-10">
-		<div class="relative flex-1 w-full">
-			<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-				<i class="fas fa-search text-slate-500"></i>
-			</div>
-			<input type="text" data-model="query" placeholder="Search by invoices / client name / project title or company name" class="w-full pl-11 pr-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all text-sm backdrop-blur-md">
-		</div>
+        
+        {# --- 1. SEARCH INPUT (Your existing code) --- #}
+        <div class="relative flex-1 w-full">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <i class="fas fa-search text-slate-500"></i>
+            </div>
+            <input 
+                type="text" 
+                data-model="query" 
+                placeholder="Search by invoices / client name / project title..." 
+                class="w-full pl-11 pr-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all text-sm backdrop-blur-md"
+            >
+        </div>
 
-		<div class="shrink-0 w-full sm:w-auto">
-			<a href="{{ path('app_invoice_new') }}" class="group relative flex items-center justify-center w-full sm:w-auto px-6 py-3 rounded-xl overflow-hidden shadow-lg shadow-blue-500/20 transition-all hover:scale-[1.02]">
-				<div class="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-600 to-purple-700 opacity-90 group-hover:opacity-100 transition-opacity"></div>
-				<div class="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer"></div>
-				<span class="relative flex items-center gap-2 text-sm font-semibold text-white">
-					<i class="fas fa-plus"></i>
-					Add Invoice
-				</span>
-			</a>
-		</div>
-	</div>
+        {# --- 2. NEW FILTER DROPDOWN (Inserted Here) --- #}
+        {# "w-full sm:w-auto" ensures it is full width on mobile, but auto/fixed width on desktop #}
+        <div class="relative w-full sm:w-56 shrink-0">
+             <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <i class="fas fa-filter text-slate-500 text-xs"></i>
+            </div>
+            <select 
+                data-model="status" 
+                class="w-full pl-10 pr-8 py-3 rounded-xl border border-white/10 bg-white/5 text-slate-300 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all text-sm appearance-none cursor-pointer"
+            >
+                <option value="" class="bg-slate-800 text-slate-400">All Invoices</option>
+                <option value="DRAFT" class="bg-slate-800 text-slate-300">Draft</option>
+                <option value="SENT" class="bg-slate-800 text-blue-400">Sent</option>
+                <option value="PAID" class="bg-slate-800 text-emerald-400">Paid</option>
+                <option value="OVERDUE" class="bg-slate-800 text-red-400 font-bold">Unpaid / Overdue</option>
+            </select>
+            {# Arrow Icon #}
+            <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                <i class="fas fa-chevron-down text-slate-500 text-xs"></i>
+            </div>
+        </div>
+
+        {# --- 3. ADD BUTTON (Your existing code) --- #}
+        <div class="shrink-0 w-full sm:w-auto">
+            <a href="{{ path('app_invoice_new') }}" class="group relative flex items-center justify-center w-full sm:w-auto px-6 py-3 rounded-xl overflow-hidden shadow-lg shadow-blue-500/20 transition-all hover:scale-[1.02]">
+                <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-600 to-purple-700 opacity-90 group-hover:opacity-100 transition-opacity"></div>
+                <div class="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer"></div>
+                <span class="relative flex items-center gap-2 text-sm font-semibold text-white">
+                    <i class="fas fa-plus"></i>
+                    Add Invoice
+                </span>
+            </a>
+        </div>
+    </div>
 
 	{# Table Card (Dark Glass) #}
 	<div class="glass-card rounded-2xl overflow-hidden border border-white/10">
