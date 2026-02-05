@@ -99,7 +99,7 @@ _Goal: A functional app to manage, calculate, and export invoices._
 
 #### Part A: Communication & Security (The "Features")
 
-- [ ] **Internationalization (i18n):** Implement EN/FR support across the UI (Translations, Localized Routing, and Locale Switcher).
+- [x] **Internationalization (i18n):** Implement EN/FR support across the UI (Translations, Localized Routing, and Locale Switcher).
 - [ ] **Email Verification:** Implement post-registration verification via `VerifyEmailBundle` (Mailtrap config for testing).
 - [ ] **Password Reset:** Secure reset flows with expiring tokens and styled email templates.
 - [ ] **Remember Me:** Secure "Remember Me" activation with token rotation.

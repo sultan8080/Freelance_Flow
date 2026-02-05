@@ -1,0 +1,45 @@
+# -- HOME PAGE --#
+# --- Navigation & Global UI ---
+"Sign in": "Connexion"
+"Sign up": "S'inscrire"
+"Dashboard": "Tableau de bord"
+"My Profile": "Mon Profil"
+"Logout": "Déconnexion"
+"Hi,": "Bonjour,"
+"Signed in as": "Connecté en tant que"
+
+# --- HOME HERO Section Strings ---
+"Ready for Fiscal Year 2026": "Prêt pour l'année fiscale 2026"
+"Manage your": "Gérez vos"
+"invoices, clients & URSSAF": "factures, clients & URSSAF"
+"without headaches": "sans prise de tête"
+"Get started free": "Commencer gratuitement"
+"See features": "Voir les fonctionnalités"
+
+# --- Features Headers ---
+"Precision Tools": "Outils de Précision"
+"Client Management": "Gestion Clients"
+"Invoice Automation": "Facturation Automatisée"
+"Tax Intelligence": "Intelligence Fiscale"
+"PDF Generation": "Génération PDF"
+"Financial Overview": "Vue Financière"
+"Secure Access": "Accès Sécurisé"
+
+# --- Footer & CTA ---
+"Built for freelancers who value clarity": "Conçu pour les freelances qui aiment la clarté"
+"Create my account": "Créer mon compte"
+"Privacy": "Confidentialité"
+"Terms": "Conditions"
+
+# --- Structured Content  ---
+home:
+    hero_description: "Une plateforme tout-en-un conçue pour les micro-entrepreneurs. Facturation simple, estimation des charges et suivi du chiffre d'affaires."
+    features_subtitle: "Tout ce dont vous avez besoin pour gérer votre activité freelance en France."
+    feature_client_desc: "Créez, recherchez et gérez vos clients avec un contrôle d'accès sécurisé."
+    feature_invoice_desc: "Lignes de facturation, totaux automatisés et mentions légales obligatoires."
+    feature_tax_desc: "Estimations URSSAF et suivi des plafonds de chiffre d'affaires."
+    feature_pdf_desc: "Factures PDF professionnelles avec numérotation séquentielle conforme."
+    feature_finance_desc: "Graphiques en temps réel pour visualiser vos revenus mensuels et annuels."
+    feature_secure_desc: "Contrôle d'accès granulaire pour que vos données restent privées."
+    cta_subtitle: "Arrêtez de jongler avec les tableurs. Concentrez-vous sur votre travail, on gère le reste."
+    footer_copyright: "Freelance Flow. Conçu pour les Freelances en France."

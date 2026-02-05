@@ -1,0 +1,45 @@
+# -- HOME PAGE --#
+# --- Navigation & Global UI ---
+"Sign in": "Sign in"
+"Sign up": "Sign up"
+"Dashboard": "Dashboard"
+"My Profile": "My Profile"
+"Logout": "Logout"
+"Hi,": "Hi,"
+"Signed in as": "Signed in as"
+
+# --- Hero Section Strings ---
+"Ready for Fiscal Year 2026": "Ready for Fiscal Year 2026"
+"Manage your": "Manage your"
+"invoices, clients & URSSAF": "invoices, clients & URSSAF"
+"without headaches": "without headaches"
+"Get started free": "Get started free"
+"See features": "See features"
+
+# --- Features Headers ---
+"Precision Tools": "Precision Tools"
+"Client Management": "Client Management"
+"Invoice Automation": "Invoice Automation"
+"Tax Intelligence": "Tax Intelligence"
+"PDF Generation": "PDF Generation"
+"Financial Overview": "Financial Overview"
+"Secure Access": "Secure Access"
+
+# --- Footer & CTA ---
+"Built for freelancers who value clarity": "Built for freelancers who value clarity"
+"Create my account": "Create my account"
+"Privacy": "Privacy"
+"Terms": "Terms"
+
+# --- Structured Content ---
+home:
+    hero_description: "An all-in-one platform designed for French micro-entrepreneurs. Simple invoicing, tax estimates, and revenue tracking - fully compliant."
+    features_subtitle: "Everything you need to run your freelance business in France."
+    feature_client_desc: "Create, search and manage clients with secure access control using Symfony Voters."
+    feature_invoice_desc: "Line items, automated totals and legal mentions for French invoicing compliance."
+    feature_tax_desc: "URSSAF estimates and micro-entrepreneur revenue ceiling tracking for BNC and BIC."
+    feature_pdf_desc: "Professional PDF invoices with mandatory legal mentions and sequential numbering."
+    feature_finance_desc: "Real time charts and KPIs to visualize monthly and yearly revenue and tax provisions."
+    feature_secure_desc: "Granular access control using Symfony Voters so users only access their own records."
+    cta_subtitle: "Stop juggling spreadsheets and tools. Focus on your work — we handle the rest."
+    footer_copyright: "Freelance Flow. Designed for French Freelancers."

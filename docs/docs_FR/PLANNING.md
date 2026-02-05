@@ -100,7 +100,7 @@ _Objectif : Une application fonctionnelle pour gérer, calculer et éditer des f
 
 #### Partie A : Communication & Sécurité (Fonctionnalités)
 
-- [ ] **Internationalisation (i18n) :** Mise en place du support EN/FR (Traductions, Routage localisé et sélecteur de langue).
+- [x] **Internationalisation (i18n) :** Mise en place du support EN/FR (Traductions, Routage localisé et sélecteur de langue).
 - [ ] **Vérification d'Email :** Mise en œuvre de la vérification post-inscription via `VerifyEmailBundle` (Config Mailtrap pour les tests).
 - [ ] **Réinitialisation de Mot de Passe :** Flux sécurisé avec jetons expirables et templates d'emails stylisés.
 - [ ] **"Se souvenir de moi" :** Activation du "Remember Me" sécurisé avec rotation des jetons.
