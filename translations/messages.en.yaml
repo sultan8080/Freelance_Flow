@@ -345,3 +345,21 @@ home:
 "Please enter a password": "Please enter a password"
 "Your password should be at least {{ limit }} characters": "Your password should be at least {{ limit }} characters"
 "Your account has been created successfully. Welcome!": "Your account has been created successfully. Welcome!"
+
+
+login:
+  page_title: Sign In
+  welcome_back: Welcome Back
+  subtitle: Sign in to your Freelance Flow account
+  logged_in_as: You are logged in as
+  email_label: Email Address
+  email_placeholder: name@example.com
+  password_label: Password
+  forgot_password: Forgot password?
+  remember_me: Remember me
+  no_account: Don't have an account?
+
+action:
+  sign_in: Sign in
+  sign_out: Sign out
+  create_account: Create one now

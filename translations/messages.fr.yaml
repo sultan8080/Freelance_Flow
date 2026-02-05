@@ -343,3 +343,20 @@ home:
 "Please enter a password": "Veuillez entrer un mot de passe"
 "Your password should be at least {{ limit }} characters": "Votre mot de passe doit contenir au moins {{ limit }} caractères"
 "Your account has been created successfully. Welcome!": "Votre compte a été créé avec succès. Bienvenue !"
+
+login:
+  page_title: Connexion
+  welcome_back: Bon retour
+  subtitle: Connectez-vous à votre compte Freelance Flow
+  logged_in_as: Vous êtes connecté en tant que
+  email_label: Adresse e-mail
+  email_placeholder: nom@exemple.com
+  password_label: Mot de passe
+  forgot_password: Mot de passe oublié ?
+  remember_me: Se souvenir de moi
+  no_account: Vous n'avez pas de compte ?
+
+action:
+  sign_in: Se connecter
+  sign_out: Se déconnecter
+  create_account: Créer un compte

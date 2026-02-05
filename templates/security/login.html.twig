@@ -1,101 +1,102 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Sign In
+{% block title %}{{ 'login.page_title'|trans }}
 {% endblock %}
 
 {% block body %}
 
-	<div class="absolute top-0 left-0 w-full z-50">
-		<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-end">
-			<div class="relative group border border-slate-700 rounded-md px-4 py-2">
-				<button class="flex items-center gap-1.5 text-sm font-medium text-slate-200 hover:text-white transition-colors uppercase">
-					<i class="fa-solid fa-earth-europe opacity-50 group-hover:opacity-100"></i>
-					<span class="opacity-65 group-hover:opacity-100">{{ app.request.locale }}</span>
-					<i class="fa-solid fa-chevron-down opacity-50 group-hover:opacity-100 text-xs"></i>
-				</button>
-				<div class="absolute right-0 top-full hidden group-hover:block pt-2 z-50">
-					<div class="w-24 bg-slate-800 border border-slate-700 rounded-md shadow-lg py-1">
-						{% for locale in ['en', 'fr'] %}
-							{% if locale != app.request.locale %}
-								<a href="{{ path(app.request.attributes.get('_route')|default('app_home'), app.request.attributes.get('_route_params', {})|merge({'_locale': locale})) }}" data-turbo="false" class="block px-4 py-2 text-sm text-slate-300 hover:bg-slate-700 hover:text-white transition-colors uppercase">
-									{{ locale }}
-								</a>
-							{% endif %}
-						{% endfor %}
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="absolute top-0 left-0 w-full z-50">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-end">
+            <div class="relative group border border-slate-700 rounded-md px-4 py-2">
+                <button class="flex items-center gap-1.5 text-sm font-medium text-slate-200 hover:text-white transition-colors uppercase">
+                    <i class="fa-solid fa-earth-europe opacity-50 group-hover:opacity-100"></i>
+                    <span class="opacity-65 group-hover:opacity-100">{{ app.request.locale }}</span>
+                    <i class="fa-solid fa-chevron-down opacity-50 group-hover:opacity-100 text-xs"></i>
+                </button>
+                <div class="absolute right-0 top-full hidden group-hover:block pt-2 z-50">
+                    <div class="w-24 bg-slate-800 border border-slate-700 rounded-md shadow-lg py-1">
+                        {% for locale in ['en', 'fr'] %}
+                            {% if locale != app.request.locale %}
+                                <a href="{{ path(app.request.attributes.get('_route')|default('app_home'), app.request.attributes.get('_route_params', {})|merge({'_locale': locale})) }}" data-turbo="false" class="block px-4 py-2 text-sm text-slate-300 hover:bg-slate-700 hover:text-white transition-colors uppercase">
+                                    {{ locale }}
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<div class="min-h-screen flex items-center justify-center px-4 py-12 relative z-10">
+    <div class="min-h-screen flex items-center justify-center px-4 py-12 relative z-10">
 
-		<div class="glass-card w-full max-w-md p-8 sm:p-10 relative">
+        <div class="glass-card w-full max-w-md p-8 sm:p-10 relative">
 
-			<div class="text-center mb-8">
-				<div class="mx-auto w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-purple-700 flex items-center justify-center shadow-[0_0_20px_rgba(124,58,237,0.4)] mb-5 relative overflow-hidden group">
-					<div class="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent group-hover:animate-shimmer"></div>
+            <div class="text-center mb-8">
+                <div class="mx-auto w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-purple-700 flex items-center justify-center shadow-[0_0_20px_rgba(124,58,237,0.4)] mb-5 relative overflow-hidden group">
+                    <div class="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent group-hover:animate-shimmer"></div>
 
-					<i class="fa-brands fa-slack text-white font-bold relative z-10 text-xl"></i>
-				</div>
+                    <i class="fa-brands fa-slack text-white font-bold relative z-10 text-xl"></i>
+                </div>
 
-				<h2 class="text-3xl font-bold mb-2 tracking-tight mt-2">Welcome Back</h2>
-				<p class="text-slate-400 text-sm">Sign in to your Freelance Flow account</p>
-			</div>
+                <h2 class="text-3xl font-bold mb-2 tracking-tight mt-2">{{ 'login.welcome_back'|trans }}</h2>
+                <p class="text-slate-400 text-sm">{{ 'login.subtitle'|trans }}</p>
+            </div>
 
-			{% if app.user %}
-				<div class="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4 mb-6 text-sm text-blue-300 text-center">
-					You are logged in as
-					<span class="font-bold text-white">{{ app.user.userIdentifier }}</span>.
-					<a href="{{ path('app_logout') }}" class="underline hover:text-white ml-1 transition-colors">Sign out</a>
-				</div>
-			{% endif %}
+            {% if app.user %}
+                <div class="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4 mb-6 text-sm text-blue-300 text-center">
+                    {{ 'login.logged_in_as'|trans }}
+                    <span class="font-bold text-white">{{ app.user.userIdentifier }}</span>.
+                    <a href="{{ path('app_logout') }}" class="underline hover:text-white ml-1 transition-colors">{{ 'action.sign_out'|trans }}</a>
+                </div>
+            {% endif %}
 
-			<form method="post" class="space-y-6">
-				<div id="flash-messages" class="mb-6">
-					{% include '_partials/_flash_messages.html.twig' %}
-				</div>
+            <form method="post" class="space-y-6">
+                <div id="flash-messages" class="mb-6">
+                    {% include '_partials/_flash_messages.html.twig' %}
+                </div>
 
-				{% if error %}
-					<div class="bg-red-500/10 border border-red-500/20 rounded-lg p-4 text-sm text-red-300 flex items-start text-center gap-3">
-						<i class="fa-solid fa-circle-exclamation mt-0.5"></i>
-						<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-					</div>
-				{% endif %}
+                {% if error %}
+                    <div class="bg-red-500/10 border border-red-500/20 rounded-lg p-4 text-sm text-red-300 flex items-start text-center gap-3">
+                        <i class="fa-solid fa-circle-exclamation mt-0.5"></i>
+                        {# Symfony security errors are usually already translated, but ensuring the domain is correct #}
+                        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    </div>
+                {% endif %}
 
-				<div>
-					<label for="inputEmail" class="block text-sm font-medium text-slate-300 mb-1.5">Email Address</label>
-					<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="input-glass" autocomplete="email" required autofocus placeholder="name@example.com">
-				</div>
+                <div>
+                    <label for="inputEmail" class="block text-sm font-medium text-slate-300 mb-1.5">{{ 'login.email_label'|trans }}</label>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="input-glass" autocomplete="email" required autofocus placeholder="{{ 'login.email_placeholder'|trans }}">
+                </div>
 
-				<div>
-					<div class="flex items-center justify-between mb-1.5">
-						<label for="inputPassword" class="block text-sm font-medium text-slate-300">Password</label>
-						<a href="#" class="text-xs text-blue-400 hover:text-blue-300 transition-colors">Forgot password?</a>
-					</div>
-					<input type="password" name="password" id="inputPassword" class="input-glass" autocomplete="current-password" required placeholder="••••••••">
-				</div>
+                <div>
+                    <div class="flex items-center justify-between mb-1.5">
+                        <label for="inputPassword" class="block text-sm font-medium text-slate-300">{{ 'login.password_label'|trans }}</label>
+                        <a href="#" class="text-xs text-blue-400 hover:text-blue-300 transition-colors">{{ 'login.forgot_password'|trans }}</a>
+                    </div>
+                    <input type="password" name="password" id="inputPassword" class="input-glass" autocomplete="current-password" required placeholder="••••••••">
+                </div>
 
-				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-				<div class="flex items-center">
-					<input id="remember_me" name="_remember_me" type="checkbox" class="h-4 w-4 rounded border-white/10 bg-white/5 text-blue-600 focus:ring-blue-500 focus:ring-offset-slate-900 transition cursor-pointer">
-					<label for="remember_me" class="ml-2 block text-sm text-slate-400 cursor-pointer select-none">Remember me</label>
-				</div>
+                <div class="flex items-center">
+                    <input id="remember_me" name="_remember_me" type="checkbox" class="h-4 w-4 rounded border-white/10 bg-white/5 text-blue-600 focus:ring-blue-500 focus:ring-offset-slate-900 transition cursor-pointer">
+                    <label for="remember_me" class="ml-2 block text-sm text-slate-400 cursor-pointer select-none">{{ 'login.remember_me'|trans }}</label>
+                </div>
 
-				<button type="submit" class="group relative w-full flex justify-center py-3 px-4 rounded-lg overflow-hidden transition-all duration-300 shadow-lg shadow-blue-600/20 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 focus:ring-offset-slate-900">
-					<div class="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-600 to-purple-700 opacity-90 group-hover:opacity-100 transition-opacity"></div>
-					<div class="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer"></div>
-					<span class="relative text-sm font-semibold text-white">Sign in</span>
-				</button>
+                <button type="submit" class="group relative w-full flex justify-center py-3 px-4 rounded-lg overflow-hidden transition-all duration-300 shadow-lg shadow-blue-600/20 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 focus:ring-offset-slate-900">
+                    <div class="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-600 to-purple-700 opacity-90 group-hover:opacity-100 transition-opacity"></div>
+                    <div class="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer"></div>
+                    <span class="relative text-sm font-semibold text-white">{{ 'action.sign_in'|trans }}</span>
+                </button>
 
-				<div class="text-center mt-6">
-					<p class="text-sm text-slate-400">
-						Don't have an account?
-						<a href="{{ path('app_register') }}" class="text-blue-400 hover:text-blue-300 font-medium transition-colors">Create one now</a>
-					</p>
-				</div>
-			</form>
-		</div>
-	</div>
+                <div class="text-center mt-6">
+                    <p class="text-sm text-slate-400">
+                        {{ 'login.no_account'|trans }}
+                        <a href="{{ path('app_register') }}" class="text-blue-400 hover:text-blue-300 font-medium transition-colors">{{ 'action.create_account'|trans }}</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
 {% endblock %}
