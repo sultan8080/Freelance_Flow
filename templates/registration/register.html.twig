@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	Sign up
+	{{ 'Sign up'|trans }}
 {% endblock %}
 
 {% block body %}
@@ -39,8 +39,8 @@
 					<i class="fa-brands fa-slack text-white font-bold relative z-10 text-xl"></i>
 				</div>
 
-				<h2 class="text-3xl mt-2 font-bold text-white mb-2 tracking-tight">Create Account</h2>
-				<p class="text-slate-400 text-sm">Join Freelance Flow today</p>
+				<h2 class="text-3xl mt-2 font-bold text-white mb-2 tracking-tight">{{ 'Create Account'|trans }}</h2>
+				<p class="text-slate-400 text-sm">{{ 'Join Freelance Flow today'|trans }}</p>
 			</div>
 
 			{{ form_start(registrationForm, {'attr': {'class': 'space-y-6'}}) }}
@@ -50,7 +50,7 @@
 			</div>
 
 			<div>
-				{{ form_label(registrationForm.email, 'Email Address', {'label_attr': {'class': 'block text-sm font-medium text-slate-300 mb-1.5'}}) }}
+				{{ form_label(registrationForm.email, 'Email Address'|trans, {'label_attr': {'class': 'block text-sm font-medium text-slate-300 mb-1.5'}}) }}
 				{{ form_widget(registrationForm.email, {
                     'attr': {
                         'class': 'input-glass',
@@ -67,7 +67,7 @@
 			</div>
 
 			<div>
-				{{ form_label(registrationForm.plainPassword, 'Password', {'label_attr': {'class': 'block text-sm font-medium text-slate-300 mb-1.5'}}) }}
+				{{ form_label(registrationForm.plainPassword, 'Password'|trans, {'label_attr': {'class': 'block text-sm font-medium text-slate-300 mb-1.5'}}) }}
 				{{ form_widget(registrationForm.plainPassword, {
                     'attr': {
                         'class': 'input-glass',
@@ -91,7 +91,7 @@
                     }) }}
 				</div>
 				<div class="ml-2 text-sm">
-					{{ form_label(registrationForm.agreeTerms, 'I agree to the terms and conditions', {'label_attr': {'class': 'text-slate-400 select-none cursor-pointer hover:text-slate-300 transition-colors'}}) }}
+					{{ form_label(registrationForm.agreeTerms, 'I agree to the terms and conditions'|trans, {'label_attr': {'class': 'text-slate-400 select-none cursor-pointer hover:text-slate-300 transition-colors'}}) }}
 				</div>
 			</div>
 
@@ -106,13 +106,13 @@
 			<button type="submit" class="group relative w-full flex justify-center py-3 px-4 rounded-lg overflow-hidden transition-all duration-300 shadow-lg shadow-blue-600/20 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 focus:ring-offset-slate-900">
 				<div class="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-600 to-purple-700 opacity-90 group-hover:opacity-100 transition-opacity"></div>
 				<div class="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer"></div>
-				<span class="relative text-sm font-semibold text-white">Create Account</span>
+				<span class="relative text-sm font-semibold text-white">{{ 'Create Account'|trans }}</span>
 			</button>
 
 			<div class="text-center mt-6">
 				<p class="text-sm text-slate-400">
-					Already have an account?
-					<a href="{{ path('app_login') }}" class="text-blue-400 hover:text-blue-300 font-medium transition-colors">Sign in instead</a>
+					{{ 'Already have an account?'|trans }}
+					<a href="{{ path('app_login') }}" class="text-blue-400 hover:text-blue-300 font-medium transition-colors">{{ 'Sign in instead'|trans }}</a>
 				</p>
 			</div>
 

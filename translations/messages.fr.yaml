@@ -332,3 +332,14 @@ home:
 "Nov": "Nov"
 "Dec": "Déc"
 
+# --- Registration ---
+"Create Account": "Créer un Compte"
+"Join Freelance Flow today": "Rejoignez Freelance Flow aujourd'hui"
+"Password": "Mot de passe"
+"I agree to the terms and conditions": "J'accepte les conditions générales"
+"Already have an account?": "Vous avez déjà un compte ?"
+"Sign in instead": "Se connecter"
+"You should agree to our terms.": "Vous devez accepter nos conditions."
+"Please enter a password": "Veuillez entrer un mot de passe"
+"Your password should be at least {{ limit }} characters": "Votre mot de passe doit contenir au moins {{ limit }} caractères"
+"Your account has been created successfully. Welcome!": "Votre compte a été créé avec succès. Bienvenue !"
