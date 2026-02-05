@@ -1,6 +1,7 @@
 {% extends 'dashboard/base.html.twig' %}
 
-{% block title %}Invoice #{{ invoice.invoiceNumber }}
+{% block title %}
+	{{ 'Invoice #'|trans }}{{ invoice.invoiceNumber }}
 {% endblock %}
 
 {% block dashboard_content %}
@@ -13,7 +14,7 @@
 				<div class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-white/10 group-hover:border-white/20 transition-all shadow-lg shadow-black/20">
 					<i class="fas fa-arrow-left text-xs group-hover:-translate-x-0.5 transition-transform"></i>
 				</div>
-				<span>Back to Invoices</span>
+				<span>{{ 'Back to Invoices'|trans }}</span>
 			</a>
 
 			<div class="flex gap-4 w-full md:w-auto">
@@ -23,13 +24,13 @@
 						<div class="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer"></div>
 						<span class="relative flex items-center gap-2 text-sm font-bold text-white tracking-wide">
 							<i class="fas fa-pen text-xs"></i>
-							Edit Invoice
+							{{ 'Edit Invoice'|trans }}
 						</span>
 					</a>
 				{% else %}
 					<a href="{{ path('app_invoice_export_pdf', {id: invoice.id}) }}" target="_blank" class="flex-1 md:flex-none justify-center inline-flex items-center bg-gradient-to-r from-blue-600 to-purple-700 text-slate-300 border border-white/10 px-6 py-3 rounded-xl text-sm font-semibold hover:bg-white/[0.08] hover:text-white transition-all backdrop-blur-md hover:border-white/20 shadow-lg">
 						<i class="fas fa-file-pdf mr-2 text-red-400"></i>
-						Download PDF
+						{{ 'Download PDF'|trans }}
 					</a>
 				{% endif %}
 			</div>
@@ -46,7 +47,7 @@
 
 				<div class="flex flex-col gap-4">
 					<div class="flex items-center gap-5">
-						<h1 class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 tracking-tight print:text-black print:bg-none">INVOICE</h1>
+						<h1 class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 tracking-tight print:text-black print:bg-none">{{ 'INVOICE'|trans }}</h1>
 
 						{# Status Badge #}
 						{% set badgeClass = 'bg-slate-500/10 text-slate-400 border-slate-500/20 shadow-slate-500/5' %}
@@ -59,7 +60,7 @@
 						{% endif %}
 
 						<span class="px-4 py-1.5 rounded-lg text-xs font-bold uppercase tracking-widest border shadow-lg backdrop-blur-md {{ badgeClass }} print:border-black print:text-black print:shadow-none">
-							{{ invoice.status }}
+							{{ invoice.status|trans }}
 						</span>
 					</div>
 
@@ -74,15 +75,15 @@
 				<div class="w-full md:w-auto bg-white/[0.02] rounded-2xl p-6 border border-white/5 shadow-xl print:bg-gray-50 print:border-gray-200 print:shadow-none">
 					<div class="flex flex-col md:flex-row gap-8 md:gap-10">
 						<div class="md:text-right border-b md:border-b-0 md:border-r border-white/10 pb-4 md:pb-0 md:pr-10 last:border-0 last:pr-0 print:border-gray-300">
-							<div class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.15em] mb-1.5">Invoice No</div>
-							<div class="text-white font-bold text-xl leading-none font-mono tracking-wide print:text-black">#{{ invoice.invoiceNumber|default('DRAFT') }}</div>
+							<div class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.15em] mb-1.5">{{ 'Invoice No'|trans }}</div>
+							<div class="text-white font-bold text-xl leading-none font-mono tracking-wide print:text-black">#{{ invoice.invoiceNumber|default('DRAFT'|trans) }}</div>
 						</div>
 						<div class="md:text-right border-b md:border-b-0 md:border-r border-white/10 pb-4 md:pb-0 md:pr-10 last:border-0 last:pr-0 print:border-gray-300">
-							<div class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.15em] mb-1.5">Issue Date</div>
-							<div class="text-slate-200 font-medium leading-none print:text-black">{{ invoice.sentAt ? invoice.sentAt|date('d M Y') : 'Draft' }}</div>
+							<div class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.15em] mb-1.5">{{ 'Issue Date'|trans }}</div>
+							<div class="text-slate-200 font-medium leading-none print:text-black">{{ invoice.sentAt ? invoice.sentAt|date('d M Y') : 'Draft'|trans }}</div>
 						</div>
 						<div class="md:text-right">
-							<div class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.15em] mb-1.5">Due Date</div>
+							<div class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.15em] mb-1.5">{{ 'Due Date'|trans }}</div>
 							<div class="text-white font-bold text-lg leading-none {{ invoice.isOverdue ? 'text-red-400' : '' }} print:text-black">
 								{{ invoice.dueDate ? invoice.dueDate|date('d M Y') : '-' }}
 							</div>
@@ -96,7 +97,7 @@
 				<div class="space-y-5">
 					<h3 class="flex items-center text-xs font-bold text-blue-400 uppercase tracking-[0.2em] mb-3 border-b border-white/5 pb-3">
 						<span class="w-1.5 h-1.5 rounded-full bg-blue-500 mr-3"></span>
-						From
+						{{ 'From'|trans }}
 					</h3>
 					<div class="pl-2 border-l-2 border-white/5">
 						<div class="text-white font-bold text-xl mb-1 print:text-black">
@@ -109,7 +110,7 @@
 						{% endif %}
 
 						<div class="text-slate-400 text-sm leading-relaxed whitespace-pre-line font-light print:text-black">
-							{{ app.user.address|default('No address defined') }}
+							{{ app.user.address|default('No address defined'|trans) }}
 							{{ app.user.postCode|default('') }}
 							{{ app.user.city|default('') }}
 							{{ app.user.country|default('') }}
@@ -117,7 +118,7 @@
 						<div class="text-slate-400 text-sm mt-2 print:text-black">{{ app.user.email }}</div>
 
 						<div class="mt-5 pt-4 border-t border-dashed border-white/10 print:border-gray-300">
-							<div class="text-[10px] text-slate-500 uppercase tracking-wider font-bold mb-1">Legal Information</div>
+							<div class="text-[10px] text-slate-500 uppercase tracking-wider font-bold mb-1">{{ 'Legal Information'|trans }}</div>
 							<div class="text-slate-400 text-xs font-mono bg-white/[0.03] px-2 py-1.5 rounded-lg border border-white/5 inline-block print:text-black print:bg-transparent print:border-none print:p-0">
 								SIRET:
 								{{ app.user.siret|default('---') }}
@@ -131,11 +132,11 @@
 
 				<div class="space-y-5 md:text-right">
 					<h3 class="flex items-center md:justify-end text-xs font-bold text-purple-400 uppercase tracking-[0.2em] mb-3 border-b border-white/5 pb-3">
-						Bill To
+						{{ 'Bill To'|trans }}
 						<span class="w-1.5 h-1.5 rounded-full bg-purple-500 ml-3"></span>
 					</h3>
 
-					{% set clientName = invoice.frozenClientName ?: (invoice.client ? invoice.client.fullName : 'No Client Selected') %}
+					{% set clientName = invoice.frozenClientName ?: (invoice.client ? invoice.client.fullName : 'No Client Selected'|trans) %}
 					{% set clientCompany = invoice.frozenClientCompanyName ?: (invoice.client ? invoice.client.companyName : '') %}
 					{% set clientAddress = invoice.frozenClientAddress ?: (invoice.client ? invoice.client.address ~ ', ' ~ invoice.client.city : '') %}
 
@@ -148,7 +149,7 @@
 						{% if clientAddress %}
 							<div class="text-slate-400 text-sm leading-relaxed whitespace-pre-line font-light print:text-black">{{ clientAddress }}</div>
 						{% else %}
-							<div class="text-red-400 text-xs italic mt-1 print:text-black">No address provided</div>
+							<div class="text-red-400 text-xs italic mt-1 print:text-black">{{ 'No address provided'|trans }}</div>
 						{% endif %}
 					</div>
 				</div>
@@ -159,10 +160,10 @@
 				<table class="w-full text-left">
 					<thead class="bg-white/[0.03] border-b border-white/5 print:bg-gray-100 print:border-gray-300">
 						<tr>
-							<th class="px-8 py-5 text-xs font-bold text-slate-400 uppercase tracking-[0.1em] print:text-black">Description</th>
-							<th class="px-8 py-5 text-right text-xs font-bold text-slate-400 uppercase tracking-[0.1em] print:text-black">Qty</th>
-							<th class="px-8 py-5 text-right text-xs font-bold text-slate-400 uppercase tracking-[0.1em] print:text-black">Price</th>
-							<th class="px-8 py-5 text-right text-xs font-bold text-slate-400 uppercase tracking-[0.1em] print:text-black">Total</th>
+							<th class="px-8 py-5 text-xs font-bold text-slate-400 uppercase tracking-[0.1em] print:text-black">{{ 'Description'|trans }}</th>
+							<th class="px-8 py-5 text-right text-xs font-bold text-slate-400 uppercase tracking-[0.1em] print:text-black">{{ 'Qty'|trans }}</th>
+							<th class="px-8 py-5 text-right text-xs font-bold text-slate-400 uppercase tracking-[0.1em] print:text-black">{{ 'Price'|trans }}</th>
+							<th class="px-8 py-5 text-right text-xs font-bold text-slate-400 uppercase tracking-[0.1em] print:text-black">{{ 'Total'|trans }}</th>
 						</tr>
 					</thead>
 					<tbody class="divide-y divide-white/5 text-sm text-slate-300 print:text-black print:divide-gray-200">
@@ -175,7 +176,7 @@
 							</tr>
 						{% else %}
 							<tr>
-								<td colspan="4" class="px-8 py-10 text-center text-slate-500 italic">No items added to this invoice.</td>
+								<td colspan="4" class="px-8 py-10 text-center text-slate-500 italic">{{ 'No items added to this invoice.'|trans }}</td>
 							</tr>
 						{% endfor %}
 					</tbody>
@@ -194,18 +195,18 @@
 								<i class="fas fa-eye-slash"></i>
 							</div>
 							<div>
-								<h3 class="text-amber-200 font-bold text-xs uppercase tracking-widest">Private Insight</h3>
-								<p class="text-amber-500/60 text-[10px] mt-0.5">Net earnings estimate</p>
+								<h3 class="text-amber-200 font-bold text-xs uppercase tracking-widest">{{ 'Private Insight'|trans }}</h3>
+								<p class="text-amber-500/60 text-[10px] mt-0.5">{{ 'Net earnings estimate'|trans }}</p>
 							</div>
 						</div>
 
 						<div class="flex items-center gap-10 pt-4 border-t border-amber-500/10">
 							<div class="text-right">
-								<div class="text-[10px] uppercase tracking-wider font-bold text-amber-500/50 mb-1">Est. URSSAF</div>
+								<div class="text-[10px] uppercase tracking-wider font-bold text-amber-500/50 mb-1">{{ 'Est. URSSAF'|trans }}</div>
 								<div class="text-red-400/90 font-bold text-lg font-mono">{{ invoice.urssafEstimate|number_format(2) }}€</div>
 							</div>
 							<div class="text-right pl-6 border-l border-amber-500/10">
-								<div class="text-[10px] uppercase tracking-wider font-bold text-amber-500/50 mb-1">Net Income</div>
+								<div class="text-[10px] uppercase tracking-wider font-bold text-amber-500/50 mb-1">{{ 'Net Income'|trans }}</div>
 								<div class="text-emerald-400 font-black text-2xl font-mono tracking-tight drop-shadow-sm">{{ invoice.netEstimate|number_format(2) }}€</div>
 							</div>
 						</div>
@@ -215,18 +216,18 @@
 				{# Invoice Totals #}
 				<div class="w-full md:w-5/12 lg:w-4/12 space-y-4 order-1 md:order-2 bg-white/[0.02] p-6 rounded-2xl border border-white/5 print:bg-transparent print:border-none print:p-0">
 					<div class="flex justify-between text-slate-400 text-sm px-2 print:text-black">
-						<span class="font-medium">Subtotal (HT)</span>
+						<span class="font-medium">{{ 'Subtotal (HT)'|trans }}</span>
 						<span class="font-mono text-slate-200 font-bold print:text-black">{{ invoice.totalHt|number_format(2) }}
 							{{ invoice.currency }}</span>
 					</div>
 					<div class="flex justify-between text-slate-400 text-sm px-2 print:text-black">
-						<span class="font-medium">VAT Amount</span>
+						<span class="font-medium">{{ 'VAT Amount'|trans }}</span>
 						<span class="font-mono text-slate-200 font-bold print:text-black">{{ invoice.totalVat|number_format(2) }}
 							{{ invoice.currency }}</span>
 					</div>
 
 					<div class="mt-6 pt-5 border-t border-white/10 flex justify-between items-center px-2 print:border-gray-300">
-						<span class="text-white font-bold text-lg tracking-wide print:text-black">Total Amount</span>
+						<span class="text-white font-bold text-lg tracking-wide print:text-black">{{ 'Total Amount'|trans }}</span>
 						<span class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 tracking-tight font-mono print:text-black print:bg-none">
 							{{ invoice.totalAmount|number_format(2) }}
 							<span class="text-lg text-slate-500 font-bold ml-1 print:text-black">{{ invoice.currency }}</span>
@@ -235,7 +236,7 @@
 
 					{% if invoice.totalVat == 0 %}
 						<div class="text-right text-[10px] text-slate-500 mt-2 italic px-2 border-t border-white/5 pt-3">
-							TVA non applicable, art. 293 B du CGI
+							{{ 'TVA non applicable, art. 293 B du CGI'|trans }}
 						</div>
 					{% endif %}
 				</div>
@@ -247,8 +248,7 @@
 						<i class="fas fa-check"></i>
 					</div>
 					<div class="text-emerald-300 font-medium">
-						This invoice was fully paid on
-						<span class="font-bold text-white ml-1">{{ invoice.paidAt|date('d F Y') }}</span>
+						{{ 'This invoice was fully paid on %date%'|trans({'%date%': '<span class="font-bold text-white ml-1">' ~ invoice.paidAt|date('d F Y') ~ '</span>'})|raw }}
 					</div>
 				</div>
 			{% endif %}
