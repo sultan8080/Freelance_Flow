@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Invoice;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -206,7 +207,7 @@ class InvoiceRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
-    
+
     /**
      * Fetches all invoices for a user with Client and Items eager-loaded.
      */
@@ -222,23 +223,21 @@ class InvoiceRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-    public function searchInvoices(User $user, string $query, string $status = ''): array
+    public function searchInvoices(User $user, string $query, string $status = '', int $page = 1, int $limit = 10): Paginator
     {
         $qb = $this->createQueryBuilder('i')
             ->addSelect('c')
             ->leftJoin('i.client', 'c')
             ->where('i.user = :user')
             ->setParameter('user', $user)
-            ->orderBy('i.createdAt', 'DESC')
-            ->setMaxResults(50);
+            ->orderBy('i.createdAt', 'DESC');
 
         // query by text inside search field
         if ($query) {
             $qb->andWhere('
                 i.invoiceNumber LIKE :query OR 
                 c.companyName LIKE :query OR 
-                i.pojectTitle Like:query
-
+                i.projectTitle LIKE :query
             ')
                 ->setParameter('query', '%' . $query . '%');
         }
@@ -252,11 +251,16 @@ class InvoiceRepository extends ServiceEntityRepository
                     ->setParameter('sentStatus', 'SENT')
                     ->setParameter('today', new \DateTimeImmutable('today'));
             } else {
-  
+
                 $qb->andWhere('i.status = :status')
                     ->setParameter('status', $status);
             }
         }
-        return $qb->getQuery()->getResult();
+        // Pagination Math
+        $qb->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit);
+
+        // Create Paginator
+        return new Paginator($qb, false);
     }
 }

@@ -91,7 +91,7 @@ _Objectif : Une application fonctionnelle pour gérer, calculer et éditer des f
 - [x] **Vérification Légale :** Mentions Art. 293B (TVA) + logique automatisée SIRET/TVA.
 - [x] **Recherche Live :** Recherche multicritères (N° Facture, Client, Projet) via `LiveProp`.
 - [x] **Filtrage des Factures :** Filtrage dynamique par statut (Brouillon, Envoyée, Payée, Retard).
-- [ ] **Pagination Asynchrone** pour les listes Clients et Factures via Live Components.
+- [x] **Pagination Asynchrone** pour les listes Clients et Factures via Live Components.
 ---
 
 ## Partie 2 : Version 2 (Évolutions Planifiées)

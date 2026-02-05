@@ -3,8 +3,10 @@
 namespace App\Twig\Components;
 
 use App\Repository\InvoiceRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
+use Symfony\UX\LiveComponent\Attribute\LiveListener;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
@@ -19,20 +21,40 @@ class InvoiceTable
     #[LiveProp(writable: true)]
     public string $status = '';
 
+    // pagination
+    #[LiveProp(writable: true)]
+    public int $page = 1;
+    public int $itemsPerPage = 10;
+
     public function __construct(
         private InvoiceRepository $invoiceRepository,
         private Security $security
     ) {}
 
-    public function getInvoices(): array
+    #[LiveListener('updated:query')]
+    #[LiveListener('updated:status')]
+    public function resetPagination(): void
+    {
+        $this->page = 1;
+    }
+
+    public function getInvoices(): Paginator
     {
         $user = $this->security->getUser();
 
         if (!$user) {
-            return [];
+            return new Paginator(
+                $this->invoiceRepository->createQueryBuilder('i')
+                    ->where('1 = 0')
+            );
         }
-        
-        dump($this->status);
-        return $this->invoiceRepository->searchInvoices($user, $this->query, $this->status);
+
+        return $this->invoiceRepository->searchInvoices(
+            $user,
+            $this->query,
+            $this->status,
+            $this->page,
+            $this->itemsPerPage
+        );
     }
 }

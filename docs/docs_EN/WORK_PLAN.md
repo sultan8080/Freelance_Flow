@@ -89,7 +89,7 @@ _Goal: A functional app to manage, calculate, and export invoices._
 - [x] **Legal Verification:** Art. 293B (VAT) mentions + automated SIRET/VAT logic.
 - [x] **Live Search:** Multi-criteria search (Invoice #, Client, Project) using `LiveProp`.
 - [x] **Invoice Filtering:** Dynamic filtering by status (Draft, Sent, Paid, Overdue) 
-- [ ] **Asynchronous Pagination** for both Client and Invoice lists using Live Components.
+- [x] **Asynchronous Pagination** for both Client and Invoice lists using Live Components.
 
 ---
 
