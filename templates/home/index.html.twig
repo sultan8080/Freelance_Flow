@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block body %}
-	<div class="flex items-center gap-6" data-controller="layout" data-action="click@window->layout#closeUserDropdown">
+	<div class="flex items-center gap-6">
 		<nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-slate-950/70 backdrop-blur-xl">
 			<div class=" mx-auto px-6 h-16 flex items-center justify-between">
 
@@ -21,29 +21,39 @@
 				</a>
 
 				<div class="flex items-center gap-6">
-					<div class="relative group">
-						<button class="flex items-center gap-1.5 text-sm font-medium text-slate-400 hover:text-white transition-colors">
+					<div
+						class="relative group">
+						{# The Trigger Button #}
+						<button class="flex items-center gap-1.5 text-sm font-medium text-slate-200 hover:text-white transition-colors uppercase">
 							<i class="fa-solid fa-earth-europe opacity-50 group-hover:opacity-100"></i>
-							<span class="opacity-65 group-hover:opacity-100">EN</span>
+							<span class="opacity-65 group-hover:opacity-100">{{ app.request.locale }}</span>
 							<i class="fa-solid fa-chevron-down opacity-50 group-hover:opacity-100 text-xs"></i>
 						</button>
-						<div class="absolute right-0 top-full mt-2 w-24 py-1 rounded-lg bg-slate-900 border border-white/10 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right">
-							<a href="#" class="block px-3 py-2 text-xs font-medium text-white bg-white/5 text-center">EN</a>
-							<a href="#" class="block px-3 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-white/5 text-center">FR</a>
+
+						{# The Dropdown Menu #}
+						<div class="absolute right-0 top-full hidden group-hover:block pt-2 z-50">
+							<div class="w-24 bg-slate-800 border border-slate-700 rounded-md shadow-lg py-1">
+								{% for locale in ['en', 'fr'] %}
+									{% if locale != app.request.locale %}
+										<a href="{{ path(app.request.attributes.get('_route')|default('app_home'), app.request.attributes.get('_route_params', {})|merge({'_locale': locale})) }}" data-turbo="false" class="block px-4 py-2 text-sm text-slate-300 hover:bg-slate-700 hover:text-white transition-colors uppercase">
+											{{ locale }}
+										</a>
+									{% endif %}
+								{% endfor %}
+							</div>
 						</div>
 					</div>
-
 					<div class="h-4 w-px bg-white/20 hidden sm:block"></div>
 
 					{% if app.user %}
 						{# Logged In: Show User Dropdown #}
-						<div class="relative">
+						<div class="relative" data-controller="layout" data-action="click@window->layout#closeUserDropdown">
 							<button data-action="click->layout#toggleUserDropdown:stop" class="flex items-center gap-3 px-3 py-1.5 rounded-xl hover:bg-white/5 transition-all active:scale-95">
 								<span class="hidden sm:block text-sm font-medium text-slate-300">
-									Hi,
-									{{app.user.firstName }}
-
-									{{ app.user.lastName }}</span>
+									{{ 'Hi,'|trans }}
+									{{ app.user.firstName }}
+									{{ app.user.lastName }}
+								</span>
 
 								<div class="w-8 h-8 rounded bg-gradient-to-br from-blue-600 to-purple-700 flex items-center justify-center text-xs text-white font-bold shadow-lg shadow-blue-500/20">
 									{{ (app.user.firstName|slice(0, 1) ~ app.user.lastName|slice(0, 1))|upper }}
@@ -53,34 +63,36 @@
 
 							<div data-layout-target="userDropdown" class="hidden absolute right-0 mt-3 w-64 bg-slate-900/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10 p-2 z-50 transform origin-top-right transition-all">
 								<div class="px-4 py-3 mb-1 border-b border-white/5">
-									<p class="text-xs text-slate-500 font-medium uppercase tracking-wider">Signed in as</p>
-									<p class="text-sm font-bold text-white truncate">{{ app.user ? app.user.userIdentifier : 'guest' }}</p>
+									<p class="text-xs text-slate-500 font-medium uppercase tracking-wider">{{ 'Signed in as'|trans }}</p>
+									<p class="text-sm font-bold text-white truncate">{{ app.user.userIdentifier }}</p>
 								</div>
 								<a href="{{ path('dashboard_freelancer') }}" class="flex items-center gap-3 px-4 py-2.5 hover:bg-white/5 rounded-xl transition-all text-sm text-slate-300 group mt-1">
 									<i class="fas fa-th-large w-4 text-center opacity-50 group-hover:text-blue-400 group-hover:opacity-100 transition"></i>
-									Dashboard
+									{{ 'Dashboard'|trans }}
 								</a>
 								<a href="{{ path('app_profile_show') }}" class="flex items-center gap-3 px-4 py-2.5 hover:bg-white/5 rounded-xl transition-all text-sm text-slate-300 group mt-1">
 									<i class="fas fa-user-circle w-5 text-center opacity-50 group-hover:text-blue-400 group-hover:opacity-100 transition"></i>
-									My Profile
+									{{ 'My Profile'|trans }}
 								</a>
 								<div class="my-2 border-t border-white/5"></div>
 								<a href="{{ path('app_logout')|default('#') }}" class="flex items-center gap-3 px-4 py-2.5 hover:bg-red-500/10 text-red-400 rounded-xl transition-all text-sm font-semibold group">
 									<i class="fas fa-sign-out-alt w-5 text-center group-hover:text-red-300"></i>
-									Logout
+									{{ 'Logout'|trans }}
 								</a>
 							</div>
 						</div>
 					{% else %}
-						{# Logged Out: Show Sign In / Sign Up #}
+
 						<div class="h-4 w-px bg-white/20 hidden sm:block"></div>
 
-						<a href="{{ path('app_login') }}" class="text-sm font-medium text-slate-300 hover:text-white transition hidden sm:block">Sign in</a>
+						<a href="{{ path('app_login') }}" class="text-sm font-medium text-slate-300 hover:text-white transition hidden sm:block">
+							{{ 'Sign in'|trans }}
+						</a>
 
 						<a href="{{ path('app_register') }}" class="group relative px-5 py-2 rounded-full overflow-hidden transition-all duration-300">
 							<div class="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-600 to-purple-700 opacity-90 group-hover:opacity-100 transition-opacity"></div>
 							<div class="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer"></div>
-							<span class="relative text-sm font-semibold text-white">Sign up</span>
+							<span class="relative text-sm font-semibold text-white">{{ 'Sign up'|trans }}</span>
 						</a>
 					{% endif %}
 				</div>
@@ -98,201 +110,229 @@
 					<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
 					<span class="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
 				</span>
-				<span class="text-xs font-medium text-slate-300">Ready for Fiscal Year 2026</span>
+				<span class="text-xs font-medium text-slate-300">{{ 'Ready for Fiscal Year 2026'|trans }}</span>
 			</div>
 
 			<h1 class="text-4xl md:text-5xl xl:text-7xl font-semibold leading-tight text-white mb-6">
-				Manage your
+				{{ 'Manage your'|trans }}
 				<span class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-					invoices, clients & URSSAF
+					{{ 'invoices, clients & URSSAF'|trans }}
 				</span><br/>
-				without headaches
+				{{ 'without headaches'|trans }}
 			</h1>
 
 			<p class="mt-6 max-w-2xl mx-auto text-slate-400 text-lg leading-relaxed">
-				An all-in-one platform designed for French micro-entrepreneurs.
-																																                Simple invoicing, tax estimates, and revenue tracking - fully compliant.
+				{{ 'home.hero_description'|trans }}
 			</p>
 
 			<div class="mt-10 mb-20 flex flex-col sm:flex-row justify-center gap-4">
 				<a href="{{ path('app_register') }}" class="group relative px-8 py-4 rounded-full overflow-hidden transition-all duration-300 shadow-lg shadow-blue-500/20 hover:scale-[1.03]">
 					<div class="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-600 to-purple-700 opacity-90 group-hover:opacity-100 transition-opacity"></div>
 					<div class="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer"></div>
-					<span class="relative font-semibold text-white">Get started free</span>
+					<span class="relative font-semibold text-white">{{ 'Get started free'|trans }}</span>
 				</a>
 
 				<a href="#features" class="px-8 py-4 rounded-full font-medium text-white bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 backdrop-blur-md transition-all duration-200">
-					See features
+					{{ 'See features'|trans }}
 				</a>
 			</div>
 
-			<div class="relative max-w-5xl mx-auto mt-12 animate-float perspective-1000">
-				<div class="relative bg-slate-900/60 backdrop-blur-xl border border-white/10 rounded-2xl p-2 shadow-2xl transform rotate-x-12">
-					<div class="h-10 bg-white/5 rounded-t-xl border-b border-white/5 flex items-center px-4 gap-2">
-						<div class="w-3 h-3 rounded-full bg-red-500/50"></div>
-						<div class="w-3 h-3 rounded-full bg-yellow-500/50"></div>
-						<div class="w-3 h-3 rounded-full bg-emerald-500/50"></div>
-					</div>
-					<div class="p-6 grid grid-cols-4 gap-6 text-left">
-						<div class="hidden md:block col-span-1 space-y-4">
-							<div class="h-8 w-3/4 bg-white/10 rounded-lg"></div>
-							<div class="h-4 w-1/2 bg-white/5 rounded-lg"></div>
-							<div class="h-4 w-2/3 bg-white/5 rounded-lg"></div>
-							<div class="h-4 w-1/2 bg-white/5 rounded-lg"></div>
-						</div>
-						<div class="col-span-4 md:col-span-3">
-							<div class="flex justify-between items-end mb-6">
-								<div>
-									<div class="h-8 w-48 bg-white/10 rounded-lg mb-2"></div>
-									<div class="h-4 w-32 bg-white/5 rounded-lg"></div>
-								</div>
-								<div class="h-10 w-32 bg-cyan-500/20 rounded-lg border border-cyan-500/30"></div>
-							</div>
-							<div class="h-64 bg-gradient-to-b from-white/5 to-transparent border border-white/5 rounded-xl mb-6 relative overflow-hidden">
-								<div class="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-cyan-500/10 to-transparent"></div>
-								<svg class="absolute bottom-0 left-0 right-0 w-full h-full" preserveaspectratio="none">
-									<path d="M0,100 Q300,50 600,80 T1200,20" fill="none" stroke="rgba(34,211,238,0.5)" stroke-width="3"/>
-								</svg>
-							</div>
-							<div class="grid grid-cols-2 gap-4">
-								<div class="h-24 bg-white/5 rounded-xl border border-white/5"></div>
-								<div class="h-24 bg-white/5 rounded-xl border border-white/5"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="absolute -inset-4 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-3xl blur-3xl opacity-20 -z-10"></div>
-			</div>
+			{# Hero Image #}
+
+			 <div class="relative max-w-5xl mx-auto mt-12 animate-float perspective-1000">
+
+                <div class="relative bg-slate-900/60 backdrop-blur-xl border border-white/10 rounded-2xl p-2 shadow-2xl transform rotate-x-12">
+
+                    <div class="h-10 bg-white/5 rounded-t-xl border-b border-white/5 flex items-center px-4 gap-2">
+
+                        <div class="w-3 h-3 rounded-full bg-red-500/50"></div>
+
+                        <div class="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+
+                        <div class="w-3 h-3 rounded-full bg-emerald-500/50"></div>
+
+                    </div>
+
+                    <div class="p-6 grid grid-cols-4 gap-6 text-left">
+
+                        <div class="hidden md:block col-span-1 space-y-4">
+
+                            <div class="h-8 w-3/4 bg-white/10 rounded-lg"></div>
+
+                            <div class="h-4 w-1/2 bg-white/5 rounded-lg"></div>
+
+                            <div class="h-4 w-2/3 bg-white/5 rounded-lg"></div>
+
+                            <div class="h-4 w-1/2 bg-white/5 rounded-lg"></div>
+
+                        </div>
+
+                        <div class="col-span-4 md:col-span-3">
+
+                            <div class="flex justify-between items-end mb-6">
+
+                                <div>
+
+                                    <div class="h-8 w-48 bg-white/10 rounded-lg mb-2"></div>
+
+                                    <div class="h-4 w-32 bg-white/5 rounded-lg"></div>
+
+                                </div>
+
+                                <div class="h-10 w-32 bg-cyan-500/20 rounded-lg border border-cyan-500/30"></div>
+
+                            </div>
+
+                            <div class="h-64 bg-gradient-to-b from-white/5 to-transparent border border-white/5 rounded-xl mb-6 relative overflow-hidden">
+
+                                <div class="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-cyan-500/10 to-transparent"></div>
+
+                                <svg class="absolute bottom-0 left-0 right-0 w-full h-full" preserveaspectratio="none">
+
+                                    <path d="M0,100 Q300,50 600,80 T1200,20" fill="none" stroke="rgba(34,211,238,0.5)" stroke-width="3"/>
+
+                                </svg>
+
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+
+                                <div class="h-24 bg-white/5 rounded-xl border border-white/5"></div>
+
+                                <div class="h-24 bg-white/5 rounded-xl border border-white/5"></div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="absolute -inset-4 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-3xl blur-3xl opacity-20 -z-10"></div>
+
+            </div> 
 		</div>
-	</main>
+	</div>
+</main>
 
-	<section id="features" class="relative z-10 py-24">
-		<div class="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 -z-10"></div>
+<section id="features" class="relative z-10 py-24">
+	<div class="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 -z-10"></div>
 
-		<div class="max-w-7xl mx-auto px-6">
-			<div class="text-center mb-16">
-				<h2 class="text-3xl font-bold text-white mb-4">Precision Tools</h2>
-				<p class="text-slate-400">Everything you need to run your freelance business in France.</p>
-			</div>
-
-			<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-				<div class="group p-8 rounded-2xl bg-gradient-to-br from-white/10 to-transparent backdrop-blur-md border border-white/10 border-t-white/20 hover:border-blue-500/30 transition duration-300 shadow-2xl relative overflow-hidden">
-					<div class="absolute -right-10 -top-10 w-32 h-32 bg-blue-500/20 blur-3xl rounded-full group-hover:bg-blue-500/30 transition-all"></div>
-
-					<div class="relative z-10">
-						<div class="w-12 h-12 rounded-lg bg-blue-500/20 flex items-center justify-center mb-6 text-blue-400">
-							<i class="fa-solid fa-users text-xl"></i>
-						</div>
-						<h3 class="text-xl font-semibold text-white-50 mb-2">
-							<span class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent font-extrabold">Client Management</span>
-
-						</h3>
-						<p class="text-slate-400 text-sm leading-relaxed">Create, search and manage clients with secure access control using Symfony Voters.</p>
-					</div>
-				</div>
-
-				<div class="group p-8 rounded-2xl bg-gradient-to-br from-white/10 to-transparent backdrop-blur-md border border-white/10 border-t-white/20 hover:border-purple-500/30 transition duration-300 shadow-2xl relative overflow-hidden">
-					<div class="absolute -right-10 -top-10 w-32 h-32 bg-purple-500/20 blur-3xl rounded-full group-hover:bg-purple-500/30 transition-all"></div>
-
-					<div class="relative z-10">
-						<div class="w-12 h-12 rounded-lg bg-purple-500/20 flex items-center justify-center mb-6 text-purple-400">
-							<i class="fa-solid fa-file-invoice-dollar text-xl"></i>
-						</div>
-						<h3 class="text-xl font-semibold text-white-50 mb-2">
-							<span class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent font-extrabold">Invoice Automation</span>
-						</h3>
-						<p class="text-slate-400 text-sm leading-relaxed">Line items, automated totals and legal mentions for French invoicing compliance.</p>
-					</div>
-				</div>
-
-				<div class="group p-8 rounded-2xl bg-gradient-to-br from-white/10 to-transparent backdrop-blur-md border border-white/10 border-t-white/20 hover:border-emerald-500/30 transition duration-300 shadow-2xl relative overflow-hidden">
-					<div class="absolute -right-10 -top-10 w-32 h-32 bg-emerald-500/20 blur-3xl rounded-full group-hover:bg-emerald-500/30 transition-all"></div>
-
-					<div class="relative z-10">
-						<div class="w-12 h-12 rounded-lg bg-emerald-500/20 flex items-center justify-center mb-6 text-emerald-400">
-							<i class="fa-solid fa-calculator text-xl"></i>
-						</div>
-						<h3 class="text-xl mb-2">
-							<span class="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent font-extrabold">Tax Intelligence</span>
-						</h3>
-						<p class="text-slate-400 text-sm leading-relaxed">URSSAF estimates and micro‑entrepreneur revenue ceiling tracking for BNC and BIC.</p>
-					</div>
-				</div>
-
-				<div class="group p-8 rounded-2xl bg-gradient-to-br from-white/10 to-transparent backdrop-blur-md border border-white/10 border-t-white/20 hover:border-red-500/30 transition duration-300 shadow-2xl relative overflow-hidden">
-					<div class="absolute -right-10 -top-10 w-32 h-32 bg-red-500/20 blur-3xl rounded-full group-hover:bg-red-500/30 transition-all"></div>
-
-					<div class="relative z-10">
-						<div class="w-12 h-12 rounded-lg bg-red-500/20 flex items-center justify-center mb-6 text-red-400">
-							<i class="fa-solid fa-file-pdf text-xl"></i>
-						</div>
-						<h3 class="text-xl mb-2">
-							<span class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent font-extrabold">PDF Generation</span>
-						</h3>
-						<p class="text-slate-400 text-sm leading-relaxed">Professional PDF invoices with mandatory legal mentions and sequential numbering.</p>
-					</div>
-				</div>
-
-				<div class="group p-8 rounded-2xl bg-gradient-to-br from-white/10 to-transparent backdrop-blur-md border border-white/10 border-t-white/20 hover:border-cyan-500/30 transition duration-300 shadow-2xl relative overflow-hidden">
-					<div class="absolute -right-10 -top-10 w-32 h-32 bg-cyan-500/20 blur-3xl rounded-full group-hover:bg-cyan-500/30 transition-all"></div>
-
-					<div class="relative z-10">
-						<div class="w-12 h-12 rounded-lg bg-cyan-500/20 flex items-center justify-center mb-6 text-cyan-400">
-							<i class="fa-solid fa-gauge-high text-xl"></i>
-						</div>
-						<h3 class="text-xl mb-2">
-							<span class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent font-extrabold">Financial Overview</span>
-						</h3>
-						<p class="text-slate-400 text-sm leading-relaxed">Real time charts and KPIs to visualize monthly and yearly revenue and tax provisions.</p>
-					</div>
-				</div>
-
-				<div class="group p-8 rounded-2xl bg-gradient-to-br from-white/10 to-transparent backdrop-blur-md border border-white/10 border-t-white/20 hover:border-amber-500/30 transition duration-300 shadow-2xl relative overflow-hidden">
-					<div class="absolute -right-10 -top-10 w-32 h-32 bg-amber-500/20 blur-3xl rounded-full group-hover:bg-amber-500/30 transition-all"></div>
-
-					<div class="relative z-10">
-						<div class="w-12 h-12 rounded-lg bg-amber-500/20 flex items-center justify-center mb-6 text-amber-400">
-							<i class="fa-solid fa-shield-halved text-xl"></i>
-						</div>
-						<h3 class="text-xl mb-2">
-							<span class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent font-extrabold">Secure Access</span>
-						</h3>
-						<p class="text-slate-400 text-sm leading-relaxed">Granular access control using Symfony Voters so users only access their own records.</p>
-					</div>
-				</div>
-
-			</div>
+	<div class="max-w-7xl mx-auto px-6">
+		<div class="text-center mb-16">
+			<h2 class="text-3xl font-bold text-white mb-4">{{ 'Precision Tools'|trans }}</h2>
+			<p class="text-slate-400">{{ 'home.features_subtitle'|trans }}</p>
 		</div>
-	</section>
 
-	<section class="py-32">
-		<div class="mx-auto max-w-4xl px-6 text-center">
-			<div class="bg-gradient-to-r from-blue-500/20 to-purple-600/20 border border-white/10 rounded-3xl p-10 backdrop-blur-xl">
-				<h2 class="text-3xl font-semibold mb-4 text-white">Built for freelancers who value clarity</h2>
-				<p class="text-gray-400 mb-8">Stop juggling spreadsheets and tools. Focus on your work — we handle the rest.</p>
-				<a href="{{ path('app_register') }}" class="group relative inline-block px-8 py-3 rounded-full overflow-hidden shadow-xl hover:scale-[1.03] transition-all duration-300">
-					<div class="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-600 to-purple-700 opacity-90 group-hover:opacity-100 transition-opacity"></div>
+		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-					<div class="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer"></div>
-
-					<span class="relative font-medium text-white">Create my account</span>
-				</a>
+			<div class="group p-8 rounded-2xl bg-gradient-to-br from-white/10 to-transparent backdrop-blur-md border border-white/10 border-t-white/20 hover:border-blue-500/30 transition duration-300 shadow-2xl relative overflow-hidden">
+				<div class="absolute -right-10 -top-10 w-32 h-32 bg-blue-500/20 blur-3xl rounded-full group-hover:bg-blue-500/30 transition-all"></div>
+				<div class="relative z-10">
+					<div class="w-12 h-12 rounded-lg bg-blue-500/20 flex items-center justify-center mb-6 text-blue-400">
+						<i class="fa-solid fa-users text-xl"></i>
+					</div>
+					<h3 class="text-xl font-semibold text-white-50 mb-2">
+						<span class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent font-extrabold">{{ 'Client Management'|trans }}</span>
+					</h3>
+					<p class="text-slate-400 text-sm leading-relaxed">{{ 'home.feature_client_desc'|trans }}</p>
+				</div>
 			</div>
+
+			<div class="group p-8 rounded-2xl bg-gradient-to-br from-white/10 to-transparent backdrop-blur-md border border-white/10 border-t-white/20 hover:border-purple-500/30 transition duration-300 shadow-2xl relative overflow-hidden">
+				<div class="absolute -right-10 -top-10 w-32 h-32 bg-purple-500/20 blur-3xl rounded-full group-hover:bg-purple-500/30 transition-all"></div>
+				<div class="relative z-10">
+					<div class="w-12 h-12 rounded-lg bg-purple-500/20 flex items-center justify-center mb-6 text-purple-400">
+						<i class="fa-solid fa-file-invoice-dollar text-xl"></i>
+					</div>
+					<h3 class="text-xl font-semibold text-white-50 mb-2">
+						<span class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent font-extrabold">{{ 'Invoice Automation'|trans }}</span>
+					</h3>
+					<p class="text-slate-400 text-sm leading-relaxed">{{ 'home.feature_invoice_desc'|trans }}</p>
+				</div>
+			</div>
+
+			<div class="group p-8 rounded-2xl bg-gradient-to-br from-white/10 to-transparent backdrop-blur-md border border-white/10 border-t-white/20 hover:border-emerald-500/30 transition duration-300 shadow-2xl relative overflow-hidden">
+				<div class="absolute -right-10 -top-10 w-32 h-32 bg-emerald-500/20 blur-3xl rounded-full group-hover:bg-emerald-500/30 transition-all"></div>
+				<div class="relative z-10">
+					<div class="w-12 h-12 rounded-lg bg-emerald-500/20 flex items-center justify-center mb-6 text-emerald-400">
+						<i class="fa-solid fa-calculator text-xl"></i>
+					</div>
+					<h3 class="text-xl mb-2">
+						<span class="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent font-extrabold">{{ 'Tax Intelligence'|trans }}</span>
+					</h3>
+					<p class="text-slate-400 text-sm leading-relaxed">{{ 'home.feature_tax_desc'|trans }}</p>
+				</div>
+			</div>
+
+			<div class="group p-8 rounded-2xl bg-gradient-to-br from-white/10 to-transparent backdrop-blur-md border border-white/10 border-t-white/20 hover:border-red-500/30 transition duration-300 shadow-2xl relative overflow-hidden">
+				<div class="absolute -right-10 -top-10 w-32 h-32 bg-red-500/20 blur-3xl rounded-full group-hover:bg-red-500/30 transition-all"></div>
+				<div class="relative z-10">
+					<div class="w-12 h-12 rounded-lg bg-red-500/20 flex items-center justify-center mb-6 text-red-400">
+						<i class="fa-solid fa-file-pdf text-xl"></i>
+					</div>
+					<h3 class="text-xl mb-2">
+						<span class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent font-extrabold">{{ 'PDF Generation'|trans }}</span>
+					</h3>
+					<p class="text-slate-400 text-sm leading-relaxed">{{ 'home.feature_pdf_desc'|trans }}</p>
+				</div>
+			</div>
+
+			<div class="group p-8 rounded-2xl bg-gradient-to-br from-white/10 to-transparent backdrop-blur-md border border-white/10 border-t-white/20 hover:border-cyan-500/30 transition duration-300 shadow-2xl relative overflow-hidden">
+				<div class="absolute -right-10 -top-10 w-32 h-32 bg-cyan-500/20 blur-3xl rounded-full group-hover:bg-cyan-500/30 transition-all"></div>
+				<div class="relative z-10">
+					<div class="w-12 h-12 rounded-lg bg-cyan-500/20 flex items-center justify-center mb-6 text-cyan-400">
+						<i class="fa-solid fa-gauge-high text-xl"></i>
+					</div>
+					<h3 class="text-xl mb-2">
+						<span class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent font-extrabold">{{ 'Financial Overview'|trans }}</span>
+					</h3>
+					<p class="text-slate-400 text-sm leading-relaxed">{{ 'home.feature_finance_desc'|trans }}</p>
+				</div>
+			</div>
+
+			<div class="group p-8 rounded-2xl bg-gradient-to-br from-white/10 to-transparent backdrop-blur-md border border-white/10 border-t-white/20 hover:border-amber-500/30 transition duration-300 shadow-2xl relative overflow-hidden">
+				<div class="absolute -right-10 -top-10 w-32 h-32 bg-amber-500/20 blur-3xl rounded-full group-hover:bg-amber-500/30 transition-all"></div>
+				<div class="relative z-10">
+					<div class="w-12 h-12 rounded-lg bg-amber-500/20 flex items-center justify-center mb-6 text-amber-400">
+						<i class="fa-solid fa-shield-halved text-xl"></i>
+					</div>
+					<h3 class="text-xl mb-2">
+						<span class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent font-extrabold">{{ 'Secure Access'|trans }}</span>
+					</h3>
+					<p class="text-slate-400 text-sm leading-relaxed">{{ 'home.feature_secure_desc'|trans }}</p>
+				</div>
+			</div>
+
 		</div>
-	</section>
+	</div>
+</section>
 
-	<footer class="border-t border-white/10 bg-slate-950 pt-16 pb-8">
-		<div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-			<div class="text-slate-500 text-sm">
-				&copy;
-				{{ 'now'|date('Y') }}
-				Freelance Flow. Designed for French Freelancers.
-			</div>
-			<div class="flex gap-6">
-				<a href="#" class="text-slate-500 hover:text-white transition">Privacy</a>
-				<a href="#" class="text-slate-500 hover:text-white transition">Terms</a>
-			</div>
+<section class="py-32">
+	<div class="mx-auto max-w-4xl px-6 text-center">
+		<div class="bg-gradient-to-r from-blue-500/20 to-purple-600/20 border border-white/10 rounded-3xl p-10 backdrop-blur-xl">
+			<h2 class="text-3xl font-semibold mb-4 text-white">{{ 'Built for freelancers who value clarity'|trans }}</h2>
+			<p class="text-gray-400 mb-8">{{ 'home.cta_subtitle'|trans }}</p>
+			<a href="{{ path('app_register') }}" class="group relative inline-block px-8 py-3 rounded-full overflow-hidden shadow-xl hover:scale-[1.03] transition-all duration-300">
+				<div class="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-600 to-purple-700 opacity-90 group-hover:opacity-100 transition-opacity"></div>
+				<div class="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer"></div>
+				<span class="relative font-medium text-white">{{ 'Create my account'|trans }}</span>
+			</a>
 		</div>
-	</footer>
-{% endblock %}
+	</div>
+</section>
+
+<footer class="border-t border-white/10 bg-slate-950 pt-16 pb-8">
+	<div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+		<div class="text-slate-500 text-sm">
+			&copy;
+			{{ 'now'|date('Y') }}
+			{{ 'home.footer_copyright'|trans }}
+		</div>
+		<div class="flex gap-6">
+			<a href="#" class="text-slate-500 hover:text-white transition">{{ 'Privacy'|trans }}</a>
+			<a href="#" class="text-slate-500 hover:text-white transition">{{ 'Terms'|trans }}</a>
+		</div>
+	</div>
+</footer>{% endblock %}
