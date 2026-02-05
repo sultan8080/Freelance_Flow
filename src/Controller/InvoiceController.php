@@ -13,10 +13,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[IsGranted('ROLE_USER')]
-
 #[Route('/invoice')]
 final class InvoiceController extends AbstractController
 {
@@ -24,8 +23,8 @@ final class InvoiceController extends AbstractController
     public function index(InvoiceRepository $invoiceRepository): Response
     {
         return $this->render('invoice/index.html.twig', [
-            // Before: 'invoices' => $invoiceRepository->findBy(['user' => $this->getUser()], ['id' => 'DESC']),
-            // After: 1 query instead of N+1
+            // 'invoices' => $invoiceRepository->findBy(['user' => $this->getUser()], ['id' => 'DESC']),
+            // 1 query instead of N+1
             'invoices' => $invoiceRepository->findAllForUserWithRelations($this->getUser()),
         ]);
     }
@@ -35,7 +34,8 @@ final class InvoiceController extends AbstractController
         Request $request,
         EntityManagerInterface $entityManager,
         InvoiceCalculator $calculator,
-        InvoiceNumberGenerator $generator
+        InvoiceNumberGenerator $generator,
+        TranslatorInterface $translator
     ): Response {
         $invoice = new Invoice();
         $invoice->setUser($this->getUser());
@@ -76,7 +76,8 @@ final class InvoiceController extends AbstractController
             $calculator->calculateInvoice($invoice);
             $entityManager->persist($invoice);
             $entityManager->flush();
-            $this->addFlash('success', 'Invoice created successfully!');
+            
+            $this->addFlash('success', $translator->trans('Invoice created successfully!'));
             return $this->redirectToRoute('app_invoice_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -92,7 +93,8 @@ final class InvoiceController extends AbstractController
         Invoice $invoice,
         EntityManagerInterface $entityManager,
         InvoiceCalculator $calculator,
-        InvoiceNumberGenerator $generator
+        InvoiceNumberGenerator $generator,
+        TranslatorInterface $translator
     ): Response {
         // Security Check
         if ($invoice->getUser() !== $this->getUser()) {
@@ -143,7 +145,7 @@ final class InvoiceController extends AbstractController
 
             $entityManager->flush();
 
-            $this->addFlash('success', 'Invoice updated successfully!');
+            $this->addFlash('success', $translator->trans('Invoice updated successfully!'));
             return $this->redirectToRoute('app_invoice_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -155,10 +157,10 @@ final class InvoiceController extends AbstractController
 
 
     #[Route('/{id}', name: 'app_invoice_show', methods: ['GET'], requirements: ['id' => '\d+'])]
-    public function show(Invoice $invoice): Response
+    public function show(Invoice $invoice, TranslatorInterface $translator): Response
     {
         if ($invoice->getUser() !== $this->getUser()) {
-            throw $this->createAccessDeniedException('You do not have access to this invoice.');
+            throw $this->createAccessDeniedException($translator->trans('You do not have access to this invoice.'));
         }
 
         return $this->render('invoice/show.html.twig', [
@@ -167,7 +169,7 @@ final class InvoiceController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_invoice_delete', methods: ['POST'])]
-    public function delete(Request $request, Invoice $invoice, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Invoice $invoice, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response
     {
         if ($invoice->getUser() !== $this->getUser()) {
             throw $this->createAccessDeniedException();
@@ -175,14 +177,14 @@ final class InvoiceController extends AbstractController
 
         // Only Drafts can be deleted
         if (!$invoice->isDeletable()) {
-            $this->addFlash('error', 'Cannot delete a finalized invoice.');
+            $this->addFlash('error', $translator->trans('Cannot delete a finalized invoice.'));
             return $this->redirectToRoute('app_invoice_index');
         }
 
         if ($this->isCsrfTokenValid('delete' . $invoice->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($invoice);
             $entityManager->flush();
-            $this->addFlash('success', 'Draft deleted successfully!');
+            $this->addFlash('success', $translator->trans('Draft deleted successfully!'));
         }
 
         return $this->redirectToRoute('app_invoice_index', [], Response::HTTP_SEE_OTHER);
