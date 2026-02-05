@@ -11,20 +11,20 @@
 			<div class="flex-1">
 				<h2 class="text-amber-400 font-bold text-lg flex items-center gap-2">
 					<i class="fas fa-lock"></i>
-					Restricted Editing
+					{{ 'Restricted Editing'|trans }}
 				</h2>
 				<p class="text-amber-200/80 text-sm mt-1">
-					This invoice is finalized.
-					<br>Changing status to
-					<strong class="text-amber-100">PAID</strong>
-					will automatically set the payment date to
-					<strong class="text-amber-100">Today</strong>.
+					{{ 'This invoice is finalized.'|trans }}
+					<br>{{ 'Changing status to'|trans }}
+					<strong class="text-amber-100">{{ 'PAID'|trans }}</strong>
+					{{ 'will automatically set the payment date to'|trans }}
+					<strong class="text-amber-100">{{ 'Today'|trans }}</strong>.
 				</p>
 			</div>
 
 			<div class="w-full md:w-auto bg-black/20 p-4 rounded-xl border border-amber-500/20 backdrop-blur-sm">
 				<div class="w-full sm:w-64">
-					{{ form_label(form.status, 'Update Status', {'label_attr': {'class': 'block text-xs font-bold text-amber-400 uppercase mb-1'}}) }}
+					{{ form_label(form.status, 'Update Status'|trans, {'label_attr': {'class': 'block text-xs font-bold text-amber-400 uppercase mb-1'}}) }}
 
 					{# Update Status Dropdown #}
 					{{ form_widget(form.status, {
@@ -50,11 +50,11 @@
 				<div class="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400">
 					<i class="fas fa-user-circle"></i>
 				</div>
-				Client Details
+				{{ 'Client Details'|trans }}
 			</h3>
 
 			<div class="mb-5">
-				{{ form_label(form.client, 'Select Client', {'label_attr': {'class': 'block text-xs font-bold text-slate-400 uppercase mb-2 ml-1'}}) }}
+				{{ form_label(form.client, 'Select Client'|trans, {'label_attr': {'class': 'block text-xs font-bold text-slate-400 uppercase mb-2 ml-1'}}) }}
 				{{ form_widget(form.client, {
                     'attr': {
                         'class': 'w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all [&>option]:bg-slate-900 [&>option]:text-white cursor-pointer hover:bg-white/10'
@@ -64,7 +64,7 @@
 			</div>
 
 			<div class="mb-5">
-				{{ form_label(form.projectTitle, 'Project / Reference', {'label_attr': {'class': 'block text-xs font-bold text-slate-400 uppercase mb-2 ml-1'}}) }}
+				{{ form_label(form.projectTitle, 'Project / Reference'|trans, {'label_attr': {'class': 'block text-xs font-bold text-slate-400 uppercase mb-2 ml-1'}}) }}
 				{{ form_widget(form.projectTitle, {
                     'attr': {
                         'class': 'w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white placeholder-slate-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all'
@@ -74,7 +74,7 @@
 
 			{% if not is_locked %}
 				<div class="mb-5">
-					{{ form_label(form.status, 'Status', {'label_attr': {'class': 'block text-xs font-bold text-slate-400 uppercase mb-2 ml-1'}}) }}
+					{{ form_label(form.status, 'Status'|trans, {'label_attr': {'class': 'block text-xs font-bold text-slate-400 uppercase mb-2 ml-1'}}) }}
 					{{ form_widget(form.status, {
                         'attr': {
                             'class': 'w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all [&>option]:bg-slate-900 [&>option]:text-white cursor-pointer hover:bg-white/10'
@@ -90,16 +90,16 @@
 				<div class="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-400">
 					<i class="fas fa-file-invoice"></i>
 				</div>
-				Invoice Settings
+				{{ 'Invoice Settings'|trans }}
 			</h3>
 
 			<div class="grid grid-cols-2 gap-5">
 				<div>
-					{{ form_label(form.invoiceNumber, 'Invoice #', {'label_attr': {'class': 'block text-xs font-bold text-slate-400 uppercase mb-2 ml-1'}}) }}
+					{{ form_label(form.invoiceNumber, 'Invoice #'|trans, {'label_attr': {'class': 'block text-xs font-bold text-slate-400 uppercase mb-2 ml-1'}}) }}
 					{{ form_widget(form.invoiceNumber, {
                         'attr': {
                             'class': 'w-full px-4 py-3 rounded-xl border border-white/5 bg-black/40 text-slate-500 cursor-not-allowed focus:outline-none font-mono',
-                            'placeholder': 'Auto-generated',
+                            'placeholder': 'Auto-generated'|trans,
                             'readonly': true,
                             'tabindex': '-1'
                         }
@@ -107,7 +107,7 @@
 				</div>
 
 				<div>
-					{{ form_label(form.currency, 'Currency', {'label_attr': {'class': 'block text-xs font-bold text-slate-400 uppercase mb-2 ml-1'}}) }}
+					{{ form_label(form.currency, 'Currency'|trans, {'label_attr': {'class': 'block text-xs font-bold text-slate-400 uppercase mb-2 ml-1'}}) }}
 					{{ form_widget(form.currency, {
                         'attr': {
                             'class': 'w-full px-4 py-3 rounded-xl border border-white/5 bg-black/40 text-slate-500 cursor-not-allowed focus:outline-none pointer-events-none appearance-none font-mono',
@@ -120,9 +120,9 @@
 				<div class="col-span-2">
 					<div class="p-4 bg-blue-500/5 rounded-xl border border-blue-500/10 text-xs text-blue-200/70 flex items-start gap-3">
 						<i class="fas fa-info-circle mt-0.5 text-blue-400"></i>
-						<span>Dates are automatic:
-							<strong class="text-blue-300">Due Date</strong>
-							is set to +30 days after sending.</span>
+						<span>{{ 'Dates are automatic:'|trans }}
+							<strong class="text-blue-300">{{ 'Due Date'|trans }}</strong>
+							{{ 'is set to +30 days after sending.'|trans }}</span>
 					</div>
 				</div>
 			</div>
@@ -142,7 +142,7 @@
 				{{ form_widget(form.invoiceItems.vars.prototype.description, {
                     attr: {
                         class: 'w-full rounded-xl border border-white/10 bg-white/5 text-white text-sm focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-colors placeholder-slate-600',
-                        placeholder: 'Item description...'
+                        placeholder: 'Item description...'|trans
                     }
                 }) }}
 			</td>
@@ -171,7 +171,7 @@
                 }) }}
 			</td>
 			<td class="px-4 py-3 text-center align-top pt-3">
-				<button type="button" data-action="form-collection#removeCollectionElement" class="p-2 text-slate-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all" title="Delete Row">
+				<button type="button" data-action="form-collection#removeCollectionElement" class="p-2 text-slate-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all" title="{{ 'Delete Row'|trans }}">
 					<i class="fas fa-trash-alt"></i>
 				</button>
 			</td>
@@ -185,13 +185,13 @@
 		<div class="p-5 bg-white/5 border-b border-white/10 flex justify-between items-center backdrop-blur-md">
 			<h3 class="text-white font-bold flex items-center gap-2">
 				<i class="fas fa-list text-slate-400"></i>
-				Items
+				{{ 'Items'|trans }}
 			</h3>
 
 			{% if allow_add and has_prototype %}
 				<button type="button" data-action="form-collection#addCollectionElement" class="text-xs bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 text-blue-300 px-4 py-2 rounded-xl transition-all font-semibold backdrop-blur-md hover:text-white hover:border-blue-500/40">
 					<i class="fas fa-plus mr-1"></i>
-					Add New Item
+					{{ 'Add New Item'|trans }}
 				</button>
 			{% endif %}
 		</div>
@@ -200,10 +200,11 @@
 			<table class="w-full text-left border-collapse">
 				<thead>
 					<tr class="text-xs font-bold text-slate-400 border-b border-white/10 bg-white/5 uppercase tracking-wider">
-						<th class="px-6 py-4 w-1/2">Description</th>
-						<th class="px-4 py-4 w-24 text-right">Qty</th>
-						<th class="px-4 py-4 w-32 text-right">Price</th>
-						<th class="px-4 py-4 w-24 text-right">VAT %</th>
+						<th class="px-6 py-4 w-1/2">{{ 'Description'|trans }}</th>
+						<th class="px-4 py-4 w-24 text-right">{{ 'Qty'|trans }}</th>
+						<th class="px-4 py-4 w-32 text-right">{{ 'Price'|trans }}</th>
+						<th class="px-4 py-4 w-24 text-right">{{ 'VAT'|trans }}
+							%</th>
 						<th class="px-4 py-4 w-10"></th>
 					</tr>
 				</thead>
@@ -225,7 +226,7 @@
 							</td>
 							<td class="px-4 py-3 text-center align-top pt-3">
 								{% if form.invoiceItems.vars.allow_delete %}
-									<button type="button" data-action="form-collection#removeCollectionElement" class="p-2 text-slate-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all" title="Delete Row">
+									<button type="button" data-action="form-collection#removeCollectionElement" class="p-2 text-slate-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all" title="{{ 'Delete Row'|trans }}">
 										<i class="fas fa-trash-alt"></i>
 									</button>
 								{% endif %}
@@ -239,7 +240,7 @@
 		{% if form.invoiceItems|length == 0 %}
 			<div class="p-12 text-center text-slate-500 italic text-sm border-t border-white/5">
 				<i class="fas fa-box-open text-2xl mb-2 opacity-50 block"></i>
-				Click "Add New Item" to start building your invoice.
+				{{ 'Click "Add New Item" to start building your invoice.'|trans }}
 			</div>
 		{% endif %}
 	</div>
@@ -255,14 +256,14 @@
 					<i class="fas fa-eye-slash"></i>
 				</div>
 				<div>
-					<h4 class="text-amber-400 font-bold text-xs uppercase tracking-wider">Private Insight</h4>
-					<p class="text-[10px] text-amber-200/60 leading-tight">Est. 21.2% URSSAF deduction</p>
+					<h4 class="text-amber-400 font-bold text-xs uppercase tracking-wider">{{ 'Private Insight'|trans }}</h4>
+					<p class="text-[10px] text-amber-200/60 leading-tight">{{ 'Est. 21.2% URSSAF deduction'|trans }}</p>
 				</div>
 			</div>
 
 			<div class="space-y-2 text-right">
 				<div class="flex justify-between items-center text-xs text-amber-500/60 font-medium">
-					<span>Est. URSSAF</span>
+					<span>{{ 'Est. URSSAF'|trans }}</span>
 					<span class="text-red-400 font-bold font-mono text-lg">
 						-
 						<span data-invoice-summary-target="urssaf">0.00</span>
@@ -272,7 +273,7 @@
 				<div class="h-px bg-gradient-to-r from-transparent via-amber-500/20 to-transparent my-2"></div>
 
 				<div class="flex justify-between items-end">
-					<span class="text-xs text-emerald-500/80 font-medium mb-1">Net Income</span>
+					<span class="text-xs text-emerald-500/80 font-medium mb-1">{{ 'Net Income'|trans }}</span>
 					<span class="text-emerald-400 font-extrabold font-mono text-2xl leading-none">
 						<span data-invoice-summary-target="net">0.00</span>
 					</span>
@@ -283,16 +284,16 @@
 		{# Public Totals (Dark Glass) #}
 		<div class="w-full md:w-1/3 bg-slate-900/50 p-6 rounded-2xl border border-white/10 shadow-xl backdrop-blur-xl">
 			<div class="flex justify-between mb-3">
-				<span class="text-slate-400 text-sm font-medium">Total HT</span>
+				<span class="text-slate-400 text-sm font-medium">{{ 'Total HT'|trans }}</span>
 				<span class="font-mono font-bold text-white tracking-wide" data-invoice-summary-target="totalHt">0.00 €</span>
 			</div>
 			<div class="flex justify-between mb-4">
-				<span class="text-slate-400 text-sm font-medium">Total VAT</span>
+				<span class="text-slate-400 text-sm font-medium">{{ 'Total VAT'|trans }}</span>
 				<span class="font-mono font-bold text-white tracking-wide" data-invoice-summary-target="totalVat">0.00 €</span>
 			</div>
 
 			<div class="flex justify-between border-t border-white/10 pt-4 mt-2">
-				<span class="text-lg font-bold text-white">Total TTC</span>
+				<span class="text-lg font-bold text-white">{{ 'Total TTC'|trans }}</span>
 				<span class="text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 font-mono" data-invoice-summary-target="totalTtc">0.00 €</span>
 			</div>
 
@@ -306,7 +307,7 @@
 {# --- 5. BUTTONS --- #}
 <div class="flex justify-end gap-4 mt-8 pt-6 border-t border-white/5">
 	<a href="{{ path('app_invoice_index') }}" class="px-6 py-3 rounded-xl text-slate-400 font-semibold hover:text-white border border-transparent hover:bg-white/5 transition-all text-sm">
-		Cancel
+		{{ 'Cancel'|trans }}
 	</a>
 
 	<button type="submit" class="group relative px-8 py-3 rounded-xl overflow-hidden shadow-lg shadow-blue-500/20 transition-all hover:scale-[1.02]">
@@ -315,10 +316,10 @@
 		<span class="relative flex items-center gap-2 text-sm font-bold text-white">
 			{% if is_locked %}
 				<i class="fas fa-save"></i>
-				Update Status
+				{{ 'Update Status'|trans }}
 			{% else %}
 				<i class="fas fa-check"></i>
-				{{ button_label|default('Save Invoice') }}
+				{{ button_label|default('Save Invoice')|trans }}
 			{% endif %}
 		</span>
 	</button>

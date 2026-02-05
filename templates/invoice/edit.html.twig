@@ -1,21 +1,20 @@
 {% extends 'dashboard/base.html.twig' %}
 
-{% block title %}Edit Invoice
+{% block title %}
+	{{ 'Edit Invoice'|trans }}
 {% endblock %}
 
 {% block dashboard_content %}
 	<div class="max-w-6xl mx-auto">
 		<a href="{{ path('app_invoice_index') }}" class="text-slate-400 font-bold mb-6 block hover:text-primary">
 			<i class="fas fa-arrow-left mr-2"></i>
-			Back to list
+			{{ 'Back to list'|trans }}
 		</a>
 
 		<div class="glass-card rounded-bento p-8">
 			<p class="text-slate-500 text-base md:text-lg mb-4 md:mb-8">
-				Edit client details
+				{{ 'Edit client details'|trans }}
 			</p>
-
-
 			{# The form block #}
 			{% block client_form %}
 				{{ include('invoice/_form.html.twig', {'button_label': 'Update'}) }}
