@@ -254,3 +254,25 @@ home:
 "Country": "Pays"
 "Discard": "Annuler"
 "Save Client": "Enregistrer le Client"
+
+# --- Client Controller Messages ---
+"Client created successfully!": "Client créé avec succès !"
+"Client profile modified successfully!": "Profil client modifié avec succès !"
+"Client profile deleted successfully!": "Profil client supprimé avec succès !"
+"Please correct the errors below in the form.": "Veuillez corriger les erreurs ci-dessous."
+"Please fix the errors below in the form.": "Merci de corriger les erreurs dans le formulaire."
+"You cannot view this client's information.": "Vous ne pouvez pas voir les informations de ce client."
+"You cannot edit this client.": "Vous ne pouvez pas modifier ce client."
+"You cannot delete this client.": "Vous ne pouvez pas supprimer ce client."
+"Invalid security token. Deletion cancelled.": "Jeton de sécurité invalide. Suppression annulée."
+
+# --- Client Form Placeholders ---
+"John": "Jean"
+"Doe": "Dupont"
+
+# --- Invoice Items Form ---
+"Item description / Service": "Description de l'article / Service"
+"Quantity": "Quantité"
+"VAT (if required) %": "TVA (si applicable) %"
+
+

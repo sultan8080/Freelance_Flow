@@ -255,3 +255,25 @@ home:
 "Country": "Country"
 "Discard": "Discard"
 "Save Client": "Save Client"
+
+
+# --- Client Controller Messages ---
+"Client created successfully!": "Client created successfully!"
+"Client profile modified successfully!": "Client profile modified successfully!"
+"Client profile deleted successfully!": "Client profile deleted successfully!"
+"Please correct the errors below in the form.": "Please correct the errors below in the form."
+"Please fix the errors below in the form.": "Please fix the errors below in the form."
+"You cannot view this client's information.": "You cannot view this client's information."
+"You cannot edit this client.": "You cannot edit this client."
+"You cannot delete this client.": "You cannot delete this client."
+"Invalid security token. Deletion cancelled.": "Invalid security token. Deletion cancelled."
+
+# --- Client Form Placeholders ---
+"John": "John"
+"Doe": "Doe"
+
+# --- Invoice Items Form ---
+"Item description / Service": "Item description / Service"
+"Quantity": "Quantity"
+"VAT (if required) %": "VAT (if required) %"
+

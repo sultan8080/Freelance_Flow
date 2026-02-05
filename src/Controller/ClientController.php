@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\UX\Turbo\TurboBundle;
 
 #[Route('/client')]
@@ -24,11 +25,11 @@ final class ClientController extends AbstractController
     }
 
     #[Route('/new_client', name: 'app_client_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response
     {
         $client = new Client();
         $client->setUser($this->getUser());
-        
+
         $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
 
@@ -36,13 +37,13 @@ final class ClientController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($client);
             $entityManager->flush();
-            $this->addFlash('success', 'Client created successfully!');
+            $this->addFlash('success', $translator->trans('Client created successfully!'));
             return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
         }
 
         // 2. Handle Validation Errors (Turbo needs 422)
         if ($form->isSubmitted() && !$form->isValid()) {
-            $this->addFlash('error', 'Please correct the errors below in the form.');
+            $this->addFlash('error', $translator->trans('Please correct the errors below in the form.'));
 
             return $this->render('client/new.html.twig', [
                 'form' => $form,
@@ -58,10 +59,10 @@ final class ClientController extends AbstractController
 
 
     #[Route('/{id}', name: 'app_client_show', methods: ['GET'])]
-    public function show(Client $client): Response
+    public function show(Client $client, TranslatorInterface $translator): Response
     {
         if (!$this->isGranted('CLIENT_VIEW', $client)) {
-            throw $this->createAccessDeniedException('You cannot view this client\'s information.');
+            throw $this->createAccessDeniedException($translator->trans('You cannot view this client\'s information.'));
         }
         return $this->render('client/show.html.twig', [
             'client' => $client,
@@ -69,23 +70,23 @@ final class ClientController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_client_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Client $client, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Client $client, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response
     {
         if (!$this->isGranted('CLIENT_EDIT', $client)) {
-            throw $this->createAccessDeniedException("You cannot edit this client.");
+            throw $this->createAccessDeniedException($translator->trans("You cannot edit this client."));
         }
         $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-            $this->addFlash('success', 'Client profile modified successfully!');
+            $this->addFlash('success', $translator->trans('Client profile modified successfully!'));
 
             return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
         }
 
         if ($form->isSubmitted() && !$form->isValid()) {
-            $this->addFlash('error', 'Please fix the errors below in the form.');
+            $this->addFlash('error', $translator->trans('Please fix the errors below in the form.'));
 
             return $this->render('client/edit.html.twig', [
                 'client' => $client,
@@ -100,19 +101,19 @@ final class ClientController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_client_delete', methods: ['POST'])]
-    public function delete(Request $request, Client $client, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Client $client, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response
     {
         if (!$this->isGranted('CLIENT_DELETE', $client)) {
-            throw $this->createAccessDeniedException("You cannot delete this client.");
+            throw $this->createAccessDeniedException($translator->trans("You cannot delete this client."));
         }
 
         if ($this->isCsrfTokenValid('delete' . $client->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($client);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Client profile deleted successfully!');
+            $this->addFlash('success', $translator->trans('Client profile deleted successfully!'));
         } else {
-            $this->addFlash('error', 'Invalid security token. Deletion cancelled.');
+            $this->addFlash('error', $translator->trans('Invalid security token. Deletion cancelled.'));
         }
 
         return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);

@@ -8,9 +8,12 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class InvoiceItemType extends AbstractType
 {
+    public function __construct(private TranslatorInterface $translator) {}
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -18,7 +21,7 @@ class InvoiceItemType extends AbstractType
                 'label' => 'Description',
                 'required' => true,
                 'attr' => [
-                    'placeholder' => 'Item description / Service',
+                    'placeholder' => $this->translator->trans('Item description / Service'),
                     'class' => 'w-full bg-transparent border-0 border-b border-slate-200 focus:ring-0 focus:border-primary px-2 py-2 text-sm transition-colors'
                 ]
             ])
