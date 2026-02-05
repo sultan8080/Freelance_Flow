@@ -209,4 +209,15 @@ home:
 "Late payment penalties: 10% interest plus a fixed recovery fee of €40 (B2B).": "Late payment penalties: 10% interest plus a fixed recovery fee of €40 (B2B)."
 "Invoice Paid, Thank you!": "Invoice Paid, Thank you!"
 
+# --- Client Management ---
+"Clients Management": "Clients Management"
+"Manage your clients information": "Manage your clients information"
+"Search clients by name": "Search clients by name"
+"Add Client": "Add Client"
+"Name / Company": "Name / Company"
+"Contact": "Contact"
+"Address": "Address"
+"Individual": "Individual"
+"No clients found.": "No clients found."
+
 

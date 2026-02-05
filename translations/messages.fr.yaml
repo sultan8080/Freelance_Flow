@@ -209,3 +209,14 @@ home:
 "for payment.": "pour le paiement."
 "Late payment penalties: 10% interest plus a fixed recovery fee of €40 (B2B).": "Pénalités de retard : 10% d'intérêts plus indemnité forfaitaire de 40€ (B2B)."
 "Invoice Paid, Thank you!": "Facture acquittée, Merci !"
+
+# --- Client Management ---
+"Clients Management": "Gestion des Clients"
+"Manage your clients information": "Gérez vos informations clients"
+"Search clients by name": "Rechercher par nom..."
+"Add Client": "Ajouter Client"
+"Name / Company": "Nom / Société"
+"Contact": "Contact"
+"Address": "Adresse"
+"Individual": "Particulier"
+"No clients found.": "Aucun client trouvé."
