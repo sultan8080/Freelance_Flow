@@ -1,0 +1,3 @@
+"Invalid CSRF token.": "Votre session a expiré. Veuillez actualiser la page et réessayer."
+"Invalid credentials.": "Nous n'avons trouvé aucun compte correspondant à cet email et ce mot de passe."
+"Account is disabled.": "Votre compte a été désactivé. Veuillez contacter le support."
