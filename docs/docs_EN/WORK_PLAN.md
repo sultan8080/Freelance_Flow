@@ -91,6 +91,7 @@ _Goal: A functional app to manage, calculate, and export invoices._
 - [x] **Invoice Filtering:** Dynamic filtering by status (Draft, Sent, Paid, Overdue)
 - [x] **Asynchronous Pagination** for both Client and Invoice lists using Live Components.
 - [x] **Internationalization (i18n):** Implement EN/FR support across the UI (Translations, Localized Routing, and Locale Switcher).
+- [x] **Asynchronous Pagination** Client  lists using Live Components.
 
 ---
 

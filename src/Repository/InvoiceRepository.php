@@ -223,7 +223,7 @@ class InvoiceRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-    public function searchInvoices(User $user, string $query, string $status = '', int $page = 1, int $limit = 10): Paginator
+    public function searchInvoices(User $user, string $query, string $status = '', int $page = 1, int $limit = 8): Paginator
     {
         $qb = $this->createQueryBuilder('i')
             ->addSelect('c')

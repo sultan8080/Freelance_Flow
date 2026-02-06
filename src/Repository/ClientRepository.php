@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Client;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,20 +18,33 @@ class ClientRepository extends ServiceEntityRepository
         parent::__construct($registry, Client::class);
     }
 
-    public function findBySearch($user, string $query): array
+    public function findBySearch($user, string $query, int $page = 1, int $limit = 5): Paginator
     {
         $qb = $this->createQueryBuilder('c')
             ->where('c.user = :user')
             ->setParameter('user', $user);
 
         if ($query !== '') {
-            $qb->andWhere('c.firstName LIKE :q OR c.lastName LIKE :q OR c.email LIKE :q')
+            $qb->andWhere('
+                c.firstName LIKE :q OR 
+                c.lastName LIKE :q OR 
+                c.email LIKE :q OR 
+                c.companyName LIKE :q
+            ')
                 ->setParameter('q', '%' . $query . '%');
         }
+        // Sort by newest
+        $qb->orderBy('c.createdAt', 'DESC');
+        // return $qb->orderBy('c.lastName', 'ASC')
+        //     ->getQuery()
+        //     ->getResult();
 
-        return $qb->orderBy('c.lastName', 'ASC')
-            ->getQuery()
-            ->getResult();
+        // Pagination Math
+        $qb->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit);
+
+
+        return new Paginator($qb, false);
     }
 
     /**

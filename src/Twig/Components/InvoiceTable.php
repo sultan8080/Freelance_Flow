@@ -24,7 +24,7 @@ class InvoiceTable
     // pagination
     #[LiveProp(writable: true)]
     public int $page = 1;
-    public int $itemsPerPage = 10;
+    public int $itemsPerPage = 8;
 
     public function __construct(
         private InvoiceRepository $invoiceRepository,

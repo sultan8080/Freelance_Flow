@@ -108,4 +108,54 @@
 			</table>
 		</div>
 	</div>
+	{# PAGINATION CONTROLS #}
+	{% set pagination = this.clients %}
+	{% set total_items = pagination|length %}
+	{% set total_pages = (total_items / this.itemsPerPage)|round(0, 'ceil') %}
+
+	{# PAGINATION CONTROLS #}
+    {% set pagination = this.clients %}
+    {% set total_items = pagination|length %}
+    {% set total_pages = (total_items / this.itemsPerPage)|round(0, 'ceil') %}
+
+    {% if total_pages > 1 %}
+        <div class="flex flex-col md:flex-row items-center justify-between mt-6 px-2 border-t border-white/5 pt-4 gap-4">
+
+            {# Info Text #}
+            <div class="text-xs md:text-sm text-slate-500 order-2 md:order-1">
+                {{ 'Page'|trans }} 
+                <span class="font-bold text-white">{{ this.page }}</span> 
+                {{ 'of'|trans }} {{ total_pages }} 
+                <span class="text-slate-600 ml-1">({{ total_items }} {{ 'total clients'|trans }})</span>
+            </div>
+
+            {# Buttons #}
+            <div class="flex gap-2 order-1 md:order-2">
+                
+                {# PREVIOUS #}
+                <button 
+                    type="button"
+                    data-action="live#action"
+                    data-live-action-param="setPage"
+                    data-live-page-param="{{ this.page - 1 }}"
+                    {% if this.page <= 1 %}disabled{% endif %}
+                    class="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-slate-300 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-all flex items-center gap-2"
+                >
+                    <i class="fas fa-chevron-left"></i> {{ 'Previous'|trans }}
+                </button>
+
+                {# NEXT #}
+                <button 
+                    type="button"
+                    data-action="live#action"
+                    data-live-action-param="setPage"
+                    data-live-page-param="{{ this.page + 1 }}"
+                    {% if this.page >= total_pages %}disabled{% endif %}
+                    class="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-slate-300 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed transition-all flex items-center gap-2"
+                >
+                    {{ 'Next'|trans }} <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    {% endif %}
 </div>
