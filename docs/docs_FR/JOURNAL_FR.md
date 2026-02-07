@@ -1,4 +1,4 @@
-# 📔 Journal de Bord / Development Log — Freelance Flow [Version Français]
+# 📔 Journal de Bord / Development Log — Freelance Lucid [Version Français]
 
 ## 📅 Jour 12–13 [3–4 février 2026] — Performance, Auth & Préparation au Déploiement
 

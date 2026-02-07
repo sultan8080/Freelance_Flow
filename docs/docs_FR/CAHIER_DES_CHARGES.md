@@ -1,5 +1,5 @@
 
-##  Cahier des Charges (FR)
+##  Cahier des Charges (FR) - Freelance Lucid 
 ---
 ### 1. Fonctionnalités Cœur
 * **Gestion Utilisateur :** Inscription, connexion et déconnexion sécurisée.

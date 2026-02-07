@@ -1,4 +1,4 @@
-# 🎯 Project Specifications — Freelance Flow
+# 🎯 Project Specifications — Freelance Lucid
 
 ## 1. Core Features (MVP)
 * **User Management:** Secure user registration, login, and session management.

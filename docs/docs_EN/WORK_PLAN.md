@@ -1,4 +1,4 @@
-# Project Roadmap — Freelance Flow
+# Project Roadmap — Freelance Lucid
 
 ## PARTT 1 : VERSION 1 - The MVP (Minimum Viable Product)
 

@@ -1,4 +1,4 @@
-# Plan de Développement — Freelance Flow
+# Plan de Développement — Freelance Lucid
 
 ## Partie 1 : Le MVP (Minimum Viable Product)
 
