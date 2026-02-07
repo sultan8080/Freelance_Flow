@@ -105,7 +105,7 @@ _Goal: A functional app to manage, calculate, and export invoices._
 - [x] **Guest Login Controller:** Auto‑create user → generate demo data → programmatic login → redirect to dashboard.
 - [x] **Frontend Button:** Add a “Recruiter Access” button on the login page.
 - [x] **Guest Data Cleanup:** Implement a nightly cron job to delete demo/guest accounts older than 24 hours.
-
+- [x] Dashboard Upgrade: Update controller, data generator, and template with unified KPIs, realistic demo data, and the new Daily Performance chart.
 
 ### B. Production Deployment (AlwaysData)
 

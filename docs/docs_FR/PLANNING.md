@@ -107,6 +107,7 @@ _Objectif : Une application fonctionnelle pour gérer, calculer et éditer des f
 - [x] **Contrôleur de Connexion Invité :** Création automatique de l’utilisateur → génération des données démo → connexion programmée
 - [x] **Bouton Frontend :** Ajouter un bouton “Accès Recruteur” sur la page de connexion.
 - [x] **Nettoyage Invités :** Mettre en place un cron nocturne supprimant les comptes démo/invités de plus de 24h.
+- [x] Mise à jour Dashboard : Mettre à jour contrôleur, générateur et template avec KPIs unifiés, données réalistes et nouveau graphique quotidien.
 
 ### B. Déploiement en Production (AlwaysData)
 

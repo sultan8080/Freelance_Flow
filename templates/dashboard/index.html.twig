@@ -14,15 +14,16 @@
 				<h1 class="text-3xl font-extrabold text-white tracking-tight">{{ 'Dashboard'|trans }}</h1>
 				<p class="text-slate-400 mt-1 text-sm">
 					{{ 'Overview for'|trans }}
-					<span class="font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-						{{ selected_date|date('F Y') }}
+					<span
+						class="font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+						{{ selected_date|date('F')|trans }}
+						{{ selected_date|date('Y') }}
 					</span>
 				</p>
 			</div>
 
 			<div
 				class="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full xl:w-auto">
-
 				{# Filter Form #}
 				<form
 					method="get" action="{{ path('dashboard_freelancer') }}" class="flex gap-3 w-full sm:w-auto">
@@ -32,7 +33,7 @@
 							{% for m in 1..12 %}
 								{% set monthName = ('2024-' ~ m ~ '-01')|date('F') %}
 								<option value="{{ m }}" {{ m == selected_month ? 'selected' : '' }}>
-									{{ monthName }}
+									{{ monthName|trans }}
 								</option>
 							{% endfor %}
 						</select>
@@ -57,16 +58,11 @@
 				</form>
 
 				{# Action Buttons #}
-				<div
-					class="flex items-center gap-3 w-full sm:w-auto">
-
-					{# New Invoice (Glass Button) #}
+				<div class="flex items-center gap-3 w-full sm:w-auto">
 					<a href="{{ path('app_invoice_new') }}" class="group flex-1 sm:flex-none justify-center inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-all shadow-lg backdrop-blur-md whitespace-nowrap">
 						<i class="fas fa-plus text-blue-400 group-hover:text-blue-300 transition-colors text-xs"></i>
 						<span class="font-semibold text-sm">{{ 'Invoice'|trans }}</span>
 					</a>
-
-					{# Add Client (Gradient Button) #}
 					<a href="{{ path('app_client_new') }}" class="group relative flex-1 sm:flex-none justify-center inline-flex items-center px-5 py-2.5 rounded-lg overflow-hidden shadow-lg shadow-blue-500/20 transition-all hover:scale-[1.02] whitespace-nowrap">
 						<div class="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-600 to-purple-700 opacity-90 group-hover:opacity-100 transition-opacity"></div>
 						<div class="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer"></div>
@@ -76,30 +72,28 @@
 						</span>
 					</a>
 				</div>
-
 			</div>
 		</div>
 
 		{# --- 2. Cockpit Cards (Bento Grid) --- #}
 		<div
 			class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-
-			{# Card 1: Revenue (Purple) #}
+			{# Card 1: Revenue #}
 			<div class="glass-card p-6 hover:border-purple-500/30 transition-all group relative overflow-hidden">
 				<div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 rounded-full blur-2xl -mr-10 -mt-10 transition-all group-hover:bg-purple-500/10"></div>
-
 				<div class="relative z-10">
 					<div class="flex items-center justify-between mb-4">
 						<div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 group-hover:bg-purple-500 group-hover:text-white transition-all shadow-[0_0_15px_rgba(168,85,247,0.15)]">
 							<i class="fas fa-euro-sign text-sm"></i>
 						</div>
-						<span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-white/5 px-2 py-1 rounded-lg border border-white/5">{{ "now"|date('M') }}</span>
+						{# Translate short month name (e.g. Feb -> Fév) #}
+						<span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-white/5 px-2 py-1 rounded-lg border border-white/5">
+							{{ selected_date|date('M')|trans }}
+						</span>
 					</div>
-
 					<p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">{{ 'Revenue'|trans }}</p>
 					<h3 class="text-2xl font-bold text-white tracking-tight mt-1">{{ monthly_revenue|number_format(0, '.', ' ') }}
 						€</h3>
-
 					<div class="flex items-center gap-1.5 mt-3">
 						<span class="relative flex h-2 w-2">
 							<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -110,27 +104,24 @@
 				</div>
 			</div>
 
-			{# Card 2: Pending (Blue) #}
+			{# Card 2: Pending #}
 			<div class="glass-card p-6 hover:border-blue-500/30 transition-all group relative overflow-hidden">
 				<div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl -mr-10 -mt-10 transition-all group-hover:bg-blue-500/10"></div>
-
 				<div class="relative z-10">
 					<div class="flex items-center justify-between mb-4">
 						<div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 group-hover:bg-blue-500 group-hover:text-white transition-all shadow-[0_0_15px_rgba(59,130,246,0.15)]">
 							<i class="fas fa-hourglass-half text-sm"></i>
 						</div>
 					</div>
-
 					<p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">{{ 'Pending Payment'|trans }}</p>
 					<h3 class="text-2xl font-bold text-white tracking-tight mt-1">{{ counts.sent }}</h3>
 					<p class="text-slate-400 text-xs mt-2 font-medium">{{ 'Invoices sent, waiting cash'|trans }}</p>
 				</div>
 			</div>
 
-			{# Card 3: Drafts (Amber) #}
+			{# Card 3: Drafts #}
 			<a href="{{ path('app_invoice_index', {status: 'DRAFT'}) }}" class="glass-card p-6 hover:border-amber-500/30 transition-all group relative overflow-hidden block">
 				<div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 rounded-full blur-2xl -mr-10 -mt-10 transition-all group-hover:bg-amber-500/10"></div>
-
 				<div class="relative z-10">
 					<div class="flex items-center justify-between mb-4">
 						<div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 group-hover:bg-amber-500 group-hover:text-white transition-all shadow-[0_0_15px_rgba(245,158,11,0.15)]">
@@ -140,27 +131,23 @@
 							<i class="fas fa-arrow-right text-[10px] text-slate-500 group-hover:text-white"></i>
 						</div>
 					</div>
-
 					<p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider group-hover:text-amber-400 transition-colors">{{ 'Drafts'|trans }}</p>
 					<h3 class="text-2xl font-bold text-white tracking-tight mt-1">{{ counts.draft }}</h3>
 					<p class="text-slate-400 text-xs mt-2 group-hover:text-slate-300 transition-colors">{{ 'Click to finish editing'|trans }}</p>
 				</div>
 			</a>
 
-			{# Card 4: Clients (Indigo) #}
+			{# Card 4: Clients #}
 			<div class="glass-card p-6 hover:border-indigo-500/30 transition-all group relative overflow-hidden">
 				<div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 rounded-full blur-2xl -mr-10 -mt-10 transition-all group-hover:bg-indigo-500/10"></div>
-
 				<div class="relative z-10">
 					<div class="flex items-center justify-between mb-4">
 						<div class="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-all shadow-[0_0_15px_rgba(99,102,241,0.15)]">
 							<i class="fas fa-users text-sm"></i>
 						</div>
 					</div>
-
 					<p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">{{ 'Total Clients'|trans }}</p>
 					<h3 class="text-2xl font-bold text-white tracking-tight mt-1">{{ clients.total }}</h3>
-
 					{% if clients.new_this_month > 0 %}
 						<p class="text-indigo-400 text-xs mt-2 font-bold flex items-center gap-1">
 							<i class="fas fa-arrow-up text-[10px]"></i>
@@ -174,9 +161,59 @@
 			</div>
 		</div>
 
+		{# --- VISUAL ANALYTICS (CHARTS) --- #}
+		<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+			{# Chart 1: Revenue Trend #}
+			{# Chart 1: Daily Revenue Trend #}
+				<div class="lg:col-span-2 glass-card p-6 rounded-2xl relative overflow-hidden border border-white/5"> <div class="flex justify-between items-start mb-6">
+					<div>
+						<h3
+							class="text-lg font-bold text-white flex items-center gap-2">
+							
+							<i class="fa-solid fa-chart-area text-purple-400"></i>
+							{{ 'Daily Performance'|trans }}
+						</h3>
+						<p
+							class="text-xs text-slate-400 mt-1">
+							
+							{{ 'Revenue evolution for'|trans }}
+							<span class="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent font-bold">
+								{{ selected_date|date('F')|trans }}
+								{{ selected_date|date('Y') }}
+							</span>
+						</p>
+					</div>
+
+					{# Link to see the BIG picture (Yearly) #}
+					<a href="{{ path('app_analytics', {year: selected_year}) }}" class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-wider text-slate-400 hover:text-white hover:bg-white/10 transition-colors">
+						{{ 'View Yearly Trend'|trans }}
+						<i class="fas fa-arrow-right ml-1"></i>
+					</a>
+				</div>
+				<div class="relative h-64 w-full">
+					{{ render_chart(revenue_chart) }}
+				</div>
+			</div>
+
+			{# Chart 2: Top Clients #}
+			<div class="glass-card p-6 rounded-2xl relative overflow-hidden border border-white/5">
+				<div class="mb-6">
+					<h3 class="text-lg font-bold text-white flex items-center gap-2">
+						<i class="fa-solid fa-chart-pie text-purple-400"></i>
+						{{ 'Top Clients'|trans }}
+					</h3>
+					<p class="text-xs text-slate-400 mt-1">{{ 'Revenue distribution (All Time)'|trans }}</p>
+				</div>
+				<div class="relative h-64 w-full flex items-center justify-center">
+					{{ render_chart(client_chart) }}
+				</div>
+			</div>
+		</div>
+
 		{# --- 3. Recent Activity Table --- #}
 		<div class="glass-card rounded-2xl border border-white/10 overflow-hidden">
-			<div class="p-6 sm:p-8 flex items-center justify-between border-b border-white/5 bg-white/5">
+			<div class="px-6 py-5 sm:p-8 flex items-center justify-between border-b border-white/5 bg-white/5">
 				<div class="flex items-center gap-3">
 					<div class="w-1 h-5 bg-gradient-to-b from-blue-500 to-purple-500 rounded-full"></div>
 					<h2 class="text-lg font-bold text-white">{{ 'Recent Invoices'|trans }}</h2>

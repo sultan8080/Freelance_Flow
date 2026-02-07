@@ -1,4 +1,14 @@
 # 📔 Journal de Bord / Development Log — Freelance Lucid [Version Français]
+## 📅 Jour 14–15 [5–6 février 2026] — Mode Invité, Stabilité Démo & Améliorations du Dashboard (Phase 11)
+
+### Réalisations :
+
+- [x] **Générateur de Données Démo :** Mise en place d’un service générant un utilisateur temporaire avec des données factices réalistes.
+- [x] **Flux de Connexion Invité :** Création automatique de l’utilisateur, génération des données démo, connexion programmée et redirection vers le tableau de bord.
+- [x] **Bouton Accès Recruteur :** Ajout d’un bouton dédié sur la page de connexion pour un accès démo instantané.
+- [x] **Nettoyage des Comptes Invités :** Mise en place d’un nettoyage nocturne supprimant automatiquement les comptes démo/invités de plus de 24 heures.
+- [x] **Mise à Jour du Dashboard :** Mise à jour du contrôleur, du générateur de données et du template avec des KPIs unifiés, des données réalistes et le nouveau graphique **Performance Quotidienne**.
+
 
 ## 📅 Jour 12–13 [3–4 février 2026] — Performance, Auth & Préparation au Déploiement
 

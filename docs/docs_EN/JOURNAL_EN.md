@@ -1,5 +1,17 @@
 # Development Log — Freelance Lucid [English version]
 
+## 📅 Day 14–15 [February 5–6, 2026] — Guest Mode, Demo Stability & Dashboard Enhancements (Phase 11)
+
+### Accomplishments:
+
+- [x] **Demo Data Generator:** Implemented a realistic demo data service to create a temporary user with meaningful sample records.
+- [x] **Guest Login Flow:** Built the full guest workflow — auto‑create user, generate demo data, log in programmatically, and redirect to the dashboard.
+- [x] **Recruiter Access Button:** Added a dedicated “Recruiter Access” entry point on the login page for instant demo access.
+- [x] **Guest Data Cleanup:** Added a nightly cleanup mechanism to automatically remove demo/guest accounts older than 24 hours.
+- [x] **Dashboard Upgrade:** Updated the controller, data generator, and template to use unified KPI logic, realistic growth data, and the new **Daily Performance** chart.
+
+
+
 ## 📅 Day 12–13 [February 3–4, 2026] — Performance, Auth Enhancements & Deployment Readiness (Phase 10)
 
 ### Accomplishments:
