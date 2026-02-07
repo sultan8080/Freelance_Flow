@@ -10,8 +10,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use Faker\Factory;
 
 /**
- * Service responsible for populating a User account with realistic fake data.
- * Used primarily for the "Guest/Recruiter Access" feature.
+ * Service responsible for populating a User account with Realistic Growth Data.
+ * Features:
+ * - Continuous history since Jan 2023 (No gaps).
+ * - Increasing volume over years (Growth trend).
+ * - Mix of statuses (Paid, Sent/Overdue) to allow filtering.
+ * - Active current month for dashboard charts.
  */
 class DemoDataGenerator
 {
@@ -24,19 +28,16 @@ class DemoDataGenerator
         $faker = Factory::create('fr_FR');
 
         $projectTitles = [
-            'E-commerce Platform Migration',
-            'Corporate Website Redesign',
-            'Custom CRM Development',
-            'Mobile Application MVP',
-            'Cloud Infrastructure Setup',
-            'SEO Performance Audit',
-            'UI/UX Prototyping (Figma)',
-            'Backend API Development'
+            'E-commerce Platform Migration', 'Corporate Website Redesign', 
+            'Custom CRM Development', 'Mobile Application MVP', 
+            'Cloud Infrastructure Setup', 'SEO Performance Audit', 
+            'UI/UX Prototyping (Figma)', 'Backend API Development',
+            'Maintenance Retainer', 'Consulting Workshop'
         ];
 
-        // 1. Create Clients
+        // 1. Create 10 Clients
         $clients = [];
-        for ($j = 1; $j <= 10; $j++) {
+        for ($j = 1; $j <= 25; $j++) {
             $client = new Client();
             $client->setFirstName($faker->firstName());
             $client->setLastName($faker->lastName());
@@ -54,49 +55,77 @@ class DemoDataGenerator
             $clients[] = $client;
         }
 
-        // BUCKET 1: DEEP HISTORY (-4 Years to -2 Months)
-
-        foreach ($clients as $client) {
-            for ($k = 1; $k <= rand(5, 8); $k++) {
-                $date = $faker->dateTimeBetween('-4 years', '-2 months');
-                $this->createSingleInvoice($user, $client, $date, $faker, $projectTitles, 'HISTORY');
-            }
-        }
-
-        // BUCKET 2: RECENT PAST (-30 Days to -1 Day)
-
-        for ($i = 0; $i < rand(4, 6); $i++) {
-            $randomClient = $faker->randomElement($clients);
-            $date = $faker->dateTimeBetween('-28 days', '-2 days');
-            $this->createSingleInvoice($user, $randomClient, $date, $faker, $projectTitles, 'RECENT');
-        }
-
-        // BUCKET 3: CURRENT MONTH (1st to Today)
-
-        $currentMonthStart = new \DateTimeImmutable('first day of this month');
+        // 2. TIMELINE GENERATION (Jan 2023 -> Today)
+        
+        $startDate = new \DateTimeImmutable('2023-01-01');
         $today = new \DateTimeImmutable('now');
-        $maxDays = (int)$today->format('d') - 1;
+        $currentIterator = clone $startDate;
 
-        for ($i = 0; $i < rand(3, 5); $i++) {
-            $randomClient = $faker->randomElement($clients);
-            $randomDays = $maxDays > 0 ? rand(0, $maxDays) : 0;
-            $thisMonthDate = $currentMonthStart->modify("+$randomDays days");
+        while ($currentIterator <= $today) {
+            $year = (int)$currentIterator->format('Y');
+            $month = (int)$currentIterator->format('m');
+            $isCurrentMonth = ($currentIterator->format('Y-m') === $today->format('Y-m'));
 
-            $this->createSingleInvoice($user, $randomClient, $thisMonthDate, $faker, $projectTitles, 'CURRENT');
-        }
+            // --- A. GROWTH STRATEGY ---
 
-        // BUCKET 4: GUARANTEED DRAFTS
+            if ($year === 2023) {
+                $min = 4; $max = 6;
+            } elseif ($year === 2024) {
+                $min = 7; $max = 10;
+            } else {
+                $min = 11; $max = 15;
+            }
 
-        for ($i = 0; $i < rand(3, max: 5); $i++) {
-            $randomClient = $faker->randomElement($clients);
-            $date = $faker->dateTimeBetween('-10 days', 'now');
-            $this->createSingleInvoice($user, $randomClient, $date, $faker, $projectTitles, 'DRAFTS');
+            // Boost volume if it's the current month 
+            if ($isCurrentMonth) {
+                $min = 8; $max = 12; 
+            }
+
+            $count = rand($min, $max);
+
+            for ($k = 0; $k < $count; $k++) {
+                $day = rand(1, 28); 
+                if ($isCurrentMonth) {
+                    $day = rand(1, max(1, (int)$today->format('d')));
+                }
+
+                $invoiceDate = $currentIterator->setDate($year, $month, $day);
+                
+                // Don't generate future dates
+                if ($invoiceDate > $today) continue;
+
+                // --- B. STATUS STRATEGY ---
+                $daysOld = $today->diff($invoiceDate)->days;
+                $status = 'PAID'; // Default
+
+                if ($daysOld > 60) {
+                    if (rand(1, 100) <= 10) {
+                        $status = 'SENT'; 
+                    }
+                } elseif ($daysOld > 10) {
+
+                    $status = rand(1, 100) <= 60 ? 'PAID' : 'SENT';
+                } else {
+                    $r = rand(1, 100);
+                    if ($r <= 20) $status = 'DRAFT';
+                    elseif ($r <= 80) $status = 'SENT';
+                    else $status = 'PAID'; // Super fast payer
+                }
+
+                if ($daysOld < 5 && rand(1, 10) <= 3) {
+                    $status = 'DRAFT';
+                }
+
+                $this->createSingleInvoice($user, $faker->randomElement($clients), $invoiceDate, $faker, $projectTitles, $status);
+            }
+
+            $currentIterator = $currentIterator->modify('first day of next month');
         }
 
         $this->entityManager->flush();
     }
 
-    private function createSingleInvoice(User $user, Client $client, \DateTimeInterface $date, $faker, array $projectTitles, string $bucket): void
+    private function createSingleInvoice(User $user, Client $client, \DateTimeInterface $date, $faker, array $projectTitles, string $status): void
     {
         $invoice = new Invoice();
         $invoice->setClient($client);
@@ -106,59 +135,47 @@ class DemoDataGenerator
 
         $creationDate = \DateTimeImmutable::createFromInterface($date);
 
-        // createdAt
+        // Reflection to force createdAt 
         $reflection = new \ReflectionProperty(get_class($invoice), 'createdAt');
         $reflection->setValue($invoice, $creationDate);
 
+        // --- STATUS & DATES ---
+        $invoice->setStatus($status);
         $uniqueSuffix = rand(10000, 99999);
 
-        // --- STATUS LOGIC BY BUCKET ---
-
-        if ($bucket === 'DRAFTS') {
-            $invoice->setStatus('DRAFT');
-        } elseif ($bucket === 'CURRENT') {
-            $r = rand(1, 10);
-            if ($r <= 2) $invoice->setStatus('DRAFT');
-            elseif ($r <= 6) $invoice->setStatus('SENT');
-            else {
-                $invoice->setStatus('PAID');
-                $invoice->setPaidAt($creationDate->modify('+1 day'));
-            }
-        } elseif ($bucket === 'RECENT') {
-            $status = rand(1, 10) <= 8 ? 'SENT' : 'PAID';
-            $invoice->setStatus($status);
-
-            if ($status === 'PAID') {
-                $invoice->setPaidAt($creationDate->modify('+1 day'));
-            }
-        } else { // HISTORY
-            $status = rand(1, 100) <= 85 ? 'PAID' : 'SENT';
-            $invoice->setStatus($status);
-            if ($status === 'PAID') {
-                $invoice->setPaidAt($creationDate->modify('+' . rand(5, 45) . ' days'));
-            }
-        }
-
-        // handling the DRAFT number format
-        if ($invoice->getStatus() !== 'DRAFT') {
+        if ($status === 'DRAFT') {
+            $invoice->setInvoiceNumber("DRAFT-" . $uniqueSuffix);
+        } else {
+            // SENT or PAID
+            $invoice->setInvoiceNumber("INV-" . $creationDate->format('Y') . "-" . $uniqueSuffix);
             $invoice->setSentAt($creationDate);
             $invoice->setDueDate($creationDate->modify('+30 days'));
-            $invoice->setInvoiceNumber("INV-" . $creationDate->format('Y') . "-" . $uniqueSuffix);
-        } else {
-            $invoice->setInvoiceNumber("DRAFT-" . $uniqueSuffix);
+
+            if ($status === 'PAID') {
+                // Pay it 2-15 days after creation
+                $invoice->setPaidAt($creationDate->modify('+' . rand(2, 15) . ' days'));
+            }
         }
 
-        // --- VAT & ITEMS ---
-        $vatRate = 0.0; // Mainting art 293b
+        // --- ITEMS & AMOUNTS ---
+    
+        $year = (int)$creationDate->format('Y');
+        if ($year === 2023) {
+            $minPrice = 200; $maxPrice = 800;
+        } else {
+            $minPrice = 500; $maxPrice = 2000;
+        }
+
+        $vatRate = 0.0; // Auto-entrepreneur often 0%
         $totalHT = 0.0;
 
-        for ($l = 1; $l <= rand(1, 4); $l++) {
+        for ($l = 1; $l <= rand(1, 3); $l++) {
             $qty = rand(1, 5);
-            $unit = $faker->randomFloat(2, 200, 1500);
+            $unit = $faker->randomFloat(2, $minPrice, $maxPrice); 
             $lineHT = $qty * $unit;
 
             $item = new InvoiceItem();
-            $item->setDescription($faker->sentence(3));
+            $item->setDescription($faker->jobTitle); 
             $item->setQuantity((string)$qty);
             $item->setUnitPrice((string)$unit);
             $item->setVatRate((string)$vatRate);
@@ -174,6 +191,7 @@ class DemoDataGenerator
         $invoice->setTotalVat((string)($totalHT * ($vatRate / 100)));
         $invoice->setTotalAmount((string)($totalHT * (1 + ($vatRate / 100))));
 
+        // Snapshot feature
         if (method_exists($invoice, 'collectSnapshot')) {
             $invoice->collectSnapshot();
         }
