@@ -11,7 +11,7 @@
 			<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
 				<i class="fas fa-search text-slate-500"></i>
 			</div>
-			<input type="text" data-model="query" placeholder="{{ 'Search by invoices / company name / project title...'|trans }}" class="w-full pl-11 pr-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all text-sm backdrop-blur-md">
+			<input type="text" data-model="query" placeholder="{{ 'Search by invoices / company name / project title...'|trans }}" class="w-full pl-11 pr-4 py-3 rounded-lg border border-white/10 bg-white/5 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all text-sm backdrop-blur-md">
 		</div>
 
 		{#  FILTER DROPDOWN #}
@@ -19,7 +19,7 @@
 			<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
 				<i class="fas fa-filter text-slate-500 text-xs"></i>
 			</div>
-			<select data-model="status" class="w-full pl-10 pr-8 py-3 rounded-xl border border-white/10 bg-white/5 text-slate-300 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all text-sm appearance-none cursor-pointer">
+			<select data-model="status" class="w-full pl-10 pr-8 py-3 rounded-lg border border-white/10 bg-white/5 text-slate-300 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all text-sm appearance-none cursor-pointer">
 				<option value="" class="bg-slate-800 text-slate-400">{{ 'All Invoices'|trans }}</option>
 				<option value="DRAFT" class="bg-slate-800 text-slate-300">{{ 'Draft'|trans }}</option>
 				<option value="SENT" class="bg-slate-800 text-blue-400">{{ 'Sent'|trans }}</option>
@@ -34,7 +34,7 @@
 
 		{# --- 3. ADD BUTTON --- #}
 		<div class="shrink-0 w-full sm:w-auto">
-			<a href="{{ path('app_invoice_new') }}" class="group relative flex items-center justify-center w-full sm:w-auto px-6 py-3 rounded-xl overflow-hidden shadow-lg shadow-blue-500/20 transition-all hover:scale-[1.02]">
+			<a href="{{ path('app_invoice_new') }}" class="group relative flex items-center justify-center w-full sm:w-auto px-6 py-3 rounded-lg overflow-hidden shadow-lg shadow-blue-500/20 transition-all hover:scale-[1.02]">
 				<div class="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-600 to-purple-700 opacity-90 group-hover:opacity-100 transition-opacity"></div>
 				<div class="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer"></div>
 				<span class="relative flex items-center gap-2 text-sm font-semibold text-white">
@@ -46,7 +46,7 @@
 	</div>
 
 	{# Table Card (Dark Glass) #}
-	<div class="glass-card rounded-2xl overflow-hidden border border-white/10 transition-opacity duration-200" data-loading="addClass(opacity-50 pointer-events-none)">
+	<div class="glass-card rounded-xl overflow-hidden border border-white/10 transition-opacity duration-200" data-loading="addClass(opacity-50 pointer-events-none)">
 		<div class="overflow-x-auto">
 			<table class="w-full text-left border-collapse">
 				<thead>
