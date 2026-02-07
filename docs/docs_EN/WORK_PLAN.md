@@ -101,9 +101,11 @@ _Goal: A functional app to manage, calculate, and export invoices._
 
 ### A. Guest Mode (Recruiter Demo Access)
 
-- [ ] **Demo Data Generator:** Create a service that generates a temporary user with realistic fake data.
-- [ ] **Guest Login Controller:** Auto‑create user → generate demo data → programmatic login → redirect to dashboard.
-- [ ] **Frontend Button:** Add a “Recruiter Access” button on the login page.
+- [x] **Demo Data Generator:** Create a service that generates a temporary user with realistic fake data.
+- [x] **Guest Login Controller:** Auto‑create user → generate demo data → programmatic login → redirect to dashboard.
+- [x] **Frontend Button:** Add a “Recruiter Access” button on the login page.
+- [x] **Guest Data Cleanup:** Implement a nightly cron job to delete demo/guest accounts older than 24 hours.
+
 
 ### B. Production Deployment (AlwaysData)
 

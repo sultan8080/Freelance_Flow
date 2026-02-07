@@ -64,13 +64,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Client>
      */
-    #[ORM\OneToMany(targetEntity: Client::class, mappedBy: 'user')]
+    #[ORM\OneToMany(targetEntity: Client::class, mappedBy: 'user', orphanRemoval: true, cascade: ['persist'])]
     private Collection $clients;
 
     /**
      * @var Collection<int, Invoice>
      */
-    #[ORM\OneToMany(targetEntity: Invoice::class, mappedBy: 'user', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Invoice::class, mappedBy: 'user', orphanRemoval: true, cascade: ['persist'])]
     private Collection $invoices;
 
     #[ORM\Column(length: 20, nullable: true)]

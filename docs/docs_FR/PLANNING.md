@@ -103,9 +103,10 @@ _Objectif : Une application fonctionnelle pour gérer, calculer et éditer des f
 
 ### A. Mode Invité (Accès Recruteur)
 
-- [ ] **Générateur de Données Démo :** Créer un service générant un utilisateur temporaire avec des données factices réalistes.
-- [ ] **Contrôleur de Connexion Invité :** Création automatique de l’utilisateur → génération des données démo → connexion programmée
-- [ ] **Bouton Frontend :** Ajouter un bouton “Accès Recruteur” sur la page de connexion.
+- [x] **Générateur de Données Démo :** Créer un service générant un utilisateur temporaire avec des données factices réalistes.
+- [x] **Contrôleur de Connexion Invité :** Création automatique de l’utilisateur → génération des données démo → connexion programmée
+- [x] **Bouton Frontend :** Ajouter un bouton “Accès Recruteur” sur la page de connexion.
+- [x] **Nettoyage Invités :** Mettre en place un cron nocturne supprimant les comptes démo/invités de plus de 24h.
 
 ### B. Déploiement en Production (AlwaysData)
 

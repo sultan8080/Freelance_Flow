@@ -77,7 +77,7 @@ class Client
     /**
      * @var Collection<int, Invoice>
      */
-    #[ORM\OneToMany(targetEntity: Invoice::class, mappedBy: 'client')]
+    #[ORM\OneToMany(targetEntity: Invoice::class, mappedBy: 'client', orphanRemoval: true, cascade: ['persist'])]
     private Collection $invoices;
 
     #[ORM\Column(length: 14, nullable: true)]
