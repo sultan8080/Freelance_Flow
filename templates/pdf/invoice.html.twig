@@ -18,13 +18,10 @@
                 line-height: 1.5;
             }
 
-            /* --- 1. BRAND COLORS --- */
-            /* Blue: #2563eb | Purple: #7c3aed */
-
+            /* --- BRANDING --- */
             .brand-bar {
                 height: 8px;
                 width: 100%;
-                /* Gradient simulation for PDF */
                 background: linear-gradient(90deg, #2563eb 0%, #7c3aed 100%);
             }
 
@@ -32,62 +29,48 @@
                 padding: 40px 50px;
             }
 
-            /* Layout Helpers */
-            .mb-4 {
-                margin-bottom: 4px;
-            }
-            .mb-8 {
-                margin-bottom: 8px;
-            }
-            .mb-20 {
-                margin-bottom: 20px;
-            }
-            .mb-40 {
-                margin-bottom: 40px;
-            }
+            /* --- UTILS --- */
+            .text-right { text-align: right; }
+            .text-blue { color: #2563eb; }
+            .text-purple { color: #7c3aed; }
+            .text-slate { color: #64748b; }
+            .font-bold { font-weight: bold; }
+            .uppercase { text-transform: uppercase; }
+            .small { font-size: 11px; }
+            
+            .mb-1 { margin-bottom: 4px; }
+            .mb-2 { margin-bottom: 8px; }
+            .mb-4 { margin-bottom: 16px; }
+            .mb-8 { margin-bottom: 32px; }
 
-            .text-right {
-                text-align: right;
-            }
-            .text-blue {
-                color: #2563eb;
-            }
-            .text-purple {
-                color: #7c3aed;
-            }
-            .text-slate {
-                color: #64748b;
-            }
-
-            .font-bold {
-                font-weight: bold;
-            }
-            .uppercase {
-                text-transform: uppercase;
-            }
-            .small {
-                font-size: 11px;
-            }
-
-            /* Header Typography */
+            /* --- HEADER --- */
             .invoice-title {
-                font-size: 28px;
+                font-size: 32px;
                 font-weight: 800;
-                color: #1e293b; /* Slate-900 */
-                letter-spacing: -0.5px;
+                color: #1e293b;
+                letter-spacing: -1px;
                 line-height: 1;
+                margin-bottom: 10px;
+            }
+
+            .invoice-ref-box {
+                background-color: #f8fafc;
+                padding: 15px;
+                border-radius: 8px;
+                border-left: 4px solid #2563eb;
             }
 
             .invoice-number {
                 font-size: 16px;
                 font-weight: 700;
-                color: #2563eb; /* Brand Blue */
+                color: #2563eb;
             }
 
+            /* --- SECTIONS --- */
             .section-title {
-                font-size: 10px;
+                font-size: 11px;
                 font-weight: 700;
-                color: #94a3b8; /* Slate-400 */
+                color: #94a3b8;
                 text-transform: uppercase;
                 letter-spacing: 1px;
                 margin-bottom: 8px;
@@ -102,24 +85,15 @@
                 margin-bottom: 4px;
             }
 
-            /* Tables */
-            table {
-                width: 100%;
-                border-collapse: collapse;
-            }
-            td,
-            th {
-                vertical-align: top;
-                padding: 0;
-            }
+            /* --- TABLES --- */
+            table { width: 100%; border-collapse: collapse; }
+            td, th { vertical-align: top; padding: 0; }
 
             /* Items Table */
-            .items-table {
-                margin-bottom: 30px;
-            }
+            .items-table { margin-bottom: 20px; }
             .items-table thead th {
-                background: #eff6ff; /* Light Blue tint */
-                color: #1e40af; /* Dark Blue text */
+                background: #eff6ff;
+                color: #1e40af;
                 font-size: 11px;
                 font-weight: 700;
                 text-transform: uppercase;
@@ -132,17 +106,18 @@
                 border-bottom: 1px solid #f1f5f9;
                 color: #334155;
             }
-            .items-table .num {
-                text-align: right;
-            }
-            .items-table .desc {
-                font-weight: 500;
-            }
+            .items-table .num { text-align: right; }
+            .items-table .desc { font-weight: 500; }
 
-            /* Totals Section */
-            .totals-table td {
-                padding: 6px 0;
+            /* --- TOTALS --- */
+            .totals-container {
+                width: 100%;
             }
+            .totals-table {
+                width: 45%;
+                float: right;
+            }
+            .totals-table td { padding: 6px 0; }
             .totals-table .label {
                 color: #64748b;
                 text-align: right;
@@ -154,18 +129,20 @@
                 font-size: 14px;
             }
 
-            .total-row td {
-                border-top: 2px solid #e2e8f0;
-                padding-top: 10px;
-                padding-bottom: 10px;
+            /* Total Highlight Box */
+            .total-row-bg {
+                background-color: #f5f3ff; 
+                color: #5b21b6;
+                padding: 10px;
+                border-radius: 4px;
             }
             .total-final {
-                font-size: 20px;
+                font-size: 18px;
                 font-weight: 800;
-                color: #7c3aed; /* Brand Purple */
+                color: #7c3aed;
             }
 
-            /* Status Badges (Flattened for Print) */
+            /* --- BADGES --- */
             .status-box {
                 display: inline-block;
                 padding: 6px 12px;
@@ -173,30 +150,13 @@
                 font-size: 11px;
                 font-weight: 700;
                 text-transform: uppercase;
-                margin-top: 10px;
             }
-            .status-paid {
-                background: #dcfce7;
-                color: #166534;
-                border: 1px solid #bbf7d0;
-            }
-            .status-sent {
-                background: #dbeafe;
-                color: #1e40af;
-                border: 1px solid #bfdbfe;
-            }
-            .status-unpaid {
-                background: #fef9c3;
-                color: #854d0e;
-                border: 1px solid #fef08a;
-            }
-            .status-draft {
-                background: #f1f5f9;
-                color: #475569;
-                border: 1px solid #e2e8f0;
-            }
+            .status-paid { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+            .status-sent { background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+            .status-unpaid { background: #fef9c3; color: #854d0e; border: 1px solid #fef08a; }
+            .status-draft { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
 
-            /* Footer */
+            /* --- FOOTER --- */
             .footer {
                 position: fixed;
                 bottom: 40px;
@@ -208,6 +168,16 @@
                 border-top: 1px solid #f1f5f9;
                 padding-top: 15px;
             }
+            
+            /* Legal Text (VAT Exemption) */
+            .legal-text {
+                margin-top: 10px;
+                text-align: right;
+                font-style: italic;
+                font-size: 10px;
+                color: #64748b;
+                clear: both;
+            }
         </style>
     </head>
 
@@ -216,7 +186,7 @@
 
         <div class="page-container">
 
-            <table class="mb-40">
+            <table class="mb-8">
                 <tr>
                     <td width="60%">
                         <div class="invoice-title">{{ 'INVOICE'|trans }}</div>
@@ -236,43 +206,46 @@
                         </div>
 
                         {% if invoice.projectTitle %}
-                            <div class="mt-16 text-slate small">
-                                <strong>{{ 'Project:'|trans }}</strong>
-                                {{ invoice.projectTitle }}
+                            <div class="mb-4" style="margin-top: 20px;">
+                                <div class="small text-slate uppercase">{{ 'Project'|trans }}</div>
+                                <div style="font-weight: bold; color: #334155;">{{ invoice.projectTitle }}</div>
                             </div>
                         {% endif %}
                     </td>
 
-                    <td width="40%" class="text-right">
-                        <div class="small text-slate uppercase mb-4">{{ 'Invoice Reference'|trans }}</div>
-                        <div class="invoice-number mb-20">#{{ invoice.invoiceNumber|default('DRAFT'|trans) }}</div>
-
-                        <table style="width: auto; float: right;">
-                            <tr>
-                                <td class="text-right text-slate small" style="padding-right: 15px; padding-bottom: 5px;">{{ 'Issue Date:'|trans }}</td>
-                                <td class="text-right font-bold small" style="padding-bottom: 5px;">
-                                    {{ invoice.sentAt ? invoice.sentAt|date('d/m/Y') : 'Draft'|trans }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-right text-slate small" style="padding-right: 15px;">
-                                    {% if invoice.status == 'PAID' %}{{ 'Paid Date:'|trans }}{% else %}{{ 'Due Date:'|trans }}
-                                    {% endif %}
-                                </td>
-                                <td class="text-right font-bold small">
-                                    {% if invoice.status == 'PAID' %}
-                                        {{ invoice.paidAt ? invoice.paidAt|date('d/m/Y') : '-' }}
-                                    {% else %}
-                                        {{ invoice.dueDate ? invoice.dueDate|date('d/m/Y') : '-' }}
-                                    {% endif %}
-                                </td>
-                            </tr>
-                        </table>
+                    <td width="40%">
+                        <div class="invoice-ref-box">
+                            <table style="width: 100%">
+                                <tr>
+                                    <td colspan="2" class="mb-2">
+                                        <div class="small text-slate uppercase">{{ 'Invoice Reference'|trans }}</div>
+                                        <div class="invoice-number">#{{ invoice.invoiceNumber|default('DRAFT'|trans) }}</div>
+                                    </td>
+                                </tr>
+                                <tr><td colspan="2" style="height: 10px;"></td></tr>
+                                <tr>
+                                    <td class="small text-slate">{{ 'Issue Date:'|trans }}</td>
+                                    <td class="small font-bold text-right">{{ invoice.sentAt ? invoice.sentAt|date('d/m/Y') : 'Draft'|trans }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="small text-slate">
+                                        {% if invoice.status == 'PAID' %}{{ 'Paid Date:'|trans }}{% else %}{{ 'Due Date:'|trans }}{% endif %}
+                                    </td>
+                                    <td class="small font-bold text-right">
+                                        {% if invoice.status == 'PAID' %}
+                                            {{ invoice.paidAt ? invoice.paidAt|date('d/m/Y') : '-' }}
+                                        {% else %}
+                                            {{ invoice.dueDate ? invoice.dueDate|date('d/m/Y') : '-' }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
                     </td>
                 </tr>
             </table>
 
-            <table class="mb-40">
+            <table class="mb-8">
                 <tr>
                     <td width="45%">
                         <div class="section-title">{{ 'From'|trans }}</div>
@@ -285,11 +258,10 @@
                             {{ invoice.user.city|default('') }}<br>
                             {{ invoice.user.country|default('') }}
                         </div>
-                        <div class="text-slate small mt-8">
+                        <div class="text-slate small mb-2" style="margin-top: 8px;">
                             {{ invoice.user.email }}<br>
                             {% if invoice.user.siretNumber %}
-                                SIRET:
-                                {{ invoice.user.siretNumber }}
+                                SIRET: {{ invoice.user.siretNumber }}
                             {% endif %}
                         </div>
                     </td>
@@ -307,13 +279,12 @@
                             {{ invoice.frozenClientCity|default('') }}<br>
                             {{ invoice.frozenClientCountry|default('') }}
                         </div>
-                        <div class="text-slate small mt-8">
+                        <div class="text-slate small mb-2" style="margin-top: 8px;">
                             {% if invoice.frozenClientEmail %}
                                 {{ invoice.frozenClientEmail }}<br>
                             {% endif %}
                             {% if invoice.frozenClientVat %}
-                                {{ 'VAT:'|trans }}
-                                {{ invoice.frozenClientVat }}
+                                {{ 'VAT:'|trans }} {{ invoice.frozenClientVat }}
                             {% endif %}
                         </div>
                     </td>
@@ -345,46 +316,49 @@
                 </tbody>
             </table>
 
-            <table class="totals-table">
-                <tr>
-                    <td width="60%">
-                        {% if invoice.totalVat == 0 %}
-                            <div class="small text-slate" style="font-style: italic; max-width: 300px;">
-                                {{ 'TVA non applicable, art. 293 B du CGI'|trans }}
+            <div class="totals-container">
+                <table class="totals-table">
+                    <tr>
+                        <td class="label">{{ 'Subtotal (HT)'|trans }}</td>
+                        <td class="value">{{ invoice.totalHt|number_format(2) }} {{ invoice.currency }}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">{{ 'VAT'|trans }}</td>
+                        <td class="value">{{ invoice.totalVat|number_format(2) }} {{ invoice.currency }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="padding-top: 10px;">
+                            <div class="total-row-bg">
+                                <table style="width: 100%">
+                                    <tr>
+                                        <td class="label" style="color: #5b21b6; font-weight: bold; border: none; padding: 0;">{{ 'Total Amount'|trans }}</td>
+                                        <td class="value total-final" style="border: none; padding: 0;">
+                                            {{ invoice.totalAmount|number_format(2) }} {{ invoice.currency }}
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
-                        {% endif %}
-                    </td>
-                    <td width="40%">
-                        <table>
-                            <tr>
-                                <td class="label">{{ 'Subtotal (HT)'|trans }}</td>
-                                <td class="value">{{ invoice.totalHt|number_format(2) }}
-                                    {{ invoice.currency }}</td>
-                            </tr>
-                            <tr>
-                                <td class="label">{{ 'VAT'|trans }}</td>
-                                <td class="value">{{ invoice.totalVat|number_format(2) }}
-                                    {{ invoice.currency }}</td>
-                            </tr>
-                            <tr class="total-row">
-                                <td class="label" style="color: #1e293b; font-weight: bold;">{{ 'Total Amount'|trans }}</td>
-                                <td class="value total-final">
-                                    {{ invoice.totalAmount|number_format(2) }}
-                                    {{ invoice.currency }}
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
+                        </td>
+                    </tr>
+                </table>
+                
+                <div style="clear: both;"></div>
+
+                {% if invoice.totalVat == 0 %}
+                    <div class="legal-text">
+                        {{ 'TVA non applicable, art. 293 B du CGI'|trans }}
+                    </div>
+                {% endif %}
+            </div>
 
             <div class="footer">
                 {{ 'Thank you for your business.'|trans }}<br>
                 {{ 'Please use reference'|trans }}
                 <strong>#{{ invoice.invoiceNumber|default('DRAFT'|trans) }}</strong>
                 {{ 'for payment.'|trans }}
+                
                 {% if invoice.status != 'PAID' %}
-                    <div style="margin-top: 8px; font-size: 8px; line-height: 1.1; color: #800080;">
+                    <div style="margin-top: 8px; font-size: 8px; line-height: 1.1; color: #7c3aed;">
                         {{ 'Late payment penalties: 10% interest plus a fixed recovery fee of €40 (B2B).'|trans }}<br>
                     </div>
                 {% else %}
