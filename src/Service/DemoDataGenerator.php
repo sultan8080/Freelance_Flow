@@ -35,7 +35,7 @@ class DemoDataGenerator
             'Maintenance Retainer', 'Consulting Workshop'
         ];
 
-        // 1. Create 10 Clients
+        // 1. Create 25 Clients
         $clients = [];
         for ($j = 1; $j <= 25; $j++) {
             $client = new Client();
@@ -69,11 +69,11 @@ class DemoDataGenerator
             // --- A. GROWTH STRATEGY ---
 
             if ($year === 2023) {
-                $min = 4; $max = 6;
+                $min = 3; $max = 5;
             } elseif ($year === 2024) {
-                $min = 7; $max = 10;
+                $min = 6; $max = 9;
             } else {
-                $min = 11; $max = 15;
+                $min = 10; $max = 13;
             }
 
             // Boost volume if it's the current month 
@@ -91,7 +91,7 @@ class DemoDataGenerator
 
                 $invoiceDate = $currentIterator->setDate($year, $month, $day);
                 
-                // Don't generate future dates
+                // no future date
                 if ($invoiceDate > $today) continue;
 
                 // --- B. STATUS STRATEGY ---
@@ -161,9 +161,9 @@ class DemoDataGenerator
     
         $year = (int)$creationDate->format('Y');
         if ($year === 2023) {
-            $minPrice = 200; $maxPrice = 800;
+            $minPrice = 200; $maxPrice = 600;
         } else {
-            $minPrice = 500; $maxPrice = 2000;
+            $minPrice = 500; $maxPrice = 1500;
         }
 
         $vatRate = 0.0; // Auto-entrepreneur often 0%

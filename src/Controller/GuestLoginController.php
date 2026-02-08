@@ -42,7 +42,7 @@ class GuestLoginController extends AbstractController
         $user->setSiretNumber($randomSiret);
 
 
-        $user->setRoles(['ROLE_USER']);
+        $user->setRoles(['ROLE_USER', 'ROLE_GUEST']);
         $user->setPassword($hasher->hashPassword($user, 'guest123456'));
 
         $entityManager->persist($user);

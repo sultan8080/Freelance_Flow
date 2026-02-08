@@ -6,76 +6,78 @@
 
 {% block dashboard_content %}
 
-	{# --- FOR GUEST USER - BANNER --- #}
-	<div
-		class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/20 p-5 mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-
-		{# Decorator Background #}
-		<div class="absolute top-0 right-0 -mt-10 -mr-10 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl"></div>
-
+	{# --- RECRUITER ACCESS - BANNER VISIBLE --- #}
+	{% if is_granted('ROLE_GUEST') %}
 		<div
-			class="relative z-10 flex gap-5">
-			{# Desktop Icon #}
-			<div class="hidden md:flex w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/20 text-purple-400 items-center justify-center text-2xl shrink-0 shadow-[0_0_20px_rgba(168,85,247,0.15)]">
-				<i class="fa-solid fa-laptop-code"></i>
-			</div>
+			class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/20 p-5 mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
 
-			<div>
-				<h3 class="text-white font-extrabold text-xl flex items-center gap-2">
-					<span class="md:hidden text-purple-400">
-						<i class="fa-solid fa-laptop-code"></i>
-					</span>
-					{{ 'Technical Showcase'|trans }}
-				</h3>
+			{# Decorator Background #}
+			<div class="absolute top-0 right-0 -mt-10 -mr-10 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl"></div>
 
-				<p class="text-slate-400 text-sm mt-1 max-w-xl leading-relaxed">
-					{{ 'A quick look at the engineering behind'|trans }}
-					<span class="font-bold text-purple-300">Freelance Lucid</span>.
-					{{ 'Explore my technical decisions and organized workflow:'|trans }}
-				</p>
-
-
-				
-				<div class="flex flex-wrap gap-x-6 gap-y-2 mt-4">
-					<div class="flex items-center gap-2 text-xs font-medium text-slate-300">
-						<i class="fa-brands fa-github text-emerald-400"></i>
-						{{ 'Open Source Code'|trans }}
-					</div>
-
-					<div class="flex items-center gap-2 text-xs font-medium text-slate-300">
-						<i class="fa-solid fa-database text-blue-400"></i>
-						{{ 'MCD Diagram'|trans }}
-					</div>
-
-					<div class="flex items-center gap-2 text-xs font-medium text-slate-300">
-						<i class="fa-solid fa-list-check text-pink-400"></i>
-						{{ 'Specifications'|trans }}
-					</div>
-
-					<div class="flex items-center gap-2 text-xs font-medium text-slate-300">
-						<i class="fa-solid fa-calendar-check text-purple-400"></i>
-						{{ 'Work Plan'|trans }}
-					</div>
-
-					<div class="flex items-center gap-2 text-xs font-medium text-slate-300">
-						<i class="fa-solid  fa-book-journal-whills text-orange-400"></i>
-						{{ 'Daily Dev Journal'|trans }}
-					</div>
+			<div
+				class="relative z-10 flex gap-5">
+				{# Desktop Icon #}
+				<div class="hidden md:flex w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/20 text-purple-400 items-center justify-center text-2xl shrink-0 shadow-[0_0_20px_rgba(168,85,247,0.15)]">
+					<i class="fa-solid fa-laptop-code"></i>
 				</div>
 
+				<div>
+					<h3 class="text-white font-extrabold text-xl flex items-center gap-2">
+						<span class="md:hidden text-purple-400">
+							<i class="fa-solid fa-laptop-code"></i>
+						</span>
+						{{ 'Technical Showcase'|trans }}
+					</h3>
+
+					<p class="text-slate-400 text-sm mt-1 max-w-xl leading-relaxed">
+						{{ 'A quick look at the engineering behind'|trans }}
+						<span class="font-bold text-purple-300">Freelance Lucid</span>.
+						{{ 'Explore my technical decisions and organized workflow:'|trans }}
+					</p>
+
+
+					<div class="flex flex-wrap gap-x-6 gap-y-2 mt-4">
+						<div class="flex items-center gap-2 text-xs font-medium text-slate-300">
+							<i class="fa-brands fa-github text-emerald-400"></i>
+							{{ 'Open Source Code'|trans }}
+						</div>
+
+						<div class="flex items-center gap-2 text-xs font-medium text-slate-300">
+							<i class="fa-solid fa-database text-blue-400"></i>
+							{{ 'MCD Diagram'|trans }}
+						</div>
+
+						<div class="flex items-center gap-2 text-xs font-medium text-slate-300">
+							<i class="fa-solid fa-list-check text-pink-400"></i>
+							{{ 'Specifications'|trans }}
+						</div>
+
+						<div class="flex items-center gap-2 text-xs font-medium text-slate-300">
+							<i class="fa-solid fa-calendar-check text-purple-400"></i>
+							{{ 'Work Plan'|trans }}
+						</div>
+
+						<div class="flex items-center gap-2 text-xs font-medium text-slate-300">
+							<i class="fa-solid  fa-book-journal-whills text-orange-400"></i>
+							{{ 'Daily Dev Journal'|trans }}
+						</div>
+					</div>
+
+				</div>
 			</div>
+
+			<a href="{{ path('app_project_overview') }}" class="group relative flex-1 sm:flex-none justify-center inline-flex items-center px-5 py-2.5 rounded-lg overflow-hidden shadow-lg shadow-blue-500/20 transition-all hover:scale-[1.02] whitespace-nowrap">
+				<div class="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-600 to-purple-700 opacity-90 group-hover:opacity-100 transition-opacity"></div>
+				<div class="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer"></div>
+				<span class="relative flex items-center gap-2 text-sm font-semibold text-white">
+
+					{{ 'Project Overview'|trans }}
+					<i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+				</span>
+			</a>
 		</div>
+	{% endif %}
 
-		<a href="{{ path('app_project_overview') }}" class="group relative flex-1 sm:flex-none justify-center inline-flex items-center px-5 py-2.5 rounded-lg overflow-hidden shadow-lg shadow-blue-500/20 transition-all hover:scale-[1.02] whitespace-nowrap">
-			<div class="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-600 to-purple-700 opacity-90 group-hover:opacity-100 transition-opacity"></div>
-			<div class="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer"></div>
-			<span class="relative flex items-center gap-2 text-sm font-semibold text-white">
-
-				{{ 'Project Overview'|trans }}
-				<i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-			</span>
-		</a>
-	</div>
 	<div
 		class="space-y-8 mb-10">
 

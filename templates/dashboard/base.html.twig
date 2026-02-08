@@ -136,14 +136,17 @@
 								<i class="fas fa-chart-pie w-5 text-center transition-colors {{ 'analytics' in app.request.get('_route') ? 'text-purple-400' : 'group-hover:text-blue-400' }}"></i>
 								<span class="font-medium text-sm">{{ 'Analytics'|trans }}</span>
 							</a>
-							{# --- PROJECT OVERVIEW --- #}
-							<div class="my-2 border-t border-white/5 mx-4"></div>
 
-							<a href="{{ path('app_project_overview') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl sidebar-transition {{ 'project_overview' in app.request.get('_route') ? 'nav-link-active' : 'text-slate-400 hover:bg-white/5 hover:text-white group' }}">
-								<i class="fas fa-rocket w-5 text-center transition-colors {{ 'project_overview' in app.request.get('_route') ? 'text-purple-400' : 'group-hover:text-blue-400' }}"></i>
-								<span class="font-medium text-sm">{{ 'Project Overview'|trans }}</span>
-							</a>
 
+							{# --- PROJECT OVERVIEW IF RECRUITER ACCESS--- #}
+							{% if is_granted('ROLE_GUEST') %}
+								<div class="my-2 border-t border-white/5 mx-4"></div>
+
+								<a href="{{ path('app_project_overview') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl sidebar-transition {{ 'project_overview' in app.request.get('_route') ? 'nav-link-active' : 'text-slate-400 hover:bg-white/5 hover:text-white group' }}">
+									<i class="fas fa-rocket w-5 text-center transition-colors {{ 'project_overview' in app.request.get('_route') ? 'text-purple-400' : 'group-hover:text-blue-400' }}"></i>
+									<span class="font-medium text-sm">{{ 'Project Overview'|trans }}</span>
+								</a>
+							{% endif %}
 						</nav>
 					</section>
 				</div>
