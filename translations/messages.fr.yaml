@@ -42,7 +42,7 @@ home:
     feature_finance_desc: "Graphiques en temps réel pour visualiser vos revenus mensuels et annuels."
     feature_secure_desc: "Contrôle d'accès granulaire pour que vos données restent privées."
     cta_subtitle: "Arrêtez de jongler avec les tableurs. Concentrez-vous sur votre travail, on gère le reste."
-    footer_copyright: "Freelance Flow. Conçu pour les Freelances en France."
+    footer_copyright: "Freelance Lucid. Conçu pour les Freelances en France."
 
 # --- Dashboard UI ---
 "Overview": "Vue d'ensemble"
@@ -493,3 +493,62 @@ docs:
 
 
 Not included in PDF : "Non inclus dans le PDF"
+
+
+# --- Terms of Service (Portfolio Version) ---
+"Terms of Service": "Conditions Générales d'Utilisation"
+"Last updated": "Dernière mise à jour"
+
+# Disclaimer Box
+"Portfolio Project Disclaimer": "Avertissement : Projet Portfolio"
+"This website is a technical demonstration created for a portfolio. It is NOT a commercially operating SaaS. Please do not use this for real financial or legal invoicing.": "Ce site est une démonstration technique réalisée pour un portfolio. Ce n'est PAS un service commercial. Veuillez ne pas l'utiliser pour de la facturation réelle ou légale."
+
+# Section 1: Purpose
+"Purpose": "Objectif"
+"Freelance Lucid is an open-source project created by": "Freelance Lucid est un projet open-source créé par"
+
+"Mr" : "M"
+
+"to demonstrate Full-Stack development skills (Symfony 7, Tailwind CSS, MariaDB, Git) and structured engineering methodology (MCD/MLD Data Modeling, Technical Specifications, Work Plan, Dev Journal). It serves as a showcase of technical capabilities and organizational skills.": "pour démontrer des compétences Full-Stack (Symfony 7, Tailwind CSS, MariaDB, Git) ainsi qu'une méthodologie d'ingénierie structurée (Modélisation MCD/MLD, Cahier des Charges, Planning, Journal de Bord). Il sert de vitrine aux capacités techniques et organisationnelles."
+# Section 2: No Guarantee
+"No Guarantee": "Absence de Garantie"
+"The service is provided \"as is\" for demonstration purposes only. The creator assumes no responsibility for data loss, calculation errors, or PDF validity. The database may be reset periodically.": "Le service est fourni « tel quel » à des fins de démonstration uniquement. Le créateur n'assume aucune responsabilité concernant la perte de données, les erreurs de calcul ou la validité des PDF. La base de données peut être réinitialisée périodiquement."
+
+# Section 3: Data & Privacy
+"Data & Privacy": "Données & Confidentialité"
+"Your Data belongs to you.": "Vos données vous appartiennent."
+"Although this is a demo, we treat data with professional confidentiality standards.": "Bien qu'il s'agisse d'une démo, nous traitons les données avec des standards professionnels de confidentialité."
+"We do not sell or share data with third parties.": "Nous ne vendons ni ne partageons aucune donnée avec des tiers."
+"You can request account deletion at any time.": "Vous pouvez demander la suppression de votre compte à tout moment."
+"Source code is available for review on GitHub.": "Le code source est disponible pour inspection sur GitHub."
+
+# Section 4: Legal Mentions
+"Legal Mentions": "Mentions Légales"
+"Editor": "Éditeur"
+"Hosting": "Hébergement"
+"Back to Home": "Retour à l'accueil"
+
+
+# --- Privacy Policy (Portfolio Version) ---
+"Privacy Policy": "Politique de Confidentialité"
+
+# Disclaimer
+"This website is a technical demonstration. While we implement security best practices, please do not upload sensitive personal documents (like real passports).": "Ce site est une démonstration technique. Bien que nous appliquions les meilleures pratiques de sécurité, veuillez ne pas télécharger de documents personnels sensibles (comme de vrais passeports ou relevés bancaires)."
+
+# Section 1: Data Collection
+"We collect only the data necessary for the functionality of this demo:": "Nous collectons uniquement les données nécessaires au fonctionnement de cette démo :"
+"Identity information (Name, Email for login).": "Identité (Nom, Email pour la connexion)."
+"Business information (SIRET, Address - purely for PDF generation).": "Informations professionnelles (SIRET, Adresse - uniquement pour la génération de PDF)."
+"Client and invoice data (stored in a demo database).": "Données clients et factures (stockées dans une base de données de démo)."
+
+# Section 2: Purpose
+"The data is collected solely to demonstrate the features of the application (User Accounts, PDF Generation, Dashboard Analytics). We do not verify identity and we do not use data for marketing.": "Les données sont collectées uniquement pour démontrer les fonctionnalités de l'application (Comptes utilisateurs, PDF, Analytics). Nous ne vérifions pas l'identité et n'utilisons pas les données à des fins marketing."
+
+# Section 3: Storage
+"Your data is hosted in France on the servers of AlwaysData. We use HTTPS encryption and standard password hashing (Argon2id).": "Vos données sont hébergées en France sur les serveurs d'AlwaysData. Nous utilisons le chiffrement HTTPS et le hachage standard des mots de passe (Argon2id)."
+
+# Section 4: Cookies
+"This project uses a single session cookie (PHPSESSID) to keep you logged in. No tracking, analytics, or advertising cookies are present.": "Ce projet utilise un unique cookie de session (PHPSESSID) pour vous garder connecté. Aucun cookie de suivi, d'analyse ou de publicité n'est présent."
+
+# Section 5: Rights
+"Since this is a portfolio project, you can request the complete deletion of your test account at any time.": "Puisqu'il s'agit d'un projet portfolio, vous pouvez demander la suppression complète de votre compte de test à tout moment."

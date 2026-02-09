@@ -42,7 +42,7 @@ home:
     feature_finance_desc: "Real time charts and KPIs to visualize monthly and yearly revenue and tax provisions."
     feature_secure_desc: "Granular access control using Symfony Voters so users only access their own records."
     cta_subtitle: "Stop juggling spreadsheets and tools. Focus on your work — we handle the rest."
-    footer_copyright: "Freelance Flow. Designed for French Freelancers."
+    footer_copyright: "Freelance Lucid. Designed for French Freelancers."
 
 
     # --- Dashboard UI ---
