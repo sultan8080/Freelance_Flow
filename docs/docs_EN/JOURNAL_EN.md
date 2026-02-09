@@ -1,6 +1,20 @@
 # Development Log — Freelance Lucid [English version]
 
-## 📅 Day 14–15 [February 5–6, 2026] — Guest Mode, Demo Stability & Dashboard Enhancements (Phase 11)
+
+## 📅 Day 16–19 [February 7–9, 2026] - Production Deployment, Legal Compliance & UI Polish (Phase 11 — Part B)
+
+### Accomplishments:
+
+- [x] **Production Server Setup:** Configured the Linux environment on AlwaysData, enabled SSH access, and deployed the project via Git.
+- [x] **Environment Configuration:** Secured production secrets (database credentials, `APP_ENV=prod`) using `.env.local` for safe and isolated configuration.
+- [x] **Database Deployment:** Executed Doctrine migrations on the live MariaDB instance, successfully aligning the production schema with the local environment.
+- [x] **Asset Pipeline Optimization:** Resolved production asset issues by implementing a strict build pipeline (`tailwind:build --minify` + `asset-map:compile`) ensuring CSS loads correctly without the dev server.
+- [x] **Legal & Compliance:** Designed and deployed fully translated Terms of Service and Privacy Policy pages to ensure GDPR compliance and demonstrate professional standards.
+- [x] **Mobile Responsiveness:** Refactored the navigation bar and dashboard header to fix layout shifts on small screens (added `shrink-0`, improved touch targets, and resolved text overlap).
+- [x] **Live Launch:** The application is now live, secure (HTTPS), and fully functional with the **One‑Click Recruiter Demo**.
+
+
+## 📅 Day 14–15 [February 5–6, 2026] — Guest Mode, Demo Stability & Dashboard Enhancements (Phase 11 - Part A)
 
 ### Accomplishments:
 
