@@ -19,41 +19,20 @@ To make it easy to explore without creating an account:
 3. The system will automatically generate a secure guest account, populate it with realistic demo data, and log you in instantly.
 
 ---
-
-## 📸 Interface Preview
-
-**The Dashboard (Desktop):**
-## 📸 Interface Preview
-
-**The Dashboard (Desktop):**
-![Dashboard Screenshot](https://github.com/user-attachments/assets/78ad3f3b-af1c-438c-b225-1b8c438d26db)
-
-**Invoice Management (Glassmorphism UI):**
-![Invoice Screenshot](https://github.com/user-attachments/assets/c4516996-a38a-4db3-b261-82263707ae6d)
-
-**Financial Insights (Mobile View):**
-![Mobile View Screenshot](https://github.com/user-attachments/assets/9515caec-f144-4450-89af-2279261792fb)
-
-
 ## 📸 Interface Preview
 
 <p align="center">
-  <b>The Dashboard (Desktop)</b><br>
-  <img src="https://github.com/user-attachments/assets/78ad3f3b-af1c-438c-b225-1b8c438d26db" width="800" alt="Dashboard Desktop">
+  <b>Main Analytics Dashboard (Desktop)</b><br>
+  <img src="https://github.com/user-attachments/assets/78ad3f3b-af1c-438c-b225-1b8c438d26db" width="850" alt="Dashboard Desktop">
 </p>
 
 <br>
 
 <p align="center">
-  <b>Invoice Management </b><br>
-  <img src="https://github.com/user-attachments/assets/c4516996-a38a-4db3-b261-82263707ae6d" width="450" alt="Invoice Detail">
-</p>
-
-<br>
-
-<p align="center">
-  <b>Financial Insights (Mobile View)</b><br>
-  <img src="https://github.com/user-attachments/assets/9515caec-f144-4450-89af-2279261792fb" width="300" alt="Mobile View">
+  <b>Invoice Management & Financial Insights (Mobile)</b><br>
+  <img src="https://github.com/user-attachments/assets/c4516996-a38a-4db3-b261-82263707ae6d" width="450" alt="Invoice Detail" style="vertical-align: middle;">
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://github.com/user-attachments/assets/9515caec-f144-4450-89af-2279261792fb" width="250" alt="Mobile View" style="vertical-align: middle;">
 </p>
 
 ---
