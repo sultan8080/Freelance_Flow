@@ -29,8 +29,9 @@ class InvoiceItemType extends AbstractType
                 'label' => 'Quantity',
                 'required' => true,
                 'html5' => true,
-                'scale' => 2,
                 'attr' => [
+                    'min' => 1,
+                    'step' => 1,
                     'placeholder' => '1',
                     'class' => 'w-full bg-transparent border-0 border-b border-slate-200 focus:ring-0 focus:border-primary px-2 py-2 text-sm text-right transition-colors'
                 ]
