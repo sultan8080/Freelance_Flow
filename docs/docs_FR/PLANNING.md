@@ -120,10 +120,10 @@ _Objectif : Une application fonctionnelle pour gérer, calculer et éditer des f
 
 ### C. Documentation
 
-- [ ] **Mise à jour du README :**
-- Ajouter le lien **LIVE DEMO** en haut du fichier.
-- Inclure 1–2 captures d’écran du tableau de bord.
-- Ajouter une liste claire des fonctionnalités réalisées (Phases 1–10).
+- [x] **Mise à jour du README :**
+- [x] Ajouter le lien **LIVE DEMO** en haut du fichier.
+- [x] Inclure 1–2 captures d’écran du tableau de bord.
+- [x] Ajouter une liste claire des fonctionnalités réalisées (Phases 1–10).
 
 ---
 

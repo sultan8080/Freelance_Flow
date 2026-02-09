@@ -118,10 +118,10 @@ _Goal: A functional app to manage, calculate, and export invoices._
 
 ### C. Documentation
 
-- [ ] **README Update:**
-- Add the **LIVE DEMO** link at the top.
-- Include 1–2 dashboard screenshots.
-- Add a clean feature list summarizing Phases 1–10.
+- [x] **README Update:**
+- [x] Add the **LIVE DEMO** link at the top.
+- [x] Include 1–2 dashboard screenshots.
+- [x] Add a clean feature list summarizing Phases 1–10.
 
 ---
 

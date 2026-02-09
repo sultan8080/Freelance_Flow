@@ -1,7 +1,7 @@
 # Freelance Lucid 
 
-[![Symfony 7](https://img.shields.io/badge/Symfony-7.0-black?style=for-the-badge&logo=symfony)](https://symfony.com)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v3.4-38bdf8?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com)
+[![Symfony 7](https://img.shields.io/badge/Symfony-7.4-black?style=for-the-badge&logo=symfony)](https://symfony.com)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4.1.11-38bdf8?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com)
 [![MariaDB](https://img.shields.io/badge/MariaDB-Database-brown?style=for-the-badge&logo=mariadb)](https://mariadb.org)
 [![Live Demo](https://img.shields.io/badge/🟢_Live_Demo-Online-success?style=for-the-badge)](https://freelance-lucid.alwaysdata.net/)
 
