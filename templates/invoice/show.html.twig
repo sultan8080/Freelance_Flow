@@ -6,17 +6,16 @@
 
 {% block dashboard_content %}
 	<div
-		class="max-w-6xl mx-auto">
+		class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
 		{# --- 1. Actions Header --- #}
-		<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-6">
-			<a href="{{ path('app_invoice_index') }}" class="text-slate-400 hover:text-white transition-colors inline-flex items-center group gap-3 text-sm font-medium">
-				<div class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-white/10 group-hover:border-white/20 transition-all shadow-lg shadow-black/20">
-					<i class="fas fa-arrow-left text-xs group-hover:-translate-x-0.5 transition-transform"></i>
-				</div>
-				<span>{{ 'Back to Invoices'|trans }}</span>
-			</a>
 
+		<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-6">
+
+			<a href="{{ path('app_invoice_index') }}" class="text-slate-400 font-bold block hover:text-primary">
+				<i class="fas fa-arrow-left mr-2"></i>
+				{{ 'Back to list'|trans }}
+			</a>
 			<div class="flex gap-4 w-full md:w-auto">
 				{% if invoice.status == 'DRAFT' %}
 					<a href="{{ path('app_invoice_edit', {id: invoice.id}) }}" class="group relative flex-1 md:flex-none justify-center inline-flex items-center px-6 py-3 rounded-xl overflow-hidden shadow-xl shadow-blue-500/20 transition-all hover:scale-[1.02]">
@@ -36,223 +35,249 @@
 			</div>
 		</div>
 
-		{# --- 2. Invoice Glass Card --- #}
-		<div class="glass-card p-10 md:p-14 rounded-3xl border border-white/10 relative overflow-hidden bg-[#0f172a]/60 backdrop-blur-2xl shadow-2xl print:shadow-none print:border-none print:p-0 print:bg-white print:text-black">
+		{# --- 2. Invoice Card --- #}
 
-			<div class="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[100px] -z-10 pointer-events-none print:hidden"></div>
-			<div class="absolute bottom-0 left-0 w-[300px] h-[300px] bg-purple-500/10 rounded-full blur-[80px] -z-10 pointer-events-none print:hidden"></div>
+		<div
+			class="relative w-full rounded-3xl border border-slate-800 bg-slate-900/50 backdrop-blur-xl shadow-2xl overflow-hidden print:shadow-none print:border-none print:bg-white print:p-0 print:overflow-visible">
+			<div class="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl -z-10 pointer-events-none print:hidden"></div>
+			<div class="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl -z-10 pointer-events-none print:hidden"></div>
 
-			{# --- Header Section --- #}
-			<div class="flex flex-col md:flex-row justify-between items-start border-b border-white/5 pb-10 mb-10 gap-10">
-
-				<div class="flex flex-col gap-4">
-					<div class="flex items-center gap-5">
-						<h1 class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 tracking-tight print:text-black print:bg-none">{{ 'INVOICE'|trans }}</h1>
-
-						{# Status Badge #}
-						{% set badgeClass = 'bg-slate-500/10 text-slate-400 border-slate-500/20 shadow-slate-500/5' %}
-						{% if invoice.status == 'SENT' %}
-							{% set badgeClass = 'bg-blue-500/10 text-blue-400 border-blue-500/20 shadow-blue-500/10' %}
-						{% elseif invoice.status == 'PAID' %}
-							{% set badgeClass = 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20 shadow-emerald-500/10' %}
-						{% elseif invoice.status == 'UNPAID' %}
-							{% set badgeClass = 'bg-amber-500/10 text-amber-400 border-amber-500/20 shadow-amber-500/10' %}
-						{% endif %}
-
-						<span class="px-4 py-1.5 rounded-lg text-xs font-bold uppercase tracking-widest border shadow-lg backdrop-blur-md {{ badgeClass }} print:border-black print:text-black print:shadow-none">
-							{{ invoice.status|trans }}
-						</span>
-					</div>
-
-					{% if invoice.projectTitle %}
-						<div class="inline-flex items-center text-slate-300 text-sm font-medium bg-white/[0.03] px-4 py-2 rounded-xl border border-white/5 w-fit shadow-inner print:border-gray-300 print:text-black">
-							<i class="fas fa-folder-open mr-2.5 text-blue-400"></i>
-							{{ invoice.projectTitle }}
-						</div>
-					{% endif %}
-				</div>
-
-				<div class="w-full md:w-auto bg-white/[0.02] rounded-2xl p-6 border border-white/5 shadow-xl print:bg-gray-50 print:border-gray-200 print:shadow-none">
-					<div class="flex flex-col md:flex-row gap-8 md:gap-10">
-						<div class="md:text-right border-b md:border-b-0 md:border-r border-white/10 pb-4 md:pb-0 md:pr-10 last:border-0 last:pr-0 print:border-gray-300">
-							<div class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.15em] mb-1.5">{{ 'Invoice No'|trans }}</div>
-							<div class="text-white font-bold text-xl leading-none font-mono tracking-wide print:text-black">#{{ invoice.invoiceNumber|default('DRAFT'|trans) }}</div>
-						</div>
-						<div class="md:text-right border-b md:border-b-0 md:border-r border-white/10 pb-4 md:pb-0 md:pr-10 last:border-0 last:pr-0 print:border-gray-300">
-							<div class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.15em] mb-1.5">{{ 'Issue Date'|trans }}</div>
-							<div class="text-slate-200 font-medium leading-none print:text-black">{{ invoice.sentAt ? invoice.sentAt|date('d M Y') : 'Draft'|trans }}</div>
-						</div>
-						<div class="md:text-right">
-							<div class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.15em] mb-1.5">{{ 'Due Date'|trans }}</div>
-							<div class="text-white font-bold text-lg leading-none {{ invoice.isOverdue ? 'text-red-400' : '' }} print:text-black">
-								{{ invoice.dueDate ? invoice.dueDate|date('d M Y') : '-' }}
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			{# --- Addresses Section --- #}
-			<div class="grid grid-cols-1 md:grid-cols-2 gap-16 mb-16">
-				<div class="space-y-5">
-					<h3 class="flex items-center text-xs font-bold text-blue-400 uppercase tracking-[0.2em] mb-3 border-b border-white/5 pb-3">
-						<span class="w-1.5 h-1.5 rounded-full bg-blue-500 mr-3"></span>
-						{{ 'From'|trans }}
-					</h3>
-					<div class="pl-2 border-l-2 border-white/5">
-						<div class="text-white font-bold text-xl mb-1 print:text-black">
-							{{ app.user.companyName|default(app.user.firstName ~ ' ' ~ app.user.lastName) }}
-						</div>
-
-						{% if app.user.companyName is defined and app.user.companyName %}
-							<div class="text-slate-400 font-medium text-sm mb-3 print:text-black">{{ app.user.firstName }}
-								{{ app.user.lastName }}</div>
-						{% endif %}
-
-						<div class="text-slate-400 text-sm leading-relaxed whitespace-pre-line font-light print:text-black">
-							{{ app.user.address|default('No address defined'|trans) }}
-							{{ app.user.postCode|default('') }}
-							{{ app.user.city|default('') }}
-							{{ app.user.country|default('') }}
-						</div>
-						<div class="text-slate-400 text-sm mt-2 print:text-black">{{ app.user.email }}</div>
-
-						<div class="mt-5 pt-4 border-t border-dashed border-white/10 print:border-gray-300">
-							<div class="text-[10px] text-slate-500 uppercase tracking-wider font-bold mb-1">{{ 'Legal Information'|trans }}</div>
-							<div class="text-slate-400 text-xs font-mono bg-white/[0.03] px-2 py-1.5 rounded-lg border border-white/5 inline-block print:text-black print:bg-transparent print:border-none print:p-0">
-								SIRET:
-								{{ app.user.siret|default('---') }}
-								<span class="mx-2 text-slate-600">|</span>
-								VAT:
-								{{ app.user.vatNumber|default('N/A') }}
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="space-y-5 md:text-right">
-					<h3 class="flex items-center md:justify-end text-xs font-bold text-purple-400 uppercase tracking-[0.2em] mb-3 border-b border-white/5 pb-3">
-						{{ 'Bill To'|trans }}
-						<span class="w-1.5 h-1.5 rounded-full bg-purple-500 ml-3"></span>
-					</h3>
-
-					{% set clientName = invoice.frozenClientName ?: (invoice.client ? invoice.client.fullName : 'No Client Selected'|trans) %}
-					{% set clientCompany = invoice.frozenClientCompanyName ?: (invoice.client ? invoice.client.companyName : '') %}
-					{% set clientAddress = invoice.frozenClientAddress ?: (invoice.client ? invoice.client.address ~ ', ' ~ invoice.client.city : '') %}
-
-					<div class="pr-2 border-r-2 border-white/5 md:border-l-0 md:pl-0 pl-2 md:border-r-2">
-						<div class="text-white font-bold text-xl mb-1 print:text-black">{{ clientName }}</div>
-						{% if clientCompany %}
-							<div class="text-slate-400 font-medium text-sm mb-3 print:text-black">{{ clientCompany }}</div>
-						{% endif %}
-
-						{% if clientAddress %}
-							<div class="text-slate-400 text-sm leading-relaxed whitespace-pre-line font-light print:text-black">{{ clientAddress }}</div>
-						{% else %}
-							<div class="text-red-400 text-xs italic mt-1 print:text-black">{{ 'No address provided'|trans }}</div>
-						{% endif %}
-					</div>
-				</div>
-			</div>
-
-			{# --- Items Table --- #}
-			<div class="overflow-hidden rounded-2xl border border-white/10 mb-10 shadow-2xl bg-black/20 print:border-gray-300 print:shadow-none print:bg-transparent">
-				<table class="w-full text-left">
-					<thead class="bg-white/[0.03] border-b border-white/5 print:bg-gray-100 print:border-gray-300">
-						<tr>
-							<th class="px-8 py-5 text-xs font-bold text-slate-400 uppercase tracking-[0.1em] print:text-black">{{ 'Description'|trans }}</th>
-							<th class="px-8 py-5 text-right text-xs font-bold text-slate-400 uppercase tracking-[0.1em] print:text-black">{{ 'Qty'|trans }}</th>
-							<th class="px-8 py-5 text-right text-xs font-bold text-slate-400 uppercase tracking-[0.1em] print:text-black">{{ 'Price'|trans }}</th>
-							<th class="px-8 py-5 text-right text-xs font-bold text-slate-400 uppercase tracking-[0.1em] print:text-black">{{ 'Total'|trans }}</th>
-						</tr>
-					</thead>
-					<tbody class="divide-y divide-white/5 text-sm text-slate-300 print:text-black print:divide-gray-200">
-						{% for item in invoice.invoiceItems %}
-							<tr class="hover:bg-white/[0.02] transition-colors">
-								<td class="px-8 py-5 font-medium text-white print:text-black">{{ item.description }}</td>
-								<td class="px-8 py-5 text-right text-slate-400 font-mono">{{ item.quantity }}</td>
-								<td class="px-8 py-5 text-right text-slate-400 font-mono">{{ item.unitPrice|number_format(2) }}</td>
-								<td class="px-8 py-5 text-right font-bold text-white font-mono print:text-black">{{ item.totalHt|number_format(2) }}</td>
-							</tr>
-						{% else %}
-							<tr>
-								<td colspan="4" class="px-8 py-10 text-center text-slate-500 italic">{{ 'No items added to this invoice.'|trans }}</td>
-							</tr>
-						{% endfor %}
-					</tbody>
-				</table>
-			</div>
-
-			{# --- Totals & Private Insights --- #}
 			<div
-				class="flex flex-col md:flex-row justify-end gap-8 items-start">
+				class="p-8 md:p-12 print:p-0">
 
-				{# PRIVATE INSIGHTS (Amber Glass - Hidden on Print) #}
-				<div class="print:hidden w-full md:w-auto order-2 md:order-1 mt-4 md:mt-0">
-					<div class="rounded-2xl bg-gradient-to-br from-amber-500/5 to-orange-500/5 border border-amber-500/10 p-6 flex flex-col gap-6 shadow-[0_0_30px_rgba(245,158,11,0.05)] backdrop-blur-md">
+				{# --- Header Section --- #}
+				<div
+					class="flex flex-col md:flex-row justify-between items-start border-b border-slate-800/50 pb-8 mb-8 gap-8 print:border-gray-200">
+
+					{# Left: Title & Status #}
+					<div class="space-y-4">
 						<div class="flex items-center gap-4">
-							<div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500 shadow-inner">
-								<i class="fas fa-eye-slash"></i>
-							</div>
-							<div>
-								<h3 class="text-amber-200 font-bold text-xs uppercase tracking-widest">{{ 'Private Insight'|trans }}</h3>
-								<p class="text-amber-500/60 text-[10px] mt-0.5">{{ 'Net earnings estimate'|trans }}</p>
-							</div>
+							<h1 class="text-3xl md:text-4xl font-black text-white tracking-tight print:text-black">
+								{{ 'INVOICE'|trans }}
+							</h1>
+
+							{# Dynamic Status Badge #}
+							{% set badgeColors = {
+                                'SENT': 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+                                'PAID': 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
+                                'UNPAID': 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+                                'DRAFT': 'bg-slate-500/10 text-slate-400 border-slate-500/20'
+                            } %}
+							{% set currentBadge = badgeColors[invoice.status] ?? badgeColors['DRAFT'] %}
+
+							<span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border {{ currentBadge }} print:border-black print:text-black print:bg-transparent">
+								{{ invoice.status|trans }}
+							</span>
 						</div>
 
-						<div class="flex items-center gap-10 pt-4 border-t border-amber-500/10">
+						{% if invoice.projectTitle %}
+							<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800/50 border border-slate-700/50 text-slate-300 text-sm font-medium print:bg-gray-100 print:border-gray-200 print:text-black">
+								<i class="fas fa-folder-open text-blue-400/80"></i>
+								{{ invoice.projectTitle }}
+							</div>
+						{% endif %}
+					</div>
+
+					{# Right: Metadata Grid #}
+					<div class="w-full md:w-auto bg-slate-800/30 rounded-2xl p-5 border border-slate-700/30 print:bg-transparent print:border-none print:p-0">
+						<div class="grid grid-cols-3 md:flex md:gap-8 divide-x divide-slate-700/50 print:divide-none">
+							<div class="px-4 first:pl-0 md:text-right">
+								<p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">{{ 'Invoice No'|trans }}</p>
+								<p class="text-white font-mono font-bold text-lg print:text-black">#{{ invoice.invoiceNumber|default('DRAFT'|trans) }}</p>
+							</div>
+							<div class="px-4 md:text-right">
+								<p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">{{ 'Issue Date'|trans }}</p>
+								<p class="text-slate-200 font-medium print:text-black">{{ invoice.sentAt ? invoice.sentAt|date('d M Y') : 'Draft'|trans }}</p>
+							</div>
+							<div class="px-4 last:pr-0 md:text-right">
+								<p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">{{ 'Due Date'|trans }}</p>
+								<p class="font-bold {{ invoice.isOverdue ? 'text-red-400' : 'text-white' }} print:text-black">
+									{{ invoice.dueDate ? invoice.dueDate|date('d M Y') : '-' }}
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				{# --- Addresses Section --- #}
+				<div
+					class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+					{# From #}
+					<div>
+						<h3 class="flex items-center text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">
+							<span class="w-1.5 h-1.5 rounded-full bg-blue-500 mr-2"></span>
+							{{ 'From'|trans }}
+						</h3>
+						<div class="pl-4 border-l-2 border-slate-800 print:border-gray-300">
+							<div class="text-white font-bold text-lg print:text-black">
+								{{ app.user.companyName|default(app.user.firstName ~ ' ' ~ app.user.lastName) }}
+							</div>
+							{% if app.user.companyName is defined and app.user.companyName %}
+								<div class="text-slate-400 text-sm mb-2 print:text-black">{{ app.user.firstName }}
+									{{ app.user.lastName }}</div>
+							{% endif %}
+
+							<div class="text-slate-400 text-sm whitespace-pre-line font-light leading-relaxed print:text-black">
+								{{ app.user.address|default('No address defined'|trans) }}
+								{{ app.user.postCode|default('') }}
+								{{ app.user.city|default('') }}
+								{{ app.user.country|default('') }}
+							</div>
+							<div class="text-slate-500 text-sm mt-1 print:text-black">{{ app.user.email }}</div>
+
+							{# Legal Info #}
+							<div class="mt-4 pt-3 border-t border-dashed border-slate-800 print:border-gray-300">
+								<div class="text-[10px] text-slate-500 font-mono">
+									SIRET:
+									<span class="text-slate-300 print:text-black">{{ app.user.siret|default('---') }}</span>
+									<span class="mx-2 text-slate-700">|</span>
+									VAT:
+									<span class="text-slate-300 print:text-black">{{ app.user.vatNumber|default('N/A') }}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					{# Bill To #}
+					<div class="md:text-right">
+						<h3 class="flex items-center md:justify-end text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">
+							{{ 'Bill To'|trans }}
+							<span class="w-1.5 h-1.5 rounded-full bg-purple-500 ml-2"></span>
+						</h3>
+
+						{% set clientName = invoice.frozenClientName ?: (invoice.client ? invoice.client.fullName : 'No Client Selected'|trans) %}
+						{% set clientCompany = invoice.frozenClientCompanyName ?: (invoice.client ? invoice.client.companyName : '') %}
+						{% set clientAddress = invoice.frozenClientAddress ?: (invoice.client ? invoice.client.address ~ ', ' ~ invoice.client.city : '') %}
+
+						<div class="pr-4 border-r-2 border-slate-800 md:pl-0 md:border-l-0 border-l-2 pl-4 md:border-r-2 print:border-gray-300">
+							<div class="text-white font-bold text-lg print:text-black">{{ clientName }}</div>
+							{% if clientCompany %}
+								<div class="text-slate-400 text-sm mb-2 print:text-black">{{ clientCompany }}</div>
+							{% endif %}
+
+							{% if clientAddress %}
+								<div class="text-slate-400 text-sm whitespace-pre-line font-light leading-relaxed print:text-black">{{ clientAddress }}</div>
+							{% else %}
+								<div class="text-red-400/80 text-xs italic mt-1">{{ 'No address provided'|trans }}</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+
+				{# --- Items Table --- #}
+				<div class="rounded-xl border border-slate-800 overflow-hidden mb-8 print:border-gray-300">
+					<table class="w-full text-left">
+						<thead class="bg-slate-900/50 border-b border-slate-800 print:bg-gray-100 print:border-gray-300">
+							<tr>
+								<th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-wider print:text-black">{{ 'Description'|trans }}</th>
+								<th class="px-6 py-4 text-right text-xs font-bold text-slate-400 uppercase tracking-wider print:text-black">{{ 'Qty'|trans }}</th>
+								<th class="px-6 py-4 text-right text-xs font-bold text-slate-400 uppercase tracking-wider print:text-black">{{ 'Price'|trans }}</th>
+								<th class="px-6 py-4 text-right text-xs font-bold text-slate-400 uppercase tracking-wider print:text-black">{{ 'Total'|trans }}</th>
+							</tr>
+						</thead>
+						<tbody class="divide-y divide-slate-800 text-sm print:divide-gray-200">
+							{% for item in invoice.invoiceItems %}
+								<tr class="group hover:bg-slate-800/30 transition-colors">
+									<td class="px-6 py-4 font-medium text-slate-200 print:text-black">{{ item.description }}</td>
+									<td class="px-6 py-4 text-right text-slate-400 font-mono print:text-black">{{ item.quantity }}</td>
+									<td class="px-6 py-4 text-right text-slate-400 font-mono print:text-black">{{ item.unitPrice|number_format(2) }}</td>
+									<td class="px-6 py-4 text-right font-bold text-white font-mono print:text-black">{{ item.totalHt|number_format(2) }}</td>
+								</tr>
+							{% else %}
+								<tr>
+									<td colspan="4" class="px-6 py-8 text-center text-slate-500 italic">
+										{{ 'No items added to this invoice.'|trans }}
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+
+				{# --- Totals & Insights --- #}
+				<div
+					class="flex flex-col md:flex-row justify-end gap-8 items-start">
+
+					{# PRIVATE INSIGHTS (Hidden on Print) #}
+					<div class="w-full md:w-auto order-2 md:order-1 mt-4 md:mt-0 print:hidden">
+						<div class="rounded-xl bg-amber-500/5 border border-amber-500/10 p-5 backdrop-blur-sm">
+							<div class="flex items-center gap-3 mb-4">
+								<div class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-500">
+									<i class="fas fa-eye-slash text-xs"></i>
+								</div>
+								<div class="flex flex-col">
+									<h4 class="text-amber-200 font-bold text-xs uppercase tracking-widest mb-1">
+										{{ 'Private Insight'|trans }}
+									</h4>
+
+									<p class="text-amber-500/80 text-[11px] font-medium leading-tight">
+										{{ 'Net earnings estimate'|trans }}
+									</p>
+
+									<p class="text-amber-500/50 text-[10px] italic leading-tight mt-0.5">
+										<i class="fas fa-info-circle mr-1"></i>
+										{{ 'Not included in PDF'|trans }}
+									</p>
+								</div>
+
+							</div>
+							<div class="flex items-center gap-6 border-t border-amber-500/10 pt-3">
+								<div class="text-right">
+									<div class="text-[10px] uppercase text-amber-500/50 font-bold">{{ 'Est. URSSAF'|trans }}</div>
+									<div class="text-red-400 font-mono font-bold">{{ invoice.urssafEstimate|number_format(2) }}€</div>
+								</div>
+								<div class="text-right pl-6 border-l border-amber-500/10">
+									<div class="text-[10px] uppercase text-amber-500/50 font-bold">{{ 'Net Income'|trans }}</div>
+									<div class="text-emerald-400 font-mono font-bold text-lg">{{ invoice.netEstimate|number_format(2) }}€</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					{# PUBLIC TOTALS #}
+					<div class="w-full md:w-1/3 order-1 md:order-2 space-y-3">
+						<div class="flex justify-between items-center text-sm">
+							<span class="text-slate-400 font-medium print:text-black">{{ 'Subtotal (HT)'|trans }}</span>
+							<span class="font-mono text-slate-200 font-bold print:text-black">{{ invoice.totalHt|number_format(2) }}
+								{{ invoice.currency }}</span>
+						</div>
+						<div class="flex justify-between items-center text-sm">
+							<span class="text-slate-400 font-medium print:text-black">{{ 'VAT Amount'|trans }}</span>
+							<span class="font-mono text-slate-200 font-bold print:text-black">{{ invoice.totalVat|number_format(2) }}
+								{{ invoice.currency }}</span>
+						</div>
+
+						<div class="mt-4 pt-4 border-t border-slate-700 flex justify-between items-center print:border-gray-300">
+							<span class="text-white font-bold text-lg print:text-black">{{ 'Total Amount'|trans }}</span>
 							<div class="text-right">
-								<div class="text-[10px] uppercase tracking-wider font-bold text-amber-500/50 mb-1">{{ 'Est. URSSAF'|trans }}</div>
-								<div class="text-red-400/90 font-bold text-lg font-mono">{{ invoice.urssafEstimate|number_format(2) }}€</div>
-							</div>
-							<div class="text-right pl-6 border-l border-amber-500/10">
-								<div class="text-[10px] uppercase tracking-wider font-bold text-amber-500/50 mb-1">{{ 'Net Income'|trans }}</div>
-								<div class="text-emerald-400 font-black text-2xl font-mono tracking-tight drop-shadow-sm">{{ invoice.netEstimate|number_format(2) }}€</div>
+								<span class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 font-mono tracking-tight print:text-black print:bg-none">
+									{{ invoice.totalAmount|number_format(2) }}
+								</span>
+								<span class="text-sm text-slate-500 font-bold ml-1 print:text-black">{{ invoice.currency }}</span>
 							</div>
 						</div>
+
+						{% if invoice.totalVat == 0 %}
+							<div class="text-right text-xs text-slate-500 italic mt-2">
+								{{ 'TVA non applicable, art. 293 B du CGI' }}
+							</div>
+						{% endif %}
 					</div>
 				</div>
 
-				{# Invoice Totals #}
-				<div class="w-full md:w-5/12 lg:w-4/12 space-y-4 order-1 md:order-2 bg-white/[0.02] p-6 rounded-2xl border border-white/5 print:bg-transparent print:border-none print:p-0">
-					<div class="flex justify-between text-slate-400 text-sm px-2 print:text-black">
-						<span class="font-medium">{{ 'Subtotal (HT)'|trans }}</span>
-						<span class="font-mono text-slate-200 font-bold print:text-black">{{ invoice.totalHt|number_format(2) }}
-							{{ invoice.currency }}</span>
-					</div>
-					<div class="flex justify-between text-slate-400 text-sm px-2 print:text-black">
-						<span class="font-medium">{{ 'VAT Amount'|trans }}</span>
-						<span class="font-mono text-slate-200 font-bold print:text-black">{{ invoice.totalVat|number_format(2) }}
-							{{ invoice.currency }}</span>
-					</div>
-
-					<div class="mt-6 pt-5 border-t border-white/10 flex justify-between items-center px-2 print:border-gray-300">
-						<span class="text-white font-bold text-lg tracking-wide print:text-black">{{ 'Total Amount'|trans }}</span>
-						<span class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 tracking-tight font-mono print:text-black print:bg-none">
-							{{ invoice.totalAmount|number_format(2) }}
-							<span class="text-lg text-slate-500 font-bold ml-1 print:text-black">{{ invoice.currency }}</span>
-						</span>
-					</div>
-
-					{% if invoice.totalVat == 0 %}
-						<div class="text-right text-sm text-slate-500 mt-2 italic px-2 border-t border-white/5 pt-3">
-							{{ 'TVA non applicable, art. 293 B du CGI'}}
+				{# --- Paid Stamp --- #}
+				{% if invoice.paidAt %}
+					<div class="mt-12 p-4 bg-emerald-500/5 border border-emerald-500/10 rounded-xl flex items-center justify-center gap-3 print:hidden">
+						<div class="w-8 h-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400">
+							<i class="fas fa-check text-xs"></i>
 						</div>
-					{% endif %}
-				</div>
+						<p class="text-emerald-300 text-sm font-medium">
+							{{ 'This invoice was fully paid on %date%'|trans({'%date%': '<span class="text-white font-bold">' ~ invoice.paidAt|date('d F Y') ~ '</span>'})|raw }}
+						</p>
+					</div>
+				{% endif %}
+
 			</div>
-
-			{% if invoice.paidAt %}
-				<div class="mt-16 p-5 bg-emerald-500/5 border border-emerald-500/10 rounded-2xl flex items-center justify-center gap-4 print:hidden backdrop-blur-sm shadow-[0_0_30px_rgba(16,185,129,0.05)]">
-					<div class="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400 shadow-inner">
-						<i class="fas fa-check"></i>
-					</div>
-					<div class="text-emerald-300 font-medium">
-						{{ 'This invoice was fully paid on %date%'|trans({'%date%': '<span class="font-bold text-white ml-1">' ~ invoice.paidAt|date('d F Y') ~ '</span>'})|raw }}
-					</div>
-				</div>
-			{% endif %}
-
 		</div>
 	</div>
 {% endblock %}

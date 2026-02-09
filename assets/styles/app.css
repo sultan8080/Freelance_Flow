@@ -39,7 +39,38 @@
     .perspective-1000 {
         perspective: 1000px;
     }
+    /* form */
+    .glass-panel {
+        @apply bg-slate-900/60 backdrop-blur-xl border border-white/10 shadow-2xl shadow-black/20;
+    }
 
+    .glass-input {
+        @apply bg-slate-950/40 border border-white/5 text-white placeholder-slate-500 
+           focus:bg-slate-900/60 focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 
+           transition-all duration-300 outline-none;
+    }
+
+
+    .gradient-border-bottom {
+        @apply relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-full 
+           after:bg-gradient-to-r after:from-transparent after:via-blue-500/50 after:to-transparent;
+    }
+
+ 
+    .ambient-glow-purple {
+        background: radial-gradient(
+            circle,
+            rgba(147, 51, 234, 0.15) 0%,
+            rgba(0, 0, 0, 0) 70%
+        );
+    }
+    .ambient-glow-blue {
+        background: radial-gradient(
+            circle,
+            rgba(59, 130, 246, 0.15) 0%,
+            rgba(0, 0, 0, 0) 70%
+        );
+    }
     .bg-grid {
         background-size: 40px 40px;
         background-image:

@@ -1,35 +1,39 @@
 {% set is_locked = form.client.vars.disabled %}
 
-{{ form_start(form) }}
+{{ form_start(form, {'attr': {'class': 'relative z-10'}}) }}
+
+{# --- AMBIENT LIGHTING EFFECTS --- #}
+<div class="absolute -top-20 -left-20 w-96 h-96 bg-blue-600/20 rounded-full blur-[100px] pointer-events-none -z-10"></div>
+<div class="absolute tp-40 right-0 w-80 h-80 bg-purple-600/20 rounded-full blur-[100px] pointer-events-none -z-10"></div>
 
 {# --- 1. LOCKED STATUS NOTICE --- #}
 {% if is_locked %}
-	<div class="bg-amber-500/10 border border-amber-500/20 rounded-2xl p-6 mb-8 shadow-lg relative overflow-hidden backdrop-blur-md">
-		<div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/20 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+	<div class="glass-panel rounded-2xl p-1 mb-8 overflow-hidden relative group">
+		<div class="absolute inset-0 bg-gradient-to-r from-amber-500/20 via-transparent to-amber-500/20 opacity-50"></div>
 
-		<div class="flex flex-col md:flex-row gap-6 items-center relative z-10">
+		<div class="bg-slate-900/80 p-6 rounded-xl relative z-10 flex flex-col md:flex-row gap-6 items-center">
 			<div class="flex-1">
-				<h2 class="text-amber-400 font-bold text-lg flex items-center gap-2">
-					<i class="fas fa-lock"></i>
+				<h2 class="text-amber-400 font-bold text-lg flex items-center gap-3 drop-shadow-md">
+					<div class="p-2 rounded-lg bg-amber-500/10 border border-amber-500/20 shadow-[0_0_15px_rgba(245,158,11,0.2)]">
+						<i class="fas fa-lock"></i>
+					</div>
 					{{ 'Restricted Editing'|trans }}
 				</h2>
-				<p class="text-amber-200/80 text-sm mt-1">
+				<p class="text-slate-400 text-sm mt-2 leading-relaxed">
 					{{ 'This invoice is finalized.'|trans }}
-					<br>{{ 'Changing status to'|trans }}
-					<strong class="text-amber-100">{{ 'PAID'|trans }}</strong>
-					{{ 'will automatically set the payment date to'|trans }}
-					<strong class="text-amber-100">{{ 'Today'|trans }}</strong>.
+					{{ 'Changing status to'|trans }}
+					<strong class="text-amber-300 font-medium">{{ 'PAID'|trans }}</strong>
+					{{ 'sets payment date to'|trans }}
+					<strong class="text-amber-300 font-medium">{{ 'Today'|trans }}</strong>.
 				</p>
 			</div>
 
-			<div class="w-full md:w-auto bg-black/20 p-4 rounded-xl border border-amber-500/20 backdrop-blur-sm">
+			<div class="w-full md:w-auto bg-black/40 p-4 rounded-xl border border-amber-500/10">
 				<div class="w-full sm:w-64">
-					{{ form_label(form.status, 'Update Status'|trans, {'label_attr': {'class': 'block text-xs font-bold text-amber-400 uppercase mb-1'}}) }}
-
-					{# Update Status Dropdown #}
+					{{ form_label(form.status, 'Update Status'|trans, {'label_attr': {'class': 'block text-[10px] font-bold text-amber-500/70 uppercase tracking-widest mb-2'}}) }}
 					{{ form_widget(form.status, {
                         'attr': {
-                            'class': 'w-full rounded-xl border border-amber-500/30 bg-slate-900 text-amber-100 focus:ring-1 focus:ring-amber-500/50 focus:border-amber-500/50 transition-all [&>option]:bg-slate-900'
+                            'class': 'w-full rounded-lg border border-amber-500/30 bg-slate-900 text-amber-100 focus:ring-1 focus:ring-amber-500/50 focus:border-amber-500/50 transition-all [&>option]:bg-slate-900 h-10'
                         }
                     }) }}
 				</div>
@@ -39,66 +43,68 @@
 {% endif %}
 
 {# --- 2. MAIN FORM CONTENT --- #}
-<div class="{{ is_locked ? 'opacity-75 grayscale-[0.5] pointer-events-none select-none' : '' }} transition-all" data-controller="invoice-summary" data-action="form-collection:collection-changed->invoice-summary#recalculate">
+<div class="{{ is_locked ? 'opacity-60 grayscale-[0.8] pointer-events-none select-none' : '' }} transition-all duration-500" data-controller="invoice-summary" data-action="form-collection:collection-changed->invoice-summary#recalculate">
 
 	<div
 		class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
 
 		{# Client Details Card #}
-		<div class="glass-card p-6 rounded-2xl border border-white/10 relative overflow-hidden">
-			<h3 class="text-white font-bold mb-6 flex items-center gap-2 border-b border-white/5 pb-4">
-				<div class="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400">
-					<i class="fas fa-user-circle"></i>
+		<div class="glass-panel rounded-2xl p-8 relative overflow-hidden gradient-border-bottom">
+			<div class="flex items-center gap-4 mb-8">
+				<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 flex items-center justify-center text-blue-400 border border-blue-500/20 shadow-[0_0_15px_rgba(59,130,246,0.15)]">
+					<i class="fas fa-user-circle text-lg"></i>
 				</div>
-				{{ 'Client Details'|trans }}
-			</h3>
-
-			<div class="mb-5">
-				{{ form_label(form.client, 'Select Client'|trans, {'label_attr': {'class': 'block text-xs font-bold text-slate-400 uppercase mb-2 ml-1'}}) }}
-				{{ form_widget(form.client, {
-                    'attr': {
-                        'class': 'w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all [&>option]:bg-slate-900 [&>option]:text-white cursor-pointer hover:bg-white/10'
-                    }
-                }) }}
-				{{ form_errors(form.client) }}
+				<h3 class="text-white font-bold text-lg tracking-wide">{{ 'Client Details'|trans }}</h3>
 			</div>
 
-			<div class="mb-5">
-				{{ form_label(form.projectTitle, 'Project / Reference'|trans, {'label_attr': {'class': 'block text-xs font-bold text-slate-400 uppercase mb-2 ml-1'}}) }}
-				{{ form_widget(form.projectTitle, {
-                    'attr': {
-                        'class': 'w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white placeholder-slate-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all'
-                    }
-                }) }}
-			</div>
-
-			{% if not is_locked %}
-				<div class="mb-5">
-					{{ form_label(form.status, 'Status'|trans, {'label_attr': {'class': 'block text-xs font-bold text-slate-400 uppercase mb-2 ml-1'}}) }}
-					{{ form_widget(form.status, {
+			<div class="space-y-6">
+				<div>
+					{{ form_label(form.client, 'Select Client'|trans, {'label_attr': {'class': 'block text-[11px] font-bold text-blue-200/50 uppercase tracking-widest mb-2 ml-1'}}) }}
+					{{ form_widget(form.client, {
                         'attr': {
-                            'class': 'w-full px-4 py-3 rounded-xl border border-white/10 bg-white/5 text-white focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all [&>option]:bg-slate-900 [&>option]:text-white cursor-pointer hover:bg-white/10'
+                            'class': 'glass-input w-full px-4 py-3 rounded-xl [&>option]:bg-slate-900 [&>option]:text-slate-300'
+                        }
+                    }) }}
+					<div class="text-red-400 text-xs mt-1 ml-1">{{ form_errors(form.client) }}</div>
+				</div>
+
+				<div>
+					{{ form_label(form.projectTitle, 'Project / Reference'|trans, {'label_attr': {'class': 'block text-[11px] font-bold text-blue-200/50 uppercase tracking-widest mb-2 ml-1'}}) }}
+					{{ form_widget(form.projectTitle, {
+                        'attr': {
+                            'class': 'glass-input w-full px-4 py-3 rounded-xl'
                         }
                     }) }}
 				</div>
-			{% endif %}
+
+				{% if not is_locked %}
+					<div>
+						{{ form_label(form.status, 'Status'|trans, {'label_attr': {'class': 'block text-[11px] font-bold text-blue-200/50 uppercase tracking-widest mb-2 ml-1'}}) }}
+						{{ form_widget(form.status, {
+                            'attr': {
+                                'class': 'glass-input w-full px-4 py-3 rounded-xl [&>option]:bg-slate-900 [&>option]:text-slate-300'
+                            }
+                        }) }}
+					</div>
+				{% endif %}
+			</div>
 		</div>
 
 		{# Invoice Settings Card #}
-		<div class="glass-card p-6 rounded-2xl border border-white/10 relative overflow-hidden">
-			<h3 class="text-white font-bold mb-6 flex items-center gap-2 border-b border-white/5 pb-4">
-				<div class="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-400">
-					<i class="fas fa-file-invoice"></i>
+		<div class="glass-panel rounded-2xl p-8 relative overflow-hidden gradient-border-bottom">
+			<div class="flex items-center gap-4 mb-8">
+				<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-600/10 flex items-center justify-center text-purple-400 border border-purple-500/20 shadow-[0_0_15px_rgba(168,85,247,0.15)]">
+					<i class="fas fa-file-invoice text-lg"></i>
 				</div>
-				{{ 'Invoice Settings'|trans }}
-			</h3>
+				<h3 class="text-white font-bold text-lg tracking-wide">{{ 'Invoice Settings'|trans }}</h3>
+			</div>
 
-			<div class="grid grid-cols-2 gap-5">
+			<div class="grid grid-cols-2 gap-6">
 				<div>
-					{{ form_label(form.invoiceNumber, 'Invoice #'|trans, {'label_attr': {'class': 'block text-xs font-bold text-slate-400 uppercase mb-2 ml-1'}}) }}
+					{{ form_label(form.invoiceNumber, 'Invoice #'|trans, {'label_attr': {'class': 'block text-[11px] font-bold text-purple-200/50 uppercase tracking-widest mb-2 ml-1'}}) }}
 					{{ form_widget(form.invoiceNumber, {
                         'attr': {
-                            'class': 'w-full px-4 py-3 rounded-xl border border-white/5 bg-black/40 text-slate-500 cursor-not-allowed focus:outline-none font-mono',
+                            'class': 'w-full px-4 py-3 rounded-xl border border-white/5 bg-black/40 text-slate-500 cursor-not-allowed focus:outline-none font-mono text-sm shadow-inner',
                             'placeholder': 'Auto-generated'|trans,
                             'readonly': true,
                             'tabindex': '-1'
@@ -107,20 +113,20 @@
 				</div>
 
 				<div>
-					{{ form_label(form.currency, 'Currency'|trans, {'label_attr': {'class': 'block text-xs font-bold text-slate-400 uppercase mb-2 ml-1'}}) }}
+					{{ form_label(form.currency, 'Currency'|trans, {'label_attr': {'class': 'block text-[11px] font-bold text-purple-200/50 uppercase tracking-widest mb-2 ml-1'}}) }}
 					{{ form_widget(form.currency, {
                         'attr': {
-                            'class': 'w-full px-4 py-3 rounded-xl border border-white/5 bg-black/40 text-slate-500 cursor-not-allowed focus:outline-none pointer-events-none appearance-none font-mono',
+                            'class': 'w-full px-4 py-3 rounded-xl border border-white/5 bg-black/40 text-slate-500 cursor-not-allowed focus:outline-none pointer-events-none appearance-none font-mono text-sm shadow-inner',
                             'readonly': true,
                             'tabindex': '-1'
                         }
                     }) }}
 				</div>
 
-				<div class="col-span-2">
-					<div class="p-4 bg-blue-500/5 rounded-xl border border-blue-500/10 text-xs text-blue-200/70 flex items-start gap-3">
+				<div class="col-span-2 mt-2">
+					<div class="p-4 bg-blue-500/5 rounded-xl border border-blue-500/10 text-xs text-blue-200/60 flex items-start gap-3 backdrop-blur-sm">
 						<i class="fas fa-info-circle mt-0.5 text-blue-400"></i>
-						<span>{{ 'Dates are automatic:'|trans }}
+						<span class="leading-relaxed">{{ 'Dates are automatic:'|trans }}
 							<strong class="text-blue-300">{{ 'Due Date'|trans }}</strong>
 							{{ 'is set to +30 days after sending.'|trans }}</span>
 					</div>
@@ -130,48 +136,47 @@
 	</div>
 
 	{# --- 3. ITEMS COLLECTION --- #}
-
 	{% set allow_add = form.invoiceItems.vars.allow_add is defined and form.invoiceItems.vars.allow_add %}
 	{% set has_prototype = form.invoiceItems.vars.prototype is defined %}
 
 	{# Prototype Template #}
 	{% if has_prototype %}
 		{% set prototype %}
-		<tr class="group hover:bg-white/5 transition-colors border-b border-white/5 last:border-0" data-invoice-summary-target="row">
-			<td class="px-4 py-3 align-top">
+		<tr class="group transition-all duration-200 border-b border-white/5 last:border-0 hover:bg-white/5" data-invoice-summary-target="row">
+			<td class="px-2 py-3 align-top first:pl-6">
 				{{ form_widget(form.invoiceItems.vars.prototype.description, {
                     attr: {
-                        class: 'placeholder-slate-300 w-full rounded-xl border border-white/10 bg-white/5 text-white text-sm focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-colors',
+                        class: 'glass-input w-full px-3 py-2 rounded-lg text-sm',
                         placeholder: 'Item description...'|trans
                     }
                 }) }}
 			</td>
-			<td class="px-4 py-3 align-top">
+			<td class="px-2 py-3 align-top">
 				{{ form_widget(form.invoiceItems.vars.prototype.quantity, {
                     attr: {
-                        class: 'js-quantity w-full rounded-xl border border-white/10 bg-white/5 text-white text-sm text-right focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-colors font-mono',
+                        class: 'js-quantity glass-input w-full px-3 py-2 rounded-lg text-sm text-right font-mono text-blue-300',
                         'data-action': 'input->invoice-summary#recalculate'
                     }
                 }) }}
 			</td>
-			<td class="px-4 py-3 align-top">
+			<td class="px-2 py-3 align-top">
 				{{ form_widget(form.invoiceItems.vars.prototype.unitPrice, {
                     attr: {
-                        class: 'js-price w-full rounded-xl border border-white/10 bg-white/5 text-white text-sm text-right focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-colors font-mono',
+                        class: 'js-price glass-input w-full px-3 py-2 rounded-lg text-sm text-right font-mono',
                         'data-action': 'input->invoice-summary#recalculate'
                     }
                 }) }}
 			</td>
-			<td class="px-4 py-3 align-top">
+			<td class="px-2 py-3 align-top">
 				{{ form_widget(form.invoiceItems.vars.prototype.vatRate, {
                     attr: {
-                        class: 'js-vat w-full rounded-xl border border-white/10 bg-white/5 text-white text-sm text-right focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-colors font-mono',
+                        class: 'js-vat glass-input w-full px-3 py-2 rounded-lg text-sm text-right font-mono text-slate-400',
                         'data-action': 'input->invoice-summary#recalculate'
                     }
                 }) }}
 			</td>
-			<td class="px-4 py-3 text-center align-top pt-3">
-				<button type="button" data-action="form-collection#removeCollectionElement" class="p-2 text-slate-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all" title="{{ 'Delete Row'|trans }}">
+			<td class="px-2 py-3 text-center align-top pt-4 last:pr-6">
+				<button type="button" data-action="form-collection#removeCollectionElement" class="w-8 h-8 flex items-center justify-center text-slate-600 hover:text-red-400 hover:bg-red-500/10 hover:shadow-[0_0_10px_rgba(239,68,68,0.2)] rounded-lg transition-all duration-300" title="{{ 'Delete Row'|trans }}">
 					<i class="fas fa-trash-alt"></i>
 				</button>
 			</td>
@@ -180,18 +185,22 @@
 	{% endif %}
 
 	{# Collection Wrapper #}
-	<div class="glass-card rounded-2xl overflow-hidden mb-8 border border-white/10" {% if has_prototype %} data-controller="form-collection" data-form-collection-index-value="{{ form.invoiceItems|length > 0 ? form.invoiceItems|last.vars.name + 1 : 0 }}" data-form-collection-prototype-value="{{ prototype|e('html_attr') }}" {% endif %}>
+	<div class="glass-panel rounded-2xl overflow-hidden mb-8" {% if has_prototype %} data-controller="form-collection" data-form-collection-index-value="{{ form.invoiceItems|length > 0 ? form.invoiceItems|last.vars.name + 1 : 0 }}" data-form-collection-prototype-value="{{ prototype|e('html_attr') }}" {% endif %}>
 
-		<div class="p-5 bg-white/5 border-b border-white/10 flex justify-between items-center backdrop-blur-md">
-			<h3 class="text-white font-bold flex items-center gap-2">
-				<i class="fas fa-list text-slate-400"></i>
-				{{ 'Items'|trans }}
+		<div class="px-6 py-5 bg-gradient-to-r from-white/5 to-transparent border-b border-white/5 flex justify-between items-center">
+			<h3 class="text-white font-bold flex items-center gap-3">
+				<div class="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center border border-white/5">
+					<i class="fas fa-list text-slate-400 text-xs"></i>
+				</div>
+				{{ 'Items & Services'|trans }}
 			</h3>
 
 			{% if allow_add and has_prototype %}
-				<button type="button" data-action="form-collection#addCollectionElement" class="text-xs bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/20 text-blue-300 px-4 py-2 rounded-xl transition-all font-semibold backdrop-blur-md hover:text-white hover:border-blue-500/40">
-					<i class="fas fa-plus mr-1"></i>
-					{{ 'Add New Item'|trans }}
+				<button type="button" data-action="form-collection#addCollectionElement" class="group relative px-4 py-2 rounded-xl bg-blue-500/10 hover:bg-blue-600/20 text-blue-300 text-xs font-bold uppercase tracking-wider border border-blue-500/20 transition-all hover:shadow-[0_0_15px_rgba(59,130,246,0.3)]">
+					<span class="flex items-center gap-2">
+						<i class="fas fa-plus group-hover:rotate-90 transition-transform duration-300"></i>
+						{{ 'Add Item'|trans }}
+					</span>
 				</button>
 			{% endif %}
 		</div>
@@ -199,34 +208,34 @@
 		<div class="overflow-x-auto">
 			<table class="w-full text-left border-collapse">
 				<thead>
-					<tr class="text-xs font-bold text-slate-400 border-b border-white/10 bg-white/5 uppercase tracking-wider">
+					<tr class="text-[10px] font-bold text-slate-500 border-b border-white/5 bg-slate-950/20 uppercase tracking-widest">
 						<th class="px-6 py-4 w-1/2">{{ 'Description'|trans }}</th>
-						<th class="px-4 py-4 w-24 text-right">{{ 'Qty'|trans }}</th>
-						<th class="px-4 py-4 w-32 text-right">{{ 'Price'|trans }}</th>
-						<th class="px-4 py-4 w-24 text-right">{{ 'VAT'|trans }}
+						<th class="px-2 py-4 w-24 text-right">{{ 'Qty'|trans }}</th>
+						<th class="px-2 py-4 w-32 text-right">{{ 'Price'|trans }}</th>
+						<th class="px-2 py-4 w-24 text-right">{{ 'VAT'|trans }}
 							%</th>
-						<th class="px-4 py-4 w-10"></th>
+						<th class="px-2 py-4 w-12"></th>
 					</tr>
 				</thead>
 
-				<tbody {% if has_prototype %} data-form-collection-target="collectionContainer" {% endif %} class="divide-y divide-white/5">
+				<tbody {% if has_prototype %} data--collection-target="collectionContainer" {% endif %} class="divide-y divide-white/5">
 					{% for item in form.invoiceItems %}
-						<tr class="group hover:bg-white/5 text-purple-400 py-5 transition-colors border-b border-white/5 last:border-0" data-invoice-summary-target="row">
-							<td class="px-4 py-3 align-top">
-								{{ form_widget(item.description, {'attr': {'class': 'w-full rounded-xl border border-white/10 bg-white/5 text-white text-sm focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-colors placeholder-slate-600'}}) }}
+						<tr class="group transition-all duration-200 hover:bg-white/5" data-invoice-summary-target="row">
+							<td class="px-2 py-5 align-top first:pl-6">
+								{{ form_widget(item.description, {'attr': {'class': 'glass-input w-full px-3 py-2 rounded-lg text-sm'}}) }}
 							</td>
-							<td class="px-4 py-3 align-top">
-								{{ form_widget(item.quantity, {'attr': {'class': 'js-quantity w-full rounded-xl border border-white/10 bg-white/5 text-white text-sm text-right focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-colors font-mono', 'data-action': 'input->invoice-summary#recalculate'}}) }}
+							<td class="px-2 py-5 align-top">
+								{{ form_widget(item.quantity, {'attr': {'class': 'js-quantity glass-input w-full px-3 py-2 rounded-lg text-sm text-right font-mono text-blue-300', 'data-action': 'input->invoice-summary#recalculate'}}) }}
 							</td>
-							<td class="px-4 py-3 align-top">
-								{{ form_widget(item.unitPrice, {'attr': {'class': 'js-price w-full rounded-xl border border-white/10 bg-white/5 text-white text-sm text-right focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-colors font-mono', 'data-action': 'input->invoice-summary#recalculate'}}) }}
+							<td class="px-2 py-5 align-top">
+								{{ form_widget(item.unitPrice, {'attr': {'class': 'js-price glass-input w-full px-3 py-2 rounded-lg text-sm text-right font-mono', 'data-action': 'input->invoice-summary#recalculate'}}) }}
 							</td>
-							<td class="px-4 py-3 align-top">
-								{{ form_widget(item.vatRate, {'attr': {'class': 'js-vat w-full rounded-xl border border-white/10 bg-white/5 text-white text-sm text-right focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-colors font-mono', 'data-action': 'input->invoice-summary#recalculate'}}) }}
+							<td class="px-2 py-5 align-top">
+								{{ form_widget(item.vatRate, {'attr': {'class': 'js-vat glass-input w-full px-3 py-2 rounded-lg text-sm text-right font-mono text-slate-400', 'data-action': 'input->invoice-summary#recalculate'}}) }}
 							</td>
-							<td class="px-4 py-3 text-center align-top pt-3">
+							<td class="px-2 py-5 text-center align-top pt-4 last:pr-6">
 								{% if form.invoiceItems.vars.allow_delete %}
-									<button type="button" data-action="form-collection#removeCollectionElement" class="p-2 text-slate-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all" title="{{ 'Delete Row'|trans }}">
+									<button type="button" data-action="form-collection#removeCollectionElement" class="w-8 h-8 flex items-center justify-center text-slate-600 hover:text-red-400 hover:bg-red-500/10 hover:shadow-[0_0_10px_rgba(239,68,68,0.2)] rounded-lg transition-all duration-300">
 										<i class="fas fa-trash-alt"></i>
 									</button>
 								{% endif %}
@@ -238,9 +247,11 @@
 		</div>
 
 		{% if form.invoiceItems|length == 0 %}
-			<div class="p-12 text-center text-slate-500 italic text-sm border-t border-white/5">
-				<i class="fas fa-box-open text-2xl mb-2 opacity-50 block"></i>
-				{{ 'Click "Add New Item" to start building your invoice.'|trans }}
+			<div class="p-12 text-center border-t border-white/5">
+				<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-slate-800/50 mb-4 shadow-inner">
+					<i class="fas fa-box-open text-2xl text-slate-600"></i>
+				</div>
+				<p class="text-slate-500 italic text-sm">{{ 'Click "Add Item" to start building your invoice.'|trans }}</p>
 			</div>
 		{% endif %}
 	</div>
@@ -249,55 +260,71 @@
 	<div
 		class="flex flex-col md:flex-row gap-6 justify-end items-stretch mt-6">
 
-		{# Private Insight (Amber Glass) #}
-		<div class="w-full md:w-1/3 bg-amber-500/5 border border-amber-500/10 p-6 rounded-2xl flex flex-col justify-between shadow-[0_0_20px_rgba(245,158,11,0.05)] backdrop-blur-md">
-			<div class="flex items-center gap-3 mb-4">
-				<div class="w-8 h-8 rounded-lg bg-amber-500/10 text-amber-500 flex items-center justify-center text-xs border border-amber-500/20">
+		{# Private Insight (Smoked Amber) #}
+		<div class="w-full md:w-1/3 bg-slate-900/60 backdrop-blur-md border border-amber-500/10 p-6 rounded-2xl flex flex-col justify-between shadow-xl relative overflow-hidden group">
+			<div class="absolute inset-0 bg-gradient-to-br from-amber-900/10 via-transparent to-transparent opacity-50"></div>
+
+			<div class="relative z-10 flex items-center gap-3 mb-4">
+				<div class="w-6 h-6 rounded bg-amber-500/10 text-amber-500 flex items-center justify-center text-[10px] border border-amber-500/20 shadow-[0_0_10px_rgba(245,158,11,0.2)]">
 					<i class="fas fa-eye-slash"></i>
 				</div>
-				<div>
-					<h4 class="text-amber-400 font-bold text-xs uppercase tracking-wider">{{ 'Private Insight'|trans }}</h4>
-					<p class="text-[10px] text-amber-200/60 leading-tight">{{ 'Est. 21.2% URSSAF deduction'|trans }}</p>
+				<div class="flex flex-col">
+					<h4 class="text-amber-200 font-bold text-xs uppercase tracking-widest mb-1">
+						{{ 'Private Insight'|trans }}
+					</h4>
+
+					<p class="text-amber-500/80 text-[11px] font-medium leading-tight">
+						{{ 'Net earnings estimate'|trans }}
+					</p>
+
+					<p class="text-amber-500/50 text-[10px] italic leading-tight mt-0.5">
+						<i class="fas fa-info-circle mr-1"></i>
+						{{ 'Not included in PDF'|trans }}
+					</p>
 				</div>
 			</div>
 
-			<div class="space-y-2 text-right">
-				<div class="flex justify-between items-center text-xs text-amber-500/60 font-medium">
-					<span>{{ 'Est. URSSAF'|trans }}</span>
-					<span class="text-red-400 font-bold font-mono text-lg">
+			<div class="relative z-10 space-y-3 text-right">
+				<div class="flex justify-between items-center text-xs text-amber-500/50 font-medium">
+					<span>{{ 'Est. Taxes'|trans }}</span>
+					<span class="text-red-400/80 font-mono text-lg">
 						-
 						<span data-invoice-summary-target="urssaf">0.00</span>
 					</span>
 				</div>
-
-				<div class="h-px bg-gradient-to-r from-transparent via-amber-500/20 to-transparent my-2"></div>
-
+				<div class="h-px bg-gradient-to-r from-transparent via-amber-500/20 to-transparent"></div>
 				<div class="flex justify-between items-end">
-					<span class="text-xs text-emerald-500/80 font-medium mb-1">{{ 'Net Income'|trans }}</span>
-					<span class="text-emerald-400 font-extrabold font-mono text-2xl leading-none">
+					<span class="text-[10px] text-emerald-500/60 font-medium mb-1 uppercase tracking-wider">{{ 'Net Income'|trans }}</span>
+					<span class="text-emerald-400 font-bold font-mono text-2xl leading-none drop-shadow-[0_0_10px_rgba(52,211,153,0.3)]">
 						<span data-invoice-summary-target="net">0.00</span>
 					</span>
 				</div>
 			</div>
 		</div>
 
-		{# Public Totals (Dark Glass) #}
-		<div class="w-full md:w-1/3 bg-slate-900/50 p-6 rounded-2xl border border-white/10 shadow-xl backdrop-blur-xl">
-			<div class="flex justify-between mb-3">
-				<span class="text-slate-400 text-sm font-medium">{{ 'Total HT'|trans }}</span>
-				<span class="font-mono font-bold text-white tracking-wide" data-invoice-summary-target="totalHt">0.00 €</span>
-			</div>
-			<div class="flex justify-between mb-4">
-				<span class="text-slate-400 text-sm font-medium">{{ 'Total VAT'|trans }}</span>
-				<span class="font-mono font-bold text-white tracking-wide" data-invoice-summary-target="totalVat">0.00 €</span>
+		{# Public Totals (Deep Blue/Purple) #}
+		<div class="w-full md:w-1/3 glass-panel p-8 rounded-2xl relative overflow-hidden">
+			<div class="absolute -top-20 -right-20 w-40 h-40 bg-blue-500/20 rounded-full blur-[60px] pointer-events-none"></div>
+
+			<div class="relative z-10 space-y-3">
+				<div class="flex justify-between items-center">
+					<span class="text-slate-400 text-xs font-medium uppercase tracking-wider">{{ 'Total HT'|trans }}</span>
+					<span class="font-mono text-white text-lg" data-invoice-summary-target="totalHt">0.00 €</span>
+				</div>
+				<div class="flex justify-between items-center">
+					<span class="text-slate-400 text-xs font-medium uppercase tracking-wider">{{ 'Total VAT'|trans }}</span>
+					<span class="font-mono text-slate-300 text-lg" data-invoice-summary-target="totalVat">0.00 €</span>
+				</div>
 			</div>
 
-			<div class="flex justify-between border-t border-white/10 pt-4 mt-2">
-				<span class="text-lg font-bold text-white">{{ 'Total TTC'|trans }}</span>
-				<span class="text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 font-mono" data-invoice-summary-target="totalTtc">0.00 €</span>
+			<div class="relative z-10 flex justify-between items-center border-t border-white/10 pt-5 mt-5">
+				<span class="text-sm font-bold text-white uppercase tracking-widest">{{ 'Total TTC'|trans }}</span>
+				<span class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 font-mono drop-shadow-[0_0_15px_rgba(139,92,246,0.3)]" data-invoice-summary-target="totalTtc">
+					0.00 €
+				</span>
 			</div>
 
-			<div id="vat-293b" class="text-[10px] text-slate-500 italic mt-4 text-center border-t border-white/5 pt-3"></div>
+			<div id="vat-293b" class="relative z-10 text-[10px] text-slate-500 italic mt-6 text-center"></div>
 		</div>
 
 	</div>
@@ -305,15 +332,16 @@
 </div>
 
 {# --- 5. BUTTONS --- #}
-<div class="flex justify-end gap-4 mt-8 pt-6 border-t border-white/5">
+<div class="flex justify-end gap-4 mt-8 pt-6 border-t border-white/5 relative z-10">
 	<a href="{{ path('app_invoice_index') }}" class="px-6 py-3 rounded-xl text-slate-400 font-semibold hover:text-white border border-transparent hover:bg-white/5 transition-all text-sm">
 		{{ 'Cancel'|trans }}
 	</a>
 
-	<button type="submit" class="group relative px-8 py-3 rounded-xl overflow-hidden shadow-lg shadow-blue-500/20 transition-all hover:scale-[1.02]">
-		<div class="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-600 to-purple-700 opacity-90 group-hover:opacity-100 transition-opacity"></div>
-		<div class="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer"></div>
-		<span class="relative flex items-center gap-2 text-sm font-bold text-white">
+	<button type="submit" class="group relative px-8 py-3 rounded-xl overflow-hidden transition-all hover:scale-[1.02] shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:shadow-[0_0_30px_rgba(147,51,234,0.5)]">
+		<div class="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600"></div>
+		<div class="absolute top-0 -left-full w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent group-hover:animate-shimmer"></div>
+
+		<span class="relative flex items-center gap-2 text-sm font-bold text-white tracking-wide">
 			{% if is_locked %}
 				<i class="fas fa-save"></i>
 				{{ 'Update Status'|trans }}
