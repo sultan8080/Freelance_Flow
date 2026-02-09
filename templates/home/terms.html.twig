@@ -1,0 +1,154 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ 'Terms of Service'|trans }}
+	- Freelance Lucid
+{% endblock %}
+
+{% block body %}
+	{# Navbar Wrapper #}
+	<div class="fixed top-0 w-full z-50">
+		{% include 'home/homeNavbar.html.twig' %}
+	</div>
+
+	{# Main Background #}
+	<div class="relative min-h-screen bg-slate-950 pt-30 pb-20 overflow-hidden">
+		<div class="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+		<div class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+		<div
+			class="relative max-w-3xl mx-auto px-6">
+
+			{# Header Section #}
+			<div class="text-center mb-10">
+				<h1 class="text-3xl md:text-4xl font-bold mb-3">
+					<span class="bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400">
+						{{ 'Terms of Service'|trans }}
+					</span>
+				</h1>
+				<p class="text-slate-500 text-sm uppercase tracking-widest">
+					{{ 'Last updated'|trans }}:
+					{{ 'now'|date('F d, Y') }}
+				</p>
+			</div>
+
+			{# --- PORTFOLIO DISCLAIMER --- #}
+			<div class="bg-amber-500/5 border border-amber-500/20 rounded-xl p-5 mb-8 flex gap-4 items-start backdrop-blur-md">
+				<div class="shrink-0 pt-1">
+					<i class="fa-solid fa-triangle-exclamation text-amber-500/80 text-lg"></i>
+				</div>
+				<div>
+					<h3 class="text-amber-500 font-semibold text-sm mb-1 uppercase tracking-wide">{{ 'Portfolio Project Disclaimer'|trans }}</h3>
+					<p class="text-amber-200/70 text-sm leading-relaxed">
+						{{ 'This website is a technical demonstration created for a portfolio. It is NOT a commercially operating SaaS. Please do not use this for real financial or legal invoicing.'|trans }}
+					</p>
+				</div>
+			</div>
+
+			{# Main Content #}
+			<div class="bg-slate-900/40 border border-white/5 rounded-2xl p-8 md:p-10 shadow-2xl backdrop-blur-xl">
+
+				<div
+					class="space-y-10 text-slate-300/90 text-sm md:text-base leading-relaxed font-light">
+
+					{# 1. Introduction #}
+					<section>
+						<h2 class="flex items-center gap-2 text-lg font-semibold text-white mb-3">
+							<span class="text-blue-500/50">01.</span>
+							{{ 'Purpose'|trans }}
+						</h2>
+						<p>
+							{{ 'Freelance Lucid is an open-source project created by'|trans }}
+							<span class="text-white font-medium">{{ 'Mr'|trans }}
+								NUR</span>
+							{{ 'to demonstrate Full-Stack development skills (Symfony 7, Tailwind CSS, MariaDB, Git) and structured engineering methodology (MCD/MLD Data Modeling, Technical Specifications, Work Plan, Dev Journal). It serves as a showcase of technical capabilities and organizational skills.'|trans }}
+						</p>
+					</section>
+
+					{# 2. Services #}
+					<section>
+						<h2 class="flex items-center gap-2 text-lg font-semibold text-white mb-3">
+							<span class="text-blue-500/50">02.</span>
+							{{ 'No Guarantee'|trans }}
+						</h2>
+						<p>
+							{{ 'The service is provided "as is" for demonstration purposes only. The creator assumes no responsibility for data loss, calculation errors, or PDF validity. The database may be reset periodically.'|trans }}
+						</p>
+					</section>
+
+					{# 3. Confidentiality  #}
+					<section class="relative group">
+						<div class="absolute -inset-4 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+						<div class="relative">
+							<h2 class="flex items-center gap-2 text-lg font-semibold text-blue-100 mb-3">
+								<span class="text-blue-500/50">03.</span>
+								{{ 'Data & Privacy'|trans }}
+							</h2>
+							<p class="mb-3">
+								<strong>{{ 'Your Data belongs to you.'|trans }}</strong>
+								{{ 'Although this is a demo, we treat data with professional confidentiality standards.'|trans }}
+							</p>
+							<ul class="list-disc pl-5 space-y-1 text-slate-400 marker:text-blue-500/50">
+								<li>{{ 'We do not sell or share data with third parties.'|trans }}</li>
+								<li>{{ 'You can request account deletion at any time.'|trans }}</li>
+								<li>{{ 'Source code is available for review on GitHub.'|trans }}</li>
+							</ul>
+						</div>
+					</section>
+
+					{# 4. Legal Notice #}
+					<section class="border-t border-white/5 pt-8">
+						<h2 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-4">
+							{{ 'Legal Mentions'|trans }}
+						</h2>
+						<div class="grid md:grid-cols-2 gap-6 text-xs text-slate-400">
+							
+							<div>
+								<strong class="text-slate-300 block mb-2">{{ 'Editor'|trans }}</strong>
+
+								{# Name and Email #}
+								<p class="text-white font-medium">{{'Mr'|trans}}
+									NUR</p>
+								<a href="mailto:[YOUR EMAIL]" class="text-blue-400 hover:text-blue-300 transition-colors text-xs mb-3 block">
+									sultan1040129@yahoo.com
+								</a>
+
+								{# Social Proof Links #}
+								<div
+									class="flex items-center gap-3 mt-2">
+									{# LinkedIn #}
+									<a href="[YOUR LINKEDIN URL]" target="_blank" class="flex items-center gap-1.5 px-2 py-1 rounded-md bg-[#0077b5]/10 border border-[#0077b5]/20 hover:bg-[#0077b5]/20 transition-all group">
+										<i class="fa-brands fa-linkedin text-[#0077b5] group-hover:scale-110 transition-transform"></i>
+										<span class="text-[10px] text-slate-300 group-hover:text-white">LinkedIn</span>
+									</a>
+
+									{# Malt (Using a Briefcase icon since Malt icon doesn't exist in FA) #}
+									<a href="[YOUR MALT URL]" target="_blank" class="flex items-center gap-1.5 px-2 py-1 rounded-md bg-red-500/10 border border-red-500/20 hover:bg-red-500/20 transition-all group">
+										<i class="fa-solid fa-briefcase text-red-400 group-hover:scale-110 transition-transform"></i>
+										<span class="text-[10px] text-slate-300 group-hover:text-white">Malt.fr</span>
+									</a>
+								</div>
+							</div>
+							<div>
+								<strong class="text-slate-300 block mb-1">{{ 'Hosting'|trans }}</strong>
+								<p>AlwaysData</p>
+								<p>91 rue du Faubourg Saint-Honoré</p>
+								<p>75008 Paris, France</p>
+							</div>
+						</div>
+					</section>
+
+				</div>
+			</div>
+
+			{# Back Link #}
+			<div class="mt-10 text-center">
+				<a href="{{ path('app_home') }}" class="group inline-flex items-center gap-2 text-sm text-slate-500 hover:text-white transition-colors duration-300">
+					<i class="fa-solid fa-arrow-left group-hover:-translate-x-1 transition-transform"></i>
+					{{ 'Back to Home'|trans }}
+				</a>
+			</div>
+
+		</div>
+	</div>
+{% endblock %}

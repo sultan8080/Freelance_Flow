@@ -1,0 +1,134 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ 'Privacy Policy'|trans }}
+	- Freelance Lucid
+{% endblock %}
+
+{% block body %}
+	{# Navbar #}
+	<div class="fixed top-0 w-full z-50">
+		{% include 'home/homeNavbar.html.twig' %}
+	</div>
+
+	{# Main Background #}
+	<div
+		class="relative min-h-screen bg-slate-950 pt-30 pb-20 overflow-hidden">
+
+		{# Decorative Background Elements #}
+		<div class="absolute top-0 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+		<div class="absolute bottom-0 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+		<div
+			class="relative max-w-3xl mx-auto px-6">
+
+			{# Header Section #}
+			<div class="text-center mb-10">
+				<h1 class="text-3xl md:text-4xl font-bold mb-3">
+					<span class="bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400">
+						{{ 'Privacy Policy'|trans }}
+					</span>
+				</h1>
+				<p class="text-slate-500 text-sm uppercase tracking-widest">
+					{{ 'Last updated'|trans }}:
+					{{ 'now'|date('F d, Y') }}
+				</p>
+			</div>
+
+			{# --- PORTFOLIO DISCLAIMER --- #}
+			<div class="bg-amber-500/5 border border-amber-500/20 rounded-xl p-5 mb-8 flex gap-4 items-start backdrop-blur-md">
+				<div class="shrink-0 pt-1">
+					<i class="fa-solid fa-triangle-exclamation text-amber-500/80 text-lg"></i>
+				</div>
+				<div>
+					<h3 class="text-amber-500 font-semibold text-sm mb-1 uppercase tracking-wide">{{ 'Portfolio Project Disclaimer'|trans }}</h3>
+					<p class="text-amber-200/70 text-sm leading-relaxed">
+						{{ 'This website is a technical demonstration. While we implement security best practices, please do not upload sensitive personal documents (like real passports ).'|trans }}
+					</p>
+				</div>
+			</div>
+
+			{# Main Content Card #}
+			<div class="bg-slate-900/40 border border-white/5 rounded-2xl p-8 md:p-10 shadow-2xl backdrop-blur-xl">
+
+				<div
+					class="space-y-10 text-slate-300/90 text-sm md:text-base leading-relaxed font-light">
+
+					{# 1. Data Collection #}
+					<section>
+						<h2 class="flex items-center gap-2 text-lg font-semibold text-white mb-3">
+							<span class="text-purple-500/50">01.</span>
+							{{ 'Data Collection'|trans }}
+						</h2>
+						<p class="mb-3">{{ 'We collect only the data necessary for the functionality of this demo:'|trans }}</p>
+						<ul class="list-disc pl-5 space-y-2 marker:text-purple-500/50 text-slate-400">
+							<li>{{ 'Identity information (Name, Email for login).'|trans }}</li>
+							<li>{{ 'Business information (SIRET, Address - purely for PDF generation).'|trans }}</li>
+							<li>{{ 'Client and invoice data (stored in a demo database).'|trans }}</li>
+						</ul>
+					</section>
+
+					{# 2. Purpose #}
+					<section>
+						<h2 class="flex items-center gap-2 text-lg font-semibold text-white mb-3">
+							<span class="text-purple-500/50">02.</span>
+							{{ 'Purpose of Processing'|trans }}
+						</h2>
+						<p>
+							{{ 'The data is collected solely to demonstrate the features of the application (User Accounts, PDF Generation, Dashboard Analytics). We do not verify identity and we do not use data for marketing.'|trans }}
+						</p>
+					</section>
+
+					{# 3. Storage #}
+					<section>
+						<h2 class="flex items-center gap-2 text-lg font-semibold text-white mb-3">
+							<span class="text-purple-500/50">03.</span>
+							{{ 'Data Storage & Security'|trans }}
+						</h2>
+						<p>
+							{{ 'Your data is hosted in France on the servers of AlwaysData. We use HTTPS encryption and standard password hashing (Argon2id).'|trans }}
+						</p>
+					</section>
+
+					{# 4. Cookies #}
+					<section>
+						<h2 class="flex items-center gap-2 text-lg font-semibold text-white mb-3">
+							<span class="text-purple-500/50">04.</span>
+							{{ 'Cookies'|trans }}
+						</h2>
+						<div class="flex items-start gap-3 bg-white/5 p-4 rounded-lg border border-white/5">
+							<i class="fa-solid fa-cookie-bite text-purple-400 mt-1"></i>
+							<p class="text-sm text-slate-400">
+								{{ 'This project uses a single session cookie (PHPSESSID) to keep you logged in. No tracking, analytics, or advertising cookies are present.'|trans }}
+							</p>
+						</div>
+					</section>
+
+					{# 5. Rights #}
+					<section class="border-t border-white/5 pt-8">
+						<h2 class="flex items-center gap-2 text-lg font-semibold text-white mb-3">
+							<span class="text-purple-500/50">05.</span>
+							{{ 'Your Rights (GDPR)'|trans }}
+						</h2>
+						<p class="mb-4">
+							{{ 'Since this is a portfolio project, you can request the complete deletion of your test account at any time.'|trans }}
+						</p>
+						<div class="inline-block bg-purple-500/10 border border-purple-500/20 px-4 py-2 rounded-lg text-purple-300 font-mono text-sm">
+							sultan1040129@yahoo.com
+						</div>
+					</section>
+
+				</div>
+			</div>
+
+			{# Back Link #}
+			<div class="mt-10 text-center">
+				<a href="{{ path('app_home') }}" class="group inline-flex items-center gap-2 text-sm text-slate-500 hover:text-white transition-colors duration-300">
+					<i class="fa-solid fa-arrow-left group-hover:-translate-x-1 transition-transform"></i>
+					{{ 'Back to Home'|trans }}
+				</a>
+			</div>
+
+		</div>
+	</div>
+{% endblock %}
