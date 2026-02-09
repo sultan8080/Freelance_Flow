@@ -110,11 +110,11 @@ _Goal: A functional app to manage, calculate, and export invoices._
 ### B. Production Deployment (AlwaysData)
 
 - [x] **Project Overview:** Add the overview feature to the dashboard with controller, Twig view, and UI optimizations.
-- [ ] **Hosting Setup:** Create an account on a hosting platform and configure the project.
-- [ ] **Server Secrets:** Add `.env.local` with `APP_ENV=prod` and MariaDB credentials.
-- [ ] **Database Init:** Run migrations or schema updates.
-- [ ] **Assets Build:** Compile assets (`asset-map:compile`) for Tailwind v4.
-- [ ] **Live Check:** Test the production URL on desktop and mobile.
+- [x] **Hosting Setup:** Create an account on a hosting platform and configure the project.
+- [x] **Server Secrets:** Add `.env.local` with `APP_ENV=prod` and MariaDB credentials.
+- [x] **Database Init:** Run migrations or schema updates.
+- [x] **Assets Build:** Compile assets (`asset-map:compile`) for Tailwind v4.
+- [x] **Live Check:** Test the production URL on desktop and mobile.
 
 ### C. Documentation
 

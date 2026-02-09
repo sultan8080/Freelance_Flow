@@ -112,11 +112,11 @@ _Objectif : Une application fonctionnelle pour gérer, calculer et éditer des f
 ### B. Déploiement en Production (AlwaysData)
 
 - [x] **Project Overview:** Ajout de la fonctionnalité d’aperçu du projet au tableau de bord, avec création du contrôleur et optimisation de UI.
-- [ ] **Configuration de l’Hébergement :** Créer un compte sur une plateforme d’hébergement et configurer le projet.
-- [ ] **Secrets Serveur :** Ajouter un `.env.local` avec `APP_ENV=prod` et les identifiants MariaDB.
-- [ ] **Initialisation de la Base :** Lancer les migrations ou la mise à jour du schéma.
-- [ ] **Compilation des Assets :** Compiler les assets (`asset-map:compile`) pour Tailwind v4.
-- [ ] **Vérification en Ligne :** Tester l’URL de production sur desktop et mobile.
+- [x] **Configuration de l’Hébergement :** Créer un compte sur une plateforme d’hébergement et configurer le projet.
+- [x] **Secrets Serveur :** Ajouter un `.env.local` avec `APP_ENV=prod` et les identifiants MariaDB.
+- [x] **Initialisation de la Base :** Lancer les migrations ou la mise à jour du schéma.
+- [x] **Compilation des Assets :** Compiler les assets (`asset-map:compile`) pour Tailwind v4.
+- [x] **Vérification en Ligne :** Tester l’URL de production sur desktop et mobile.
 
 ### C. Documentation
 
